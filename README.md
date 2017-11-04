@@ -270,5 +270,5 @@ style = dict(color='navy')
 macro(plot=plot_opts, style=style)
 ```
 
-![Users chart](https://github.com/synw/dataswim/master/docs/img/users_date_joined.png)
+![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/users_date_joined.png)
 
