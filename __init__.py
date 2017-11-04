@@ -23,6 +23,12 @@ class Df():
         df2 = df.copy()
         self.df = df2
 
+    def load_csv(self, url):
+        """
+        Initialize the main dataframe from csv data
+        """
+        self.df = pd.read_csv(url)
+
     def reduce(self, fields):
         """
         Limit a dataframe to some columns
