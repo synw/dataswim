@@ -1,6 +1,6 @@
 # Dataswim
 
-Utilities to swim in a data lake
+Utilities to swim in a data lake: a simple api to clean and transform data
 
 ## Dependencies
 
