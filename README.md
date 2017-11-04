@@ -34,10 +34,14 @@ Run the [example notebook](notebooks/django_users.ipynb):
 ```python
 from dataswim import ds
 
-#ds.connect('postgresql://dbuser:dbpassword@localhost/dbname')
-ds.connect('sqlite:////home/me/my/path/to/a/django/db/db.sqlite3')
-# load a table
-ds.load("auth_user")
+# Load from a Django database
+#ds.connect('postgresql://djangouser:Xh327eMV@localhost/econso23')
+#ds.connect('sqlite:////home/ggg/www/dev/mogos/mogo80/mogo/db.sqlite3')
+#ds.load("auth_user")
+
+# Load from csv
+ds.load_csv("users.csv")
+
 # for a full report:
 #ds.report()
 # for a data description:
