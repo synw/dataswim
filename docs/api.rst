@@ -1,253 +1,156 @@
 API
 ===
 
-
-**class dataswim.DataSwim(db=None)**
-
-    Bases: dataswim.Db, dataswim.Df
-
-    Main class
-
-    **add** (``field``, ``value``)
-
-        Add a columns with default values
-
-    **concat** (``dfs``)
-
-        Concatenate dataframes from a list and set it to the main dataframe
-
-    **connect** (``url``)
-
-        Connect to the database and set it as main database
-
-    **contains** (``value``, ``field``)
-
-        Returns rows that contains a string value in a column
-
-    **count** ()
-
-        Count the number of rows of the main dataframe
-
-    **count_rows** (``name``, ``p=True``)
-
-        Count rows for a table
-
-    **date** (``fields``)
-
-        Convert column values to datetime from either a list of column names or a single column name string
-
-    **date_field** (``field``)
-
-        Add a date column from the datetime index
-
-    **describe** ()
-
-        Print a description of the data in notebook
-
-    **display** (``fields``)
-
-        Display some columns head in notebook
-
-    **drop** ()
-
-        Drop NaN values from the main dataframe
-
-    **exact** (``value``, ``field``)
-
-        Returns rows that has the exact string value in a column
-
-    **fill** (``fieldname``, ``val=0``)
-
-        Fill NaN values with new values
-
-    **getall** (``table``)
-
-        Get all rows values for a table
-
-    **head** ()
-
-        Print the main dataframe’s head in notebook
-
-    **index** (``datafield``, ``indexfield``)
-
-        Set a datetime index from a column
-
-    **load** (``table``)
-
-        Set the main dataframe from a table’s data
-        
-    **load_csv** (``url``)
-
-        Set the main dataframe from a csv data
-
-    **look** (``df=None``, ``p=True``)
-
-        Print basic data info in notebook
-
-    **nulls** (``fieldname``, ``val=0``)
-
-        Fill null values with new values
-
-    **range** (``num``, ``unit``)
-
-        Limit the data in a time range
-
-    **reduce** (``fields``)
-
-        Limit a dataframe to some columns
-
-    **report** (``df=None``)
-
-        Returns a dataframe profiling report to print in notebooks
-
-    **resample** (``time_unit='1Min'``, ``date_field=None``)
-
-        Resample the main dataframe to a time period
-
-    **set** (``df``)
-
-        Set a main dataframe
-
-    **show** (``table=None``, ``p=True``)
-
-        Display info about a table
-
-    **tables** (``name=None``, ``p=True``)
-
-        Print existing tables in a database
-
-    **to_int** (``fieldname``)
-
-        Convert a column values to integers
-        
-
 Database operations
 -------------------
 
-class dataswim.Db** (``db=None``)
+**connect** (``url``)
 
-    Bases: object
+    Connect to the database and set it as main database
 
-    Class for manipulating databases
+**count_rows** (``name``, ``p=True``)
 
-    **connect** (``url``)
+    Count rows for a table
 
-        Connect to the database and set it as main database
+**getall** (``table``)
 
-    **count_rows** (``name``, ``p=True``)
+    Get all rows values for a table
 
-        Count rows for a table
+**load** (``table``)
 
-    **getall** (``table``)
+    Set the main dataframe from a table’s data
 
-        Get all rows values for a table
+**show** (``table=None``, ``p=True``)
 
-    **load** (``table``)
+    Display info about a table
 
-        Set the main dataframe from a table’s data
+**tables** (``name=None``, ``p=True``)
 
-    **show** (``table=None``, ``p=True``)
-
-        Display info about a table
-
-    **tables** (``name=None``, ``p=True``)
-
-        Print existing tables in a database
+    Print existing tables in a database
         
 Dataframe operations
 --------------------
 
-class **dataswim.Df** (``df=None``)
+**add** (``field``, ``value``)
 
-    Bases: object
+    Add a columns with default values
 
-    Class for manipulating dataframes
+**concat** (``dfs``)
 
-    **add** (``field``, ``value``)
+    Concatenate dataframes from a list and set it to the main dataframe
 
-        Add a columns with default values
+**contains** (``value``, ``field``)
 
-    **concat** (``dfs``)
+    Returns rows that contains a string value in a column
 
-        Concatenate dataframes from a list and set it to the main dataframe
+**count** ()
 
-    **contains** (``value``, ``field``)
+    Count the number of rows of the main dataframe
 
-        Returns rows that contains a string value in a column
+**date** (``fields``)
 
-    **count** ()
+    Convert column values to datetime from either a list of column names or a single column name string
 
-        Count the number of rows of the main dataframe
+**date_field** (``field``)
 
-    **date** (``fields``)
+    Add a date column from the datetime index
 
-        Convert column values to datetime from either a list of column names or a single column name string
+**describe** ()
 
-    **date_field** (``field``)
+    Print a description of the data in notebook
 
-        Add a date column from the datetime index
+**display** (``fields``)
 
-    **describe** ()
+    Display some columns head in notebook
 
-        Print a description of the data in notebook
+**drop** ()
 
-    **display** (``fields``)
+    Drop NaN values from the main dataframe
 
-        Display some columns head in notebook
+**exact** (``value``, ``field``)
 
-    **drop** ()
+    Returns rows that has the exact string value in a column
 
-        Drop NaN values from the main dataframe
+**fill** (``fieldname``, ``val=0``)
 
-    **exact** (``value``, ``field``)
+    Fill NaN values with new values
 
-        Returns rows that has the exact string value in a column
+**head** ()
 
-    **fill** (``fieldname``, ``val=0``)
+    Print the main dataframe’s head in notebook
 
-        Fill NaN values with new values
+**index** (``datafield``, ``indexfield``)
 
-    **head** ()
+    Set a datetime index from a column
 
-        Print the main dataframe’s head in notebook
+**load_csv** (``url``)
 
-    **index** (``datafield``, ``indexfield``)
+    Set the main dataframe from a csv data
 
-        Set a datetime index from a column
+**look** (``df=None``, ``p=True``)
+
+    Print basic data info in notebook
+
+**nulls** (``fieldname``, ``val=0``)
+
+    Fill null values with new values
+
+**range** (``num``, ``unit``)
+
+    Limit the data in a time range
+
+**reduce** (``fields``)
+
+    Limit a dataframe to some columns
+
+**report** (``df=None``)
+
+    Returns a dataframe profiling report to print in notebooks
+
+**resample** (``time_unit='1Min'``, ``date_field=None``)
+
+    Resample the main dataframe to a time period
+
+**set** (``df``)
+
+    Set a main dataframe
+
+**to_int** (``fieldname``)
+
+    Convert a column values to integers
     
-    **load_csv** (``url``)
+Charts operations
+-----------------
 
-        Set the main dataframe from a csv data
+**bar** ()
 
-    **look** (``df=None``, ``p=True``)
+    Get a bar chart
 
-        Print basic data info in notebook
+**chart** (``x_field``, ``y_field``, ``chart_type='line'``)
 
-    **nulls** (``fieldname``, ``val=0``)
+    Initialize chart options
 
-        Fill null values with new values
+**color** (``color``)
 
-    **range** (``num``, ``unit``)
+    Set chart color
 
-        Limit the data in a time range
+**height** (``height``)
 
-    **reduce** (``fields``)
+    Set chart height
 
-        Limit a dataframe to some columns
+**line** ()
 
-    **report** (``df=None``)
+    Get a line chart
 
-        Returns a dataframe profiling report to print in notebooks
+**line_point** (``colors={'line': 'yellow', 'point': 'navy'}``)
 
-    **resample** (``time_unit='1Min'``, ``date_field=None``)
+    Get a line and point chart
 
-        Resample the main dataframe to a time period
+**point** ()
 
-    **set** (``df``)
+    Get a point chart
 
-        Set a main dataframe
+**width** (``width``)
 
-    **to_int** (``fieldname``)
-
-        Convert a column values to integers
+    Set chart width
 
