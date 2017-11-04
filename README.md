@@ -18,7 +18,15 @@ Read the [api documentation](http://dataswim.readthedocs.io/en/latest/api.html#d
 
 ## Example
 
-A Jupyter notebook is available as example. It uses Django user data loaded from csv or directly from a Django database
+A Jupyter notebook is available as example. It uses Django user data loaded from csv or directly from a Django database.
+
+To run the demo [Holoviews](https://github.com/ioam/holoviews/) is required for data visualization:
+
+   ```
+   conda install -c ioam holoviews bokeh
+   # or
+   pip install holoviews
+   ```
 
 Run the [example notebook](notebooks/django_users.ipynb):
 
