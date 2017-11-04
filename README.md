@@ -1,6 +1,6 @@
 # Dataswim
 
-Utilities to swim in a data lake: a simple api to clean, transform and visualize data
+Utilities to swim in a data lake. A simple api to clean, transform and visualize data.
 
 ## Dependencies
 
@@ -191,6 +191,7 @@ ds.show()
 # Resample data by one year
 # see Pandas frequencies for units: 
 # https://github.com/pandas-dev/pandas/blob/master/pandas/tseries/frequencies.py#L98
+# try "30D"
 df = ds.resample("1A").sum()
 ```
 
