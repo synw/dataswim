@@ -191,7 +191,7 @@ ds.show()
 # Resample data by one year
 # see Pandas frequencies for units: 
 # https://github.com/pandas-dev/pandas/blob/master/pandas/tseries/frequencies.py#L98
-# try "30D"
+# try "30D" for 30 days
 df = ds.resample("1A").sum()
 ```
 
