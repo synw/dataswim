@@ -277,11 +277,37 @@ hv.extension('bokeh')
 ```
 
 ```python
-macro = hv.Curve(ds.df, kdims=["Date"], vdims=["Logins"])
-plot_opts = dict(show_legend=True, width=940)
-style = dict(color='navy')
-macro(plot=plot_opts, style=style)
+ds.chart("Date", "Logins")
+ds.line()
 ```
 
-![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/users_date_joined.png)
+![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/line.png)
+
+```python
+ds.color("green")
+ds.bar()
+```
+
+![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/bar.png)
+
+```python
+colors=dict(line="orange", point="blue")
+ds.line_point(colors)
+```
+
+![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/line_point.png)
+
+```python
+ds.width(300)
+ds.height(180)
+ds.color("blue")
+line = ds.line()
+ds.color("red")
+point = ds.point()
+ds.color("green")
+bar = ds.bar()
+point+line+bar
+```
+
+![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/multi.png)
 
