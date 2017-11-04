@@ -75,6 +75,10 @@ API
     **load** (``table``)
 
         Set the main dataframe from a table’s data
+        
+    **load_csv** (``url``)
+
+        Set the main dataframe from a csv data
 
     **look** (``df=None``, ``p=True``)
 
@@ -210,6 +214,10 @@ class **dataswim.Df** (``df=None``)
     **index** (``datafield``, ``indexfield``)
 
         Set a datetime index from a column
+    
+    **load_csv** (``url``)
+
+        Set the main dataframe from a csv data
 
     **look** (``df=None``, ``p=True``)
 
