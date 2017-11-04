@@ -35,8 +35,8 @@ Run the [example notebook](notebooks/django_users.ipynb):
 from dataswim import ds
 
 # Load from a Django database
-#ds.connect('postgresql://djangouser:Xh327eMV@localhost/econso23')
-#ds.connect('sqlite:////home/ggg/www/dev/mogos/mogo80/mogo/db.sqlite3')
+#ds.connect('postgresql://user:xxxx@localhost/dbname')
+#ds.connect('sqlite:////path/to/db.sqlite3')
 #ds.load("auth_user")
 
 # Load from csv
