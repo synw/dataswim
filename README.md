@@ -191,7 +191,7 @@ ds.show()
 # Resample data by one year
 # see Pandas frequencies for units: 
 # https://github.com/pandas-dev/pandas/blob/master/pandas/tseries/frequencies.py#L98
-df = ds.resample("1A", "date").sum()
+df = ds.resample("1A").sum()
 ```
 
 
@@ -204,8 +204,6 @@ ds.fill("Logins")
 ds.to_int("Logins")
 # Add a date column from index
 ds.date_field("Date")
-# keep the original data for later
-odf = ds.df
 ```
 
 
