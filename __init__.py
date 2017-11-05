@@ -16,7 +16,7 @@ class Plot():
         self.df = df
         self.x_field = None
         self.y_field = None
-        self.chart_opts = dict(width=940)
+        self.chart_opts = dict(width=940, show_legend=True)
         self.chart_style = dict(color="blue")
 
     def chart(self, x_field, y_field, chart_type="line"):
@@ -42,7 +42,7 @@ class Plot():
         """
         return self._get_chart("line")
 
-    def point(self):
+    def point(self, df=None):
         """
         Get a point chart
         """
@@ -145,12 +145,6 @@ class Df():
         """
         self.df = pd.read_csv(url)
 
-    def reduce(self, fields):
-        """
-        Limit a dataframe to some columns
-        """
-        return self.df[fields]
-
     def to_int(self, fieldname):
         """
         Convert a column values to integers
@@ -179,17 +173,47 @@ class Df():
         self.df = self.df.set_index(indexfield)
         self.df.index = pd.to_datetime(self.df.index)
 
-    def contains(self, value, field):
+    def contains(self, value, field, main=False):
         """
-        Set the main dataframe to rows that contains a string value in a column
+        Returns rows that contains a string value in a column
         """
-        self.df = self.df[self.df[field].str.contains(value) == True]
+        df = self.df[self.df[field].str.contains(value) == True]
+        if main is True:
+            self.df = df
+        else:
+            return DataSwim(df)
 
-    def exact(self, value, field):
+    def exact(self, value, field, main=False):
         """
-        Set the main dataframe to rows that has the exact string value in a column
+        Returns rows that has the exact string value in a column
         """
-        self.df = self.df[self.df[field].isin([value])]
+        df = self.df[self.df[field].isin([value])]
+        if main is True:
+            self.df = df
+        else:
+            return DataSwim(df)
+
+    def reduce(self, fields, main=False):
+        """
+        Limit a dataframe to some columns
+        """
+        df = self.df[fields]
+        if main is True:
+            self.df = df
+        else:
+            return DataSwim(df)
+
+    def unique(self, field):
+        """
+        List unique values in a column     
+        """
+        return self.df[field].nunique()
+
+    def vals(self, field):
+        """
+        Returns a values count of a column     
+        """
+        return self.df[field].value_counts()
 
     def concat(self, dfs):
         """
@@ -299,8 +323,7 @@ class Df():
         """
         Count the number of rows of the main dataframe
         """
-        total = len(self.df.index)
-        return total
+        return len(self.df.index)
 
 
 class Db():
