@@ -25,7 +25,7 @@ class Plot():
         """
         self.x_field = x_field
         self.y_field = y_field
-        chart = self._get_base_chart(x_field, y_field, chart_type)
+        chart = self._get_chart(chart_type, x_field, y_field)
         if err.exists:
             err.throw()
         return chart
@@ -77,14 +77,18 @@ class Plot():
         """
         self.chart_opts["height"] = height
 
-    def _get_chart(self, chart_type="line", style=None):
+    def _get_chart(self, chart_type="line", x_field=None, y_field=None, style=None):
         """
         Get a full chart object
         """
+        if x_field is None:
+            x_field = self.x_field
+        if y_field is None:
+            y_field = self.y_field
         if style is None:
             style = self.chart_style
         base_chart = self._get_base_chart(
-            self.x_field, self.y_field, chart_type)
+            x_field, y_field, chart_type)
         chart = base_chart(plot=self.chart_opts, style=style)
         return chart
 
@@ -114,6 +118,7 @@ class Df():
         Initialize with an empty dataframe
         """
         self.df = df
+        self.backup_df = df
 
     def set(self, df):
         """
@@ -121,6 +126,18 @@ class Df():
         """
         df2 = df.copy()
         self.df = df2
+
+    def backup(self):
+        """
+        Backup the main dataframe
+        """
+        self.backup_df = self.df
+
+    def restore(self):
+        """
+        Restore the main dataframe
+        """
+        self.df = self.backup_df
 
     def load_csv(self, url):
         """
@@ -132,8 +149,7 @@ class Df():
         """
         Limit a dataframe to some columns
         """
-        df2 = self.df[fields]
-        self.df = df2
+        return self.df[fields]
 
     def to_int(self, fieldname):
         """
@@ -165,15 +181,15 @@ class Df():
 
     def contains(self, value, field):
         """
-        Returns rows that contains a string value in a column
+        Set the main dataframe to rows that contains a string value in a column
         """
-        return self.df[self.df[field].str.contains(value) == True]
+        self.df = self.df[self.df[field].str.contains(value) == True]
 
     def exact(self, value, field):
         """
-        Returns rows that has the exact string value in a column
+        Set the main dataframe to rows that has the exact string value in a column
         """
-        return self.df[self.df[field].isin([value])]
+        self.df = self.df[self.df[field].isin([value])]
 
     def concat(self, dfs):
         """
@@ -193,7 +209,7 @@ class Df():
         """
         self.df[field] = self.df.index.values
 
-    def resample(self, time_unit="1Min", date_field=None):
+    def resample(self, time_unit="1Min"):
         """
         Resample the main dataframe to a time period
         """

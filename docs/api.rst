@@ -34,6 +34,10 @@ Dataframe operations
 **add** (``field``, ``value``)
 
     Add a columns with default values
+    
+**backup** ()
+
+    Backup the main dataframe
 
 **concat** (``dfs``)
 
@@ -107,9 +111,13 @@ Dataframe operations
 
     Returns a dataframe profiling report to print in notebooks
 
-**resample** (``time_unit='1Min'``, ``date_field=None``)
+**resample** (``time_unit='1Min'``)
 
     Resample the main dataframe to a time period
+    
+**restore** ()
+
+    Restore the main dataframe
 
 **set** (``df``)
 
