@@ -43,7 +43,7 @@ class Df():
         """
         self.df = self.backup_df
 
-    def save(self, path):
+    def csv(self, path):
         """
         Saves the main dataframe to a csv file
         """

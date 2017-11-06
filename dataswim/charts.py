@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 
+import os
 import holoviews as hv
+from bokeh.resources import CDN
+from bokeh.embed import file_html, components
 from goerr import err
 
 
 X = None
 Y = None
+
+renderer = hv.renderer('bokeh')
 
 
 class Plot():
@@ -17,6 +22,7 @@ class Plot():
         self.df = df
         self.x_field = None
         self.y_field = None
+        self.chart_obj = None
         self.chart_opts = dict(width=940)
         self.chart_style = dict(color="blue")
         self.label = None
@@ -46,11 +52,31 @@ class Plot():
             self.label = label
         self.x_field = x_field
         self.y_field = y_field
-        chart = self._get_chart(chart_type, x_field,
-                                y_field, style=style, opts=opts, label=label)
+        self.chart_obj = self._get_chart(chart_type, x_field,
+                                         y_field, style=style, opts=opts, label=label)
         if err.exists:
             err.throw()
-        return chart
+        return self.chart_obj
+
+    def file(self, slug, folderpath, chart_obj=None):
+        """
+        Saves the chart to an html file with all the js loaded
+        """
+        if chart_obj is None:
+            chart_obj = self.chart_obj
+        plot = renderer.get_plot(chart_obj).state
+        html = file_html(plot, CDN, "Test")
+        self._write_file(slug, folderpath, html)
+
+    def html(self, chart_obj=None):
+        """
+        Get the html and script tag for a chart
+        """
+        if chart_obj is None:
+            chart_obj = self.chart_obj
+        p = renderer.get_plot(chart_obj).state
+        script, div = components(p)
+        return script, div
 
     def bar(self):
         """
@@ -145,3 +171,23 @@ class Plot():
             err.new("Chart type " + chart_type +
                     " unknown", self._get_base_chart)
         return chart
+
+    def _write_file(self, slug, folderpath, html):
+        """
+        Writes a chart's html to a file
+        """
+        # check directories
+        if not os.path.isdir(folderpath):
+            try:
+                os.makedirs(folderpath)
+            except Exception as e:
+                err.new(e)
+        # construct file path
+        filepath = folderpath + "/" + slug + ".html"
+        #~ write the file
+        try:
+            filex = open(filepath, "w")
+            filex.write(html)
+            filex.close()
+        except Exception as e:
+            err.new(e)
