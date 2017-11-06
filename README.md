@@ -8,7 +8,7 @@ A simple api to clean, transform and visualize data. This api is:
 
 ## Dependencies
 
-[Dataset](https://dataset.readthedocs.io/en/latest/) to work with databases
+[Dataset](https://dataset.readthedocs.io/en/latest/) and [Sql Alchemy](http://www.sqlalchemy.org) to work with databases
 
 [Pandas](https://github.com/pandas-dev/pandas) and 
 [Pandas profiling](https://github.com/JosPolfliet/pandas-profiling) to work with data
