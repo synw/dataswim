@@ -8,6 +8,12 @@ class Count():
     Class to count data
     """
 
+    def __init__(self, df=None):
+        """
+        Initialize with an empty dataframe
+        """
+        self.df = df
+
     def count_nulls(self, field):
         """
         Count the number of null values in a rows

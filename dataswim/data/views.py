@@ -8,6 +8,12 @@ class View():
     Class to view the data
     """
 
+    def __init__(self, df=None):
+        """
+        Initialize with an empty dataframe
+        """
+        self.df = df
+
     def head(self, rows=5):
         """
         Returns the main dataframe's head

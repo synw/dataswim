@@ -8,6 +8,12 @@ class Clean():
     Class to clean the data
     """
 
+    def __init__(self, df=None):
+        """
+        Initialize with an empty dataframe
+        """
+        self.df = df
+
     def drop_nan(self, field=None):
         """
         Drop NaN values from the main dataframe

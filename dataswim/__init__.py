@@ -8,15 +8,20 @@ from .charts import Plot
 from .data import Df
 
 
-class DataSwim(Plot, Db, Df):
+class DataSwim(Db, Df, Plot):
     """
     Main class
     """
-    pass
+
+    def __init__(self, df=None):
+        """
+        Initialize with an empty dataframe
+        """
+        self.df = df
 
     def new(self, df):
         """
-        Returns a new instance of self.new from a dataframe
+        Returns a new instance from a dataframe
         """
         return DataSwim(df)
 
