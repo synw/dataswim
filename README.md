@@ -2,9 +2,9 @@
 
 Utilities to swim in a data lake. A simple api to clean, transform and visualize data. This api is:
 
-- Minimalistic: short names, simple functionalites, minimal parameters
-- Pragmatic: focuses on raw efficiency rather than idiomatic code
-- Simple stupid: keep it easy to understand for both code and api
+- **Minimalistic**: short names, simple functionalites, minimal parameters
+- **Pragmatic**: focuses on raw efficiency rather than idiomatic code
+- **Simple stupid**: keep it easy to understand for both code and api
 
 ## Dependencies
 
