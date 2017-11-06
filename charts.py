@@ -89,14 +89,14 @@ class Plot():
         chart = base_chart(plot=self.chart_opts, style=style)
         return chart
 
-    def _get_base_chart(self, x_field, y_field, chart_type="line"):
+    def _get_base_chart(self, x_field, y_field, chart_type="line", title=""):
         """
         Get a base chart object
         """
         chart = None
         if chart_type == "line":
             chart = hv.Curve(self.df, kdims=[x_field], vdims=[
-                             y_field], label="Test")
+                             y_field], label=title)
         elif chart_type == "point":
             chart = hv.Scatter(self.df, kdims=[x_field], vdims=[y_field])
         elif chart_type == "bar":

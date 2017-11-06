@@ -73,4 +73,4 @@ class Db():
         if p is True:
             print(num, "rows")
             print("Fields:", ", ".join(list(df)))
-        return ds.head()
+        return df.head()

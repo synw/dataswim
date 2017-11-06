@@ -23,14 +23,13 @@ class Df():
         """
         Set a main dataframe
         """
-        df2 = df.copy()
-        self.df = df2
+        self.df = df.copy()
 
     def backup(self):
         """
         Backup the main dataframe
         """
-        self.backup_df = self.df
+        self.backup_df = self.df.copy()
 
     def restore(self):
         """
@@ -38,17 +37,17 @@ class Df():
         """
         self.df = self.backup_df
 
+    def save(self, path):
+        """
+        Saves the main dataframe to a csv file
+        """
+        self.df.to_csv(path, encoding='utf-8')
+
     def load_csv(self, url):
         """
         Initialize the main dataframe from csv data
         """
         self.df = pd.read_csv(url)
-
-    def to_int(self, fieldname):
-        """
-        Convert a column values to integers
-        """
-        self.df[fieldname] = self.df[fieldname].apply(lambda x: int(x))
 
     def date(self, fields):
         """
@@ -72,7 +71,7 @@ class Df():
         self.df = self.df.set_index(indexfield)
         self.df.index = pd.to_datetime(self.df.index)
 
-    def contains(self, value, field, main=False):
+    def contains(self, value, field, main=True):
         """
         Returns rows that contains a string value in a column
         """
@@ -82,7 +81,7 @@ class Df():
         else:
             return DataSwim(df)
 
-    def exact(self, value, field, main=False):
+    def exact(self, value, field, main=True):
         """
         Returns rows that has the exact string value in a column
         """
@@ -92,7 +91,7 @@ class Df():
         else:
             return DataSwim(df)
 
-    def reduce(self, fields, main=False):
+    def reduce(self, fields, main=True):
         """
         Limit a dataframe to some columns
         """
@@ -102,29 +101,11 @@ class Df():
         else:
             return DataSwim(df)
 
-    def vals(self, field):
+    def drop(self, field):
         """
-        Returns a values count of a column     
+        Drops a column from the main dataframe
         """
-        return self.df[field].value_counts()
-
-    def concat(self, dfs):
-        """
-        Concatenate dataframes from a list and set it to the main dataframe
-        """
-        self.df = pd.concat(dfs)
-
-    def add(self, field, value):
-        """
-        Add a columns with default values
-        """
-        self.df[field] = value
-
-    def date_field(self, field):
-        """
-        Add a date column from the datetime index
-        """
-        self.df[field] = self.df.index.values
+        self.df = self.df.drop(field, axis=1)
 
     def resample(self, time_unit="1Min"):
         """
@@ -139,6 +120,24 @@ class Df():
         """
         self.df = self.df[self.df.last_valid_index() -
                           pd.DateOffset(num, unit):]
+
+    def concat(self, dfs):
+        """
+        Concatenate dataframes from a list and set it to the main dataframe
+        """
+        self.df = pd.concat(dfs)
+
+    def add(self, field, value):
+        """
+        Add a columns with default values
+        """
+        self.df[field] = value
+
+    def date_col(self, field):
+        """
+        Add a date column from the datetime index
+        """
+        self.df[field] = self.df.index.values
 
     def head(self, rows=5):
         """
@@ -182,7 +181,7 @@ class Df():
 
     def display(self, fields):
         """
-        Display some columns head in notebook
+        Display some columns head
         """
         if type(fields) == str:
             df2 = self.df[[fields]]
@@ -190,30 +189,52 @@ class Df():
             df2 = self.df[fields]
         return df2.head()
 
-    def drop(self):
+    def vals(self, field):
+        """
+        Returns a values count of a column     
+        """
+        return self.df[field].value_counts()
+
+    def drop_nan(self):
         """
         Drop NaN values from the main dataframe
         """
         self.df = self.df.dropna()
 
-    def fill(self, fieldname, val=0):
+    def fill(self, fields, val=0):
         """
-        Fill NaN values with new values
+        Fill NaN values with new values either from a list of columns or a 
+        single column name string
         """
-        self.df[fieldname] = self.df[fieldname].fillna(val, inplace=True)
+        if type(fields) == str:
+            self.df[fields] = self.df[fields].fillna(val)
+        else:
+            for el in fields:
+                self.df[el] = self.df[el].fillna(val)
 
-    def nan_empty(self, field, val=0):
+    def to_int(self, fields):
+        """
+        Convert a column values to integers either from a list of columns or a 
+        single column name string
+        """
+        if type(fields) == str:
+            self.df[fields] = self.df[fields].apply(lambda x: int(x))
+        else:
+            for el in fields:
+                self.df[el] = self.df[el].apply(lambda x: int(x))
+
+    def nan_empty(self, field):
         """
         Fill empty values with NaN values
         """
         self.df[field] = self.df[field].replace('', NaN)
 
-    def nulls(self, fieldname):
+    def fill_nulls(self, field):
         """
         Fill all null values with NaN values
         """
-        self.df[fieldname] = self.df[fieldname].isnull().fillna(
-            value=NaN, inplace=True)
+        n = [None, ""]
+        self.df[field] = self.df[field].replace(n, NaN)
 
     def count_nulls(self, field):
         """
