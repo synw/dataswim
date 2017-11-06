@@ -1,111 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import dataset
-import holoviews as hv
 import pandas as pd
-import pandas_profiling
-from goerr import err
-
-
-class Plot():
-
-    def __init__(self, df=None):
-        """
-        Initialize with an empty dataframe
-        """
-        self.df = df
-        self.x_field = None
-        self.y_field = None
-        self.chart_opts = dict(width=940, show_legend=True)
-        self.chart_style = dict(color="blue")
-
-    def chart(self, x_field, y_field, chart_type="line"):
-        """
-        Initialize chart options
-        """
-        self.x_field = x_field
-        self.y_field = y_field
-        chart = self._get_chart(chart_type, x_field, y_field)
-        if err.exists:
-            err.throw()
-        return chart
-
-    def bar(self):
-        """
-        Get a bar chart
-        """
-        return self._get_chart("bar")
-
-    def line(self):
-        """
-        Get a line chart
-        """
-        return self._get_chart("line")
-
-    def point(self, df=None):
-        """
-        Get a point chart
-        """
-        return self._get_chart("point")
-
-    def line_point(self, colors={"line": "yellow", "point": "navy"}):
-        """
-        Get a line and point chart
-        """
-        style = self.chart_style
-        style["color"] = colors["line"]
-        l = self._get_chart("line", style=style)
-        style["color"] = colors["point"]
-        p = self._get_chart("point", style=style)
-        return l * p
-
-    def color(self, color):
-        """
-        Set chart color
-        """
-        self.chart_style["color"] = color
-
-    def width(self, width):
-        """
-        Set chart width
-        """
-        self.chart_opts["width"] = width
-
-    def height(self, height):
-        """
-        Set chart height
-        """
-        self.chart_opts["height"] = height
-
-    def _get_chart(self, chart_type="line", x_field=None, y_field=None, style=None):
-        """
-        Get a full chart object
-        """
-        if x_field is None:
-            x_field = self.x_field
-        if y_field is None:
-            y_field = self.y_field
-        if style is None:
-            style = self.chart_style
-        base_chart = self._get_base_chart(
-            x_field, y_field, chart_type)
-        chart = base_chart(plot=self.chart_opts, style=style)
-        return chart
-
-    def _get_base_chart(self, x_field, y_field, chart_type="line"):
-        """
-        Get a base chart object
-        """
-        chart = None
-        if chart_type == "line":
-            chart = hv.Curve(self.df, kdims=[x_field], vdims=[y_field])
-        elif chart_type == "point":
-            chart = hv.Scatter(self.df, kdims=[x_field], vdims=[y_field])
-        elif chart_type == "bar":
-            chart = hv.Bars(self.df, kdims=[x_field], vdims=[y_field])
-        if chart is None:
-            err.new("Chart type " + chart_type + " unknown")
-        return chart
+from pandas_profiling import ProfileReport
+from numpy import NaN, where
+from .db import Db
+from .charts import Plot
 
 
 class Df():
@@ -203,12 +102,6 @@ class Df():
         else:
             return DataSwim(df)
 
-    def unique(self, field):
-        """
-        List unique values in a column     
-        """
-        return self.df[field].nunique()
-
     def vals(self, field):
         """
         Returns a values count of a column     
@@ -247,15 +140,21 @@ class Df():
         self.df = self.df[self.df.last_valid_index() -
                           pd.DateOffset(num, unit):]
 
-    def head(self):
+    def head(self, rows=5):
         """
-        Print the main dataframe's head in notebook
+        Returns the main dataframe's head
         """
-        return self.df.head()
+        return self.df.head(rows)
+
+    def tail(self, rows=5):
+        """
+        Returns the main dataframe's tail
+        """
+        return self.df.tail(rows)
 
     def look(self, df=None, p=True):
         """
-        Print basic data info in notebook
+        Returns basic data info
         """
         if df is None:
             df = self.df
@@ -268,18 +167,18 @@ class Df():
 
     def describe(self):
         """
-        Print a description of the data in notebook
+        Return a description of the data
         """
         self.look()
         return self.df.describe()
 
     def report(self, df=None):
         """
-        Returns a dataframe profiling report to print in notebooks
+        Returns a dataframe profiling report
         """
         if df is None:
             df = self.df
-        return pandas_profiling.ProfileReport(df)
+        return ProfileReport(df)
 
     def display(self, fields):
         """
@@ -301,23 +200,26 @@ class Df():
         """
         Fill NaN values with new values
         """
-        self.df[fieldname] = self.df[fieldname].fillna(val)
+        self.df[fieldname] = self.df[fieldname].fillna(val, inplace=True)
 
-    def nulls(self, fieldname, val=0):
+    def nan_empty(self, field, val=0):
         """
-        Fill null values with new values
+        Fill empty values with NaN values
         """
-        nvals = ["None", "NaN", "Null", "none", "null"]
+        self.df[field] = self.df[field].replace('', NaN)
 
-        def isnull(x):
-            global nulls
-            if type(x) == str:
-                if x in nvals:
-                    return val
-                else:
-                    return x
+    def nulls(self, fieldname):
+        """
+        Fill all null values with NaN values
+        """
+        self.df[fieldname] = self.df[fieldname].isnull().fillna(
+            inplace=True)
 
-        self.df[fieldname] = self.df[fieldname].apply(isnull)
+    def count_nulls(self, field):
+        """
+        Count the number of null values in a rows
+        """
+        return self.df[field].isnull().sum()
 
     def count(self):
         """
@@ -325,77 +227,19 @@ class Df():
         """
         return len(self.df.index)
 
+    def count_empty(self, field):
+        """
+        Returns a list of empty row indices
+        """
+        df2 = self.reduce([field]).df
+        vals = where(df2.applymap(lambda x: x == ''))
+        return len(vals[0])
 
-class Db():
-    """
-    Class for manipulating databases
-    """
-
-    def __init__(self, db=None):
+    def count_unique(self, field):
         """
-        Initialize with an empty db
+        Return the number of unique values in a column     
         """
-        self.db = db
-
-    def connect(self, url):
-        """
-        Connect to the database and set it as main database
-        """
-        self.db = dataset.connect(url)
-
-    def load(self, table):
-        """
-        Set the main dataframe from a table's data
-        """
-        self.df = self.getall(table)
-
-    def tables(self, name=None, p=True):
-        """
-        Print existing tables in a database
-        """
-        t = self.db.tables
-        if name is not None:
-            pmodels = [x for x in t if name in x]
-        else:
-            pmodels = t
-        if p is True:
-            print(pmodels)
-        return pmodels
-
-    def count_rows(self, name, p=True):
-        """
-        Count rows for a table
-        """
-        data = {}
-        for m in self.tables(name, False):
-            num = self.db[m].count()
-            data[m] = num
-            if p is True and num > 0:
-                print(m, num)
-        print("[end]")
-        return data
-
-    def getall(self, table):
-        """
-        Get all rows values for a table
-        """
-        res = self.db[table].all()
-        df = pd.DataFrame(list(res))
-        return df
-
-    def show(self, table=None, p=True):
-        """
-        Display info about a table
-        """
-        if table is None:
-            df = self.df
-        else:
-            df = self.getall(table)
-        num = len(self.df.index)
-        if p is True:
-            print(num, "rows")
-            print("Fields:", ", ".join(list(df)))
-        return ds.head()
+        return self.df[field].nunique()
 
 
 class DataSwim(Plot, Db, Df):
