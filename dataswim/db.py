@@ -92,7 +92,7 @@ class Db():
             except:
                 return None
 
-        df[search_field] = df.apply(set_rel, axis=1)
+        df[destination_field] = df.apply(set_rel, axis=1)
         if main is True:
             self.df = df
         else:
