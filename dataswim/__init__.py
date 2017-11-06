@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
-from pandas_profiling import ProfileReport
 from numpy import NaN, where
 from .db import Db
 from .charts import Plot
+from .data.views import View
+from .data.clean import Clean
+from .data.count import Count
 
 
-class Df():
+class Transform():
     """
-    Class for manipulating dataframes
+    Class to transform data
     """
 
     def __init__(self, df=None):
@@ -17,65 +19,6 @@ class Df():
         Initialize with an empty dataframe
         """
         self.df = df
-        self.backup_df = df
-
-    def set(self, df):
-        """
-        Set a main dataframe
-        """
-        self.df = df.copy()
-
-    def new(self, df):
-        """
-        Returns a new instance of DataSwim from a dataframe
-        """
-        return DataSwim(df)
-
-    def backup(self):
-        """
-        Backup the main dataframe
-        """
-        self.backup_df = self.df.copy()
-
-    def restore(self):
-        """
-        Restore the main dataframe
-        """
-        self.df = self.backup_df
-
-    def csv(self, path):
-        """
-        Saves the main dataframe to a csv file
-        """
-        self.df.to_csv(path, encoding='utf-8')
-
-    def load_csv(self, url):
-        """
-        Initialize the main dataframe from csv data
-        """
-        self.df = pd.read_csv(url)
-
-    def date(self, fields):
-        """
-        Convert column values to datetime from either a list 
-        of column names or a single column name string
-        """
-        if type(fields) == str:
-            self.df[fields] = pd.to_datetime(self.df[fields]).apply(
-                lambda x: x.strftime('%Y-%m-%d %H:%M:%S'))
-        else:
-            for f in fields:
-                self.df[f] = pd.to_datetime(self.df[f]).apply(
-                    lambda x: x.strftime('%Y-%m-%d %H:%M:%S'))
-
-    def index(self, datafield, indexfield):
-        """
-        Set a datetime index from a column
-        """
-        f = {indexfield: self.df[datafield]}
-        self.df = self.df.assign(**f)
-        self.df = self.df.set_index(indexfield)
-        self.df.index = pd.to_datetime(self.df.index)
 
     def contains(self, value, field, main=True):
         """
@@ -146,128 +89,54 @@ class Df():
         """
         self.df[field] = self.df.index.values
 
-    def head(self, rows=5):
-        """
-        Returns the main dataframe's head
-        """
-        return self.df.head(rows)
 
-    def tail(self, rows=5):
-        """
-        Returns the main dataframe's tail
-        """
-        return self.df.tail(rows)
+class Df(View, Transform, Clean, Count):
+    """
+    Class for manipulating dataframes
+    """
 
-    def look(self, df=None, p=True):
+    def __init__(self, df=None):
         """
-        Returns basic data info
+        Initialize with an empty dataframe
         """
-        if df is None:
-            df = self.df
-        num = len(self.df.index)
-        if p is True:
-            print(num, "rows")
-            print("Fields:", ", ".join(list(self.df)))
-        else:
-            return p
+        self.df = df
+        self.backup_df = df
 
-    def describe(self):
+    def set(self, df):
         """
-        Return a description of the data
+        Set a main dataframe
         """
-        self.look()
-        return self.df.describe()
+        self.df = df.copy()
 
-    def report(self, df=None):
+    def new(self, df):
         """
-        Returns a dataframe profiling report
+        Returns a new instance of DataSwim from a dataframe
         """
-        if df is None:
-            df = self.df
-        return ProfileReport(df)
+        return DataSwim(df)
 
-    def display(self, fields):
+    def backup(self):
         """
-        Display some columns head
+        Backup the main dataframe
         """
-        if type(fields) == str:
-            df2 = self.df[[fields]]
-        else:
-            df2 = self.df[fields]
-        return df2.head()
+        self.backup_df = self.df.copy()
 
-    def vals(self, field):
+    def restore(self):
         """
-        Returns a values count of a column     
+        Restore the main dataframe
         """
-        return self.df[field].value_counts()
+        self.df = self.backup_df
 
-    def drop_nan(self):
+    def csv(self, path):
         """
-        Drop NaN values from the main dataframe
+        Saves the main dataframe to a csv file
         """
-        self.df = self.df.dropna()
+        self.df.to_csv(path, encoding='utf-8')
 
-    def fill(self, fields, val=0):
+    def load_csv(self, url):
         """
-        Fill NaN values with new values either from a list of columns or a 
-        single column name string
+        Initialize the main dataframe from csv data
         """
-        if type(fields) == str:
-            self.df[fields] = self.df[fields].fillna(val)
-        else:
-            for el in fields:
-                self.df[el] = self.df[el].fillna(val)
-
-    def to_int(self, fields):
-        """
-        Convert a column values to integers either from a list of columns or a 
-        single column name string
-        """
-        if type(fields) == str:
-            self.df[fields] = self.df[fields].apply(lambda x: int(x))
-        else:
-            for el in fields:
-                self.df[el] = self.df[el].apply(lambda x: int(x))
-
-    def nan_empty(self, field):
-        """
-        Fill empty values with NaN values
-        """
-        self.df[field] = self.df[field].replace('', NaN)
-
-    def fill_nulls(self, field):
-        """
-        Fill all null values with NaN values
-        """
-        n = [None, ""]
-        self.df[field] = self.df[field].replace(n, NaN)
-
-    def count_nulls(self, field):
-        """
-        Count the number of null values in a rows
-        """
-        return self.df[field].isnull().sum()
-
-    def count(self):
-        """
-        Count the number of rows of the main dataframe
-        """
-        return len(self.df.index)
-
-    def count_empty(self, field):
-        """
-        Returns a list of empty row indices
-        """
-        df2 = self.reduce([field]).df
-        vals = where(df2.applymap(lambda x: x == ''))
-        return len(vals[0])
-
-    def count_unique(self, field):
-        """
-        Return the number of unique values in a column     
-        """
-        return self.df[field].nunique()
+        self.df = pd.read_csv(url)
 
 
 class DataSwim(Plot, Db, Df):

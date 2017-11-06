@@ -61,14 +61,14 @@ class Db():
         df = pd.DataFrame(list(res))
         return df
 
-    def show(self, table=None, p=True):
+    def table(self, t=None, p=True):
         """
         Display info about a table
         """
-        if table is None:
+        if t is None:
             df = self.df
         else:
-            df = self.getall(table)
+            df = self.getall(t)
         num = len(self.df.index)
         if p is True:
             print(num, "rows")
