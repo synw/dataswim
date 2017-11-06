@@ -13,7 +13,7 @@ Utilities to swim in a data lake. A simple api to clean, transform and visualize
 [Pandas](https://github.com/pandas-dev/pandas) and 
 [Pandas profiling](https://github.com/JosPolfliet/pandas-profiling) to work with data
 
-[Holoviews](http://holoviews.org/) for charting data
+[Holoviews](http://holoviews.org/) to chart data
 
    ```
    pip install pandas_profiling dataset
