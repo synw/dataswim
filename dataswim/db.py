@@ -2,6 +2,7 @@
 
 import dataset
 import pandas as pd
+from goerr import err
 
 
 class Db():
@@ -21,11 +22,17 @@ class Db():
         """
         self.db = dataset.connect(url)
 
-    def load(self, table):
+    def load(self, table, main=True):
         """
         Set the main dataframe from a table's data
         """
-        self.df = self.getall(table)
+        df = self.getall(table)
+        if df is None:
+            print("Can not get table " + table + " values")
+        if main is True:
+            self.df = df
+        else:
+            return self.new(df)
 
     def tables(self, name=None, p=True):
         """
@@ -60,6 +67,36 @@ class Db():
         res = self.db[table].all()
         df = pd.DataFrame(list(res))
         return df
+
+    def get_relation(self, search_ds, search_field, destination_field=None, id_field="id", main=True):
+        """
+        Returns a dataframe with a column filled from a relation foreign key 
+        """
+        return self.relation(self, search_ds, search_field, destination_field, id_field, main=False)
+
+    def relation(self, search_ds, search_field, destination_field=None, id_field="id", main=True):
+        """
+        Add a column to the main dataframe from a relation foreign key 
+        """
+        df = self.df.copy()
+
+        if destination_field is None:
+            destination_field = search_field
+        df[destination_field] = None
+
+        def set_rel(row):
+            d = search_ds.exact(row.id, id_field, False)
+            try:
+                val = d.first(False)[search_field]
+                return val
+            except:
+                return None
+
+        df[search_field] = df.apply(set_rel, axis=1)
+        if main is True:
+            self.df = df
+        else:
+            return self.new(df)
 
     def table(self, t=None, p=True):
         """
