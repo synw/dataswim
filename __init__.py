@@ -96,7 +96,7 @@ class Df():
         """
         Limit a dataframe to some columns
         """
-        df = self.df[fields]
+        df = self.df[fields].copy()
         if main is True:
             self.df = df
         else:
@@ -213,7 +213,7 @@ class Df():
         Fill all null values with NaN values
         """
         self.df[fieldname] = self.df[fieldname].isnull().fillna(
-            inplace=True)
+            value=NaN, inplace=True)
 
     def count_nulls(self, field):
         """
