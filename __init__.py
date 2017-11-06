@@ -25,6 +25,12 @@ class Df():
         """
         self.df = df.copy()
 
+    def new(self, df):
+        """
+        Returns a new instance of DataSwim from a dataframe
+        """
+        return DataSwim(df)
+
     def backup(self):
         """
         Backup the main dataframe
@@ -109,7 +115,8 @@ class Df():
 
     def resample(self, time_unit="1Min"):
         """
-        Resample the main dataframe to a time period
+        Resample the main dataframe to a time period and optionaly create
+        a date column from the datetime index
         """
         df = self.df.resample(time_unit)
         return df
