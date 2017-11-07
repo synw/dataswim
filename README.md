@@ -71,7 +71,7 @@ ds.drop_nan()
 # format date fields
 ds.date(["last_login", "date_joined"])
 # keep only the relevant data
-ds.reduce(["username", "date_joined"])
+ds.reduce("username", "date_joined")
 # print data
 ds.show()
 ```
