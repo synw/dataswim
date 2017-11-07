@@ -15,18 +15,6 @@ renderer = hv.renderer('bokeh')
 
 class Plot():
 
-    def __init__(self, df=None):
-        """
-        Initialize with an empty dataframe
-        """
-        self.df = df
-        self.x_field = None
-        self.y_field = None
-        self.chart_obj = None
-        self.chart_opts = dict(width=940)
-        self.chart_style = dict(color="blue")
-        self.label = None
-
     def chart(self, x_field=None, y_field=None, chart_type="line", opts=None, style=None, label=None):
         """
         Initialize chart options
@@ -78,11 +66,11 @@ class Plot():
         script, div = components(p)
         return script, div
 
-    def bar(self):
+    def bar(self, style=None, opts=None, label=None):
         """
         Get a bar chart
         """
-        return self._get_chart("bar")
+        return self._get_chart("bar", style=style, opts=opts, label=label)
 
     def line(self, style=None, opts=None, label=None):
         """
@@ -96,13 +84,13 @@ class Plot():
         """
         return self._get_chart("area", style=style, opts=opts, label=label)
 
-    def point(self, df=None):
+    def point(self, style=None, opts=None, label=None):
         """
         Get a point chart
         """
-        return self._get_chart("point")
+        return self._get_chart("point", style=style, opts=opts, label=label)
 
-    def line_point(self, colors={"line": "yellow", "point": "navy"}):
+    def line_point(self, colors={"line": "yellow", "point": "navy"}, style=None, opts=None, label=None):
         """
         Get a line and point chart
         """

@@ -22,9 +22,33 @@ class Db():
         """
         self.db = dataset.connect(url)
 
-    def load(self, table, main=True):
+    def load(self, table):
         """
         Set the main dataframe from a table's data
+        """
+        self._load(table, True)
+
+    def get_load(self, table):
+        """
+        Returns a table's data
+        """
+        return self._load(table, False)
+
+    def get_load_django(self, query):
+        """
+        Returns dataframe from a django orm query
+        """
+        return pd.DataFrame(list(query.values()))
+
+    def load_django(self, query):
+        """
+        Set a main dataframe from a django orm query
+        """
+        self.df = pd.DataFrame(list(query.values()))
+
+    def _load(self, table, main=True):
+        """
+        Set the main dataframe or return table's data
         """
         df = self.getall(table)
         if df is None:
@@ -68,13 +92,19 @@ class Db():
         df = pd.DataFrame(list(res))
         return df
 
-    def get_relation(self, search_ds, search_field, destination_field=None, id_field="id", main=True):
+    def get_relation(self, search_ds, origin_field, search_field, destination_field=None, id_field="id"):
         """
         Returns a dataframe with a column filled from a relation foreign key 
         """
-        return self.relation(self, search_ds, search_field, destination_field, id_field, main=False)
+        return self._relation(search_ds, origin_field, search_field, destination_field, id_field, False)
 
-    def relation(self, search_ds, search_field, destination_field=None, id_field="id", main=True):
+    def relation(self, search_ds, origin_field, search_field, destination_field=None, id_field="id"):
+        """
+        Add a column to the main dataframe from a relation foreign key 
+        """
+        return self._relation(search_ds, origin_field, search_field, destination_field, id_field, True)
+
+    def _relation(self, search_ds, origin_field, search_field, destination_field=None, id_field="id", main=True):
         """
         Add a column to the main dataframe from a relation foreign key 
         """
@@ -85,7 +115,7 @@ class Db():
         df[destination_field] = None
 
         def set_rel(row):
-            d = search_ds.exact(row.id, id_field, False)
+            d = search_ds.exact(row[origin_field], id_field, False)
             try:
                 val = d.first(False)[search_field]
                 return val

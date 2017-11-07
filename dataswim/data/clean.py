@@ -8,12 +8,6 @@ class Clean():
     Class to clean the data
     """
 
-    def __init__(self, df=None):
-        """
-        Initialize with an empty dataframe
-        """
-        self.df = df
-
     def drop_nan(self, field=None):
         """
         Drop NaN values from the main dataframe
@@ -22,17 +16,6 @@ class Clean():
             self.df = self.df.dropna(how='all')
         else:
             self.df[field] = self.df[field].dropna(how='all')
-
-    def fill(self, fields, val=0):
-        """
-        Fill NaN values with new values either from a list of columns or a 
-        single column name string
-        """
-        if type(fields) == str:
-            self.df[fields] = self.df[fields].fillna(val)
-        else:
-            for el in fields:
-                self.df[el] = self.df[el].fillna(val)
 
     def to_int(self, fields):
         """
@@ -51,12 +34,31 @@ class Clean():
         """
         self.df[field] = self.df[field].replace('', NaN)
 
+    def fill(self, fields, val=0):
+        """
+        Fill NaN values with new values either from a list of columns or a 
+        single column name string
+        """
+        if type(fields) == str:
+            self.df[fields] = self.df[fields].fillna(val)
+        else:
+            for el in fields:
+                self.df[el] = self.df[el].fillna(val)
+
     def fill_nulls(self, field):
         """
         Fill all null values with NaN values
         """
         n = [None, ""]
         self.df[field] = self.df[field].replace(n, NaN)
+
+    def clean_ts(self, date_col, numeric_col):
+        """
+        Cleans and format a timeseries dataframe
+        """
+        self.fill(numeric_col)
+        self.to_int(numeric_col)
+        self.date_col(date_col)
 
     def date(self, fields):
         """

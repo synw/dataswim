@@ -18,6 +18,13 @@ class DataSwim(Db, Df, Plot):
         Initialize with an empty dataframe
         """
         self.df = df
+        self.db = None
+        self.x_field = None
+        self.y_field = None
+        self.chart_obj = None
+        self.chart_opts = dict(width=940)
+        self.chart_style = dict(color="blue")
+        self.label = None
 
     def new(self, df):
         """
