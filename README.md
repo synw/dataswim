@@ -33,7 +33,8 @@ Using pip:
 
 ## Usage
 
-Read the [api documentation](http://dataswim.readthedocs.io/en/latest/index.html).
+Read the [api documentation](http://dataswim.readthedocs.io/en/latest/index.html). Note: the api may change
+and is not stable yet.
 
 ## Example
 
