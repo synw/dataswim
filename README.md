@@ -25,10 +25,7 @@ A simple api to clean, transform and visualize data. This api is:
 
 ## Usage
 
-Read the [api documentation](http://dataswim.readthedocs.io/en/latest/api.html#database-operations).
-
-Warning: to api documentation might not be up to date as this module is currently under heavy development and
-moving fast
+Read the [api documentation](http://dataswim.readthedocs.io/en/latest/index.html).
 
 ## Example
 
