@@ -62,13 +62,6 @@ class Transform():
         """
         self.df = self.df.apply(function, axis=1)
 
-    def range(self, num, unit):
-        """
-        Limit the data in a time range
-        """
-        self.df = self.df[self.df.last_valid_index() -
-                          pd.DateOffset(num, unit):]
-
     def concat(self, dfs):
         """
         Concatenate dataframes from a list and set it to the main dataframe

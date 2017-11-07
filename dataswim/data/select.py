@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import pandas as pd
+
 
 class Select():
     """
@@ -49,3 +51,10 @@ class Select():
             self.df = df
         else:
             return self.new(df.copy())
+
+    def range(self, num, unit):
+        """
+        Limit the data in a time range
+        """
+        self.df = self.df[self.df.last_valid_index() -
+                          pd.DateOffset(num, unit):]
