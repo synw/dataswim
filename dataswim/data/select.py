@@ -14,6 +14,30 @@ class Select():
         """
         self.df = df
 
+    def load_csv(self, url):
+        """
+        Initialize the main dataframe from csv data
+        """
+        self.df = pd.read_csv(url)
+
+    def set(self, df):
+        """
+        Set a main dataframe
+        """
+        self.df = df.copy()
+
+    def backup(self):
+        """
+        Backup the main dataframe
+        """
+        self.backup_df = self.df.copy()
+
+    def restore(self):
+        """
+        Restore the main dataframe
+        """
+        self.df = self.backup_df
+
     def first(self, main=True):
         """
         Select the first row

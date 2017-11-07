@@ -8,7 +8,34 @@ Dataswim
 
 .. toctree::
    :maxdepth: 2
+   :titlesonly:
+   :caption: Database operations
 
-   api
+   data/db
+
+.. toctree::
+   :maxdepth: 2
+   :titlesonly:
+   :caption: Dataframe operations
+
+   data/clean
+   data/transform
+   data/select
+   data/count
+   
+.. toctree::
+   :maxdepth: 2
+   :titlesonly:
+   :caption: Visualize data
+
+   data/view
+   data/chart
+   
+.. toctree::
+   :maxdepth: 2
+   :titlesonly:
+   :caption: Export data
+
+   data/export
 
 

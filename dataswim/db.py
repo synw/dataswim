@@ -2,7 +2,6 @@
 
 import dataset
 import pandas as pd
-from goerr import err
 
 
 class Db():
@@ -71,6 +70,20 @@ class Db():
             print(pmodels)
         return pmodels
 
+    def table(self, t=None, p=True):
+        """
+        Display info about a table
+        """
+        if t is None:
+            df = self.df
+        else:
+            df = self.getall(t)
+        num = len(self.df.index)
+        if p is True:
+            print(num, "rows")
+            print("Fields:", ", ".join(list(df)))
+        return df.head()
+
     def count_rows(self, name, p=True):
         """
         Count rows for a table
@@ -127,17 +140,3 @@ class Db():
             self.df = df
         else:
             return self.new(df)
-
-    def table(self, t=None, p=True):
-        """
-        Display info about a table
-        """
-        if t is None:
-            df = self.df
-        else:
-            df = self.getall(t)
-        num = len(self.df.index)
-        if p is True:
-            print(num, "rows")
-            print("Fields:", ", ".join(list(df)))
-        return df.head()

@@ -28,6 +28,7 @@ class DataSwim(Db, Df, Plot, Report):
         self.label = None
         self.reports = []
         self.report_path = None
+        self.backup_df = None
 
     def new(self, df):
         """

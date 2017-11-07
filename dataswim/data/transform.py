@@ -58,7 +58,7 @@ class Transform():
 
     def apply(self, function):
         """
-        Apply a function on a column's values
+        Apply a function on columns values
         """
         self.df = self.df.apply(function, axis=1)
 

@@ -35,6 +35,12 @@ Dataframe operations
 
     Add a columns with default values
     
+
+**apply** (``function``)
+
+    Apply a function on a column’s values
+
+    
 **backup** ()
 
     Backup the main dataframe

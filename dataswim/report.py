@@ -2,8 +2,7 @@
 
 import os
 import holoviews as hv
-from bokeh.resources import CDN
-from bokeh.embed import file_html, components
+from bokeh.embed import components
 from goerr import err
 
 
@@ -24,9 +23,15 @@ class Report():
         report = dict(slug=slug, title=title, html=script + html)
         self.reports.append(report)
 
+    def csv(self, path):
+        """
+        Saves the main dataframe to a csv file
+        """
+        self.df.to_csv(path, encoding='utf-8')
+
     def file(self, slug, folderpath=None, p=True):
         """
-        Writes the html report to a file
+        Writes the html report to a file from the report stack
         """
         if folderpath is None:
             folderpath = self.report_path
