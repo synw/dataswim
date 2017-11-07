@@ -6,9 +6,10 @@ from goerr import err
 from .db import Db
 from .charts import Plot
 from .data import Df
+from .report import Report
 
 
-class DataSwim(Db, Df, Plot):
+class DataSwim(Db, Df, Plot, Report):
     """
     Main class
     """
@@ -25,6 +26,8 @@ class DataSwim(Db, Df, Plot):
         self.chart_opts = dict(width=940)
         self.chart_style = dict(color="blue")
         self.label = None
+        self.reports = []
+        self.report_path = None
 
     def new(self, df):
         """

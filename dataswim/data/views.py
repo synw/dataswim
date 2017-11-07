@@ -58,7 +58,7 @@ class View():
             print("Fields:", ", ".join(list(df)))
         return df.head()
 
-    def report(self, df=None):
+    def analyse(self, df=None):
         """
         Returns a dataframe profiling report
         """
