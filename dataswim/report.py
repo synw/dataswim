@@ -24,7 +24,7 @@ class Report():
         report = dict(slug=slug, title=title, html=script + html)
         self.reports.append(report)
 
-    def report(self, slug, folderpath=None, p=True):
+    def file(self, slug, folderpath=None, p=True):
         """
         Writes the html report to a file
         """
@@ -51,22 +51,6 @@ class Report():
             html = report["title"] + report["html"]
             self._write_file(report["slug"], folderpath, html, p)
         self.reports = []
-
-    def file(self, slug, folderpath=None, chart_obj=None, p=True):
-        """
-        Saves the chart to an html file with all the js loaded
-        """
-        if folderpath is None:
-            folderpath = self.report_path
-        else:
-            self.report_path = folderpath
-        if chart_obj is None:
-            chart_obj = self.chart_obj
-        plot = renderer.get_plot(chart_obj).state
-        html = file_html(plot, CDN, "Test")
-        self._write_file(slug, folderpath, html)
-        if err.exists:
-            err.throw()
 
     def get_html(self, chart_obj=None):
         """
