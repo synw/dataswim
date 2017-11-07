@@ -8,32 +8,6 @@ class Transform():
     Class to transform data
     """
 
-    def __init__(self, df=None):
-        """
-        Initialize with an empty dataframe
-        """
-        self.df = df
-
-    def contains(self, value, field, main=True):
-        """
-        Returns rows that contains a string value in a column
-        """
-        df = self.df[self.df[field].str.contains(value) == True]
-        if main is True:
-            self.df = df
-        else:
-            return self.new(df.copy())
-
-    def exact(self, value, field, main=True):
-        """
-        Returns rows that has the exact string value in a column
-        """
-        df = self.df[self.df[field].isin([value])]
-        if main is True:
-            self.df = df
-        else:
-            return self.new(df.copy())
-
     def get_reduce(self, *fields):
         """
         Limit a dataframe to some columns

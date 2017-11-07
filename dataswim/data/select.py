@@ -29,3 +29,23 @@ class Select():
             self.df = self.df[:r]
         else:
             return self.df[:r]
+
+    def contains(self, value, field, main=True):
+        """
+        Returns rows that contains a string value in a column
+        """
+        df = self.df[self.df[field].str.contains(value) == True]
+        if main is True:
+            self.df = df
+        else:
+            return self.new(df.copy())
+
+    def exact(self, value, field, main=True):
+        """
+        Returns rows that has the exact string value in a column
+        """
+        df = self.df[self.df[field].isin([value])]
+        if main is True:
+            self.df = df
+        else:
+            return self.new(df.copy())
