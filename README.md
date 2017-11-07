@@ -15,12 +15,20 @@ A simple api to clean, transform and visualize data. This api is:
 
 [Holoviews](http://holoviews.org/) and [Bokeh](https://bokeh.pydata.org/en/latest/) to chart data
 
+## Install 
+
+Using conda:
+
    ```
-   pip install pandas_profiling dataset
-   # and then:
+   conda install pandas
    conda install -c ioam holoviews bokeh
-   # or:
-   pip install holoviews
+   pip install dataswim
+   ```
+
+Using pip:
+
+   ```
+   pip install dataswim
    ```
 
 ## Usage
