@@ -92,9 +92,9 @@ class Plot():
         if style is None:
             style = self.style
         style["color"] = colors["line"]
-        l = self._get_chart("line", style=style)
+        l = self._get_chart("line", style=style, opts=opts, label=label)
         style["color"] = colors["point"]
-        p = self._get_chart("point", style=style)
+        p = self._get_chart("point", style=style, opts=opts, label=label)
         return l * p
 
     def opt(self, dictobj):
