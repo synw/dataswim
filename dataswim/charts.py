@@ -94,6 +94,12 @@ class Plot():
         """
         return self._get_chart("point", style=style, opts=opts, label=label)
 
+    def heatmap(self, style=None, opts=None, label=None):
+        """
+        Get a heatmap chart
+        """
+        return self._get_chart("point", style=style, opts=opts, label=label)
+
     def line_point(self, colors={"line": "yellow", "point": "navy"}, style=None, opts=None, label=None):
         """
         Get a line and point chart
@@ -106,35 +112,19 @@ class Plot():
         p = self._get_chart("point", style=style)
         return l * p
 
-    def opt(self, key, value):
+    def opt(self, dictobj):
         """
         Add or update an option value to defaults
         """
-        self.opts[key] = value
+        for k in dictobj:
+            self.opts[k] = dictobj[k]
 
-    def styl(self, key, value):
+    def styl(self, dictobj):
         """
         Add or update a style value to defaults
         """
-        self.style[key] = value
-
-    def color(self, color):
-        """
-        Set chart color
-        """
-        self.style["color"] = color
-
-    def width(self, width):
-        """
-        Set chart width
-        """
-        self.opts["width"] = width
-
-    def height(self, height):
-        """
-        Set chart height
-        """
-        self.opts["height"] = height
+        for k in dictobj:
+            self.style[k] = dictobj[k]
 
     def _get_chart(self, chart_type="line", x_field=None, y_field=None, style=None, opts=None, label=None):
         """

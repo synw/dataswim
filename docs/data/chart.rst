@@ -27,14 +27,12 @@ Charts
 Chart options
 -------------
     
-**color** (``color``)
+**opt** (``key``, ``value``)
 
     Set chart color
 
-**height** (``height``)
+**style** (``key``, ``value``)
 
     Set chart height
 
-**width** (``width``)
 
-    Set chart width
