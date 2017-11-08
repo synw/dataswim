@@ -20,6 +20,17 @@ Columns
 
     Returns a dataframe limited to some columns from the main dataframe
     
+**index_col** (``field="date"``)
+
+    Add a column from the index
+    
+Rows
+----
+    
+**revert** ()
+
+    Reverts the main dataframe order
+    
 Resample
 --------
     
@@ -31,20 +42,13 @@ Resample
 
     Resample and sum the main dataframe to a time period
     
-**get_rsum** (``time_period="1Min"``)
+**rsum_** (``time_period="1Min"``)
 
     Returns a resampled and sumed dataframe from the main dataframe to a time period
     
 **apply** (``function``)
 
     Apply a function on columns values
-    
-Timeseries
-----------
-    
-**date_col** (``field``)
-
-    Add a date column from the datetime index
     
 Dataframes
 ----------

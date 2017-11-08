@@ -38,7 +38,7 @@ Timeseries
 
     Convert column values to datetime from either a list of column names or a single column name string
     
-**clean_ts** (``date_col``, ``numeric_col``)
+**clean_ts** (``date_col``, ``numeric_col=None``, ``index=True``, ``to_int=False``, ``index_col=True``)
 
     Cleans and format a timeseries dataframe
     

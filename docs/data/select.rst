@@ -4,21 +4,29 @@ Select data
 Rows
 ----
 
-**first** (``main=True``)
+**first** ()
 
     Select the first row
     
-**limit** (``r=5``, ``main=True``)
+**limit** (``r=5``)
 
     Limit selection the a range
     
-**contains** (``value``, ``field``)
+**contains** (``column``, ``value``)
 
     Returns rows that contains a string value in a column
     
-**exact** (``value``, ``field``)
+**exact** (``column``, ``value``)
 
     Returns rows that has the exact string value in a column
+    
+**filter** (``column``, ``value``)
+
+    Filters the main dataframe based on column value
+    
+**filter** (``column``, ``value``)
+
+    Returns a DataSwim instance based on column value
     
 **range** (``num``, ``unit``)
 
@@ -31,9 +39,17 @@ Dataframes
 
     Initialize the main dataframe from csv data
     
-**set** (``df``)
+**set** (``df=None``, ``db=None``)
 
     Set a main dataframe
+    
+**clone** ()
+
+    Returns a new DataSwim instance from the current instance
+    
+**duplicate** ()
+
+    Returns a new DataSwim instance using the previous database connection
     
 **backup** ()
 

@@ -8,6 +8,13 @@ class Transform():
     Class to transform data
     """
 
+    def __init__(self, df=None, db=None):
+        """
+        Initialize with an empty dataframe
+        """
+        self.df = df
+        self.db = db
+
     def get_reduce(self, *fields):
         """
         Limit a dataframe to some columns
@@ -34,17 +41,22 @@ class Transform():
         df = self.df.resample(time_period)
         return df
 
-    def rsum(self, time_period="1Min"):
+    def rsum(self, time_period="1Min", index_col=True):
         """
         Resample, and sum the main dataframe to a time period
         """
         self.df = self._rsum(time_period, True)
+        if index_col is True:
+            self.index_col()
 
-    def get_rsum(self, time_period="1Min"):
+    def rsum_(self, time_period="1Min", index_col=True):
         """
         Resample, and sum a dataframe to a time period
         """
-        return self._rsum(time_period, False)
+        ds = self._rsum(time_period, False)
+        if index_col is True:
+            ds.index_col()
+        return ds
 
     def _rsum(self, time_period, main):
         """
@@ -55,6 +67,39 @@ class Transform():
             return df
         else:
             return self.new(df)
+
+    def rmean(self, time_period="1Min", index_col=True):
+        """
+        Resample, and sum the main dataframe to a time period
+        """
+        self.df = self._rmean(time_period, True)
+        if index_col is True:
+            self.index_col()
+
+    def rmean_(self, time_period="1Min", index_col=True):
+        """
+        Resample, and sum a dataframe to a time period
+        """
+        ds = self._rmean(time_period, False)
+        if index_col is True:
+            ds.index_col()
+        return ds
+
+    def _rmean(self, time_period, main):
+        """
+        Resample, and sum the main dataframe to a time period
+        """
+        df = self.df.resample(time_period).mean()
+        if main is True:
+            return df
+        else:
+            return self.new(df)
+
+    def revert(self):
+        """
+        Reverts the main dataframe order
+        """
+        self.df = self.df.iloc[::-1]
 
     def apply(self, function):
         """
@@ -74,8 +119,14 @@ class Transform():
         """
         self.df[field] = value
 
-    def date_col(self, field):
+    def index_col(self, field="date"):
         """
-        Add a date column from the datetime index
+        Add a column from the index
         """
         self.df[field] = self.df.index.values
+
+    def rename(self, source_col, dest_col):
+        """
+        Renames a column in the main dataframe
+        """
+        self.df = self.df.rename(columns={source_col: dest_col})

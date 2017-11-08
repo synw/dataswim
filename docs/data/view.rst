@@ -25,7 +25,7 @@ View data
 
     Returns a dataframe profiling report
     
-**display** (``fields``)
+**display** (``*fields``)
 
     Display some columns head
     

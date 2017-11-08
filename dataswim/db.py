@@ -105,7 +105,7 @@ class Db():
         df = pd.DataFrame(list(res))
         return df
 
-    def get_relation(self, search_ds, origin_field, search_field, destination_field=None, id_field="id"):
+    def relation_(self, search_ds, origin_field, search_field, destination_field=None, id_field="id"):
         """
         Returns a dataframe with a column filled from a relation foreign key 
         """

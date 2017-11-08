@@ -1,5 +1,8 @@
 Database operations
--------------------
+===================
+
+Basic operations
+----------------
 
 **connect** (``url``)
 
@@ -21,6 +24,9 @@ Database operations
 
     Returns dataframe from a django orm query
     
+Queries
+-------
+    
 **tables** (``name=None``, ``p=True``)
 
     Print existing tables in a database
@@ -37,6 +43,16 @@ Database operations
 
     Get all rows values for a table
 
+Relations
+---------
+
+**relation** (``search_ds``, ``origin_field``, ``search_field``, ``destination_field=None``, ``id_field="id"``):
+
+    Add a column to the main dataframe from a relation foreign key 
+
+**relation_** (``search_ds``, ``origin_field``, ``search_field``, ``destination_field=None``, ``id_field="id"``):
+
+    Returns a dataframe with a column filled from a relation foreign key 
 
 
 

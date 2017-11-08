@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import pandas as pd
 from pandas_profiling import ProfileReport
 
 
@@ -66,18 +67,31 @@ class View():
             df = self.df
         return ProfileReport(df)
 
-    def display(self, fields):
+    def display(self, *fields):
         """
         Display some columns head
         """
-        if type(fields) == str:
-            df2 = self.df[[fields]]
-        else:
-            df2 = self.df[fields]
+        df2 = self.df[list(fields)]
         return df2.head()
 
     def vals(self, field):
         """
-        Returns a values count of a column     
+        Set the main dataframe from values count of a column     
         """
-        return self.df[field].value_counts()
+        self._vals(field, inplace=True)
+
+    def vals_(self, field):
+        """
+        Returns a DatasWim instance from values count of a column     
+        """
+        return self._vals(field, inplace=False)
+
+    def _vals(self, field, inplace=True):
+        """
+        Returns a DatasWim instance from values count of a column     
+        """
+        ds = self.new(pd.DataFrame(self.df[field].value_counts()))
+        if inplace is True:
+            self.df = ds.df
+        else:
+            return ds

@@ -9,6 +9,21 @@ Y = None
 
 
 class Plot():
+    """
+    Class to handle charts
+    """
+
+    def __init__(self, df=None, db=None):
+        """
+        Initialize with an empty dataframe
+        """
+        self.df = df
+        self.x_field = None
+        self.y_field = None
+        self.chart_obj = None
+        self.opts = dict(width=940)
+        self.style = None
+        self.label = None
 
     def chart(self, x_field=None, y_field=None, chart_type="line", opts=None, style=None, label=None):
         """
@@ -28,9 +43,9 @@ class Plot():
         else:
             Y = y_field
         if opts is not None:
-            self.chart_opts = opts
+            self.opts = opts
         if style is not None:
-            self.chart_style = style
+            self.style = style
         if label is not None:
             self.label = label
         self.x_field = x_field
@@ -59,6 +74,20 @@ class Plot():
         """
         return self._get_chart("area", style=style, opts=opts, label=label)
 
+    """
+    def hist(self, style=None, opts=None, label=None):
+        ""
+        Get an historiogram chart
+        ""
+        return self._get_chart("hist", style=style, opts=opts, label=label)
+
+    def errorbar(self, style=None, opts=None, label=None):
+        ""
+        Get a point chart
+        ""
+        return self._get_chart("err", style=style, opts=opts, label=label)
+    """
+
     def point(self, style=None, opts=None, label=None):
         """
         Get a point chart
@@ -69,39 +98,52 @@ class Plot():
         """
         Get a line and point chart
         """
-        style = self.chart_style
+        if style is None:
+            style = self.style
         style["color"] = colors["line"]
         l = self._get_chart("line", style=style)
         style["color"] = colors["point"]
         p = self._get_chart("point", style=style)
         return l * p
 
+    def opt(self, key, value):
+        """
+        Add or update an option value to defaults
+        """
+        self.opts[key] = value
+
+    def styl(self, key, value):
+        """
+        Add or update a style value to defaults
+        """
+        self.style[key] = value
+
     def color(self, color):
         """
         Set chart color
         """
-        self.chart_style["color"] = color
+        self.style["color"] = color
 
     def width(self, width):
         """
         Set chart width
         """
-        self.chart_opts["width"] = width
+        self.opts["width"] = width
 
     def height(self, height):
         """
         Set chart height
         """
-        self.chart_opts["height"] = height
+        self.opts["height"] = height
 
     def _get_chart(self, chart_type="line", x_field=None, y_field=None, style=None, opts=None, label=None):
         """
         Get a full chart object
         """
         if opts is None:
-            opts = self.chart_opts
+            opts = self.opts
         if style is None:
-            style = self.chart_style
+            style = self.style
         if x_field is None:
             x_field = self.x_field
         if y_field is None:
@@ -130,6 +172,10 @@ class Plot():
             chart = hv.Area(**args)
         elif chart_type == "bar":
             chart = hv.Bars(**args)
+        elif chart_type == "hist":
+            chart = hv.Histogram(**args)
+        elif chart_type == "err":
+            chart = hv.ErrorBars(**args)
         if chart is None:
             err.new("Chart type " + chart_type +
                     " unknown", self._get_base_chart)

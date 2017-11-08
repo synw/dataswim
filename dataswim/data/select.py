@@ -38,43 +38,45 @@ class Select():
         """
         self.df = self.backup_df
 
-    def first(self, main=True):
+    def first(self):
         """
         Select the first row
         """
-        if main is True:
-            return self.df.iloc[0]
-        else:
-            return self.df.iloc[0]
+        return self.df.iloc[0]
 
-    def limit(self, r=5, main=True):
+    def limit(self, r=5):
         """
         Limit selection the a range
         """
-        if main is True:
-            self.df = self.df[:r]
-        else:
-            return self.df[:r]
+        return self.df[:r]
 
-    def contains(self, value, field, main=True):
+    def contains(self, column, value):
         """
         Returns rows that contains a string value in a column
         """
-        df = self.df[self.df[field].str.contains(value) == True]
-        if main is True:
-            self.df = df
-        else:
-            return self.new(df.copy())
+        df = self.df[self.df[column].str.contains(value) == True]
+        return self.new(df.copy())
 
-    def exact(self, value, field, main=True):
+    def exact(self, column, value):
         """
         Returns rows that has the exact string value in a column
         """
-        df = self.df[self.df[field].isin([value])]
-        if main is True:
-            self.df = df
-        else:
-            return self.new(df.copy())
+        df = self.df[self.df[column].isin([value])]
+        return self.new(df.copy())
+
+    def filter(self, column, value):
+        """
+        Filters the main dataframe based on column value
+        """
+        self.df = self.df.loc[self.df[column] == value]
+
+    def filter_(self, column, value):
+        """
+        Returns a filtered dataframe based on column value
+        """
+        df2 = self.df.copy()
+        df = df2.loc[df2[column] == value]
+        return self.new(df)
 
     def range(self, num, unit):
         """

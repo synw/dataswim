@@ -14,27 +14,39 @@ class DataSwim(Db, Df, Plot, Report):
     Main class
     """
 
-    def __init__(self, df=None):
+    def __init__(self, df=None, db=None):
         """
         Initialize with an empty dataframe
         """
         self.df = df
-        self.db = None
+        self.db = db
         self.x_field = None
         self.y_field = None
         self.chart_obj = None
-        self.chart_opts = dict(width=940)
-        self.chart_style = dict(color="blue")
+        self.opts = dict(width=940)
+        self.style = dict(color="blue")
         self.label = None
         self.reports = []
         self.report_path = None
         self.backup_df = None
 
-    def new(self, df):
+    def new(self, df=None, db=None):
         """
-        Returns a new instance from a dataframe
+        Returns a new DataSwim instance from a dataframe
         """
-        return DataSwim(df)
+        return DataSwim(df, db)
+
+    def duplicate(self):
+        """
+        Returns a new DataSwim instance using the previous database connection
+        """
+        return DataSwim(db=self.db)
+
+    def clone(self):
+        """
+        Returns a new DataSwim instance from the current instance
+        """
+        return DataSwim(self.df, self.db)
 
 
 ds = DataSwim()
