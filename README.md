@@ -8,10 +8,9 @@ A simple api to clean, transform and visualize data. This api is:
 
 ## Dependencies
 
-[Dataset](https://dataset.readthedocs.io/en/latest/) and [Sql Alchemy](http://www.sqlalchemy.org) to work with databases
+[Pandas](https://github.com/pandas-dev/pandas) to work with data
 
-[Pandas](https://github.com/pandas-dev/pandas) and 
-[Pandas profiling](https://github.com/JosPolfliet/pandas-profiling) to work with data
+[Dataset](https://dataset.readthedocs.io/en/latest/) and [Sql Alchemy](http://www.sqlalchemy.org) to work with databases
 
 [Holoviews](http://holoviews.org/) and [Bokeh](https://bokeh.pydata.org/en/latest/) to chart data
 
@@ -20,7 +19,7 @@ A simple api to clean, transform and visualize data. This api is:
 Using conda:
 
    ```
-   conda install pandas
+   conda install pandas sqlalchemy
    conda install -c ioam holoviews bokeh
    pip install dataswim
    ```
@@ -33,8 +32,18 @@ Using pip:
 
 ## Usage
 
-Read the [api documentation](http://dataswim.readthedocs.io/en/latest/index.html). Note: the api may change
-and is not stable yet.
+Read the [api documentation](http://dataswim.readthedocs.io/en/latest/index.html). 
+
+Note: the api may change and is not stable yet. The doc is in sync with master. To autobuild the docs for your
+installed version clone and:
+
+   ```
+   pip install sphinx
+   
+   cd docs
+   make html
+   firefox _build/html/api_auto.html
+   ``` 
 
 ## Example
 
