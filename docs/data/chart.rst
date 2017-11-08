@@ -29,10 +29,10 @@ Chart options
     
 **opt** (``key``, ``value``)
 
-    Set chart color
+    Add or update an option value to defaults
 
-**style** (``key``, ``value``)
+**styl** (``key``, ``value``)
 
-    Set chart height
+    Add or update a style value to defaults
 
 
