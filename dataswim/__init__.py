@@ -8,6 +8,8 @@ from .charts import Plot
 from .data import Df
 from .report import Report
 
+__version__ = "0.2.2"
+
 
 class DataSwim(Db, Df, Plot, Report):
     """
@@ -18,6 +20,8 @@ class DataSwim(Db, Df, Plot, Report):
         """
         Initialize with an empty dataframe
         """
+        global __version__
+        self.version = __version__
         self.df = df
         self.db = db
         self.x_field = None
