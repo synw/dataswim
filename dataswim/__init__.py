@@ -8,7 +8,7 @@ from .charts import Plot
 from .data import Df
 from .report import Report
 
-__version__ = "0.2.2"
+__version__ = "0.2.3"
 
 
 class DataSwim(Db, Df, Plot, Report):
