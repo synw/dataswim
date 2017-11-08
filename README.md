@@ -55,7 +55,8 @@ connecting to a Django database.
 
 **Resample data demo**: demonstrates how to resample data by time periods
 
-Run the users demo notebook:
+Run the users demo notebook: to run online click the 
+badge: [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/synw/dataswim-notebooks/master)
 
 ```python
 from dataswim import ds
