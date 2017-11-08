@@ -3,3 +3,4 @@ pandas-profiling
 dataset
 holoviews
 bokeh
+goerr
