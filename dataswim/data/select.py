@@ -64,20 +64,6 @@ class Select():
         df = self.df[self.df[column].isin([value])]
         return self.new(df.copy())
 
-    def filter(self, column, value):
-        """
-        Filters the main dataframe based on column value
-        """
-        self.df = self.df.loc[self.df[column] == value]
-
-    def filter_(self, column, value):
-        """
-        Returns a filtered dataframe based on column value
-        """
-        df2 = self.df.copy()
-        df = df2.loc[df2[column] == value]
-        return self.new(df)
-
     def range(self, num, unit):
         """
         Limit the data in a time range
