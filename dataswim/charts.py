@@ -74,19 +74,17 @@ class Plot():
         """
         return self._get_chart("area", style=style, opts=opts, label=label)
 
-    """
     def hist(self, style=None, opts=None, label=None):
-        ""
+        """
         Get an historiogram chart
-        ""
+        """
         return self._get_chart("hist", style=style, opts=opts, label=label)
 
     def errorbar(self, style=None, opts=None, label=None):
-        ""
+        """
         Get a point chart
-        ""
+        """
         return self._get_chart("err", style=style, opts=opts, label=label)
-    """
 
     def point(self, style=None, opts=None, label=None):
         """
