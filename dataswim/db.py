@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function
 import dataset
 import pandas as pd
+from goerr import err
 
 
 class Db():
@@ -19,30 +21,42 @@ class Db():
         """
         Connect to the database and set it as main database
         """
-        self.db = dataset.connect(url)
+        try:
+            self.db = dataset.connect(url)
+        except Exception as e:
+            err.new(e)
+        if self.db is None:
+            err.new("Database" + url + " not found", self.connect)
+            err.trace()
+        if self.autoprint is True:
+            self.ok("Db", self.db.url, "connected")
 
     def load(self, table):
         """
         Set the main dataframe from a table's data
         """
+        self._check_db()
         self._load(table, True)
 
-    def get_load(self, table):
+    def load_(self, table):
         """
-        Returns a table's data
+        Returns a DataSwim instance from a table's data
         """
-        return self._load(table, False)
+        self._check_db()
+        return self.new(self._load(table, False))
 
-    def get_load_django(self, query):
+    def load_django_(self, query):
         """
-        Returns dataframe from a django orm query
+        Returns a DataSwim instance from a django orm query
         """
-        return pd.DataFrame(list(query.values()))
+        self._check_db()
+        return self.new(pd.DataFrame(list(query.values())))
 
     def load_django(self, query):
         """
         Set a main dataframe from a django orm query
         """
+        self._check_db()
         self.df = pd.DataFrame(list(query.values()))
 
     def _load(self, table, main=True):
@@ -55,12 +69,13 @@ class Db():
         if main is True:
             self.df = df
         else:
-            return self.new(df)
+            return df
 
     def tables(self, name=None, p=True):
         """
         Print existing tables in a database
         """
+        self._check_db()
         t = self.db.tables
         if name is not None:
             pmodels = [x for x in t if name in x]
@@ -74,12 +89,13 @@ class Db():
         """
         Display info about a table
         """
+        self._check_db()
         if t is None:
             df = self.df
         else:
             df = self.getall(t)
-        num = len(self.df.index)
         if p is True:
+            num = len(self.df.index)
             print(num, "rows")
             print("Fields:", ", ".join(list(df)))
         return df.head()
@@ -88,6 +104,7 @@ class Db():
         """
         Count rows for a table
         """
+        self._check_db()
         data = {}
         for m in self.tables(name, False):
             num = self.db[m].count()
@@ -101,20 +118,27 @@ class Db():
         """
         Get all rows values for a table
         """
+        self._check_db()
+        if table not in self.db.tables:
+            err.new("The table " + table + " does not exists", self.getall)
+            err.trace()
+            return
         res = self.db[table].all()
         df = pd.DataFrame(list(res))
         return df
 
     def relation_(self, search_ds, origin_field, search_field, destination_field=None, id_field="id"):
         """
-        Returns a dataframe with a column filled from a relation foreign key 
+        Returns a DataSwim instance with a column filled from a relation foreign key 
         """
+        self._check_db()
         return self._relation(search_ds, origin_field, search_field, destination_field, id_field, False)
 
     def relation(self, search_ds, origin_field, search_field, destination_field=None, id_field="id"):
         """
         Add a column to the main dataframe from a relation foreign key 
         """
+        self._check_db()
         return self._relation(search_ds, origin_field, search_field, destination_field, id_field, True)
 
     def _relation(self, search_ds, origin_field, search_field, destination_field=None, id_field="id", main=True):
@@ -140,3 +164,49 @@ class Db():
             self.df = df
         else:
             return self.new(df)
+
+    def insert(self, table, records, create_cols=True):
+        """
+        Insert one or many records in the database from a dictionary or a list of dictionaries
+        """
+        self._check_db()
+        table = self.db[table]
+        t = type(records)
+        if t == dict:
+            func = table.insert
+        elif t == list:
+            func = table.insert_many
+        else:
+            err.new("Rows datatype " + str(t) +
+                    " not valid: use a list or a dictionary")
+            err.throw()
+        if create_cols is True:
+            func(records, ensure=True)
+        else:
+            func(records)
+        if self.autoprint is True:
+            self.ok("Rows inserted in the database")
+
+    def to_db(self, table, db_url=None):
+        """
+        Save the main dataframe to the database
+        """
+        if self.db is None and db_url is None:
+            err.new(
+                "Please connect a database before or provide a database url", self.to_db)
+            err.throw()
+        if db_url is not None:
+            self.connect(db_url)
+        dic = self.to_records_()
+        self.insert(table, dic)
+
+    def _check_db(self, friendly=False):
+        """
+        Checks the database connection
+        """
+        if self.db is None:
+            err.new("Please connect a database before or provide a database url")
+            if friendly is False:
+                err.throw()
+            else:
+                err.trace()

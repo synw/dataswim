@@ -80,7 +80,7 @@ class Clean():
             if to_int is True:
                 self.to_int(numeric_col)
         if index_col is True:
-            self.index_col("date")
+            self.index_col()
         self.index_col(date_col)
 
     def date(self, fields):

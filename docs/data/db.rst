@@ -12,17 +12,21 @@ Basic operations
 
     Set the main dataframe from a table’s data
     
-**get_load** (``table``)
+**load_** (``table``)
 
-    Returns a table's data in a dataframe
+    Returns a DataSwim instance from a table's data
 
 **load_django** (``query``)
 
     Set a main dataframe from a django orm query
     
-**get_load_django** (``query``)
+**load_django_** (``query``)
 
-    Returns dataframe from a django orm query
+    Returns a DataSwim instance from a django orm query
+    
+**insert** (``table``, ``records``, ``create_cols=True``)
+
+    Insert one or many records in the database from a dictionary or a list of dictionaries
     
 Queries
 -------
@@ -52,8 +56,14 @@ Relations
 
 **relation_** (``search_ds``, ``origin_field``, ``search_field``, ``destination_field=None``, ``id_field="id"``):
 
-    Returns a dataframe with a column filled from a relation foreign key 
+    Returns a DataSwim instance with a column filled from a relation foreign key
+    
+Import data
+-----------
 
+**to_db** (``table``, ``db_url=None``)
+
+    Save the main dataframe to the database
 
 
     

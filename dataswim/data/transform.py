@@ -15,7 +15,7 @@ class Transform():
         self.df = df
         self.db = db
 
-    def get_reduce(self, *fields):
+    def reduce_(self, *fields):
         """
         Limit a dataframe to some columns
         """
@@ -33,7 +33,7 @@ class Transform():
         """
         self.df = self.df.drop(field, axis=1)
 
-    def resample(self, time_period="1Min"):
+    def resample_(self, time_period="1Min"):
         """
         Resample the main dataframe to a time period and optionaly create
         a date column from the datetime index
@@ -41,21 +41,25 @@ class Transform():
         df = self.df.resample(time_period)
         return df
 
-    def rsum(self, time_period="1Min", index_col=True):
+    def rsum(self, time_period="1Min", index_col=True, fill_col=True):
         """
         Resample, and sum the main dataframe to a time period
         """
         self.df = self._rsum(time_period, True)
         if index_col is True:
             self.index_col()
+        if fill_col is True:
+            self.fill(fill_col)
 
-    def rsum_(self, time_period="1Min", index_col=True):
+    def rsum_(self, time_period="1Min", index_col=True, fill_col=True):
         """
         Resample, and sum a dataframe to a time period
         """
         ds = self._rsum(time_period, False)
         if index_col is True:
             ds.index_col()
+        if fill_col is True:
+            ds.fill(fill_col)
         return ds
 
     def _rsum(self, time_period, main):
@@ -64,25 +68,29 @@ class Transform():
         """
         df = self.df.resample(time_period).sum()
         if main is True:
-            return df
+            return self
         else:
             return self.new(df)
 
-    def rmean(self, time_period="1Min", index_col=True):
+    def rmean(self, time_period="1Min", index_col=True, fill_col=True):
         """
         Resample, and sum the main dataframe to a time period
         """
         self.df = self._rmean(time_period, True)
         if index_col is True:
             self.index_col()
+        if fill_col is True:
+            self.fill(fill_col)
 
-    def rmean_(self, time_period="1Min", index_col=True):
+    def rmean_(self, time_period="1Min", index_col=True, fill_col=True):
         """
         Resample, and sum a dataframe to a time period
         """
         ds = self._rmean(time_period, False)
         if index_col is True:
             ds.index_col()
+        if fill_col is True:
+            ds.fill(fill_col)
         return ds
 
     def _rmean(self, time_period, main):
@@ -91,7 +99,7 @@ class Transform():
         """
         df = self.df.resample(time_period).mean()
         if main is True:
-            return df
+            return self
         else:
             return self.new(df)
 

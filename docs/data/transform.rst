@@ -16,7 +16,7 @@ Columns
 
     Limit the main dataframe to some columns
     
-**get_reduce** (``fields``)
+**reduce_** (``fields``)
 
     Returns a dataframe limited to some columns from the main dataframe
     
@@ -34,7 +34,7 @@ Rows
 Resample
 --------
     
-**resample** (``time_period='1Min'``)
+**resample_** (``time_period='1Min'``)
 
     Returns a resampled dataframe from the main dataframe to a time period
     
@@ -45,6 +45,14 @@ Resample
 **rsum_** (``time_period="1Min"``)
 
     Returns a resampled and sumed dataframe from the main dataframe to a time period
+    
+**rmean** (``time_period="1Min"``)
+
+    Resample and mean the main dataframe to a time period
+    
+**rmean_** (``time_period="1Min"``)
+
+    Returns a resampled and meaned dataframe from the main dataframe to a time period
     
 **apply** (``function``)
 

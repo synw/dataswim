@@ -10,7 +10,11 @@ Rows
     
 **limit** (``r=5``)
 
-    Limit selection the a range
+    Limit selection the a range in the main dataframe
+    
+**limit_** (``r=5``)
+
+    Returns a DataSwim instance with limited selection
     
 **contains** (``column``, ``value``)
 
@@ -31,6 +35,13 @@ Rows
 **range** (``num``, ``unit``)
 
     Limit the data in a time range
+    
+Columns
+-------
+
+**col_dict_** (``column``, ``key=None``)
+
+    Returns a dictionnary from a column's values
     
 Dataframes
 ----------
@@ -58,4 +69,9 @@ Dataframes
 **restore** ()
 
     Restore the main dataframe
+    
+**to_records_** ()
+
+    Returns a list of dictionary records from the main dataframe
+
  

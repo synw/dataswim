@@ -8,7 +8,7 @@ from .charts import Plot
 from .data import Df
 from .report import Report
 
-__version__ = "0.2.3"
+__version__ = "0.2.2"
 
 
 class DataSwim(Db, Df, Plot, Report):
@@ -33,6 +33,7 @@ class DataSwim(Db, Df, Plot, Report):
         self.reports = []
         self.report_path = None
         self.backup_df = None
+        self.autoprint = True
 
     def new(self, df=None, db=None):
         """
@@ -51,6 +52,17 @@ class DataSwim(Db, Df, Plot, Report):
         Returns a new DataSwim instance from the current instance
         """
         return DataSwim(self.df, self.db)
+
+    def ok(self, *msg):
+        """
+        Returns a message with an ok prefix
+        """
+        li = []
+        for el in msg:
+            li.append(str(el))
+        txt = " ".join(li)
+        res = "[ok] " + txt
+        print(res)
 
 
 ds = DataSwim()

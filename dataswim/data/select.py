@@ -46,9 +46,22 @@ class Select():
 
     def limit(self, r=5):
         """
-        Limit selection the a range
+        Limit selection the a range in the main dataframe
         """
-        return self.df[:r]
+        self.df = self.df[:r]
+
+    def limit_(self, r=5):
+        """
+        Returns a DataSwim instance with limited selection
+        """
+        return self.new(self.df[:r])
+
+    def unique(self, column):
+        """
+        Returns unique values in a colum
+        """
+        df = self.df[column].unique()
+        return df
 
     def contains(self, column, value):
         """
@@ -68,5 +81,13 @@ class Select():
         """
         Limit the data in a time range
         """
-        self.df = self.df[self.df.last_valid_index() -
-                          pd.DateOffset(num, unit):]
+        df = self.df[self.df.last_valid_index() -
+                     pd.DateOffset(num, unit):]
+        return self.new(df)
+
+    def to_records_(self):
+        """
+        Returns a list of dictionary records from the main dataframe
+        """
+        dic = self.df.to_dict(orient="records")
+        return dic
