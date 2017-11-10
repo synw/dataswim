@@ -43,7 +43,7 @@ installed version clone and:
    
    cd docs
    make html
-   firefox _build/html/api_auto.html
+   firefox _build/html/api_auto.html&
    ``` 
 
 ## Example
