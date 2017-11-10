@@ -7,6 +7,7 @@ from .db import Db
 from .charts import Plot
 from .data import Df
 from .report import Report
+from goerr.colors import cols
 
 __version__ = "0.2.2"
 
@@ -36,17 +37,25 @@ class DataSwim(Db, Df, Plot, Report):
         self.autoprint = True
         self.errors_handling = "exceptions"
 
+    def __repr__(self):
+        msg = "<DataSwim object>"
+        return msg
+
     def new(self, df=None, db=None):
         """
         Returns a new DataSwim instance from a dataframe
         """
         return DataSwim(df, db)
 
-    def duplicate(self):
+    def duplicate(self, db=None, df=None):
         """
         Returns a new DataSwim instance using the previous database connection
         """
-        return DataSwim(db=self.db)
+        if db is None:
+            db = self.db
+        if df is None:
+            df = self.df.copy()
+        return DataSwim(db=db, df=df)
 
     def clone(self):
         """
@@ -62,7 +71,7 @@ class DataSwim(Db, Df, Plot, Report):
         for el in msg:
             li.append(str(el))
         txt = " ".join(li)
-        res = "[ok] " + txt
+        res = "[" + cols.SUCCESS + "ok" + cols.ENDC + "] " + txt
         print(res)
 
     def err(self, *args):
@@ -71,7 +80,8 @@ class DataSwim(Db, Df, Plot, Report):
         """
         err.new(*args)
         if self.errors_handling == "trace":
-            print("An error has occured: use trace() to get the stack trace")
+            print(str(len(err.errs)) + ".",
+                  "An error has occured: use ds.trace() to get the stack trace")
         else:
             err.throw()
 
@@ -80,8 +90,29 @@ class DataSwim(Db, Df, Plot, Report):
         Prints the error trace
         """
         if err is not None:
-            print("ERR", err)
-            err.trace()
+            err.throw()
+        else:
+            print("No errors")
+
+    def warning(self, msg):
+        """
+        Prints a warning
+        """
+        print("[" + cols.WARNING + "WARNING" + "]" + cols.ENDC + " " + msg)
+
+    def debug(self, msg):
+        """
+        Prints a warning
+        """
+        print("[" + cols.WARNING + "DEBUG" + "]" + cols.ENDC + " " + msg)
+
+    def fatal(self, *args):
+        """
+        Prints the error trace
+        """
+        if len(args) > 0:
+            err.new(*args)
+            err.throw()
         else:
             print("No errors")
 

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import holoviews as hv
+from holoviews.core.data.interface import DataError
 from goerr import err
 
 
@@ -37,11 +38,12 @@ class Plot():
             self.label = label
         self.x_field = x_field
         self.y_field = y_field
-        self.chart_obj = self._get_chart(chart_type, x_field,
-                                         y_field, style=style, opts=opts, label=label)
-        if err.exists:
-            err.throw()
-        return self.chart_obj
+        try:
+            self.chart_obj = self._get_chart(chart_type, x_field,
+                                             y_field, style=style, opts=opts, label=label)
+            return self.chart_obj
+        except Exception as e:
+            self.err(e)
 
     def bar(self, style=None, opts=None, label=None):
         """
@@ -136,10 +138,13 @@ class Plot():
             x_field = self.x_field
         if y_field is None:
             y_field = self.y_field
-        base_chart = self._get_base_chart(
-            x_field, y_field, chart_type, label)
-        chart = base_chart(plot=opts, style=style)
-        return chart
+        try:
+            base_chart = self._get_base_chart(
+                x_field, y_field, chart_type, label)
+            chart = base_chart(plot=opts, style=style)
+            return chart
+        except Exception as e:
+            self.err(e)
 
     def _get_base_chart(self, x_field, y_field, chart_type="line", label=None):
         """
@@ -152,19 +157,25 @@ class Plot():
             if self.label is not None:
                 args["label"] = self.label
         chart = None
-        if chart_type == "line":
-            chart = hv.Curve(**args)
-        elif chart_type == "point":
-            chart = hv.Scatter(**args)
-        elif chart_type == "area":
-            chart = hv.Area(**args)
-        elif chart_type == "bar":
-            chart = hv.Bars(**args)
-        elif chart_type == "hist":
-            chart = hv.Histogram(**args)
-        elif chart_type == "err":
-            chart = hv.ErrorBars(**args)
+        try:
+            if chart_type == "line":
+                chart = hv.Curve(**args)
+            elif chart_type == "point":
+                chart = hv.Scatter(**args)
+            elif chart_type == "area":
+                chart = hv.Area(**args)
+            elif chart_type == "bar":
+                chart = hv.Bars(**args)
+            elif chart_type == "hist":
+                chart = hv.Histogram(**args)
+            elif chart_type == "err":
+                chart = hv.ErrorBars(**args)
+            return chart
+        except DataError as e:
+            msg = "Column not found in " + x_field + " and " + y_field
+            self.err(e, msg)
+        except Exception as e:
+            self.err(e)
         if chart is None:
-            err.new("Chart type " + chart_type +
-                    " unknown", self._get_base_chart)
-        return chart
+            self.err("Chart type " + chart_type +
+                     " unknown", self._get_base_chart)

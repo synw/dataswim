@@ -46,9 +46,13 @@ Columns
 Dataframes
 ----------
 
-**load_csv** (``url``)
+**load_csv** (``url``, ``index_col=None``)
 
     Initialize the main dataframe from csv data
+    
+**load_csv_** (``url``, ``index_col=None``)
+
+    Returns a DataSwim instance from csv data
     
 **set** (``df=None``, ``db=None``)
 

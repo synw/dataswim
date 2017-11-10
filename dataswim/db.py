@@ -46,6 +46,18 @@ class Db():
         self._check_db()
         return self.new(self._load(table, False))
 
+    def _load(self, table, main=True):
+        """
+        Set the main dataframe or return table's data
+        """
+        df = self.getall(table)
+        if df is None:
+            print("Can not get table " + table + " values")
+        if main is True:
+            self.df = df
+        else:
+            return df
+
     def load_django_(self, query):
         """
         Returns a DataSwim instance from a django orm query
@@ -59,18 +71,6 @@ class Db():
         """
         self._check_db()
         self.df = pd.DataFrame(list(query.values()))
-
-    def _load(self, table, main=True):
-        """
-        Set the main dataframe or return table's data
-        """
-        df = self.getall(table)
-        if df is None:
-            print("Can not get table " + table + " values")
-        if main is True:
-            self.df = df
-        else:
-            return df
 
     def tables(self, name=None, p=True):
         """

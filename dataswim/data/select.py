@@ -14,83 +14,147 @@ class Select():
         """
         self.df = df
 
-    def load_csv(self, url):
+    def load_csv(self, url, dateindex=None, index_col=None, fill_col=None):
         """
         Initialize the main dataframe from csv data
         """
-        self.df = pd.read_csv(url)
+        try:
+            self.df = self._load_csv(
+                url, dateindex, index_col, fill_col).df
+        except Exception as e:
+            self.err(e, "Can not load csv file")
+
+    def load_csv_(self, url, dateindex=None, index_col=None, fill_col=None):
+        """
+        Returns a DataSwim instance from csv data
+        """
+        try:
+            return self._load_csv(url, dateindex, index_col, fill_col)
+        except Exception as e:
+            self.err(e, "Can not load csv file")
+
+    def _load_csv(self, url, dateindex, index_col, fill_col):
+        """
+        Returns a DataSwim instance from csv data
+        """
+        try:
+            df = pd.read_csv(url)
+            ds2 = self.duplicate(df=df)
+        except FileNotFoundError as e:
+            msg = "File " + url + " not found"
+            self.warning(msg)
+            return
+        except Exception as e:
+            self.err(e)
+            return
+        ds2 = ds2.index_fill_(dateindex, index_col, fill_col, quiet=True)
+        return ds2
 
     def set(self, df):
         """
         Set a main dataframe
         """
-        self.df = df.copy()
+        try:
+            self.df = df.copy()
+        except Exception as e:
+            self.err(e)
 
     def backup(self):
         """
         Backup the main dataframe
         """
-        self.backup_df = self.df.copy()
+        try:
+            self.backup_df = self.df.copy()
+        except Exception as e:
+            self.err(e)
 
     def restore(self):
         """
         Restore the main dataframe
         """
-        self.df = self.backup_df
+        try:
+            self.df = self.backup_df
+        except Exception as e:
+            self.err(e)
 
     def first(self):
         """
         Select the first row
         """
-        return self.df.iloc[0]
+        try:
+            return self.df.iloc[0]
+        except Exception as e:
+            self.err(e)
 
     def limit(self, r=5):
         """
         Limit selection the a range in the main dataframe
         """
-        self.df = self.df[:r]
+        try:
+            self.df = self.df[:r]
+        except Exception as e:
+            self.err(e)
 
     def limit_(self, r=5):
         """
         Returns a DataSwim instance with limited selection
         """
-        return self.new(self.df[:r])
+        try:
+            return self.new(self.df[:r])
+        except Exception as e:
+            self.err(e)
 
     def unique(self, column):
         """
         Returns unique values in a colum
         """
-        df = self.df[column].unique()
-        return df
+        try:
+            df = self.df[column].unique()
+            return df
+        except Exception as e:
+            self.err(e)
 
     def contains(self, column, value):
         """
         Returns rows that contains a string value in a column
         """
-        df = self.df[self.df[column].str.contains(value) == True]
-        return self.new(df.copy())
+        try:
+            df = self.df[self.df[column].str.contains(value) == True]
+            return self.new(df.copy())
+        except Exception as e:
+            self.err(e)
 
     def exact(self, column, value):
         """
         Returns rows that has the exact string value in a column
         """
         try:
-            df = self.df[self.df[column].isin([value])]
+            try:
+                df = self.df[self.df[column].isin([value])]
+            except Exception as e:
+                self.err(e)
+                return
         except:
-            return None
+            return
         return self.new(df.copy())
 
     def range(self, num, unit):
         """
         Limit the data in a time range
         """
-        df = self.df[self.df.last_valid_index() -
-                     pd.DateOffset(num, unit):]
-        return self.new(df)
+        try:
+            df = self.df[self.df.last_valid_index() -
+                         pd.DateOffset(num, unit):]
+            return self.new(df)
+        except Exception as e:
+            self.err(e)
 
     def to_records_(self):
         """
         Returns a list of dictionary records from the main dataframe
         """
-        dic = self.df.to_dict(orient="records")
-        return dic
+        try:
+            dic = self.df.to_dict(orient="records")
+            return dic
+        except Exception as e:
+            self.err(e)

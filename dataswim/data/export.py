@@ -40,14 +40,6 @@ class Export():
         data = self._build_export(renderer)
         return data
 
-    def to_csv_(self):
-        """
-        Exports the main dataframe to csv
-        """
-        renderer = pytablewriter.CsvTableWriter
-        data = self._build_export(renderer)
-        return data
-
     def to_javascript_(self, table_name="table"):
         """
         Exports the main dataframe to javascript
@@ -82,15 +74,15 @@ class Export():
         writer.write_table_iter()
         writer.close()
         if self.autoprint is True:
-            print("File exported to", filepath)
+            self.ok("File exported to", filepath)
 
-    def to_csv(self, filepath):
+    def to_csv(self, filepath, index=False):
         """
         Saves the main dataframe to a csv file
         """
-        self.df.to_csv(filepath, encoding='utf-8')
+        self.df.to_csv(filepath, encoding='utf-8', index=index)
         if self.autoprint is True:
-            print("File exported to", filepath)
+            self.ok("Data exported to", filepath)
 
     def _build_export(self, renderer, table_name=None):
         """
