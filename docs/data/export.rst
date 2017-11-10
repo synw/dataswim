@@ -1,22 +1,38 @@
 Export data
 ===========
 
-**csv** (``path``)
+**to_html_** ()
 
-    Saves the main dataframe to a csv file
+    Exports the main dataframe to html
     
-**stack** (``slug``, ``title``, ``chart_obj=None``)
+**to_json_** ()
 
-    Get the html for a chart and store it
+    Exports the main dataframe to json
     
-**file** (``slug``, ``folderpath=None``, ``p=True``)
+**to_markdown_** ()
 
-    Writes the html report to a file from the report stack
+    Exports the main dataframe to markdown
     
-**files** (``folderpath=None``, ``p=True``)
+**to_rst_** ()
 
-    Writes the html report to one file per report from the report stack
+    Exports the main dataframe to restructured text
     
-**get_html** (``chart_obj=None``)
+**to_csv_** ()
 
-    Get the html and script tag for a chart
+    Exports the main dataframe to csv
+    
+**to_numpy_** (``table_name="table"``)
+
+    Exports the main dataframe to a numpy array
+    
+**to_javascript_** (``table_name="table"``)
+
+    Exports the main dataframe to javascript
+    
+**to_python_** (``table_name="table"``)
+
+    Exports the main dataframe to python code
+    
+**to_excell** (``filepath``, ``table_name="table"``)
+
+    Writes the main dataframe to an Excell file

@@ -38,35 +38,50 @@ class Transform():
         Resample the main dataframe to a time period and optionaly create
         a date column from the datetime index
         """
-        df = self.df.resample(time_period)
+        try:
+            df = self.df.resample(time_period)
+        except Exception as e:
+            self.err(e)
+            return
         return df
 
-    def rsum(self, time_period="1Min", index_col=True, fill_col=True):
+    def rsum(self, time_period="1Min", index_col=True, fill_cols=None):
         """
         Resample, and sum the main dataframe to a time period
         """
-        self.df = self._rsum(time_period, True)
-        if index_col is True:
-            self.index_col()
-        if fill_col is True:
-            self.fill(fill_col)
+        try:
+            self.df = self._rsum(time_period, True)
+        except Exception as e:
+            self.err(e)
 
-    def rsum_(self, time_period="1Min", index_col=True, fill_col=True):
+    def rsum_(self, time_period="1Min", index_col=True, fill_cols=None):
         """
         Resample, and sum a dataframe to a time period
         """
-        ds = self._rsum(time_period, False)
-        if index_col is True:
-            ds.index_col()
-        if fill_col is True:
-            ds.fill(fill_col)
+        try:
+            ds = self._rsum(time_period, False)
+        except Exception as e:
+            self.err(e)
+            return
         return ds
 
-    def _rsum(self, time_period, main):
+    def _rsum(self, time_period, main, index_col=True, fill_cols=None):
         """
         Resample, and sum the main dataframe to a time period
         """
         df = self.df.resample(time_period).sum()
+        if index_col is True:
+            try:
+                self.index_col()
+            except Exception as e:
+                self.err(e)
+                return
+        if fill_cols is not None:
+            try:
+                self.fill(fill_cols)
+            except Exception as e:
+                self.err(e)
+                return
         if main is True:
             return self
         else:
@@ -131,7 +146,10 @@ class Transform():
         """
         Add a column from the index
         """
-        self.df[field] = self.df.index.values
+        try:
+            self.df[field] = self.df.index.values
+        except Exception as e:
+            self.err(e)
 
     def rename(self, source_col, dest_col):
         """

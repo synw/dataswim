@@ -34,6 +34,7 @@ class DataSwim(Db, Df, Plot, Report):
         self.report_path = None
         self.backup_df = None
         self.autoprint = True
+        self.errors_handling = "exceptions"
 
     def new(self, df=None, db=None):
         """
@@ -63,6 +64,32 @@ class DataSwim(Db, Df, Plot, Report):
         txt = " ".join(li)
         res = "[ok] " + txt
         print(res)
+
+    def err(self, *args):
+        """
+        Error handling
+        """
+        err.new(*args)
+        if self.errors_handling == "trace":
+            print("An error has occured: use trace() to get the stack trace")
+        else:
+            err.throw()
+
+    def trace(self):
+        """
+        Prints the error trace
+        """
+        if err is not None:
+            print("ERR", err)
+            err.trace()
+        else:
+            print("No errors")
+
+    def errs(self):
+        """
+        Sets the error handling mode to trace
+        """
+        self.errors_handling = "trace"
 
 
 ds = DataSwim()

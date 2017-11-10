@@ -37,5 +37,12 @@ Dataswim
    :caption: Export data
 
    data/export
+   
+.. toctree::
+   :maxdepth: 2
+   :titlesonly:
+   :caption: Build reports
+
+   data/reports
 
 

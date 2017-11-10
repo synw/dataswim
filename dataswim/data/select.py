@@ -74,7 +74,10 @@ class Select():
         """
         Returns rows that has the exact string value in a column
         """
-        df = self.df[self.df[column].isin([value])]
+        try:
+            df = self.df[self.df[column].isin([value])]
+        except:
+            return None
         return self.new(df.copy())
 
     def range(self, num, unit):

@@ -4,6 +4,7 @@ from __future__ import print_function
 import dataset
 import pandas as pd
 from goerr import err
+from numpy.core.numeric import nan
 
 
 class Db():
@@ -152,14 +153,30 @@ class Db():
         df[destination_field] = None
 
         def set_rel(row):
-            d = search_ds.exact(row[origin_field], id_field, False)
+            # print(row)
+            # return
+            serie = df.loc[row[origin_field]]
+            val = serie[origin_field]
+            print(val, id_field)
+            try:
+                #print("Search", str(type(val)))
+                d = search_ds.exact(val, search_field)
+            except Exception as e:
+                return nan
+                #self.err(e, "can not find exact key", self._relation)
+                # return
             try:
                 val = d.first(False)[search_field]
                 return val
-            except:
-                return None
-
-        df[destination_field] = df.apply(set_rel, axis=1)
+            except Exception as e:
+                return nan
+        try:
+            df = df.reset_index(drop=True)
+            #df = df.set_index(id_field)
+            df[destination_field] = df.apply(set_rel, axis=1)
+        except Exception as e:
+            self.err(e)
+            return
         if main is True:
             self.df = df
         else:

@@ -51,9 +51,12 @@ class View():
         """
         Display info about a table
         """
-        if dataframe is None:
-            df = self.df
-        num = len(self.df.index)
+        try:
+            if dataframe is None:
+                df = self.df
+            num = len(self.df.index)
+        except Exception as e:
+            self.err(e)
         if p is True:
             print(num, "rows")
             print("Fields:", ", ".join(list(df)))

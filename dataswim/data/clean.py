@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
+from goerr import err
 
 
 class Clean():
@@ -17,33 +18,29 @@ class Clean():
         else:
             self.df[field] = self.df[field].dropna(how='all')
 
-    def to_int(self, fields):
-        """
-        Convert a column values to integers either from a list of columns or a 
-        single column name string
-        """
-        if type(fields) == str:
-            self.df[fields] = self.df[fields].apply(lambda x: int(x))
-        else:
-            for el in fields:
-                self.df[el] = self.df[el].apply(lambda x: int(x))
-
     def nan_empty(self, field):
         """
         Fill empty values with NaN values
         """
         self.df[field] = self.df[field].replace('', NaN)
 
-    def fill(self, fields, val=0):
+    def fill_nan(self, fields, val=0):
         """
         Fill NaN values with new values either from a list of columns or a 
         single column name string
         """
         if type(fields) == str:
-            self.df[fields] = self.df[fields].fillna(val)
+            try:
+                self.df[fields] = self.df[fields].fillna(val)
+            except Exception as e:
+                self.err(e)
         else:
-            for el in fields:
-                self.df[el] = self.df[el].fillna(val)
+            print("FIELDS", fields)
+            try:
+                for el in fields:
+                    self.df[el] = self.df[el].fillna(val)
+            except Exception as e:
+                self.err(e)
 
     def fill_nulls(self, field):
         """
@@ -51,22 +48,6 @@ class Clean():
         """
         n = [None, ""]
         self.df[field] = self.df[field].replace(n, NaN)
-
-    """
-
-    def clean_ts(self, date_col, numeric_col=None, index=True, to_int=False, index_col=True):
-        ""
-        Cleans and format a timeseries dataframe and make it the default dataframe
-        ""
-        self.clean_ts_(date_col, numeric_col, index, to_int, index_col, True)
-
-    def clean_ts_(self, date_col, numeric_col=None, index=True, to_int=False, index_col=True):
-        ""
-        Cleans and format a timeseries dataframe and returns a DataSwim instance
-        ""
-        return self.clean_ts_(date_col, numeric_col, index, to_int, index_col, False)
-
-    """
 
     def clean_ts(self, date_col, numeric_col=None, index=True, to_int=False, index_col=True):
         """
@@ -76,7 +57,7 @@ class Clean():
         if index is True:
             self.index(date_col)
         if numeric_col is not None:
-            self.fill(numeric_col)
+            self.fill_nan(numeric_col)
             if to_int is True:
                 self.to_int(numeric_col)
         if index_col is True:
@@ -104,3 +85,14 @@ class Clean():
         self.df = self.df.assign(**f)
         self.df = self.df.set_index(indexfield)
         self.df.index = pd.to_datetime(self.df.index)
+
+    def to_int(self, fields):
+        """
+        Convert a column values to integers either from a list of columns or a 
+        single column name string
+        """
+        if type(fields) == str:
+            self.df[fields] = self.df[fields].apply(lambda x: int(x))
+        else:
+            for el in fields:
+                self.df[el] = self.df[el].apply(lambda x: int(x))
