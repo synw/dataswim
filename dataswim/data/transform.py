@@ -45,75 +45,72 @@ class Transform():
             return
         return df
 
-    def rsum(self, time_period="1Min", index_col=True, fill_cols=None):
+    def rsum(self, time_period="1Min", index_col=True, fill_col=None):
         """
         Resample, and sum the main dataframe to a time period
         """
         try:
-            self.df = self._rsum(time_period, True)
+            self = self._rsum(time_period, False, index_col, fill_col)
         except Exception as e:
             self.err(e)
+        return self
 
-    def rsum_(self, time_period="1Min", index_col=True, fill_cols=None):
+    def rsum_(self, time_period="1Min", index_col=True, fill_col=None):
         """
         Resample, and sum a dataframe to a time period
         """
         try:
-            ds = self._rsum(time_period, False)
+            ds = self._rsum(time_period, False, index_col, fill_col)
         except Exception as e:
             self.err(e)
-            return
+            return self
         return ds
 
-    def _rsum(self, time_period, main, index_col=True, fill_cols=None):
+    def _rsum(self, time_period, main, index_col=True, fill_col=None):
         """
         Resample, and sum the main dataframe to a time period
         """
-        df = self.df.resample(time_period).sum()
-        if index_col is True:
-            try:
-                self.index_col()
-            except Exception as e:
-                self.err(e)
-                return
-        if fill_cols is not None:
-            try:
-                self.fill(fill_cols)
-            except Exception as e:
-                self.err(e)
-                return
+        try:
+            df = self.df.resample(time_period).sum()
+            self._index_fill(index_col, fill_col)
+        except Exception as e:
+            self.err(e)
         if main is True:
+            self.df = df.copy()
             return self
         else:
             return self.new(df)
 
-    def rmean(self, time_period="1Min", index_col=True, fill_col=True):
+    def rmean(self, time_period="1Min", index_col=None, fill_col=None):
         """
         Resample, and sum the main dataframe to a time period
         """
-        self.df = self._rmean(time_period, True)
-        if index_col is True:
-            self.index_col()
-        if fill_col is True:
-            self.fill(fill_col)
+        try:
+            self = self._rmean(time_period, True, index_col, fill_col)
+        except Exception as e:
+            self.err(e)
 
-    def rmean_(self, time_period="1Min", index_col=True, fill_col=True):
+    def rmean_(self, time_period="1Min", index_col=None, fill_col=None):
         """
         Resample, and sum a dataframe to a time period
         """
-        ds = self._rmean(time_period, False)
-        if index_col is True:
-            ds.index_col()
-        if fill_col is True:
-            ds.fill(fill_col)
+        try:
+            ds = self._rmean(time_period, False, index_col, fill_col)
+        except Exception as e:
+            self.err(e)
         return ds
 
-    def _rmean(self, time_period, main):
+    def _rmean(self, time_period, main, index_col=None, fill_col=None):
         """
         Resample, and sum the main dataframe to a time period
         """
-        df = self.df.resample(time_period).mean()
+        try:
+            df = self.df.resample(time_period).mean()
+            self._index_fill(index_col, fill_col)
+        except Exception as e:
+            self.err(e)
         if main is True:
+            self.df = df.copy()
             return self
         else:
             return self.new(df)

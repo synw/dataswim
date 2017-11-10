@@ -74,13 +74,23 @@ class Export():
 
     def to_excell(self, filepath, title):
         """
-        Exports the main dataframe to an Excell file
+        Writes the main dataframe to an Excell file
         """
         writer = pytablewriter.ExcelXlsxTableWriter()
         writer.open(filepath)
         writer.make_worksheet(title)
         writer.write_table_iter()
         writer.close()
+        if self.autoprint is True:
+            print("File exported to", filepath)
+
+    def to_csv(self, filepath):
+        """
+        Saves the main dataframe to a csv file
+        """
+        self.df.to_csv(filepath, encoding='utf-8')
+        if self.autoprint is True:
+            print("File exported to", filepath)
 
     def _build_export(self, renderer, table_name=None):
         """

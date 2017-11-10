@@ -4,3 +4,4 @@ dataset
 holoviews
 bokeh
 goerr
+pytablewriter

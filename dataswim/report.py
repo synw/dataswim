@@ -23,12 +23,6 @@ class Report():
         report = dict(slug=slug, title=title, html=script + html)
         self.reports.append(report)
 
-    def csv(self, path):
-        """
-        Saves the main dataframe to a csv file
-        """
-        self.df.to_csv(path, encoding='utf-8')
-
     def file(self, slug, folderpath=None, p=True):
         """
         Writes the html report to a file from the report stack

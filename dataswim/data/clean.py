@@ -96,3 +96,22 @@ class Clean():
         else:
             for el in fields:
                 self.df[el] = self.df[el].apply(lambda x: int(x))
+
+    def _index_fill(self, index_col=None, fill_col=None):
+        """
+        Add a column from index and/or fill nans in a column
+        """
+        if index_col and fill_col is None:
+            return
+        if index_col is not None:
+            try:
+                self.index_col(index_col)
+            except Exception as e:
+                self.err(e)
+                return
+        if fill_col is not None:
+            try:
+                self.fill_nan(fill_col)
+            except Exception as e:
+                self.err(e)
+                return
