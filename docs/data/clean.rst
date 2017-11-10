@@ -6,7 +6,7 @@ Nulls
 
 **drop_nan** (``field=None``)
 
-    Drop NaN values from the main dataframe
+    Drop NaN values from the main dataframe when the whole row is NaN
     
 **nan_empty** (``field``)
 
