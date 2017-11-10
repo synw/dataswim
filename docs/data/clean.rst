@@ -23,9 +23,9 @@ Nulls
 Numbers
 -------
     
-**to_int** (``fields``)
+**to_int** (``*fields``)
 
-    Convert a column values to integers either from a list of columns or a single column name string
+    Convert some columns values to integers
     
 Timeseries
 ----------

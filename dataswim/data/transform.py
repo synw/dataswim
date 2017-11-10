@@ -50,7 +50,7 @@ class Transform():
         Resample, and sum the main dataframe to a time period
         """
         try:
-            self = self._rsum(time_period, False, index_col, fill_col)
+            self = self._rsum(time_period, True, index_col, fill_col)
         except Exception as e:
             self.err(e)
         return self

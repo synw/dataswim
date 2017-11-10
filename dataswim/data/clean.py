@@ -86,16 +86,12 @@ class Clean():
         self.df = self.df.set_index(indexfield)
         self.df.index = pd.to_datetime(self.df.index)
 
-    def to_int(self, fields):
+    def to_int(self, *fields):
         """
-        Convert a column values to integers either from a list of columns or a 
-        single column name string
+        Convert some columns values to integers
         """
-        if type(fields) == str:
-            self.df[fields] = self.df[fields].apply(lambda x: int(x))
-        else:
-            for el in fields:
-                self.df[el] = self.df[el].apply(lambda x: int(x))
+        for el in fields:
+            self.df[el] = self.df[el].apply(lambda x: int(x))
 
     def _index_fill(self, index_col=None, fill_col=None):
         """
