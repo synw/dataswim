@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
+from goerr.colors import cols
 
 
 class Select():
@@ -114,38 +115,43 @@ class Select():
         except Exception as e:
             self.err(e)
 
-    def contains(self, column, value):
+    def contains_(self, column, value):
         """
         Returns rows that contains a string value in a column
         """
         try:
             df = self.df[self.df[column].str.contains(value) == True]
-            return self.new(df.copy())
+            return self.duplicate(df.copy())
+        except KeyError:
+            self.err("Can not find " + cols.BOLD +
+                     column + cols.ENDC + " column")
+            return
         except Exception as e:
             self.err(e)
 
-    def exact(self, column, value):
+    def exact_(self, column, *values):
         """
         Returns rows that has the exact string value in a column
         """
         try:
-            try:
-                df = self.df[self.df[column].isin([value])]
-            except Exception as e:
-                self.err(e)
-                return
-        except:
+            df2 = self.df[column].isin(list(values))
+            df = self.df[df2]
+            return self.duplicate(df.copy())
+        except KeyError:
+            self.err("Can not find " + cols.BOLD +
+                     column + cols.ENDC + " column")
             return
-        return self.new(df.copy())
+        except Exception as e:
+            self.err(e)
 
-    def range(self, num, unit):
+    def range_(self, num, unit):
         """
         Limit the data in a time range
         """
         try:
             df = self.df[self.df.last_valid_index() -
                          pd.DateOffset(num, unit):]
-            return self.new(df)
+            return self.duplicate(df=df)
         except Exception as e:
             self.err(e)
 

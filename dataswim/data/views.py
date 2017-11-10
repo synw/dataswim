@@ -102,23 +102,23 @@ class View():
         """
         Set the main dataframe from values count of a column     
         """
-        self._vals(field, inplace=True)
+        self.df = self._vals(field)
 
-    def vals_(self, field):
+    def vals_(self, field, index_col="index"):
         """
         Returns a DatasWim instance from values count of a column     
         """
-        return self._vals(field, inplace=False)
+        ds2 = self.duplicate(df=self._vals(field))
+        ds2.index_col(index_col)
+        return ds2
 
-    def _vals(self, field, inplace=True):
+    def _vals(self, field):
         """
         Returns a DatasWim instance from values count of a column     
         """
         if self.df is None:
             self.warning("Dataframe is empty: no values to show")
             return
-        ds = self.new(pd.DataFrame(self.df[field].value_counts()))
-        if inplace is True:
-            self.df = ds.df
-        else:
-            return ds
+        count = self.df[field].value_counts()
+        df = pd.DataFrame(count)
+        return df

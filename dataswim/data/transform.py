@@ -166,7 +166,7 @@ class Transform():
         except Exception as e:
             self.err(e)
 
-    def index_col_(self, column="date"):
+    def index_col_(self, column="index"):
         """
         Returns a DatasWim instance with a new column filled from the index
         """
