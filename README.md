@@ -21,6 +21,7 @@ Using conda:
    ```
    conda install pandas sqlalchemy
    conda install -c ioam holoviews bokeh
+   pip install dataset pandas-profiling pytablewriter goerr
    pip install dataswim --no-deps
    ```
 
