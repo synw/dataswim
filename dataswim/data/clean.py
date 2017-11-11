@@ -10,17 +10,17 @@ class Clean():
     Class to clean the data
     """
 
-    def drop_nan(self, field=None):
+    def drop_nan(self, field=None, method="all"):
         """
-        Drop NaN values from the main dataframe when the whole row is NaN
+        Drop NaN values from the main dataframe
         """
         try:
             if field is None:
-                self.df = self.df.dropna(how='all')
+                self.df = self.df.dropna(axis=1, how=method)
             else:
-                self.df[field] = self.df[field].dropna(how='all')
+                self.df[field] = self.df[field].dropna(axis=1)
         except Exception as e:
-            self.err(e)
+            self.err(e, self.drop_nan, "Error droping nan values")
 
     def nan_empty(self, field):
         """

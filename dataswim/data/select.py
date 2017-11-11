@@ -164,3 +164,10 @@ class Select():
             return dic
         except Exception as e:
             self.err(e)
+
+    def nulls_(self):
+        """
+        Return all null rows
+        """
+        null_rows = self.df[self.df.isnull().any(axis=1)]
+        return null_rows

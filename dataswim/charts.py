@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import holoviews as hv
-from holoviews.core.data.interface import DataError
 from goerr import err
 
 
@@ -171,9 +170,10 @@ class Plot():
             elif chart_type == "err":
                 chart = hv.ErrorBars(**args)
             return chart
-        except DataError as e:
-            msg = "Column not found in " + x_field + " and " + y_field
-            self.err(e, msg)
+        # BROKEN in 1.9.0
+        # except DataError as e:
+        #    msg = "Column not found in " + x_field + " and " + y_field
+        #    self.err(e, msg)
         except Exception as e:
             self.err(e)
         if chart is None:
