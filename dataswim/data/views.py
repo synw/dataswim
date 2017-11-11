@@ -68,9 +68,9 @@ class View():
             if df is None:
                 self.warning("Dataframe is empty: nothing to show")
                 return
-            num = len(self.df.index)
+            num = len(df.index)
         except Exception as e:
-            self.err(e)
+            self.err(e, self.show, "Can not show dataframe")
             return
         if p is True:
             print(num, "rows")
@@ -98,11 +98,11 @@ class View():
         df2 = self.df[list(fields)]
         return df2.head()
 
-    def vals(self, field):
+    def pvals(self, field):
         """
-        Set the main dataframe from values count of a column     
+        Print the values count of a column     
         """
-        self.df = self._vals(field)
+        return self._vals(field)
 
     def vals_(self, field, index_col="index"):
         """

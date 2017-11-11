@@ -16,9 +16,9 @@ class Clean():
         """
         try:
             if field is None:
-                self.df = self.df.dropna(axis=1, how=method)
+                self.df = self.df.dropna(how=method)
             else:
-                self.df[field] = self.df[field].dropna(axis=1)
+                self.df[field] = self.df[field].dropna()
         except Exception as e:
             self.err(e, self.drop_nan, "Error droping nan values")
 
@@ -31,39 +31,41 @@ class Clean():
         except Exception as e:
             self.err(e)
 
-    def fill_nan(self, fields, val=0):
+    def fill_nan(self, val, *fields):
         """
-        Fill NaN values with new values either from a list of columns or a 
-        single column name string
+        Fill NaN values with new values
         """
-        self.df = self._fill_nan(fields, val)
+        try:
+            self.df = self._fill_nan(val, *fields)
+        except Exception as e:
+            self.err(e, self.fill_nan, "Can not fill nan values")
 
-    def fill_nan_(self, fields, val=0):
+    def fill_nan_(self, val, *fields):
         """
-        Returns a DataSwim instance with NaN values flled with new values either from 
-        a list of columns or a single column name string
+        Returns a DataSwim instance with NaN values filled
         """
-        df = self._fill_nan(fields, val)
-        return self.duplicate(df=df)
+        fields = list(fields)
+        if len(fields) == 0:
+            fields = self.df.index.values
+        try:
+            df = self._fill_nan(val, *fields)
+            return self.duplicate(df=df)
+        except Exception as e:
+            self.err(e, self.fill_nan_, "Can not fill nan values")
 
-    def _fill_nan(self, fields, val=0):
+    def _fill_nan(self, val, *fields):
         """
-        Fill NaN values with new values either from a list of columns or a 
-        single column name string
+        Fill NaN values with new values
         """
+        fields = list(fields)
         df = self.df.copy()
-        if type(fields) == str:
-            try:
-                df[fields] = df[fields].fillna(val)
-            except Exception as e:
-                self.err(e)
-        else:
-            print("FIELDS", fields)
-            try:
-                for el in fields:
-                    df[el] = df[el].fillna(val)
-            except Exception as e:
-                self.err(e)
+        try:
+            for el in fields:
+                df[el] = df[[el]].fillna(val)
+        except Exception as e:
+            self.err(e, self._fill_nan, "Can not fill nan values")
+        if self.autoprint is True:
+            self.ok("Filled nan values in columns", *fields)
         return df
 
     def fill_nulls(self, field):
@@ -149,6 +151,8 @@ class Clean():
                 datafield + " and indexfield " + indexfield
             self.err(e, msg)
             return
+        if self.autoprint is True:
+            self.ok("Added a datetime index from column", datafield)
         return df
 
     def rangeindex(self, index_col="index"):
@@ -182,6 +186,8 @@ class Clean():
             msg = "Can not reindex"
             self.err(e, msg, self._rangeindex)
             return
+        if self.autoprint is True:
+            self.ok("Added a range index")
         return df
 
     def to_int(self, *fields):
@@ -193,51 +199,54 @@ class Clean():
                 self.df[el] = self.df[el].apply(lambda x: int(x))
         except Exception as e:
             self.err(e)
-
-    def index_fill(self, index=None, index_col=None, fill_col=None, quiet=False):
-        """
+    """
+    def index_fill(self, dateindex=None, index_col=None, fill_col=None, quiet=False):
+        ""
         Add a column from index and/or fill nans in a column
-        """
+        ""
         try:
-            self = self._index_fill(index, index_col, fill_col, quiet)
+            self = self._index_fill(dateindex, index_col, fill_col, quiet)
         except Exception as e:
             self.err(e)
 
-    def index_fill_(self, index=None, index_col=None, fill_col=None, quiet=False):
-        """
+    def index_fill_(self, dateindex=None, index_col=None, fill_col=None, quiet=False):
+        ""
         Returns a DataSwim instance with a column from index and/or fill nans in a column
-        """
+        ""
         try:
-            return self._index_fill(index, index_col, fill_col, quiet)
+            return self._index_fill(dateindex, index_col, fill_col, quiet)
         except Exception as e:
             self.err(e)
 
-    def _index_fill(self, index, index_col, fill_col, quiet):
-        """
+    def _index_fill(self, dateindex, index_col, fill_col, quiet):
+        ""
         Add a column from index and/or fill nans in a column
-        """
-        if index is None and index_col is None and fill_col is None and quiet is False:
+        ""
+        if dateindex is None and index_col is None and fill_col is None and quiet is False:
             if quiet is False:
                 self.debug(
                     "Method index_fill: please provide at least one parameter")
             return
         ds2 = self.duplicate()
-        if index is not None:
+        if dateindex is not None:
             try:
-                ds2 = ds2.dateindex_(index)
+                ds2 = ds2.dateindex_(dateindex)
             except Exception as e:
-                self.err(e)
+                self.err(e, self._index_fill, "Can not create date index")
                 return
         if index_col is not None:
             try:
                 ds2 = ds2.index_col_(index_col)
             except Exception as e:
-                self.err(e)
+                self.err(e, self._index_fill, "Can not create index col")
                 return
         if fill_col is not None:
             try:
-                ds2 = ds2.fill_nan_(fill_col)
+                ds2 = ds2.fill_nan_(0, fill_col)
             except Exception as e:
-                self.err(e)
+                self.err(e, self._index_fill, "Can not fill nans")
                 return
+        # if self.autoprint is True:
+        #    self.ok("Indexed dataframe from column", dateindex)
         return ds2
+    """

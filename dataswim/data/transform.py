@@ -42,84 +42,106 @@ class Transform():
         except Exception as e:
             self.err(e, self.drop, "Can not drop column")
 
+    """
     def resample_(self, time_period="1Min"):
-        """
+        ""
         Resample the main dataframe to a time period and optionaly create
         a date column from the datetime index
-        """
+        ""
         try:
             df = self.df.resample(time_period)
         except Exception as e:
             self.err(e, self.resample_, "Can not resample data")
             return
         return df
+    """
 
-    def rsum(self, time_period="1Min", index=None, index_col=True, fill_col=None):
+    def rsum(self, time_period="1Min", dateindex=None, index_col=None, fill_nan=None):
         """
         Resample, and sum the main dataframe to a time period
         """
         try:
-            self = self._rsum(time_period, index, index_col, fill_col)
+            self.df = self._resample("sum", time_period,
+                                     dateindex, index_col, fill_nan)
         except Exception as e:
-            self.err(e, self.rsum)
+            self.err(e, self.rsum, "Can not sum data")
 
-    def rsum_(self, time_period="1Min", index=None, index_col=True, fill_col=None):
+    def rsum_(self, time_period="1Min", dateindex=None, index_col=None, fill_nan=None):
         """
         Resample, and sum a dataframe to a time period
         """
         try:
-            ds = self._rsum(time_period, index, index_col, fill_col)
+            df = self._resample("sum", time_period,
+                                dateindex, index_col, fill_nan)
         except Exception as e:
-            self.err(e, self.rsum_)
+            self.err(e, self.rsum_, "Can not sum data")
             return
-        return ds
+        return self.duplicate(df)
 
-    def _rsum(self, time_period, index=None, index_col=True, fill_col=None):
+    def _resample(self, method, time_period, dateindex, index_col, fill_nan):
+        """
+        Resample the main dataframe to a time period
+        """
+        try:
+            ds2 = self.duplicate()
+            if dateindex is not None:
+                ds2 = ds2.dateindex_(dateindex)
+            ds2.df = ds2.df.resample(time_period)
+            if method == "sum":
+                ds2.df = ds2.df.sum()
+            elif method == "mean":
+                ds2.df = ds2.df.mean()
+            else:
+                self.err(self._resample, "Resampling method " +
+                         method + " unknown")
+            if self.autoprint is True:
+                self.ok("Data resampled by", time_period)
+            ds3 = ds2
+            if fill_nan is not None:
+                ds3 = ds3.fill_nan_(0, fill_nan)
+            if index_col is not None:
+                ds3 = ds3.index_col_(index_col)
+            return ds3.df
+        except Exception as e:
+            self.err(e, self._resample, "Can not resample data")
+            return
+
+    def rmean(self, time_period="1Min", dateindex=None, index_col=None, fill_nan=None):
         """
         Resample, and sum the main dataframe to a time period
         """
         try:
-            df = self.df.resample(time_period).sum()
-            ds2 = self.duplicate(df=df)
-            if index is True or index_col is True or fill_col is True:
-                ds2 = ds2.index_fill_(index, index_col, fill_col, quiet=True)
-            return ds2
+            self.df = self._resample("mean", time_period,
+                                     dateindex, index_col, fill_nan)
         except Exception as e:
-            self.err(e, self._rsum)
-            return
+            self.err(e, self.rmean, "Can not mean data")
 
-    def rmean(self, time_period="1Min", index=None, index_col=None, fill_col=None):
-        """
-        Resample, and sum the main dataframe to a time period
-        """
-        try:
-            self = self._rmean(time_period, index, index_col, fill_col)
-        except Exception as e:
-            self.err(e, self.rmean)
-
-    def rmean_(self, time_period="1Min", index=None, index_col=None, fill_col=None):
+    def rmean_(self, time_period="1Min", dateindex=None, index_col=None, fill_nan=None):
         """
         Resample, and sum a dataframe to a time period
         """
         try:
-            ds = self._rmean(time_period, index, index_col, fill_col)
+            df = self._resample("mean", time_period,
+                                dateindex, index_col, fill_nan)
         except Exception as e:
-            self.err(e, self.rmean_)
+            self.err(e, self.rmean_, "Can not mean data")
             return
-        return ds
-
-    def _rmean(self, time_period, index, index_col, fill_col):
-        """
+        return self.duplicate(df)
+    """
+    def _rmean(self, time_period, dateindex, index_col, fill_nan):
+        ""
         Resample, and sum the main dataframe to a time period
-        """
+        ""
         try:
             df = self.df.resample(time_period).mean()
             ds2 = self.duplicate(df=df)
-            if index is not None or index_col is not None or fill_col is not None:
-                ds2 = ds2.index_fill_(index, index_col, fill_col, quiet=True)
+            if dateindex is not None or index_col is not None or fill_nan is not None:
+                ds2 = ds2.index_fill_(
+                    dateindex, index_col, fill_nan, quiet=True)
             return ds2
         except Exception as e:
-            self.err(e, self._rmean)
+            self.err(e, self._rmean, "Can not mean data")
+    """
 
     def revert(self):
         """
@@ -157,7 +179,7 @@ class Transform():
         except Exception as e:
             self.err(e, self.add)
 
-    def index_col(self, column="date"):
+    def index_col(self, column="index"):
         """
         Add a column filled from the index to the main dataframe
         """
@@ -185,9 +207,9 @@ class Transform():
             df[column] = df.index.values
             if self.autoprint is True:
                 self.ok("Column", column, "added from index")
+            return df
         except Exception as e:
             self.err(e, self._index_col)
-        return df
 
     def rename(self, source_col, dest_col):
         """

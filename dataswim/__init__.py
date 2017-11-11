@@ -105,13 +105,14 @@ class DataSwim(Db, Df, Plot, Report):
             print(str(len(err.errs)) + ".",
                   "An error has occured: use ds.trace() to get the stack trace")
         else:
-            err.throw()
+            self.trace()
 
     def trace(self):
         """
         Prints the error trace
         """
         if err.exists:
+            print("")
             err.throw(reverse=True)
 
     def warning(self, msg):

@@ -38,6 +38,7 @@ class Select():
         """
         Returns a DataSwim instance from csv data
         """
+
         try:
             df = pd.read_csv(url)
             ds2 = self.duplicate(df=df)
@@ -48,7 +49,8 @@ class Select():
         except Exception as e:
             self.err(e)
             return
-        ds2 = ds2.index_fill_(dateindex, index_col, fill_col, quiet=True)
+        if dateindex is not None and index_col is not None and fill_col is not None:
+            ds2 = ds2.index_fill_(dateindex, index_col, fill_col, quiet=True)
         return ds2
 
     def set(self, df):
