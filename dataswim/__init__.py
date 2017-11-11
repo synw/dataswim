@@ -8,6 +8,7 @@ from .charts import Plot
 from .data import Df
 from .report import Report
 from goerr.colors import cols
+from _ast import arg
 
 __version__ = "0.2.2"
 
@@ -28,8 +29,8 @@ class DataSwim(Db, Df, Plot, Report):
         self.x_field = None
         self.y_field = None
         self.chart_obj = None
-        self.opts = dict(width=940)
-        self.style = dict(color="blue")
+        self.chart_opts = dict(width=940)
+        self.chart_style = dict(color="blue")
         self.label = None
         self.reports = []
         self.report_path = None
@@ -47,7 +48,7 @@ class DataSwim(Db, Df, Plot, Report):
         """
         return DataSwim(df, db)
 
-    def duplicate(self, db=None, df=None):
+    def duplicate(self, df=None, db=None):
         """
         Returns a new DataSwim instance using the previous database connection
         """
@@ -78,7 +79,28 @@ class DataSwim(Db, Df, Plot, Report):
         """
         Error handling
         """
-        err.new(*args)
+        ex = None
+        msg = None
+        func = None
+        for arg in args:
+            if isinstance(arg, Exception):
+                ex = arg
+            elif isinstance(arg, str):
+                msg = arg
+            elif callable(arg) is True:
+                func = arg
+        if ex is not None:
+            err.new(ex)
+            if len(args) < 3:
+                return
+        if func is None or msg is None:
+            f = ""
+            if func is not None:
+                f = "(from function " + str(func) + ")"
+            err.new(
+                "Please provide a function and a message to the error constructor " + f)
+            err.throw()
+        err.new(msg, func)
         if self.errors_handling == "trace":
             print(str(len(err.errs)) + ".",
                   "An error has occured: use ds.trace() to get the stack trace")
@@ -89,10 +111,8 @@ class DataSwim(Db, Df, Plot, Report):
         """
         Prints the error trace
         """
-        if err is not None:
-            err.throw()
-        else:
-            print("No errors")
+        if err.exists:
+            err.throw(reverse=True)
 
     def warning(self, msg):
         """
@@ -105,16 +125,6 @@ class DataSwim(Db, Df, Plot, Report):
         Prints a warning
         """
         print("[" + cols.WARNING + "DEBUG" + "]" + cols.ENDC + " " + msg)
-
-    def fatal(self, *args):
-        """
-        Prints the error trace
-        """
-        if len(args) > 0:
-            err.new(*args)
-            err.throw()
-        else:
-            print("No errors")
 
     def errs(self):
         """

@@ -36,15 +36,25 @@ class Db():
         """
         Set the main dataframe from a table's data
         """
-        self._check_db()
-        self._load(table, True)
+        try:
+            self._check_db()
+            self._load(table, True)
+        except Exception as e:
+            err.new(e)
+        if self.autoprint is True:
+            self.ok("Table", table, "is loaded")
 
     def load_(self, table):
         """
         Returns a DataSwim instance from a table's data
         """
-        self._check_db()
-        return self.new(self._load(table, False))
+        try:
+            self._check_db()
+            return self.new(self._load(table, False))
+        except Exception as e:
+            err.new(e)
+        if self.autoprint is True:
+            self.ok("Table", table, "is loaded")
 
     def _load(self, table, main=True):
         """
@@ -153,29 +163,25 @@ class Db():
         df[destination_field] = None
 
         def set_rel(row):
-            # print(row)
-            # return
             serie = df.loc[row[origin_field]]
             val = serie[origin_field]
             print(val, id_field)
             try:
                 #print("Search", str(type(val)))
-                d = search_ds.exact(val, search_field)
-            except Exception as e:
+                d = search_ds.exact_(val, search_field)
+            except:
                 return nan
-                #self.err(e, "can not find exact key", self._relation)
-                # return
             try:
                 val = d.first(False)[search_field]
                 return val
-            except Exception as e:
+            except:
                 return nan
         try:
             df = df.reset_index(drop=True)
-            #df = df.set_index(id_field)
+            df = df.set_index(id_field)
             df[destination_field] = df.apply(set_rel, axis=1)
         except Exception as e:
-            self.err(e)
+            self.err(e, self._relation, "Can not set index for relation")
             return
         if main is True:
             self.df = df

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import time
 import pandas as pd
+from numpy.core.numeric import nan
 
 
 class Clean():
@@ -92,21 +94,28 @@ class Clean():
         except Exception as e:
             self.err(e)
 
-    def date(self, fields):
+    def date(self, *fields):
         """
-        Convert column values to datetime from either a list 
-        of column names or a single column name string
+        Convert column values to properly formated datetime
         """
+        def convert(row):
+            try:
+                t1 = row.timetuple()
+                int(time.mktime(t1))
+            except:
+                return nan
+            return row.strftime('%Y-%m-%d %H:%M:%S')
         try:
-            if type(fields) == str:
-                self.df[fields] = pd.to_datetime(self.df[fields]).apply(
-                    lambda x: x.strftime('%Y-%m-%d %H:%M:%S'))
-            else:
-                for f in fields:
-                    self.df[f] = pd.to_datetime(self.df[f]).apply(
-                        lambda x: x.strftime('%Y-%m-%d %H:%M:%S'))
+            for f in fields:
+                try:
+                    self.df[f] = pd.to_datetime(self.df[f]).apply(convert)
+                except ValueError:
+                    pass
+        except KeyError:
+            self.warning("Can not find colums " + " ".join(fields))
+            return
         except Exception as e:
-            self.err(e)
+            self.err(e, self.date, "Can not process date field")
 
     def dateindex(self, datafield, indexfield="date_index"):
         """
@@ -139,6 +148,39 @@ class Clean():
             msg = "Can not reindex with datafield " + \
                 datafield + " and indexfield " + indexfield
             self.err(e, msg)
+            return
+        return df
+
+    def rangeindex(self, index_col="index"):
+        """
+        Index the main dataframe
+        """
+        try:
+            self.df = self._rangeindex(index_col)
+        except Exception as e:
+            self.err(e)
+
+    def rangeindex_(self, index_col="index"):
+        """
+        Returns an indexed DataSwim instance
+        """
+        try:
+            return self.duplicate(self._rangeindex(index_col))
+        except Exception as e:
+            self.err(e)
+
+    def _rangeindex(self, index_col):
+        """
+        Returns a range indexed dataframe
+        """
+        df = self.df
+        try:
+            vals = range(0, len(df[df[0]]))
+            index = pd.RangeIndex(vals)
+            df.index = index
+        except Exception as e:
+            msg = "Can not reindex"
+            self.err(e, msg, self._rangeindex)
             return
         return df
 

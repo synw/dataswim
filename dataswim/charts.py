@@ -22,8 +22,8 @@ class Plot():
         self.x_field = None
         self.y_field = None
         self.chart_obj = None
-        self.opts = dict(width=940)
-        self.style = None
+        self.chart_opts = dict(width=940)
+        self.chart_style = None
         self.label = None
 
     def chart(self, x_field=None, y_field=None, chart_type="line", opts=None, style=None, label=None):
@@ -31,9 +31,9 @@ class Plot():
         Initialize chart options
         """
         if opts is not None:
-            self.opts = opts
+            self.chart_opts = opts
         if style is not None:
-            self.style = style
+            self.chart_style = style
         if label is not None:
             self.label = label
         self.x_field = x_field
@@ -92,26 +92,26 @@ class Plot():
         Get a line and point chart
         """
         if style is None:
-            style = self.style
+            style = self.chart_style
         style["color"] = colors["line"]
         l = self._get_chart("line", style=style, opts=opts, label=label)
         style["color"] = colors["point"]
         p = self._get_chart("point", style=style, opts=opts, label=label)
         return l * p
 
-    def opt(self, dictobj):
+    def opts(self, dictobj):
         """
         Add or update an option value to defaults
         """
         for k in dictobj:
-            self.opts[k] = dictobj[k]
+            self.chart_opts[k] = dictobj[k]
 
-    def styl(self, dictobj):
+    def style(self, dictobj):
         """
         Add or update a style value to defaults
         """
         for k in dictobj:
-            self.style[k] = dictobj[k]
+            self.chart_style[k] = dictobj[k]
 
     def _get_chart(self, chart_type="line", x_field=None, y_field=None, style=None, opts=None, label=None):
         """
@@ -131,9 +131,9 @@ class Plot():
         else:
             Y = y_field
         if opts is None:
-            opts = self.opts
+            opts = self.chart_opts
         if style is None:
-            style = self.style
+            style = self.chart_style
         if x_field is None:
             x_field = self.x_field
         if y_field is None:
