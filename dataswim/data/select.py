@@ -161,7 +161,7 @@ class Select():
         """
         try:
             df = self.df[self.df[column].str.contains(value) == True]
-            return self.duplicate(df.copy())
+            return self.duplicate_(df.copy())
         except KeyError:
             self.err("Can not find " + colors.bold(column) + " column")
             return
@@ -175,7 +175,7 @@ class Select():
         try:
             df2 = self.df[column].isin(list(values))
             df = self.df[df2]
-            return self.duplicate(df.copy())
+            return self.duplicate_(df)
         except KeyError:
             self.err("Can not find " + colors.bold(column) + " column")
             return
@@ -189,9 +189,10 @@ class Select():
         try:
             df = self.df[self.df.last_valid_index() -
                          pd.DateOffset(num, unit):]
-            return self.duplicate(df=df)
+            return self.duplicate_(df=df)
         except Exception as e:
             self.err(e)
+        return self.duplicate(df)
 
     def to_records_(self):
         """

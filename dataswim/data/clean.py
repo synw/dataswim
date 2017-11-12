@@ -27,7 +27,17 @@ class Clean():
         Fill empty values with NaN values
         """
         try:
-            self.df[field] = self.df[field].replace('', NaN)
+            self.df[field] = self.df[field].replace('', nan)
+        except Exception as e:
+            self.err(e)
+
+    def zero_nan(self, *fields):
+        """
+        Converts zero values to nan values in selected columns
+        """
+        try:
+            for field in fields:
+                self.df[field] = self.df[field].replace(nan, 0)
         except Exception as e:
             self.err(e)
 
@@ -49,7 +59,7 @@ class Clean():
             fields = self.df.index.values
         try:
             df = self._fill_nan(val, *fields)
-            return self.duplicate(df=df)
+            return self.duplicate_(df=df)
         except Exception as e:
             self.err(e, self.fill_nan_, "Can not fill nan values")
 
@@ -75,6 +85,16 @@ class Clean():
         n = [None, ""]
         try:
             self.df[field] = self.df[field].replace(n, NaN)
+        except Exception as e:
+            self.err(e)
+
+    def to_int(self, *fields):
+        """
+        Convert some columns values to integers
+        """
+        try:
+            for el in fields:
+                self.df[el] = self.df[el].apply(lambda x: int(x))
         except Exception as e:
             self.err(e)
 
@@ -107,10 +127,12 @@ class Clean():
             except:
                 return nan
             return row.strftime('%Y-%m-%d %H:%M:%S')
+
         try:
             for f in fields:
                 try:
-                    self.df[f] = pd.to_datetime(self.df[f]).apply(convert)
+                    df2 = self.df.copy()
+                    self.df[f] = pd.to_datetime(df2[f]).apply(convert)
                 except ValueError:
                     pass
         except KeyError:
@@ -137,7 +159,7 @@ class Clean():
         except Exception as e:
             self.err(e)
             return
-        return self.duplicate(df=df)
+        return self.duplicate_(df=df)
 
     def _dateindex(self, datafield, indexfield):
         """
@@ -169,7 +191,7 @@ class Clean():
         Returns an indexed DataSwim instance
         """
         try:
-            return self.duplicate(self._rangeindex(index_col))
+            return self.duplicate_(self._rangeindex(index_col))
         except Exception as e:
             self.err(e)
 
@@ -191,15 +213,6 @@ class Clean():
             self.ok("Added a range index")
         return df
 
-    def to_int(self, *fields):
-        """
-        Convert some columns values to integers
-        """
-        try:
-            for el in fields:
-                self.df[el] = self.df[el].apply(lambda x: int(x))
-        except Exception as e:
-            self.err(e)
     """
     def index_fill(self, dateindex=None, index_col=None, fill_col=None, quiet=False):
         ""
@@ -228,7 +241,7 @@ class Clean():
                 self.debug(
                     "Method index_fill: please provide at least one parameter")
             return
-        ds2 = self.duplicate()
+        ds2 = self.duplicate_()
         if dateindex is not None:
             try:
                 ds2 = ds2.dateindex_(dateindex)

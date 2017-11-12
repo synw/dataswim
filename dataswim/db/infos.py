@@ -1,3 +1,4 @@
+from goerr.colors import colors
 
 
 class Info():
@@ -11,7 +12,30 @@ class Info():
         """
         self.db = db
 
-    def tables(self, name=None, p=True):
+    def tables(self, name=None):
+        """
+        Print existing tables in a database
+        """
+        pmodels = self._tables(name)
+        if pmodels is None:
+            return
+        if self.autoprint is True:
+            num = len(pmodels)
+            s = "s"
+            if num == 1:
+                s = ""
+            msg = "Found " + colors.bold(str(num)) + " table" + s + ":\n"
+            msg += "\n".join(pmodels)
+            self.info(msg)
+
+    def tables_(self, name=None):
+        """
+        Print existing tables in a database
+        """
+        pmodels = self._tables(name)
+        return pmodels
+
+    def _tables(self, name):
         """
         Print existing tables in a database
         """
@@ -21,8 +45,12 @@ class Info():
             pmodels = [x for x in t if name in x]
         else:
             pmodels = t
-        if p is True:
-            print(pmodels)
+        if pmodels is None:
+            msg = "No tables found in the database"
+            if name is not None:
+                msg = "No tables found in the database for table like " + name
+            self.warning(msg)
+            return
         return pmodels
 
     def table(self, t=None, quiet=False):
@@ -48,7 +76,6 @@ class Info():
             num = len(self.df)
             print(num, "rows")
             print("Fields:", ", ".join(list(df)))
-        return df.head()
 
     def count_rows(self, name, zero=False):
         """
@@ -59,12 +86,13 @@ class Info():
         except Exception as e:
             self.err(e, self.count_rows, "Can not connect to database")
             return
-        data = {}
-        for m in self.tables(name, False):
-            num = self.db[m].count()
-            data[m] = num
+        total = 0
+        self.start("Counting rows in tables like", colors.bold(name))
+        for t in self.tables_(name):
+            num = self.db[t].count()
+            total += num
             if self.autoprint is True:
                 if num > 0 or zero is True:
-                    print(m, num)
-        print("[end]")
-        return data
+                    msg = t + ":" + colors.bold(num)
+                    print(msg)
+        self.end("Found a total of", colors.bold(total), "rows")

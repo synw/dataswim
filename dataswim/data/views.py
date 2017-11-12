@@ -2,6 +2,7 @@
 
 import pandas as pd
 from pandas_profiling import ProfileReport
+from goerr.colors import colors
 
 
 class View():
@@ -60,7 +61,7 @@ class View():
 
     def show(self, p=True, dataframe=None):
         """
-        Display info about a table
+        Display info about a dataframe
         """
         try:
             if dataframe is None:
@@ -72,9 +73,13 @@ class View():
         except Exception as e:
             self.err(e, self.show, "Can not show dataframe")
             return
-        if p is True:
-            print(num, "rows")
-            print("Fields:", ", ".join(list(df)))
+        f = list(df)
+        num_fields = len(f)
+        fields = ", ".join(f)
+        if self.autoprint is True:
+            self.info("Found", colors.bold(num), "rows in the dataframe and",
+                      colors.bold(num_fields), "fields:")
+            print(fields)
         return df.head()
 
     def report(self, df=None):
