@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
-from goerr.colors import cols
+from goerr.colors import colors
 
 
 class Select():
@@ -14,6 +14,19 @@ class Select():
         Initialize with an empty dataframe
         """
         self.df = df
+
+    def duplicate_(self, df=None, db=None):
+        """
+        Returns a new DataSwim instance using the previous database connection
+        """
+        if db is None:
+            db = self.db
+        if df is None:
+            df = self.df.copy()
+        ds2 = self.new_(df, db)
+        if self.autoprint is True:
+            self.ok("A duplicated instance was created")
+        return ds2
 
     def load_csv(self, url, dateindex=None, index_col=None, fill_col=None):
         """
@@ -70,15 +83,40 @@ class Select():
             self.backup_df = self.df.copy()
         except Exception as e:
             self.err(e)
+        if self.autoprint is True:
+            self.ok("Dataframe backed up")
 
     def restore(self):
         """
         Restore the main dataframe
         """
         try:
-            self.df = self.backup_df
+            self.df = self._restore()
         except Exception as e:
             self.err(e)
+
+    def restore_(self):
+        """
+        Returns the restored main dataframe in a DataSwim instance
+        """
+        try:
+            return self.duplicate_(self._restore())
+        except Exception as e:
+            self.err(e)
+
+    def _restore(self):
+        """
+        Restore the main dataframe
+        """
+        if self.backup_df is None:
+            self.warning("No dataframe is backed up: nothing restore")
+            return
+        try:
+            return self.backup_df
+        except Exception as e:
+            self.err(e)
+        if self.autoprint is True:
+            self.ok("Dataframe is restored")
 
     def first(self):
         """
@@ -125,8 +163,7 @@ class Select():
             df = self.df[self.df[column].str.contains(value) == True]
             return self.duplicate(df.copy())
         except KeyError:
-            self.err("Can not find " + cols.BOLD +
-                     column + cols.ENDC + " column")
+            self.err("Can not find " + colors.bold(column) + " column")
             return
         except Exception as e:
             self.err(e)
@@ -140,8 +177,7 @@ class Select():
             df = self.df[df2]
             return self.duplicate(df.copy())
         except KeyError:
-            self.err("Can not find " + cols.BOLD +
-                     column + cols.ENDC + " column")
+            self.err("Can not find " + colors.bold(column) + " column")
             return
         except Exception as e:
             self.err(e)

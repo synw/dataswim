@@ -179,9 +179,10 @@ class Clean():
         """
         df = self.df
         try:
-            vals = range(0, len(df[df[0]]))
-            index = pd.RangeIndex(vals)
-            df.index = index
+            df = df.reindex(index=range(len(df)))
+            #vals = range(0, len(df[df[0]]))
+            #index = pd.RangeIndex(vals)
+            #df.index = index
         except Exception as e:
             msg = "Can not reindex"
             self.err(e, msg, self._rangeindex)

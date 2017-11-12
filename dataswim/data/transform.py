@@ -23,6 +23,8 @@ class Transform():
             return self.duplicate(self.df[list(fields)])
         except Exception as e:
             self.err(e, self.keep_, "Can not remove colums")
+        if self.autoprint is True:
+            self.ok("Columns", " ".join(fields), "kept")
 
     def keep(self, *fields):
         """
@@ -32,6 +34,8 @@ class Transform():
             self.df = self.df[list(fields)]
         except Exception as e:
             self.err(e, self.keep, "Can not remove colums")
+        if self.autoprint is True:
+            self.ok("Setting dataframe to columns", " ".join(fields))
 
     def drop(self, column):
         """
@@ -41,20 +45,6 @@ class Transform():
             self.df = self.df.drop(column, axis=1)
         except Exception as e:
             self.err(e, self.drop, "Can not drop column")
-
-    """
-    def resample_(self, time_period="1Min"):
-        ""
-        Resample the main dataframe to a time period and optionaly create
-        a date column from the datetime index
-        ""
-        try:
-            df = self.df.resample(time_period)
-        except Exception as e:
-            self.err(e, self.resample_, "Can not resample data")
-            return
-        return df
-    """
 
     def rsum(self, time_period="1Min", dateindex=None, index_col=None, fill_nan=None):
         """
