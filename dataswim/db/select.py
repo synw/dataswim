@@ -20,8 +20,7 @@ class Select():
         Returns a DataSwim instance from a table's data
         """
         try:
-            self._check_db()
-            return self.new(self._load(table))
+            return self.clone_(self._load(table))
         except Exception as e:
             self.err(e)
 

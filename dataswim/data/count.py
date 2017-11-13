@@ -19,9 +19,12 @@ class Count():
         Count the number of null values in a rows
         """
         try:
-            return self.df[field].isnull().sum()
+            n = self.df[field].isnull().sum()
         except Exception as e:
-            self.err(e, self.count_nulls)
+            self.err(e, self.count_nulls, "Can not count nulls")
+            return
+        if self.autoprint is True:
+            self.ok("Found", n, "nulls in column", field)
 
     def count(self):
         """
@@ -34,11 +37,22 @@ class Count():
 
     def count_empty(self, field):
         """
-        Returns a list of empty row indices
+        List of empty row indices
         """
         try:
             df2 = self.keep_(field).df
             vals = where(df2.applymap(lambda x: x == ''))
+            return len(vals[0])
+        except Exception as e:
+            self.err(e, self.count_empty)
+
+    def count_zero(self, field):
+        """
+        List of row with 0 values
+        """
+        try:
+            df2 = self.keep_(field).df
+            vals = where(df2.applymap(lambda x: x == 0))
             return len(vals[0])
         except Exception as e:
             self.err(e, self.count_empty)

@@ -18,7 +18,7 @@ class Clean():
             if field is None:
                 self.df = self.df.dropna(how=method)
             else:
-                self.df[field] = self.df[field].dropna()
+                self.df = self.df[self.df[field].notnull()]
         except Exception as e:
             self.err(e, self.drop_nan, "Error droping nan values")
 
@@ -35,11 +35,32 @@ class Clean():
         """
         Converts zero values to nan values in selected columns
         """
+        self.df = self._zero_nan(*fields)
+
+    def zero_nan_(self, *fields):
+        """
+        Returns a DataSwim instance with zero values to nan values in selected columns
+        """
+        df = self.clone_(self._zero_nan(*fields))
+        return self.clone_(df)
+
+    def _zero_nan(self, *fields):
+        """
+        Converts zero values to nan values in selected columns
+        """
+        df = self.df.copy()
         try:
             for field in fields:
-                self.df[field] = self.df[field].replace(nan, 0)
+                df = df.replace({field: {0: nan}})
+            if self.autoprint is True:
+                s = "s"
+                if len(fields) == 1:
+                    s = ""
+                self.ok("Replaced 0 values by nan in column" +
+                        s, " ".join(list(field)))
+            return df
         except Exception as e:
-            self.err(e)
+            self.err(e, self._zero_nan, "Can not replace 0 values by nan")
 
     def fill_nan(self, val, *fields):
         """
@@ -59,7 +80,7 @@ class Clean():
             fields = self.df.index.values
         try:
             df = self._fill_nan(val, *fields)
-            return self.duplicate_(df=df)
+            return self.clone_(df=df)
         except Exception as e:
             self.err(e, self.fill_nan_, "Can not fill nan values")
 
@@ -88,15 +109,26 @@ class Clean():
         except Exception as e:
             self.err(e)
 
-    def to_int(self, *fields):
+    def to_int(self, field):
         """
-        Convert some columns values to integers
+        Convert some column values to integers
         """
+        """
+        for field in fields:
+            self.drop_nan(field)
+            self.df[field] = self.df[field].dropna().astype(int)
+
+        """
+        ds2 = self.clone_()
         try:
-            for el in fields:
-                self.df[el] = self.df[el].apply(lambda x: int(x))
+            ds2.drop_nan(field, method="any")
+            ds2.df[field] = ds2.df[field].apply(lambda x: int(x))
+            self.df = ds2.df
         except Exception as e:
-            self.err(e)
+            self.err(e, self.to_int, "Can not convert column values to integer")
+
+        if self.autoprint is True:
+            self.ok("Converted column values to integers")
 
     def clean_ts(self, date_col, numeric_col=None, index=True, to_int=False, index_col=True):
         """
@@ -159,7 +191,7 @@ class Clean():
         except Exception as e:
             self.err(e)
             return
-        return self.duplicate_(df=df)
+        return self.clone_(df=df)
 
     def _dateindex(self, datafield, indexfield):
         """
@@ -191,7 +223,7 @@ class Clean():
         Returns an indexed DataSwim instance
         """
         try:
-            return self.duplicate_(self._rangeindex(index_col))
+            return self.clone_(self._rangeindex(index_col))
         except Exception as e:
             self.err(e)
 
@@ -241,7 +273,7 @@ class Clean():
                 self.debug(
                     "Method index_fill: please provide at least one parameter")
             return
-        ds2 = self.duplicate_()
+        ds2 = self.clone_()
         if dateindex is not None:
             try:
                 ds2 = ds2.dateindex_(dateindex)

@@ -43,12 +43,15 @@ class DataSwim(Db, Df, Plot, Report, Errors, Messages):
         msg = "<DataSwim object>"
         return msg
 
-    def new_(self, df=None, db=None):
+    def new_(self, df=None, db=None, quiet=False):
         """
         Returns a new DataSwim instance from a dataframe
         """
-        ds2 = DataSwim(df, db)
-        if self.autoprint is True:
+        try:
+            ds2 = DataSwim(df, db)
+        except Exception as e:
+            self.err(e, self.new_, "Can not set new instance")
+        if self.autoprint is True and quiet is False:
             self.ok("A new instance was created")
         return ds2
 

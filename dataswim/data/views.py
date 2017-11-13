@@ -77,8 +77,8 @@ class View():
         num_fields = len(f)
         fields = ", ".join(f)
         if self.autoprint is True:
-            self.info("Found", colors.bold(num), "rows in the dataframe and",
-                      colors.bold(num_fields), "fields:")
+            self.info("The dataframe has", colors.bold(num), "rows and",
+                      colors.bold(num_fields), "columns:")
             print(fields)
         return df.head()
 

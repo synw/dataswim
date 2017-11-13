@@ -20,7 +20,7 @@ class Transform():
         Limit a dataframe to some columns
         """
         try:
-            return self.duplicate_(self.df[list(fields)].copy())
+            return self.clone_(self.df[list(fields)].copy())
         except Exception as e:
             self.err(e, self.keep_, "Can not remove colums")
         if self.autoprint is True:
@@ -66,14 +66,14 @@ class Transform():
         except Exception as e:
             self.err(e, self.rsum_, "Can not sum data")
             return
-        return self.duplicate_(df)
+        return self.clone_(df)
 
     def _resample(self, method, time_period, dateindex, index_col, fill_col):
         """
         Resample the main dataframe to a time period
         """
         try:
-            ds2 = self.duplicate_()
+            ds2 = self.clone_()
             if dateindex is not None:
                 ds2 = ds2.dateindex_(dateindex)
             ds2.df = ds2.df.resample(time_period)
@@ -116,7 +116,7 @@ class Transform():
         except Exception as e:
             self.err(e, self.rmean_, "Can not mean data")
             return
-        return self.duplicate_(df)
+        return self.clone_(df)
     """
     def _rmean(self, time_period, dateindex, index_col, fill_col):
         ""
@@ -124,7 +124,7 @@ class Transform():
         ""
         try:
             df = self.df.resample(time_period).mean()
-            ds2 = self.duplicate_(df=df)
+            ds2 = self.clone_(df=df)
             if dateindex is not None or index_col is not None or fill_col is not None:
                 ds2 = ds2.index_fill_(
                     dateindex, index_col, fill_col, quiet=True)
@@ -184,7 +184,7 @@ class Transform():
         """
         try:
             df = self._index_col(column)
-            return self.duplicate_(df=df)
+            return self.clone_(df=df)
         except Exception as e:
             self.err(e, self.index_col_)
 
@@ -209,3 +209,5 @@ class Transform():
             self.df = self.df.rename(columns={source_col: dest_col})
         except Exception as e:
             self.err(e, self.rename)
+        if self.autoprint is True:
+            self.ok("Column", source_col, "renamed")

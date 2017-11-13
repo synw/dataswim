@@ -40,53 +40,52 @@ class Plot():
         try:
             self.chart_obj = self._get_chart(chart_type, x_field,
                                              y_field, style=style, opts=opts, label=label)
-            return self.chart_obj
         except Exception as e:
             self.err(e)
 
-    def bar(self, style=None, opts=None, label=None):
+    def bar_(self, style=None, opts=None, label=None):
         """
         Get a bar chart
         """
         return self._get_chart("bar", style=style, opts=opts, label=label)
 
-    def line(self, style=None, opts=None, label=None):
+    def line_(self, style=None, opts=None, label=None):
         """
         Get a line chart
         """
         return self._get_chart("line", style=style, opts=opts, label=label)
 
-    def area(self, style=None, opts=None, label=None):
+    def area_(self, style=None, opts=None, label=None):
         """
         Get an area chart
         """
         return self._get_chart("area", style=style, opts=opts, label=label)
 
-    def hist(self, style=None, opts=None, label=None):
+    def hist_(self, style=None, opts=None, label=None):
         """
         Get an historiogram chart
         """
         return self._get_chart("hist", style=style, opts=opts, label=label)
 
-    def errorbar(self, style=None, opts=None, label=None):
+    def errorbar_(self, style=None, opts=None, label=None):
         """
         Get a point chart
         """
         return self._get_chart("err", style=style, opts=opts, label=label)
 
-    def point(self, style=None, opts=None, label=None):
+    def point_(self, style=None, opts=None, label=None):
         """
         Get a point chart
         """
         return self._get_chart("point", style=style, opts=opts, label=label)
 
-    def heatmap(self, style=None, opts=None, label=None):
+    def heatmap_(self, style=None, opts=None, label=None):
         """
         Get a heatmap chart
         """
         return self._get_chart("point", style=style, opts=opts, label=label)
 
-    def line_point(self, colors={"line": "yellow", "point": "navy"}, style=None, opts=None, label=None):
+    def line_point_(self, colors={"line": "yellow", "point": "navy"}, style=None, opts=None, label=None):
         """
         Get a line and point chart
         """
