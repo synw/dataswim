@@ -15,7 +15,7 @@ class Select():
         """
         self.df = df
 
-    def duplicate_(self, df=None, db=None):
+    def duplicate_(self, df=None, db=None, quiet=False):
         """
         Returns a new DataSwim instance using the previous database connection
         """
@@ -23,10 +23,16 @@ class Select():
             db = self.db
         if df is None:
             df = self.df.copy()
-        ds2 = self.new_(df, db)
-        if self.autoprint is True:
+        ds2 = self.new_(df, db, quiet=True)
+        if self.autoprint is True and quiet is False:
             self.ok("A duplicated instance was created")
         return ds2
+
+    def clone_(self, df=None, db=None):
+        """
+        Silently clone the DataSwim instance
+        """
+        return self.duplicate_(df, db, quiet=True)
 
     def load_csv(self, url, dateindex=None, index_col=None, fill_col=None):
         """
@@ -36,7 +42,7 @@ class Select():
             self.df = self._load_csv(
                 url, dateindex, index_col, fill_col).df
         except Exception as e:
-            self.err(e, "Can not load csv file")
+            self.err(e, self.load_csv, "Can not load csv file")
 
     def load_csv_(self, url, dateindex=None, index_col=None, fill_col=None):
         """
@@ -45,7 +51,7 @@ class Select():
         try:
             return self._load_csv(url, dateindex, index_col, fill_col)
         except Exception as e:
-            self.err(e, "Can not load csv file")
+            self.err(e, self.load_csv_, "Can not load csv file")
 
     def _load_csv(self, url, dateindex, index_col, fill_col):
         """
@@ -73,7 +79,7 @@ class Select():
         try:
             self.df = df.copy()
         except Exception as e:
-            self.err(e)
+            self.err(e, self.set, "Can not set the main dataframe")
 
     def backup(self):
         """
@@ -82,7 +88,7 @@ class Select():
         try:
             self.backup_df = self.df.copy()
         except Exception as e:
-            self.err(e)
+            self.err(e, self.backup, "Can not backup data")
         if self.autoprint is True:
             self.ok("Dataframe backed up")
 
@@ -93,16 +99,16 @@ class Select():
         try:
             self.df = self._restore()
         except Exception as e:
-            self.err(e)
+            self.err(e, self.restore, "Can not restore dataframe")
 
     def restore_(self):
         """
         Returns the restored main dataframe in a DataSwim instance
         """
         try:
-            return self.duplicate_(self._restore())
+            return self.clone_(self._restore())
         except Exception as e:
-            self.err(e)
+            self.err(e, self.restore_, "Can not restore dataframe")
 
     def _restore(self):
         """
@@ -125,7 +131,7 @@ class Select():
         try:
             return self.df.iloc[0]
         except Exception as e:
-            self.err(e)
+            self.err(e, self.first, "Can not select first row")
 
     def limit(self, r=5):
         """
@@ -134,7 +140,7 @@ class Select():
         try:
             self.df = self.df[:r]
         except Exception as e:
-            self.err(e)
+            self.err(e, self.limit, "Can not limit data")
 
     def limit_(self, r=5):
         """
@@ -153,7 +159,7 @@ class Select():
             df = self.df[column].unique()
             return df
         except Exception as e:
-            self.err(e)
+            self.err(e, self.unique, "Can not select unique data")
 
     def contains_(self, column, value):
         """
@@ -161,12 +167,13 @@ class Select():
         """
         try:
             df = self.df[self.df[column].str.contains(value) == True]
-            return self.duplicate_(df.copy())
+            return self.clone_(df.copy())
         except KeyError:
-            self.err("Can not find " + colors.bold(column) + " column")
+            self.err(self.contains_, "Can not find " +
+                     colors.bold(column) + " column")
             return
         except Exception as e:
-            self.err(e)
+            self.err(e, self.contains_, "Can not select contained data")
 
     def exact_(self, column, *values):
         """
@@ -175,12 +182,13 @@ class Select():
         try:
             df2 = self.df[column].isin(list(values))
             df = self.df[df2]
-            return self.duplicate_(df)
+            return self.clone_(df)
         except KeyError:
-            self.err("Can not find " + colors.bold(column) + " column")
+            self.err(self.exact_, "Can not find " +
+                     colors.bold(column) + " column")
             return
         except Exception as e:
-            self.err(e)
+            self.err(e, self.exact_, "Can not select exact data")
 
     def range_(self, num, unit):
         """
@@ -189,9 +197,9 @@ class Select():
         try:
             df = self.df[self.df.last_valid_index() -
                          pd.DateOffset(num, unit):]
-            return self.duplicate_(df=df)
+            return self.clone_(df=df)
         except Exception as e:
-            self.err(e)
+            self.err(e, self.range_, "Can not select range data")
         return self.duplicate(df)
 
     def to_records_(self):
@@ -202,11 +210,14 @@ class Select():
             dic = self.df.to_dict(orient="records")
             return dic
         except Exception as e:
-            self.err(e)
+            self.err(e, self.to_records_, "Can not create records")
 
     def nulls_(self):
         """
         Return all null rows
         """
-        null_rows = self.df[self.df.isnull().any(axis=1)]
+        try:
+            null_rows = self.df[self.df.isnull().any(axis=1)]
+        except Exception as e:
+            self.err(e, self.nulls_, "Can not select null rows")
         return null_rows
