@@ -43,49 +43,49 @@ class Plot():
         except Exception as e:
             self.err(e)
 
-    def bar_(self, style=None, opts=None, label=None):
+    def bar_(self, label=None, style=None, opts=None):
         """
         Get a bar chart
         """
         return self._get_chart("bar", style=style, opts=opts, label=label)
 
-    def line_(self, style=None, opts=None, label=None):
+    def line_(self, label=None, style=None, opts=None):
         """
         Get a line chart
         """
         return self._get_chart("line", style=style, opts=opts, label=label)
 
-    def area_(self, style=None, opts=None, label=None):
+    def area_(self, label=None, style=None, opts=None):
         """
         Get an area chart
         """
         return self._get_chart("area", style=style, opts=opts, label=label)
 
-    def hist_(self, style=None, opts=None, label=None):
+    def hist_(self, label=None, style=None, opts=None):
         """
         Get an historiogram chart
         """
         return self._get_chart("hist", style=style, opts=opts, label=label)
 
-    def errorbar_(self, style=None, opts=None, label=None):
+    def errorbar_(self, label=None, style=None, opts=None):
         """
         Get a point chart
         """
         return self._get_chart("err", style=style, opts=opts, label=label)
 
-    def point_(self, style=None, opts=None, label=None):
+    def point_(self, label=None, style=None, opts=None):
         """
         Get a point chart
         """
         return self._get_chart("point", style=style, opts=opts, label=label)
 
-    def heatmap_(self, style=None, opts=None, label=None):
+    def heatmap_(self, label=None, style=None, opts=None):
         """
         Get a heatmap chart
         """
         return self._get_chart("point", style=style, opts=opts, label=label)
 
-    def line_point_(self, colors={"line": "yellow", "point": "navy"}, style=None, opts=None, label=None):
+    def line_point_(self, label=None, style=None, opts=None, colors={"line": "yellow", "point": "navy"}):
         """
         Get a line and point chart
         """
@@ -111,7 +111,7 @@ class Plot():
         for k in dictobj:
             self.chart_style[k] = dictobj[k]
 
-    def _get_chart(self, chart_type="line", x_field=None, y_field=None, style=None, opts=None, label=None):
+    def _get_chart(self, chart_type="line_", x_field=None, y_field=None, style=None, opts=None, label=None):
         """
         Get a full chart object
         """

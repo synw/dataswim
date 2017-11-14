@@ -26,7 +26,7 @@ class Relation():
         """
         df = self._relation(search_ds, origin_field,
                             search_field, destination_field, id_field)
-        return self.clone(df)
+        return self.clone_(df)
 
     def _relation(self, search_ds, origin_field, search_field, destination_field, id_field):
         """
@@ -43,37 +43,21 @@ class Relation():
         df[destination_field] = None
 
         def set_rel(row):
-            print("START")
             try:
-                # df.loc[df[id_field] == ]['A'].values
-
-                print("ROW", row, "\nFIELD", origin_field)
-                orow = row[origin_field]
-                print('OROW', orow)
-                serie = df.loc[orow]
+                origin_val = row[origin_field]
+                end_val = search_ds.df.loc[search_ds.df[id_field]
+                                           == origin_val][search_field].values[0]
+                return end_val
             except:
-                self.warning("Can not find serie")
                 return nan
-            print("SERIE", serie)
-            try:
-                val = serie[origin_field]
-            except:
-                self.warning("Can not find value in serie")
-                return nan
-            print("VAL", val)
-            try:
-                endval = search_ds.exact_(id_field, val).first_()[search_field]
-                print("ENDVAL", endval)
-                return endval
-            except:
-                print("NAN EXACT", val)
-                return nan
+        """
         try:
             df = df.reset_index(drop=True)
-            df = df.set_index(id_field)
+            df = df.set_index(origin_field)
         except Exception as e:
             self.err(e, self._relation, "Can not set index for relation")
             return
+        """
         try:
             df = df.copy()
             df[destination_field] = df.apply(set_rel, axis=1)

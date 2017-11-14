@@ -98,7 +98,7 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         """
         try:
             self.df = self._load_csv(
-                url, dateindex, index_col, fill_col).df
+                url, dateindex, index_col, fill_col)
         except Exception as e:
             self.err(e, self.load_csv, "Can not load csv file")
 
@@ -107,7 +107,8 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         Returns a DataSwim instance from csv data
         """
         try:
-            return self._load_csv(url, dateindex, index_col, fill_col)
+            df = self._load_csv(url, dateindex, index_col, fill_col)
+            return self.clone_(df)
         except Exception as e:
             self.err(e, self.load_csv_, "Can not load csv file")
 
@@ -126,6 +127,10 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         except Exception as e:
             self.err(e)
             return
-        if dateindex is not None and index_col is not None and fill_col is not None:
-            ds2 = ds2.index_fill_(dateindex, index_col, fill_col, quiet=True)
-        return ds2
+        if dateindex is not None:
+            ds2 = ds2.dateindex_(dateindex)
+        if fill_col is not None:
+            ds2 = ds2.fill_nan_(0, fill_col)
+        if index_col is not None:
+            ds2 = ds2.index_col_(index_col)
+        return ds2.df

@@ -137,7 +137,7 @@ class Clean():
         try:
             self.date(date_col)
             if index is True:
-                self.index(date_col)
+                self.dateindex(date_col)
             if numeric_col is not None:
                 self.fill_nan(numeric_col)
                 if to_int is True:

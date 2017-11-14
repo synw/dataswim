@@ -40,7 +40,10 @@ class DataSwim(Db, Df, Plot, Report, Errors, Messages):
         self.errors_handling = "exceptions"
 
     def __repr__(self):
-        msg = "<DataSwim object>"
+        num = 0
+        if self.df is not None:
+            num = len(self.df.index)
+        msg = "<DataSwim object | " + str(num) + " rows>"
         return msg
 
     def new_(self, df=None, db=None, quiet=False):

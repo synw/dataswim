@@ -113,7 +113,7 @@ class View():
         """
         Returns a DatasWim instance from values count of a column     
         """
-        ds2 = self.duplicate(df=self._vals(field))
+        ds2 = self.clone_(df=self._vals(field))
         ds2.index_col(index_col)
         return ds2
 
