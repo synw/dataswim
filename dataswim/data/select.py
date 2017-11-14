@@ -46,7 +46,7 @@ class Select():
         except Exception as e:
             self.err(e)
 
-    def unique(self, column):
+    def unique_(self, column):
         """
         Returns unique values in a colum
         """

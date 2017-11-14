@@ -41,61 +41,85 @@ class Plot():
             self.chart_obj = self._get_chart(chart_type, x_field,
                                              y_field, style=style, opts=opts, label=label)
         except Exception as e:
-            self.err(e)
+            self.err(e, self.chart, "Can not chart data")
 
     def bar_(self, label=None, style=None, opts=None):
         """
         Get a bar chart
         """
-        return self._get_chart("bar", style=style, opts=opts, label=label)
+        try:
+            return self._get_chart("bar", style=style, opts=opts, label=label)
+        except Exception as e:
+            self.err(e, self.chart, "Can draw bar chart")
 
     def line_(self, label=None, style=None, opts=None):
         """
         Get a line chart
         """
-        return self._get_chart("line", style=style, opts=opts, label=label)
+        try:
+            return self._get_chart("line", style=style, opts=opts, label=label)
+        except Exception as e:
+            self.err(e, self.line_, "Can draw line chart")
 
     def area_(self, label=None, style=None, opts=None):
         """
         Get an area chart
         """
-        return self._get_chart("area", style=style, opts=opts, label=label)
+        try:
+            return self._get_chart("area", style=style, opts=opts, label=label)
+        except Exception as e:
+            self.err(e, self.area_, "Can draw area chart")
 
     def hist_(self, label=None, style=None, opts=None):
         """
         Get an historiogram chart
         """
-        return self._get_chart("hist", style=style, opts=opts, label=label)
+        try:
+            return self._get_chart("hist", style=style, opts=opts, label=label)
+        except Exception as e:
+            self.err(e, self.hist_, "Can draw historiogram")
 
     def errorbar_(self, label=None, style=None, opts=None):
         """
         Get a point chart
         """
-        return self._get_chart("err", style=style, opts=opts, label=label)
+        try:
+            return self._get_chart("err", style=style, opts=opts, label=label)
+        except Exception as e:
+            self.err(e, self.errorbar_, "Can draw errorbar chart")
 
     def point_(self, label=None, style=None, opts=None):
         """
         Get a point chart
         """
-        return self._get_chart("point", style=style, opts=opts, label=label)
+        try:
+            return self._get_chart("point", style=style, opts=opts, label=label)
+        except Exception as e:
+            self.err(e, self.point_, "Can draw point chart")
 
     def heatmap_(self, label=None, style=None, opts=None):
         """
         Get a heatmap chart
         """
-        return self._get_chart("point", style=style, opts=opts, label=label)
+        try:
+            return self._get_chart("point", style=style, opts=opts, label=label)
+        except Exception as e:
+            self.err(e, self.heatmap_, "Can draw heatmap")
 
     def line_point_(self, label=None, style=None, opts=None, colors={"line": "yellow", "point": "navy"}):
         """
         Get a line and point chart
         """
-        if style is None:
-            style = self.chart_style
-        style["color"] = colors["line"]
-        l = self._get_chart("line", style=style, opts=opts, label=label)
-        style["color"] = colors["point"]
-        p = self._get_chart("point", style=style, opts=opts, label=label)
-        return l * p
+        try:
+            if style is None:
+                style = self.chart_style
+            style["color"] = colors["line"]
+            l = self._get_chart("line", style=style, opts=opts, label=label)
+            style["color"] = colors["point"]
+            p = self._get_chart("point", style=style, opts=opts, label=label)
+            return l * p
+        except Exception as e:
+            self.err(e, self.line_point_, "Can draw line_point chart")
 
     def opts(self, dictobj):
         """
@@ -111,7 +135,7 @@ class Plot():
         for k in dictobj:
             self.chart_style[k] = dictobj[k]
 
-    def _get_chart(self, chart_type="line_", x_field=None, y_field=None, style=None, opts=None, label=None):
+    def _get_chart(self, chart_type="line", x_field=None, y_field=None, style=None, opts=None, label=None):
         """
         Get a full chart object
         """
@@ -144,7 +168,7 @@ class Plot():
         except Exception as e:
             self.err(e)
 
-    def _get_base_chart(self, x_field, y_field, chart_type="line", label=None):
+    def _get_base_chart(self, x_field, y_field, chart_type, label):
         """
         Get a base chart object
         """
@@ -157,7 +181,10 @@ class Plot():
         chart = None
         try:
             if chart_type == "line":
-                chart = hv.Curve(**args)
+                try:
+                    chart = hv.Curve(**args)
+                except Exception as e:
+                    self.err(e)
             elif chart_type == "point":
                 chart = hv.Scatter(**args)
             elif chart_type == "area":
@@ -169,7 +196,7 @@ class Plot():
             elif chart_type == "err":
                 chart = hv.ErrorBars(**args)
             return chart
-        # BROKEN in 1.9.0
+        # BROKEN in Holoview 1.9.0
         # except DataError as e:
         #    msg = "Column not found in " + x_field + " and " + y_field
         #    self.err(e, msg)

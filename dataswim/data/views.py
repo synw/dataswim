@@ -59,12 +59,14 @@ class View():
         self.look()
         return self.df.describe()
 
-    def show(self, p=True, dataframe=None):
+    def show(self, rows=5, dataframe=None):
         """
         Display info about a dataframe
         """
         try:
-            if dataframe is None:
+            if dataframe is not None:
+                df = dataframe
+            else:
                 df = self.df
             if df is None:
                 self.warning("Dataframe is empty: nothing to show")
@@ -75,12 +77,15 @@ class View():
             return
         f = list(df)
         num_fields = len(f)
-        fields = ", ".join(f)
+        fds = []
+        for fi in f:
+            fds.append(str(fi))
+        fields = ", ".join(fds)
         if self.autoprint is True:
             self.info("The dataframe has", colors.bold(num), "rows and",
                       colors.bold(num_fields), "columns:")
             print(fields)
-        return df.head()
+        return df.head(rows)
 
     def report(self, df=None):
         """
@@ -103,7 +108,19 @@ class View():
         df2 = self.df[list(fields)]
         return df2.head()
 
-    def pvals(self, field):
+    def cols(self):
+        """
+        Display columns info
+        """
+        try:
+            df = self.df
+            s = df.iloc[0]
+            df = pd.DataFrame(s)
+            return df.head(100)
+        except Exception as e:
+            self.err(e, self.cols, "Can not display column infos")
+
+    def vals(self, field):
         """
         Print the values count of a column     
         """

@@ -117,21 +117,6 @@ class Transform():
             self.err(e, self.rmean_, "Can not mean data")
             return
         return self.clone_(df)
-    """
-    def _rmean(self, time_period, dateindex, index_col, fill_col):
-        ""
-        Resample, and sum the main dataframe to a time period
-        ""
-        try:
-            df = self.df.resample(time_period).mean()
-            ds2 = self.clone_(df=df)
-            if dateindex is not None or index_col is not None or fill_col is not None:
-                ds2 = ds2.index_fill_(
-                    dateindex, index_col, fill_col, quiet=True)
-            return ds2
-        except Exception as e:
-            self.err(e, self._rmean, "Can not mean data")
-    """
 
     def revert(self):
         """
@@ -140,7 +125,7 @@ class Transform():
         try:
             self.df = self.df.iloc[::-1]
         except Exception as e:
-            self.err(e, self.revert)
+            self.err(e, self.revert, "Can not revert dataframe")
 
     def apply(self, function):
         """
@@ -149,7 +134,7 @@ class Transform():
         try:
             self.df = self.df.apply(function, axis=1)
         except Exception as e:
-            self.err(e, self.apply)
+            self.err(e, self.apply, "Can not apply function")
 
     def concat(self, *dfs):
         """
@@ -158,7 +143,23 @@ class Transform():
         try:
             self.df = pd.concat(dfs)
         except Exception as e:
-            self.err(e, self.concat)
+            self.err(e, self.concat, "Can not concatenate data")
+
+    def split_(self, col):
+        """
+        Split the main dataframe according to column values
+        """
+        df = self.df.copy()
+        try:
+            dss = {}
+            unique = df[col].unique()
+            for key in unique:
+                df2 = df.loc[df[col] == key]
+                ds2 = self.clone_(df2)
+                dss[key] = ds2
+            return dss
+        except Exception as e:
+            self.err(e, self.unique, "Can not split dataframe")
 
     def add(self, column, value):
         """
@@ -167,7 +168,7 @@ class Transform():
         try:
             self.df[column] = value
         except Exception as e:
-            self.err(e, self.add)
+            self.err(e, self.add, "Can not add column")
 
     def index_col(self, column="index"):
         """
@@ -176,7 +177,7 @@ class Transform():
         try:
             self.df = self._index_col(column)
         except Exception as e:
-            self.err(e, self.index_col)
+            self.err(e, self.index_col, "Can not add index column")
 
     def index_col_(self, column="index"):
         """
@@ -186,7 +187,7 @@ class Transform():
             df = self._index_col(column)
             return self.clone_(df=df)
         except Exception as e:
-            self.err(e, self.index_col_)
+            self.err(e, self.index_col_, "Can not add index column")
 
     def _index_col(self, column):
         """
@@ -199,7 +200,7 @@ class Transform():
                 self.ok("Column", column, "added from index")
             return df
         except Exception as e:
-            self.err(e, self._index_col)
+            self.err(e)
 
     def rename(self, source_col, dest_col):
         """
@@ -208,6 +209,6 @@ class Transform():
         try:
             self.df = self.df.rename(columns={source_col: dest_col})
         except Exception as e:
-            self.err(e, self.rename)
+            self.err(e, self.rename, "Can not rename column")
         if self.autoprint is True:
             self.ok("Column", source_col, "renamed")

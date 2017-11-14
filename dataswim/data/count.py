@@ -31,9 +31,12 @@ class Count():
         Count the number of rows of the main dataframe
         """
         try:
-            return len(self.df.index)
+            num = len(self.df.index)
         except Exception as e:
-            self.err(e, self.count)
+            self.err(e, self.count, "Can not count data")
+            return
+        if self.autoprint is True:
+            self.ok("Found", num, "rows in the dataframe")
 
     def count_empty(self, field):
         """
@@ -42,9 +45,13 @@ class Count():
         try:
             df2 = self.keep_(field).df
             vals = where(df2.applymap(lambda x: x == ''))
-            return len(vals[0])
+            num = len(vals[0])
+            return num
         except Exception as e:
-            self.err(e, self.count_empty)
+            self.err(e, self.count_empty, "Can not count empty values")
+            return
+        if self.autoprint is True:
+            self.ok("Found", num, "empty rows in the dataframe")
 
     def count_zero(self, field):
         """
@@ -53,15 +60,21 @@ class Count():
         try:
             df2 = self.keep_(field).df
             vals = where(df2.applymap(lambda x: x == 0))
-            return len(vals[0])
+            num = len(vals[0])
+            return num
         except Exception as e:
-            self.err(e, self.count_empty)
+            self.err(e, self.count_zero, "Can not count zero values")
+        if self.autoprint is True:
+            self.ok("Found", num, "zero values rows in column", field)
 
     def count_unique(self, field):
         """
         Return the number of unique values in a column     
         """
         try:
-            return self.df[field].nunique()
+            num = self.df[field].nunique()
+            return num
         except Exception as e:
-            self.err(e, self.count_unique)
+            self.err(e, self.count_unique, "Can not count unique values")
+        if self.autoprint is True:
+            self.ok("Found", num, "unique values rows in column", field)

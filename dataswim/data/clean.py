@@ -29,13 +29,16 @@ class Clean():
         try:
             self.df[field] = self.df[field].replace('', nan)
         except Exception as e:
-            self.err(e)
+            self.err(e, self.nan_empty_, "Can not fill empty values with nan")
 
     def zero_nan(self, *fields):
         """
         Converts zero values to nan values in selected columns
         """
-        self.df = self._zero_nan(*fields)
+        try:
+            self.df = self._zero_nan(*fields)
+        except Exception as e:
+            self.err(e, self.nan_empty_, "Can not fill zero values with nan")
 
     def zero_nan_(self, *fields):
         """
@@ -51,16 +54,15 @@ class Clean():
         df = self.df.copy()
         try:
             for field in fields:
-                df = df.replace({field: {0: nan}})
+                df = df.replace({field: {nan: 0}})
             if self.autoprint is True:
                 s = "s"
                 if len(fields) == 1:
                     s = ""
-                self.ok("Replaced 0 values by nan in column" +
-                        s, " ".join(list(field)))
+                self.ok("Replaced 0 values by nan in column" + s, field)
             return df
         except Exception as e:
-            self.err(e, self._zero_nan, "Can not replace 0 values by nan")
+            self.err(e)
 
     def fill_nan(self, val, *fields):
         """
