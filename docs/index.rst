@@ -44,5 +44,12 @@ Dataswim
    :caption: Build reports
 
    data/reports
+   
+.. toctree::
+   :maxdepth: 2
+   :titlesonly:
+   :caption: Conventions
+
+   data/conventions
 
 
