@@ -25,11 +25,32 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         """
         Returns a new DataSwim instance using the previous database connection
         """
-        if db is None:
-            db = self.db
-        if df is None:
-            df = self.df.copy()
-        ds2 = self.new_(df, db, quiet=True)
+        try:
+            if db is None:
+                db = self.db
+            if df is None:
+                if self.df is None:
+                    self.err(
+                        self.duplicate_, "The main dataframe is empty and no dataframe"
+                        " was provided: please provide a dataframe as argument")
+                    return
+                df = self.df.copy()
+            ds2 = self.new_(df, db, quiet=True)
+            ds2.db = self.db
+            ds2.x_field = self.x_field
+            ds2.y_field = self.y_field
+            ds2.chart_obj = self.chart_obj
+            ds2.chart_opts = self.chart_opts
+            ds2.chart_style = self.chart_style
+            ds2.label = self.label
+            ds2.reports = self.reports
+            ds2.report_path = self.report_path
+            ds2.backup_df = self.backup_df
+            ds2.autoprint = self.autoprint
+            ds2.errors_handling = self.errors_handling
+        except Exception as e:
+            self.err(e, self.duplicate_, "Can not duplicate instance")
+            return
         if self.autoprint is True and quiet is False:
             self.ok("A duplicated instance was created")
         return ds2
@@ -38,7 +59,11 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         """
         Silently clone the DataSwim instance
         """
-        return self.duplicate_(df, db, quiet=True)
+        try:
+            ds2 = self.duplicate_(df, db, quiet=True)
+            return ds2
+        except Exception as e:
+            self.err(e, self.clone_, "Can not clone instance")
 
     def set(self, df):
         """
@@ -116,7 +141,6 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         """
         Returns a DataSwim instance from csv data
         """
-
         try:
             df = pd.read_csv(url)
             ds2 = self.clone_(df=df)
@@ -127,10 +151,9 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         except Exception as e:
             self.err(e)
             return
-        if dateindex is not None:
-            ds2 = ds2.dateindex_(dateindex)
-        if fill_col is not None:
-            ds2 = ds2.fill_nan_(0, fill_col)
-        if index_col is not None:
-            ds2 = ds2.index_col_(index_col)
+        try:
+            ds2 = self.transform_(dateindex, index_col, fill_col, df=df)
+        except Exception as e:
+            self.err(e)
+            return
         return ds2.df

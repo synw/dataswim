@@ -26,48 +26,51 @@ class Db(Info, Select, Insert, Relation):
         try:
             self.db = dataset.connect(url)
         except Exception as e:
-            err.new(e)
+            self.err(e, self.connect, "Can not connect to database")
+            return
         if self.db is None:
-            err.new("Database" + url + " not found", self.connect)
-            err.trace()
+            self.err("Database" + url + " not found", self.connect)
+            return
         if self.autoprint is True:
             self.ok("Db", self.db.url, "connected")
 
-    def load(self, table):
+    def load(self, table, dateindex=None, index_col=None, fill_col=None):
         """
         Set the main dataframe from a table's data
         """
         try:
-            self.df = self._load(table)
+            self.df = self._load(table, dateindex, index_col, fill_col)
         except Exception as e:
-            self.err(e)
+            self.err(e, self.load, "Can not load table " + table)
 
-    def load_(self, table):
+    def load_(self, table, dateindex=None, index_col=None, fill_col=None):
         """
         Returns a DataSwim instance from a table's data
         """
         try:
-            return self.clone_(self._load(table))
+            df = self._load(table, dateindex, index_col, fill_col)
+            return self.clone_(df)
         except Exception as e:
-            self.err(e)
+            self.err(e, self.load_, "Can not load table " + table)
 
-    def _load(self, table):
+    def _load(self, table, dateindex, index_col, fill_col):
         """
         Set the main dataframe or return table's data
         """
-        try:
-            self._check_db()
-        except Exception as e:
-            self.err(e, self.count_rows, "Can not connect to database")
-            return
+        self._check_db()
         try:
             df = self.getall(table)
         except Exception as e:
-            self.err(e, self.count_rows, "Can load data from table " + table)
-            return
+            self.err(e, self._load, "Can not fetch data from table " + table)
+            return self.df
+        try:
+            ds2 = self.transform_(dateindex, index_col, fill_col, df=df)
+        except Exception as e:
+            self.err(e, self.load, "Can not transform dataframe")
+            return self.df
         if self.autoprint is True:
             self.ok("Data loaded from table", table)
-        return df
+        return ds2.df
 
     def load_django_(self, query):
         """
@@ -83,10 +86,9 @@ class Db(Info, Select, Insert, Relation):
         self._check_db()
         self.df = pd.DataFrame(list(query.values()))
 
-    def _check_db(self, friendly=False):
+    def _check_db(self):
         """
         Checks the database connection
         """
         if self.db is None:
-            self.err(
-                self._check_db, "Database not connected")
+            self.err(self._check_db, "Database not connected")

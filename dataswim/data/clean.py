@@ -94,7 +94,11 @@ class Clean():
         df = self.df.copy()
         try:
             for el in fields:
-                df[el] = df[[el]].fillna(val)
+                try:
+                    df[el] = df[[el]].fillna(val)
+                except KeyError:
+                    self.warning("Can not find column ", el)
+                    return
         except Exception as e:
             self.err(e, self._fill_nan, "Can not fill nan values")
         if self.autoprint is True:
@@ -276,54 +280,24 @@ class Clean():
             self.ok("Added a range index")
         return df
 
-    """
-    def index_fill(self, dateindex=None, index_col=None, fill_col=None, quiet=False):
-        ""
-        Add a column from index and/or fill nans in a column
-        ""
+    def transform_(self, dateindex=None, index_col=None, fill_col=None, num_col=None, df=None):
+        """
+        Returns a DataSwim instance transformed according to the given parameters
+        """
+        if df is None:
+            df = self.df.copy()
+        ds2 = self.clone_(df)
+        if dateindex is None and index_col is None and fill_col is None and num_col is None:
+            return ds2
         try:
-            self = self._index_fill(dateindex, index_col, fill_col, quiet)
-        except Exception as e:
-            self.err(e)
-
-    def index_fill_(self, dateindex=None, index_col=None, fill_col=None, quiet=False):
-        ""
-        Returns a DataSwim instance with a column from index and/or fill nans in a column
-        ""
-        try:
-            return self._index_fill(dateindex, index_col, fill_col, quiet)
-        except Exception as e:
-            self.err(e)
-
-    def _index_fill(self, dateindex, index_col, fill_col, quiet):
-        ""
-        Add a column from index and/or fill nans in a column
-        ""
-        if dateindex is None and index_col is None and fill_col is None and quiet is False:
-            if quiet is False:
-                self.debug(
-                    "Method index_fill: please provide at least one parameter")
-            return
-        ds2 = self.clone_()
-        if dateindex is not None:
-            try:
+            if dateindex is not None:
                 ds2 = ds2.dateindex_(dateindex)
-            except Exception as e:
-                self.err(e, self._index_fill, "Can not create date index")
-                return
-        if index_col is not None:
-            try:
-                ds2 = ds2.index_col_(index_col)
-            except Exception as e:
-                self.err(e, self._index_fill, "Can not create index col")
-                return
-        if fill_col is not None:
-            try:
+            if fill_col is not None:
                 ds2 = ds2.fill_nan_(0, fill_col)
-            except Exception as e:
-                self.err(e, self._index_fill, "Can not fill nans")
-                return
-        # if self.autoprint is True:
-        #    self.ok("Indexed dataframe from column", dateindex)
-        return ds2
-    """
+            if index_col is not None:
+                ds2 = ds2.index_col_(index_col)
+            if num_col is not None:
+                ds2.add(num_col, 1)
+            return ds2
+        except Exception as e:
+            self.err(e, self.transform_, "Can not transform data")

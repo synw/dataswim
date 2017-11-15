@@ -46,29 +46,31 @@ class Transform():
         except Exception as e:
             self.err(e, self.drop, "Can not drop column")
 
-    def rsum(self, time_period="1Min", dateindex=None, index_col=None, fill_col=None):
+    def rsum(self, time_period="1Min", num_col="num", dateindex=None, index_col="date", fill_col=None):
         """
         Resample, and sum the main dataframe to a time period
         """
         try:
             self.df = self._resample("sum", time_period,
-                                     dateindex, index_col, fill_col)
+                                     num_col, dateindex, index_col, fill_col)
         except Exception as e:
             self.err(e, self.rsum, "Can not sum data")
 
-    def rsum_(self, time_period="1Min", dateindex=None, index_col=None, fill_col=None):
+    def rsum_(self, time_period="1Min", num_col="num", dateindex=None, index_col="date", fill_col=None):
         """
         Resample, and sum a dataframe to a time period
         """
         try:
             df = self._resample("sum", time_period,
-                                dateindex, index_col, fill_col)
+                                num_col, dateindex, index_col, fill_col)
+            if num_col is not None:
+                self.add(0, num_col)
         except Exception as e:
             self.err(e, self.rsum_, "Can not sum data")
             return
         return self.clone_(df)
 
-    def _resample(self, method, time_period, dateindex, index_col, fill_col):
+    def _resample(self, method, time_period, num_col, dateindex, index_col, fill_col):
         """
         Resample the main dataframe to a time period
         """
@@ -76,6 +78,8 @@ class Transform():
             ds2 = self.clone_()
             if dateindex is not None:
                 ds2 = ds2.dateindex_(dateindex)
+            if num_col is not None:
+                ds2.add(num_col, 1)
             ds2.df = ds2.df.resample(time_period)
             if method == "sum":
                 ds2.df = ds2.df.sum()
@@ -86,33 +90,30 @@ class Transform():
                          method + " unknown")
             if self.autoprint is True:
                 self.ok("Data resampled by", time_period)
-            ds3 = ds2
-            if fill_col is not None:
-                ds3 = ds3.fill_nan_(0, fill_col)
-            if index_col is not None:
-                ds3 = ds3.index_col_(index_col)
+            ds3 = self.transform_(dateindex, index_col,
+                                  fill_col, None, df=ds2.df)
             return ds3.df
         except Exception as e:
             self.err(e, self._resample, "Can not resample data")
             return
 
-    def rmean(self, time_period="1Min", dateindex=None, index_col=None, fill_col=None):
+    def rmean(self, time_period="1Min", num_col="num", dateindex=None, index_col="date", fill_col=None):
         """
         Resample, and sum the main dataframe to a time period
         """
         try:
             self.df = self._resample("mean", time_period,
-                                     dateindex, index_col, fill_col)
+                                     num_col, dateindex, index_col, fill_col)
         except Exception as e:
             self.err(e, self.rmean, "Can not mean data")
 
-    def rmean_(self, time_period="1Min", dateindex=None, index_col=None, fill_col=None):
+    def rmean_(self, time_period="1Min", num_col="num", dateindex=None, index_col="date", fill_col=None):
         """
         Resample, and sum a dataframe to a time period
         """
         try:
             df = self._resample("mean", time_period,
-                                dateindex, index_col, fill_col)
+                                num_col, dateindex, index_col, fill_col)
         except Exception as e:
             self.err(e, self.rmean_, "Can not mean data")
             return
@@ -166,7 +167,9 @@ class Transform():
         Add a columns with default values
         """
         try:
-            self.df[column] = value
+            df = self.df.copy()
+            df[column] = value
+            self.df = df
         except Exception as e:
             self.err(e, self.add, "Can not add column")
 

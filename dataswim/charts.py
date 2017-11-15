@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import holoviews as hv
-from goerr import err
-
-
-X = None
-Y = None
 
 
 class Plot():
@@ -139,19 +134,18 @@ class Plot():
         """
         Get a full chart object
         """
-        global X, Y
         if x_field is None:
-            if X is None:
-                err.new("X field is not set: please specify a parameter", self.chart)
-            x_field = X
-        else:
-            X = x_field
+            if self.x_field is None:
+                self.err(
+                    self._get_chart, "X field is not set: please specify a parameter")
+                return
+            x_field = self.x_field
         if y_field is None:
-            if Y is None:
-                err.new("Y field is not set: please specify a parameter", self.chart)
-            y_field = Y
-        else:
-            Y = y_field
+            if self.y_field is None:
+                self.err(
+                    self._get_chart, "Y field is not set: please specify a parameter")
+                return
+            y_field = self.y_field
         if opts is None:
             opts = self.chart_opts
         if style is None:
