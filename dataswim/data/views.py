@@ -102,23 +102,78 @@ class View():
         """
         Display some columns head
         """
-        if self.df is None:
-            self.warning("Dataframe is empty: nothing to display")
-            return
-        df2 = self.df[list(fields)]
-        return df2.head()
+        try:
+            if self.df is None:
+                self.warning("Dataframe is empty: nothing to display")
+                return
+            df2 = self.df[list(fields)]
+            return df2.head()
+        except Exception as e:
+            self.err(e, self.display, "Can not display dataframe")
+
+    def types_(self, col):
+        """
+        Display types of values in a column
+        """
+        df = self.df.copy()
+        cols = df.columns.values
+        all_types = {}
+        for col in cols:
+            local_types = []
+            for i, val in self.df[col].iteritems():
+                #print(i, val, type(val))
+                t = type(val).__name__
+                if t not in local_types:
+                    local_types.append(t)
+            all_types[col] = (local_types, i)
+        df = pd.DataFrame(all_types, index=["type", "num"])
+        return self.clone_(df)
 
     def cols(self):
         """
-        Display columns info
+        Prints columns info
         """
         try:
-            df = self.df
-            s = df.iloc[0]
-            df = pd.DataFrame(s)
+            df = self._cols()
             return df.head(100)
         except Exception as e:
-            self.err(e, self.cols, "Can not display column infos")
+            self.err(e, self._cols, "Can not display column infos")
+
+    def cols_(self):
+        """
+        Returns a DataSwim instance with columns info
+        """
+        try:
+            df = self._cols()
+            return self.clone_(df)
+        except Exception as e:
+            self.err(e, self._cols, "Can not display column infos")
+
+    def _cols(self):
+        """
+        Returns a dataframe with columns info
+        """
+        try:
+            df = self.df.copy()
+            s = df.iloc[0]
+            df = pd.DataFrame(s)
+            df = df.rename(columns={0: "value"})
+
+            # TODO : revert columns value and type order
+            #cols = df.columns.tolist()
+            #cols = cols[-1:] + cols[:-1]
+            #df = df[cols]
+
+            def run(row):
+                t = row[0]
+                return type(t).__name__
+
+            s = df.apply(run, axis=1)
+            df = df.rename(columns={0: "value"})
+            df["type"] = s
+            return df
+        except Exception as e:
+            self.err(e)
 
     def vals(self, field):
         """

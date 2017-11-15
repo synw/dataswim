@@ -18,6 +18,7 @@ class Relation():
         """
         df = self._relation(search_ds, origin_field,
                             search_field, destination_field, id_field)
+        print("DF", df)
         self.df = df
 
     def relation_(self, search_ds, origin_field, search_field, destination_field=None, id_field="id"):

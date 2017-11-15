@@ -210,5 +210,6 @@ class Transform():
             self.df = self.df.rename(columns={source_col: dest_col})
         except Exception as e:
             self.err(e, self.rename, "Can not rename column")
+            return
         if self.autoprint is True:
             self.ok("Column", source_col, "renamed")

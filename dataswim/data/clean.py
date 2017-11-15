@@ -128,9 +128,38 @@ class Clean():
             self.df = ds2.df
         except Exception as e:
             self.err(e, self.to_int, "Can not convert column values to integer")
-
+            return
         if self.autoprint is True:
             self.ok("Converted column values to integers")
+
+    def to_float(self, *cols):
+        """
+        Convert colums values to float
+        """
+        try:
+            df = self._to_type("float64", *cols)
+            self.df = df
+        except Exception as e:
+            self.err(e, self._to_type, "Can not convert column values to float")
+            return
+        if self.autoprint is True:
+            self.ok("Converted column values to float")
+
+    def _to_type(self, dtype, *cols):
+        """
+        Convert colums values to a given type
+        """
+        df = self.df.copy()
+        allcols = df.columns.values
+        try:
+            for col in cols:
+                if col not in allcols:
+                    self.err(self._to_type, "Column " + col + " not found")
+                    return
+                df[col] = df[col].astype(dtype)
+            return df
+        except Exception as e:
+            self.err(e)
 
     def clean_ts(self, date_col, numeric_col=None, index=True, to_int=False, index_col=True):
         """
