@@ -32,6 +32,9 @@ class Relation():
         """
         Add a column to the main dataframe from a relation foreign key 
         """
+        if self.autoprint is True:
+            self.start("Processing relation",
+                       origin_field, "->", search_field)
         try:
             self._check_db()
         except Exception as e:
@@ -59,18 +62,13 @@ class Relation():
                 return end_val
             except:
                 return nan
-        """
-        try:
-            df = df.reset_index(drop=True)
-            df = df.set_index(origin_field)
-        except Exception as e:
-            self.err(e, self._relation, "Can not set index for relation")
-            return
-        """
+
         try:
             df = df.copy()
             df[destination_field] = df.apply(set_rel, axis=1)
         except Exception as e:
             self.err(e, self._relation, "Can not get relation data")
             return
+        if self.autoprint is True:
+            self.end("Finished processing relation")
         return df
