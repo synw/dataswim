@@ -32,6 +32,12 @@ Using pip:
    pip install dataswim
    ```
 
+To get the Altair charts in notebooks running this command is required:
+
+   ```
+   jupyter nbextension enable vega --py --sys-prefix
+   ```
+
 ## Usage
 
 Read the [api documentation](http://dataswim.readthedocs.io/en/latest/index.html). 
