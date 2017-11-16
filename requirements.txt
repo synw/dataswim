@@ -5,3 +5,5 @@ holoviews
 bokeh
 goerr
 pytablewriter
+altair==1.2.1
+gencharts==0.3

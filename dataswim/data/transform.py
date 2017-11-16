@@ -119,14 +119,35 @@ class Transform():
             return
         return self.clone_(df)
 
-    def revert(self):
+    def sum_(self, column):
         """
-        Reverts the main dataframe order
+        Returns the sum of all values in a column
+        """
+        try:
+            df = self.df[column]
+            num = df.sum()
+            return num
+        except Exception as e:
+            self.err(e, self.sum_, "Can not sum data on column " + column)
+
+    def reverse(self):
+        """
+        Reverses the main dataframe order
         """
         try:
             self.df = self.df.iloc[::-1]
         except Exception as e:
-            self.err(e, self.revert, "Can not revert dataframe")
+            self.err(e, self.revert, "Can not reverse the dataframe")
+
+    def sort(self, column):
+        """
+        Sorts the main dataframe according to the given column
+        """
+        try:
+            self.df = self.df.copy().sort_values(column)
+        except Exception as e:
+            self.err(e, self.revert,
+                     "Can not sort the dataframe from column " + column)
 
     def apply(self, function):
         """

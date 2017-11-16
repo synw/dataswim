@@ -48,7 +48,7 @@ class Select():
 
     def unique_(self, column):
         """
-        Returns unique values in a colum
+        Returns unique values in a column
         """
         try:
             df = self.df[column].unique()

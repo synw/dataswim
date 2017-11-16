@@ -5,6 +5,12 @@ class Insert():
     A class to handle data ingestion by the database
     """
 
+    def __init__(self, db=None):
+        """
+        Initialize with an empty db
+        """
+        self.db = db
+
     def insert(self, table, records, create_cols=True):
         """
         Insert one or many records in the database from a dictionary or a list of dictionaries

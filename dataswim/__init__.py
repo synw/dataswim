@@ -32,6 +32,7 @@ class DataSwim(Db, Df, Plot, Report, Errors, Messages):
         self.chart_obj = None
         self.chart_opts = dict(width=940)
         self.chart_style = dict(color="blue")
+        self.engine = "bokeh"
         self.label = None
         self.reports = []
         self.report_path = None
