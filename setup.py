@@ -28,7 +28,7 @@ setup(
         'holoviews==1.9.0',
         'bokeh==0.12.10',
         'altair==1.2.1',
-        'gencharts==0.3',
+        'gencharts',
     ],
     zip_safe=False
 )
