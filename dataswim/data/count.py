@@ -20,6 +20,9 @@ class Count():
         """
         try:
             n = self.df[field].isnull().sum()
+        except KeyError:
+            self.warning("Can not find column", field)
+            return
         except Exception as e:
             self.err(e, self.count_nulls, "Can not count nulls")
             return
