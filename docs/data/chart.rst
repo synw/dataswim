@@ -8,30 +8,50 @@ Charts
 
     Initialize chart options
 
-**bar** (``style=None``, ``opts=None``, ``label=None``)
+**bar_** (``style=None``, ``opts=None``, ``label=None``)
 
     Get a bar chart
 
-**line** (``style=None``, ``opts=None``, ``label=None``)
+**line_** (``style=None``, ``opts=None``, ``label=None``)
 
     Get a line chart
+    
+**area_** (``style=None``, ``opts=None``, ``label=None``)
 
-**line_point** (``colors={'line': 'yellow', 'point': 'navy'}``, ``style=None``, ``opts=None``, ``label=None``)
+    Get an area chart
+
+**line_point_** (``colors={'line': 'yellow', 'point': 'navy'}``, ``style=None``, ``opts=None``, ``label=None``)
 
     Get a line and point chart
 
-**point** (``style=None``, ``opts=None``, ``label=None``)
+**point_** (``style=None``, ``opts=None``, ``label=None``)
 
     Get a point chart
+    
+**area_** (``style=None``, ``opts=None``, ``label=None``)
+
+    Get a line chart
+    
+**hist_** (``style=None``, ``opts=None``, ``label=None``)
+
+    Get an historiogram chart
+    
+**errorbar_** (``style=None``, ``opts=None``, ``label=None``)
+
+    Get an errorbar chart
+    
+**heatmap_** (``style=None``, ``opts=None``, ``label=None``)
+
+    Get a heatmap chart
     
 Chart options
 -------------
     
-**opt** (``key``, ``value``)
+**opts** (``key``, ``value``)
 
     Add or update an option value to defaults
 
-**styl** (``key``, ``value``)
+**style** (``key``, ``value``)
 
     Add or update a style value to defaults
 

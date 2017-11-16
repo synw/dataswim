@@ -8,6 +8,10 @@ Rows
 
     Select the first row
     
+**first_** ()
+
+    Returns the first row
+    
 **limit** (``r=5``)
 
     Limit selection the a range in the main dataframe
@@ -16,6 +20,22 @@ Rows
 
     Returns a DataSwim instance with limited selection
     
+**unique_** (``column``)
+
+    Returns unique values in a column
+    
+**nulls_** (``field``)
+
+    Return all null rows
+    
+**to_records_** ()
+
+    Returns a list of dictionary records from the main dataframe
+    
+**range_** (``num``, ``unit``)
+
+    Limit the data in a time range
+    
 **contains** (``column``, ``value``)
 
     Returns rows that contains a string value in a column
@@ -23,18 +43,6 @@ Rows
 **exact** (``column``, ``value``)
 
     Returns rows that has the exact string value in a column
-    
-**filter** (``column``, ``value``)
-
-    Filters the main dataframe based on column value
-    
-**filter** (``column``, ``value``)
-
-    Returns a DataSwim instance based on column value
-    
-**range** (``num``, ``unit``)
-
-    Limit the data in a time range
     
 Columns
 -------
@@ -46,11 +54,11 @@ Columns
 Dataframes
 ----------
 
-**load_csv** (``url``, ``index_col=None``)
+**load_csv** (``url``, ``dateindex=None``, ``index_col=None``, ``fill_col=None``)
 
     Initialize the main dataframe from csv data
     
-**load_csv_** (``url``, ``index_col=None``)
+**load_csv_** (``url``, ``dateindex=None``, ``index_col=None``, ``fill_col=None``)
 
     Returns a DataSwim instance from csv data
     
@@ -62,7 +70,7 @@ Dataframes
 
     Returns a new DataSwim instance from the current instance
     
-**duplicate** ()
+**duplicate_** (``df=None``, ``db=None``, ``quiet=False``)
 
     Returns a new DataSwim instance using the previous database connection
     

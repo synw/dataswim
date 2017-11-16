@@ -29,7 +29,18 @@ View data
 
     Display some columns head
     
+**cols** ()
 
+    Prints columns info
+    
+**cols_** ()
+
+    Returns a DataSwim instance with columns info
+    
 **vals** (``field``)
 
-    Returns a values count of a column   
+    Print the values count of a column
+
+**vals_** (``field``, ``index_col="index"``)
+
+    Returns a DatasWim instance from values count of a column  

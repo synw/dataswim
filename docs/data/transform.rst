@@ -28,19 +28,31 @@ Columns
 
     Returns a DatasWim instance with a new column filled from the index
     
+**keep_** (``source_col``, ``dest_col``)
+
+    Renames a column in the main dataframe
+    
 Rows
 ----
     
-**revert** ()
+**reverse** ()
 
-    Reverts the main dataframe order
+    Reverse the main dataframe order
+    
+**sum_** (``column``)
+
+    Returns the sum of all values in a column
+    
+**sort** (``column``)
+
+    Sorts the main dataframe according to the given column
+    
+**apply** (``function``)
+
+    Apply a function on columns values
     
 Resample
 --------
-    
-**resample_** (``time_period='1Min'``, ``index_col=True``, ``fill_col=None``)
-
-    Returns a resampled dataframe from the main dataframe to a time period
     
 **rsum** (``time_period="1Min"``, ``index_col=True``, ``fill_col=None``)
 
@@ -58,15 +70,15 @@ Resample
 
     Returns a resampled and meaned dataframe from the main dataframe to a time period
     
-**apply** (``function``)
-
-    Apply a function on columns values
-    
 Dataframes
 ----------
 
 **concat** (``*dfs``)
 
     Concatenate dataframes from a list and set it to the main dataframe
+    
+**split_** (``*col``)
+
+    Split the main dataframe according to column values
 
     

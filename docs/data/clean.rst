@@ -4,17 +4,29 @@ Clean data
 Nulls
 -----
 
-**drop_nan** (``field=None``)
+**drop_nan** (``field=None`` ``method="all``)
 
-    Drop NaN values from the main dataframe when the whole row is NaN
+    Drop NaN values from the main dataframe
     
 **nan_empty** (``field``)
 
     Fill empty values with NaN values
     
-**fill** (``fields``, ``val=0``)
+**zero_nan** (``*fields``)
 
-    Fill NaN values with new values either from a list of columns or a single column name string
+    Converts zero values to nan values in selected columns
+    
+**zero_nan_** (``*fields``)
+
+    Returns a DataSwim instance with zero values to nan values in selected columns
+    
+**fill_nan** (``val``, ``*fields``)
+
+    Fill NaN values with new values
+    
+**fill_nan_** (``val``, ``*fields``)
+
+    Returns a DataSwim instance with NaN values filled
     
 **fill_nulls** (``field``)
 
@@ -23,22 +35,37 @@ Nulls
 Numbers
 -------
     
-**to_int** (``*fields``)
+**to_int** (``fields``)
 
     Convert some columns values to integers
+    
+**to_float** (``*cols``)
+
+    Convert colums values to float
     
 Timeseries
 ----------
 
-**index** (``datafield``, ``indexfield``)
+**dateindex** (``datafield``, ``indexfield="date_index"``)
 
     Set a datetime index from a column
     
-**date** (``fields``)
+**dateindex_** (``datafield``, ``indexfield="date_index"``)
+
+    Returns a datetime index from a column
+    
+**date** (``*fields``)
 
     Convert column values to datetime from either a list of column names or a single column name string
     
 **clean_ts** (``date_col``, ``numeric_col=None``, ``index=True``, ``to_int=False``, ``index_col=True``)
 
     Cleans and format a timeseries dataframe
+    
+Cleaning
+--------
+
+**transform_** (``dateindex=None``, ``index_col=None``, ``fill_col=None``, ``num_col=None``, ``df=None``)
+
+    Returns a DataSwim instance transformed according to the given parameters
     

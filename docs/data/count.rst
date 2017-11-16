@@ -13,6 +13,10 @@ Count data
 
     Returns a list of empty row indices
     
+**count_zero** (``field``)
+
+    List of row with 0 values
+    
 **count_unique** (``field``)
 
     Return the number of unique values in a column  

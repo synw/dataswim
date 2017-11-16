@@ -8,11 +8,11 @@ Basic operations
 
     Connect to the database and set it as main database
     
-**load** (``table``)
+**load** (``table``, ``dateindex=None``, ``index_col=None``, ``fill_col=None``)
 
     Set the main dataframe from a table’s data
     
-**load_** (``table``)
+**load_** (``table``, ``dateindex=None``, ``index_col=None``, ``fill_col=None``)
 
     Returns a DataSwim instance from a table's data
 
@@ -28,12 +28,16 @@ Basic operations
 
     Insert one or many records in the database from a dictionary or a list of dictionaries
     
-Queries
--------
+Infos
+-----
     
 **tables** (``name=None``, ``p=True``)
 
     Print existing tables in a database
+    
+**tables_** (``name=None``, ``p=True``)
+
+    Returns existing tables in a database
     
 **table** (``t=None``, ``p=True``)
 
@@ -43,9 +47,28 @@ Queries
 
     Count rows for a table
 
+Select
+------
+
 **getall** (``table``)
 
     Get all rows values for a table
+    
+Insert
+------
+
+**to_db** (``table``, ``db_url=None``)
+
+    Save the main dataframe to the database
+    
+**update_db** (``table``, ``keys=['id']``, ``db_url=None``)
+
+    Update records in a database table from the main dataframe
+    
+**insert** (``table``, ``records``, ``create_cols=True``)
+
+    Insert one or many records in the database from a dictionary or a list of dictionaries
+
 
 Relations
 ---------
@@ -58,12 +81,7 @@ Relations
 
     Returns a DataSwim instance with a column filled from a relation foreign key
     
-Import data
------------
 
-**to_db** (``table``, ``db_url=None``)
-
-    Save the main dataframe to the database
 
 
     
