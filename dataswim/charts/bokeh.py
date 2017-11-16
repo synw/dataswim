@@ -57,4 +57,4 @@ class Bokeh():
             self.err(e)
         if chart is None:
             self.err("Chart type " + chart_type +
-                     " unknown", self._get_base_chart)
+                     " unknown", self._get_bokeh_chart)
