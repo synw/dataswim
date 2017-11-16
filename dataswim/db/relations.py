@@ -42,6 +42,15 @@ class Relation():
             destination_field = search_field
         df[destination_field] = None
 
+        if origin_field not in self.df.columns.values:
+            self.warning("Can not find field",
+                         origin_field, "in related dataset")
+            return
+        if search_field not in search_ds.df.columns.values:
+            self.warning("Can not find field",
+                         search_field, "in related dataset")
+            return
+
         def set_rel(row):
             try:
                 origin_val = row[origin_field]
