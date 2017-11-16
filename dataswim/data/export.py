@@ -76,7 +76,7 @@ class Export():
         if self.autoprint is True:
             self.ok("File exported to", filepath)
 
-    def to_csv(self, filepath, index=True):
+    def to_csv(self, filepath, index=False):
         """
         Saves the main dataframe to a csv file
         """
