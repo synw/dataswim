@@ -11,7 +11,7 @@ from .errors import Errors
 from .messages import Messages
 from _ast import arg
 
-__version__ = "0.2.2"
+__version__ = "0.3"
 
 
 class DataSwim(Db, Df, Plot, Report, Errors, Messages):
