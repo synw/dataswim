@@ -76,15 +76,29 @@ class Db(Info, Select, Insert, Relation):
         """
         Returns a DataSwim instance from a django orm query
         """
-        self._check_db()
-        return self.new(pd.DataFrame(list(query.values())))
+        try:
+            self._check_db()
+            df = pd.DataFrame(list(query.values()))
+        except Exception as e:
+            self.err(e, self.load_django_, "Can not load data from query")
+            return
+        if self.autoprint is True:
+            self.ok("Loaded data from django orm query")
+        return self.clone_(df)
 
     def load_django(self, query):
         """
         Set a main dataframe from a django orm query
         """
-        self._check_db()
-        self.df = pd.DataFrame(list(query.values()))
+        try:
+            self._check_db()
+            df = pd.DataFrame(list(query.values()))
+            self.df = df
+        except Exception as e:
+            self.err(e, self.load_django_, "Can not load data from query")
+            return
+        if self.autoprint is True:
+            self.ok("Loaded data from django orm query")
 
     def _check_db(self):
         """
