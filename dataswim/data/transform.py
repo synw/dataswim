@@ -37,12 +37,18 @@ class Transform():
         if self.autoprint is True:
             self.ok("Setting dataframe to columns", " ".join(fields))
 
-    def drop(self, column):
+    def drop(self, *cols):
         """
         Drops a column from the main dataframe
         """
+        index = self.df.columns.values
+        for col in cols:
+            if col not in index:
+                self.warning("Column", col, "not found. Aborting.")
+                return
         try:
-            self.df = self.df.drop(column, axis=1)
+            for col in cols:
+                self.df = self.df.drop(col, axis=1)
         except Exception as e:
             self.err(e, self.drop, "Can not drop column")
 
