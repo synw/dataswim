@@ -22,10 +22,13 @@ setup(
     install_requires=[
         'pandas',
         'pandas_profiling',
-        'holoviews',
-        'bokeh',
         'dataset',
+        "pytablewriter",
         'goerr',
+        'holoviews==1.9.0',
+        'bokeh==0.12.10',
+        'altair==1.2.1',
+        'gencharts==0.3',
     ],
     zip_safe=False
 )
