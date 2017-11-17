@@ -22,7 +22,7 @@ class DataSwim(Db, Df, Plot, Report, Errors, Messages):
         self.version = __version__
         self.df = df
         self.db = db
-        self.x_ = None
+        self.x = None
         self.y = None
         self.chart_obj = None
         self.chart_opts = dict(width=940)
