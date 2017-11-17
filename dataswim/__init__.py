@@ -1,15 +1,10 @@
-# -*- coding: utf-8 -*-
-
 import pandas as pd
-from numpy import NaN, where
-from goerr import err
 from .db import Db
 from .charts import Plot
 from .data import Df
 from .report import Report
 from .errors import Errors
 from .messages import Messages
-from _ast import arg
 
 __version__ = "0.3"
 
@@ -61,6 +56,12 @@ class DataSwim(Db, Df, Plot, Report, Errors, Messages):
         if self.autoprint is True and quiet is False:
             self.ok("A new instance was created")
         return ds2
+
+    def set_df(self, data, **args):
+        """
+        Set a dataframe and an instance
+        """
+        self.df = pd.DataFrame(data, **args)
 
 
 ds = DataSwim()

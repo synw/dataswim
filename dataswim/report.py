@@ -14,12 +14,19 @@ class Report():
         self.header = self._header
         self.footer = self._footer
         self.reports = []
+        self.report_path = None
         self.report_engines = [self.engine]
 
     def stack(self, slug, title, chart_obj=None):
         """
         Get the html for a chart and store it
         """
+        if chart_obj is None:
+            if self.chart_obj is None:
+                self.err(
+                    self.stack, "No chart object set: please provide one in parameters")
+                return
+            chart_obj = self.chart_obj
         try:
             html = self.get_html(chart_obj, slug)
             htitle = "<h3>" + title + "</h3>"
@@ -60,6 +67,10 @@ class Report():
         Writes the html report to one file per report
         """
         if folderpath is None:
+            if self.report_path is None:
+                self.err(
+                    self.to_files, "No folder path set for reports: please provide one as argument")
+                return
             folderpath = self.report_path
         else:
             self.report_path = folderpath

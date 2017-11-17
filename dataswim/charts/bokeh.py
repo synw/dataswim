@@ -2,7 +2,8 @@ import holoviews as hv
 from bokeh.embed import components
 
 
-renderer = hv.renderer('bokeh')
+bokeh_renderer = hv.renderer('bokeh')
+matplotlib_renderer = hv.renderer('matplotlib')
 
 
 class Bokeh():
@@ -14,6 +15,7 @@ class Bokeh():
         """
         Initialize
         """
+        global bokeh_enderer
         self.df = df
         self.x_field = None
         self.y_field = None
@@ -22,6 +24,7 @@ class Bokeh():
         self.chart_style = None
         self.label = None
         self.engine = "bokeh"
+        self.renderer = bokeh_renderer
 
     def bokeh_header_(self):
         """
@@ -80,9 +83,8 @@ class Bokeh():
         """
         Get the html for a Bokeh chart
         """
-        global renderer
         try:
-            p = renderer.get_plot(chart_obj).state
+            p = self.renderer.get_plot(chart_obj).state
             script, div = components(p)
             return script + "\n" + div
         except Exception as e:
