@@ -3,7 +3,6 @@ from bokeh.embed import components
 
 
 bokeh_renderer = hv.renderer('bokeh')
-matplotlib_renderer = hv.renderer('matplotlib')
 
 
 class Bokeh():
