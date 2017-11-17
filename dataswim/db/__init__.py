@@ -72,7 +72,26 @@ class Db(Info, Select, Insert, Relation):
             self.ok("Data loaded from table", table)
         return ds2.df
 
-    def load_django_(self, query):
+    def load_django(self, query, dateindex=None, index_col=None, fill_col=None):
+        """
+        Returns a DataSwim instance from a django orm query
+        """
+        try:
+            self.df = self._load_django(query, dateindex, index_col, fill_col)
+        except Exception as e:
+            self.err(e, self.load_django, "Can not load data from query")
+
+    def load_django_(self, query, dateindex=None, index_col=None, fill_col=None):
+        """
+        Returns a DataSwim instance from a django orm query
+        """
+        try:
+            df = self._load_django(query, dateindex, index_col, fill_col)
+            return self.clone_(df)
+        except Exception as e:
+            self.err(e, self.load_django_, "Can not load data from query")
+
+    def _load_django(self, query, dateindex, index_col, fill_col):
         """
         Returns a DataSwim instance from a django orm query
         """
@@ -80,25 +99,17 @@ class Db(Info, Select, Insert, Relation):
             self._check_db()
             df = pd.DataFrame(list(query.values()))
         except Exception as e:
-            self.err(e, self.load_django_, "Can not load data from query")
+            self.err(e)
             return
-        if self.autoprint is True:
-            self.ok("Loaded data from django orm query")
-        return self.clone_(df)
-
-    def load_django(self, query):
-        """
-        Set a main dataframe from a django orm query
-        """
         try:
-            self._check_db()
-            df = pd.DataFrame(list(query.values()))
-            self.df = df
+            ds2 = self.transform_(dateindex, index_col, fill_col, df=df)
+            df = ds2.df
         except Exception as e:
-            self.err(e, self.load_django_, "Can not load data from query")
+            self.err(e, self.load, "Can not transform dataframe")
             return
         if self.autoprint is True:
             self.ok("Loaded data from django orm query")
+        return df
 
     def _check_db(self):
         """

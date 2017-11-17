@@ -12,15 +12,34 @@ class Plot(Bokeh, Altair):
         Initialize with an empty dataframe
         """
         self.df = df
-        self.x_field = None
-        self.y_field = None
+        self.x = None
+        self.err = None
+        self.y = None
         self.chart_obj = None
         self.chart_opts = dict(width=940)
         self.chart_style = None
         self.label = None
         self.engine = "bokeh"
 
-    def chart(self, x_field=None, y_field=None, chart_type="line", opts=None, style=None, label=None):
+    def chart(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None):
+        """
+        Get a chart
+        """
+        try:
+            self.chart = self._chart(x, y, chart_type, opts, style, label)
+        except Exception as e:
+            self.err(e, self.chart, "Can not create chart")
+
+    def chart_(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None):
+        """
+        Get a chart
+        """
+        try:
+            return self._chart(x, y, chart_type, opts, style, label)
+        except Exception as e:
+            self.err(e, self.chart, "Can not create chart")
+
+    def _chart(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None):
         """
         Initialize chart options
         """
@@ -30,13 +49,14 @@ class Plot(Bokeh, Altair):
             self.chart_style = style
         if label is not None:
             self.label = label
-        self.x_field = x_field
-        self.y_field = y_field
+        self.x = x
+        self.y = y
         try:
-            self.chart_obj = self._get_chart(chart_type, x_field,
-                                             y_field, style=style, opts=opts, label=label)
+            chart_obj = self._get_chart(chart_type, x,
+                                        y, style=style, opts=opts, label=label)
+            return chart_obj
         except Exception as e:
-            self.err(e, self.chart, "Can not chart data")
+            self.err(e)
 
     def bar_(self, label=None, style=None, opts=None):
         """
@@ -130,30 +150,30 @@ class Plot(Bokeh, Altair):
         for k in dictobj:
             self.chart_style[k] = dictobj[k]
 
-    def _get_chart(self, chart_type, x_field=None, y_field=None, style=None, opts=None, label=None):
+    def _get_chart(self, chart_type, x=None, y=None, style=None, opts=None, label=None):
         """
         Get a full chart object
         """
-        if x_field is None:
-            if self.x_field is None:
+        if x is None:
+            if self.x is None:
                 self.err(
                     self._get_chart, "X field is not set: please specify a parameter")
                 return
-            x_field = self.x_field
-        if y_field is None:
-            if self.y_field is None:
+            x = self.x
+        if y is None:
+            if self.y is None:
                 self.err(
                     self._get_chart, "Y field is not set: please specify a parameter")
                 return
-            y_field = self.y_field
+            y = self.y
         if opts is None:
             opts = self.chart_opts
         if style is None:
             style = self.chart_style
-        if x_field is None:
-            x_field = self.x_field
-        if y_field is None:
-            y_field = self.y_field
+        if x is None:
+            x = self.x
+        if y is None:
+            y = self.y
         if self.engine == "bokeh":
             func = self._get_bokeh_chart
         elif self.engine == "altair":
@@ -163,7 +183,7 @@ class Plot(Bokeh, Altair):
             return
         try:
             chart = func(
-                x_field, y_field, chart_type, label, opts, style)
+                x, y, chart_type, label, opts, style)
             return chart
         except Exception as e:
             self.err(e)

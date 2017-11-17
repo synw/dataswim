@@ -6,7 +6,11 @@ Charts
 
 **chart** (``x_field=None``, ``y_field=None``, ``chart_type="line"``, ``opts=None``, ``style=None``, ``label=None``)
 
-    Initialize chart options
+    Initialize a chart
+    
+**chart_** (``x_field=None``, ``y_field=None``, ``chart_type="line"``, ``opts=None``, ``style=None``, ``label=None``)
+
+    Initialize and return a chart
 
 **bar_** (``style=None``, ``opts=None``, ``label=None``)
 

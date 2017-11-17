@@ -16,11 +16,11 @@ Basic operations
 
     Returns a DataSwim instance from a table's data
 
-**load_django** (``query``)
+**load_django** (``query``, ``dateindex=None``, ``index_col=None``, ``fill_col=None``)
 
     Set a main dataframe from a django orm query
     
-**load_django_** (``query``)
+**load_django_** (``query``, ``dateindex=None``, ``index_col=None``, ``fill_col=None``)
 
     Returns a DataSwim instance from a django orm query
     
