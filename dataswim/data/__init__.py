@@ -37,8 +37,8 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
                 df = self.df.copy()
             ds2 = self.new_(df, db, quiet=True)
             ds2.db = self.db
-            ds2.x_field = self.x_field
-            ds2.y_field = self.y_field
+            ds2.x = self.x
+            ds2.y = self.y
             ds2.chart_obj = self.chart_obj
             ds2.chart_opts = self.chart_opts
             ds2.chart_style = self.chart_style

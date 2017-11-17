@@ -26,7 +26,7 @@ class Plot(Bokeh, Altair):
         Get a chart
         """
         try:
-            self.chart = self._chart(x, y, chart_type, opts, style, label)
+            self.chart_obj = self._chart(x, y, chart_type, opts, style, label)
         except Exception as e:
             self.err(e, self.chart, "Can not create chart")
 
