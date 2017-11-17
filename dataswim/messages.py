@@ -1,3 +1,4 @@
+from IPython.display import display, HTML
 from goerr.colors import colors
 
 
@@ -5,6 +6,12 @@ class Messages():
     """
     A class to handle output
     """
+
+    def __init__(self):
+        """
+        Set notebook mode
+        """
+        self.notebook = False
 
     def ok(self, *msg):
         """
@@ -48,6 +55,17 @@ class Messages():
         """
         label = colors.purple("START")
         self._msg(label, *msg)
+
+    def html(self, label, *msg):
+        """
+        Prints html in notebook
+        """
+        lbl = "[" + label + "] "
+        if self.notebook is True:
+            html = HTML(txt)
+            display(lbl + html)
+        else:
+            print(lbl + txt)
 
     def msg_(self, label, *msg):
         """

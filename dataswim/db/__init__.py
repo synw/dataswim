@@ -96,7 +96,6 @@ class Db(Info, Select, Insert, Relation):
         Returns a DataSwim instance from a django orm query
         """
         try:
-            self._check_db()
             df = pd.DataFrame(list(query.values()))
         except Exception as e:
             self.err(e)

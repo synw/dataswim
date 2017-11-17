@@ -9,7 +9,7 @@ class Plot(Bokeh, Altair):
 
     def __init__(self, df=None):
         """
-        Initialize with an empty dataframe
+        Initialize
         """
         self.df = df
         self.x = None

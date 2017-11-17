@@ -44,10 +44,11 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
             ds2.chart_style = self.chart_style
             ds2.label = self.label
             ds2.reports = self.reports
-            ds2.report_path = self.report_path
+            ds2.report_engines = self.report_engines
             ds2.backup_df = self.backup_df
             ds2.autoprint = self.autoprint
             ds2.errors_handling = self.errors_handling
+            ds2.notebook = self.notebook
         except Exception as e:
             self.err(e, self.duplicate_, "Can not duplicate instance")
             return

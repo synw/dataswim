@@ -238,7 +238,7 @@ class Clean():
         except Exception as e:
             msg = "Can not reindex with datafield " + \
                 datafield + " and indexfield " + indexfield
-            self.err(e, msg)
+            self.err(e, self._dateindex, msg)
             return
         if self.autoprint is True:
             self.ok("Added a datetime index from column", datafield)
@@ -285,6 +285,9 @@ class Clean():
         Returns a DataSwim instance transformed according to the given parameters
         """
         if df is None:
+            if self.df is None:
+                self.err(
+                    self._transform, "No dataframe: please provide one in parameters or set it")
             df = self.df.copy()
         ds2 = self.clone_(df)
         if dateindex is None and index_col is None and fill_col is None and num_col is None:

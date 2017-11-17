@@ -11,7 +11,7 @@ from .errors import Errors
 from .messages import Messages
 from _ast import arg
 
-__version__ = "0.3.2"
+__version__ = "0.3"
 
 
 class DataSwim(Db, Df, Plot, Report, Errors, Messages):
@@ -34,11 +34,14 @@ class DataSwim(Db, Df, Plot, Report, Errors, Messages):
         self.chart_style = dict(color="blue")
         self.engine = "bokeh"
         self.label = None
-        self.reports = []
-        self.report_path = None
         self.backup_df = None
         self.autoprint = True
         self.errors_handling = "exceptions"
+        self.notebook = False
+        self.header = self._header
+        self.footer = self._footer
+        self.reports = []
+        self.report_engines = [self.engine]
 
     def __repr__(self):
         num = 0

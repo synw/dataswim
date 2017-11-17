@@ -1,4 +1,8 @@
 import holoviews as hv
+from bokeh.embed import components
+
+
+renderer = hv.renderer('bokeh')
 
 
 class Bokeh():
@@ -19,9 +23,22 @@ class Bokeh():
         self.label = None
         self.engine = "bokeh"
 
+    def bokeh_header_(self):
+        """
+        Returns html script tags for Bokeh
+        """
+        header = """
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/0.12.10/bokeh.min.js"></script>         
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/0.12.10/bokeh.min.js.map"></script>
+        <script type="text/javascript">
+            Bokeh.set_log_level("info");
+        </script>
+        """
+        return header
+
     def _get_bokeh_chart(self, x_field, y_field, chart_type, label, opts, style):
         """
-        Get a chart object
+        Get a Bokeh chart object
         """
         args = dict(data=self.df, kdims=[x_field], vdims=[y_field])
         if label is not None:
@@ -58,3 +75,16 @@ class Bokeh():
         if chart is None:
             self.err("Chart type " + chart_type +
                      " unknown", self._get_bokeh_chart)
+
+    def _get_bokeh_html(self, chart_obj):
+        """
+        Get the html for a Bokeh chart
+        """
+        global renderer
+        try:
+            p = renderer.get_plot(chart_obj).state
+            script, div = components(p)
+            return script + "\n" + div
+        except Exception as e:
+            self.err(e, self._get_bokeh_html,
+                     "Can not get html from the Bokeh rendering engine")
