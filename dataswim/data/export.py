@@ -76,11 +76,11 @@ class Export():
         if self.autoprint is True:
             self.ok("File exported to", filepath)
 
-    def to_csv(self, filepath, index=False):
+    def to_csv(self, filepath, index=False, **args):
         """
         Saves the main dataframe to a csv file
         """
-        self.df.to_csv(filepath, encoding='utf-8', index=index)
+        self.df.to_csv(filepath, encoding='utf-8', index=index, **args)
         if self.autoprint is True:
             self.ok("Data exported to", filepath)
 

@@ -1,5 +1,6 @@
 import holoviews as hv
 from bokeh.embed import components
+from holoviews.core.data.interface import DataError
 
 
 bokeh_renderer = hv.renderer('bokeh')
@@ -67,11 +68,9 @@ class Bokeh():
                 chart = hv.ErrorBars(**args)
             endchart = chart(plot=opts, style=style)
             return endchart
-        # BROKEN in Holoview 1.9.0
-        # except DataError as e:
-        #    msg = "Column not found in " + x_field + " and " + y_field
-        #    self.err(e, msg)
-        # TODO : check for column errors
+        except DataError as e:
+            msg = "Column not found in " + x_field + " and " + y_field
+            self.err(e, self._get_bokeh_chart, msg)
         except Exception as e:
             self.err(e)
         if chart is None:
@@ -86,6 +85,7 @@ class Bokeh():
             p = self.renderer.get_plot(chart_obj).state
             script, div = components(p)
             return script + "\n" + div
+
         except Exception as e:
             self.err(e, self._get_bokeh_html,
                      "Can not get html from the Bokeh rendering engine")

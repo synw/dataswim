@@ -37,6 +37,7 @@ class DataSwim(Db, Df, Plot, Report, Errors, Messages):
         self.footer = self._footer
         self.reports = []
         self.report_engines = [self.engine]
+        self.start_time = None
 
     def __repr__(self):
         num = 0
