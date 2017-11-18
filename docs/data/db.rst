@@ -82,6 +82,17 @@ Relations
     Returns a DataSwim instance with a column filled from a relation foreign key
     
 
+InfluxDb
+--------
+
+**influx_init** (``url``, ``port``, ``user``, ``pwd``, ``db``)
+
+    Initialize an Influxdb database client
+    
+**influx_to_csv** (``measurement``, ``batch_size=5000``)
+
+    Batch export data from an Influxdb measurement to csv
+
 
 
     

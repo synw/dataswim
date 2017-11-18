@@ -6,9 +6,10 @@ from .infos import Info
 from .select import Select
 from .relations import Relation
 from .insert import Insert
+from .influxdb import InfluxDb
 
 
-class Db(Info, Select, Insert, Relation):
+class Db(Info, Select, Insert, Relation, InfluxDb):
     """
     Class for manipulating databases
     """

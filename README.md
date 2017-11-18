@@ -14,6 +14,11 @@ A simple api to clean, transform and visualize data. This api is:
 
 [Holoviews](http://holoviews.org/) and [Bokeh](https://bokeh.pydata.org/en/latest/) to chart data
 
+## Supported databases
+
+- Postgresql, Sqlite and all those that Sql Alchemy supports
+- Influxdb
+
 ## Install 
 
 Using conda:
