@@ -45,6 +45,13 @@ class Messages():
         label = colors.yellow("DEBUG")
         self._msg(label, *msg)
 
+    def progress(self, *msg):
+        """
+        Prints a progress message
+        """
+        label = colors.purple("Progress")
+        self._msg(label, *msg)
+
     def start(self, *msg):
         """
         Prints an start message
@@ -57,12 +64,16 @@ class Messages():
         """
         Prints an end message with elapsed time
         """
+        if self.start_time is None:
+            self.err(
+                self.end, "No start time set: please use start() before using this function")
         endtime = datetime.datetime.now()
         rd = dateutil.relativedelta.relativedelta(endtime, self.start_time)
         endmsg = self._endmsg(rd)
         label = colors.purple("END")
         msg += ("in " + endmsg,)
         self._msg(label, *msg)
+        self.start_time = None
 
     def html(self, label, *msg):
         """
