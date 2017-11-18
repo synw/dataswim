@@ -39,7 +39,7 @@ class Messages():
         """
         Prints a warning
         """
-        label = colors.purple("DEBUG")
+        label = colors.yellow("DEBUG")
         self._msg(label, *msg)
 
     def end(self, *msg):
@@ -61,6 +61,7 @@ class Messages():
         Prints html in notebook
         """
         lbl = "[" + label + "] "
+        txt = lbl + " " + " ".join(list(msg))
         if self.notebook is True:
             html = HTML(txt)
             display(lbl + html)

@@ -83,7 +83,12 @@ class Transform():
         try:
             ds2 = self.clone_()
             if dateindex is not None:
-                ds2 = ds2.dateindex_(dateindex)
+                try:
+                    ds2 = ds2.dateindex_(dateindex)
+                    dateindex = None
+                except Exception as e:
+                    self.err(e, self._resample, "Can not process date index")
+                    return
             if num_col is not None:
                 ds2.add(num_col, 1)
             ds2.df = ds2.df.resample(time_period)
@@ -94,6 +99,7 @@ class Transform():
             else:
                 self.err(self._resample, "Resampling method " +
                          method + " unknown")
+                return
             if self.autoprint is True:
                 self.ok("Data resampled by", time_period)
             ds3 = self.transform_(dateindex, index_col,

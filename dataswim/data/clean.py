@@ -3,6 +3,7 @@
 import time
 import pandas as pd
 from numpy.core.numeric import nan
+from goerr.colors import colors
 
 
 class Clean():
@@ -215,7 +216,7 @@ class Clean():
         try:
             self.df = self._dateindex(datafield, indexfield)
         except Exception as e:
-            self.err(e)
+            self.err(e, self.dateindex, "Can not index data")
 
     def dateindex_(self, datafield, indexfield="date_index"):
         """
@@ -224,7 +225,7 @@ class Clean():
         try:
             df = self._dateindex(datafield, indexfield)
         except Exception as e:
-            self.err(e)
+            self.err(e, self.dateindex_, "Can not index data")
             return
         return self.clone_(df=df)
 
@@ -234,10 +235,16 @@ class Clean():
         """
         df = self.df.copy()
         try:
-            df = df.set_index(pd.DatetimeIndex(df[datafield]))
+            index = pd.DatetimeIndex(df[datafield])
+            df = df.set_index(index)
+        except KeyError as e:
+            self.err(e, self._dateindex, "Can not find column " +
+                     colors.bold(datafield) + " in data")
+            return
         except Exception as e:
             msg = "Can not reindex with datafield " + \
-                datafield + " and indexfield " + indexfield
+                colors.bold(datafield) + " and indexfield " + \
+                colors.bold(indexfield)
             self.err(e, self._dateindex, msg)
             return
         if self.autoprint is True:

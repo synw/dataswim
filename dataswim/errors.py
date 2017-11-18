@@ -40,11 +40,10 @@ class Errors():
                 f = "(from function " + str(func) + ")"
             err.new(
                 "Please provide a function and a message to the error constructor " + f)
-            err.throw()
         err.new(msg, func)
         if self.errors_handling == "trace":
-            print(str(len(err.errs)) + ".",
-                  "An error has occured: use ds.trace() to get the stack trace")
+            self.debug(str(len(err.errs)) + ".",
+                       "An error has occured: use trace() to get the stack trace")
         else:
             self.trace()
 
