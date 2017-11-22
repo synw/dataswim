@@ -119,12 +119,12 @@ class Messages():
         if rd.hours > 0:
             if rd.hours > 1:
                 s = "s"
-            msg += colors.bold(str(rd.hours)) + "hour" + s + " "
+            msg += colors.bold(str(rd.hours)) + " hour" + s + " "
         s = ""
         if rd.minutes > 0:
             if rd.minutes > 1:
                 s = "s"
-            msg += colors.bold(str(rd.minutes)) + "minutes" + s + " "
+            msg += colors.bold(str(rd.minutes)) + " minute" + s + " "
         # if rd.seconds > 0:
         #    msg+=str(rd.seconds)
         # else:

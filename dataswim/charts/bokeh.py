@@ -15,7 +15,6 @@ class Bokeh():
         """
         Initialize
         """
-        global bokeh_enderer
         self.df = df
         self.x_field = None
         self.y_field = None
@@ -24,7 +23,6 @@ class Bokeh():
         self.chart_style = None
         self.label = None
         self.engine = "bokeh"
-        self.renderer = bokeh_renderer
 
     def bokeh_header_(self):
         """
@@ -81,8 +79,10 @@ class Bokeh():
         """
         Get the html for a Bokeh chart
         """
+        global bokeh_renderer
         try:
-            p = self.renderer.get_plot(chart_obj).state
+            renderer = bokeh_renderer
+            p = renderer.get_plot(chart_obj).state
             script, div = components(p)
             return script + "\n" + div
 

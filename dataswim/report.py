@@ -17,7 +17,7 @@ class Report():
         self.report_path = None
         self.report_engines = [self.engine]
 
-    def stack(self, slug, title, chart_obj=None):
+    def stack(self, slug, title=None, chart_obj=None):
         """
         Get the html for a chart and store it
         """
@@ -29,7 +29,12 @@ class Report():
             chart_obj = self.chart_obj
         try:
             html = self.get_html(chart_obj, slug)
-            htitle = "<h3>" + title + "</h3>"
+            if html is None:
+                self.err(
+                    self.stack, "Can not stack: empty html reveived for " + str(chart_obj), "-", slug)
+            htitle = ""
+            if title is not None:
+                htitle = "<h3>" + title + "</h3>"
             report = dict(slug=slug, title=htitle,
                           html=html)
             if self.engine not in self.report_engines:
@@ -39,7 +44,7 @@ class Report():
             self.err(e, self.stack, "Can not stack report")
             return
         if self.autoprint is True:
-            self.ok("Stacked report", title)
+            self.ok("Stacked report", slug)
 
     def to_file(self, slug, folderpath=None, header=None, footer=None):
         """
@@ -76,6 +81,8 @@ class Report():
             self.report_path = folderpath
         try:
             for report in self.reports:
+                if not report["html"]:
+                    self.err(self.to_files, "No html for report")
                 html = report["title"] + report["html"]
                 self._write_file(report["slug"], folderpath, html)
             self.reports = self.report_engines = []
@@ -99,9 +106,17 @@ class Report():
             chart_obj = self.chart_obj
         try:
             if self.engine == "bokeh":
-                return self._get_bokeh_html(chart_obj)
+                html = self._get_bokeh_html(chart_obj)
+                if html is None:
+                    self.err(self.get_html,
+                             "No html returned for " + str(chart_obj))
+                return html
             elif self.engine == "altair":
-                return self._get_altair_html(chart_obj, slug)
+                html = self._get_altair_html(chart_obj, slug)
+                if html is None:
+                    self.err(self.get_html,
+                             "No html returned for " + str(chart_obj))
+                return html
             else:
                 self.err(self.get_html, "Chart engine " +
                          self.engine + " unknown")

@@ -142,6 +142,8 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         """
         Returns a DataSwim instance from csv data
         """
+        if self.autoprint is True:
+            self.start("Loading csv...")
         try:
             df = pd.read_csv(url)
             ds2 = self.clone_(df=df)
@@ -157,4 +159,6 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         except Exception as e:
             self.err(e)
             return
+        if self.autoprint is True:
+            self.end("Finished loading csv")
         return ds2.df

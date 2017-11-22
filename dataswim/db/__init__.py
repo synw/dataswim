@@ -111,6 +111,12 @@ class Db(Info, Select, Insert, Relation, InfluxDb):
             self.ok("Loaded data from django orm query")
         return df
 
+    def csv_to_db(self):
+        """
+        Batch transfer data from csv to database
+        """
+        pass
+
     def _check_db(self):
         """
         Checks the database connection

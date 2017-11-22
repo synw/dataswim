@@ -66,7 +66,45 @@ class Select():
             return self.clone_(df=df)
         except Exception as e:
             self.err(e, self.range_, "Can not select range data")
+            return
         return self.duplicate(df)
+
+    def daterange(self, datecol, date_start, op, **args):
+        """
+        Returns rows in a date range
+        """
+        try:
+            self.df = self._daterange(datecol, date_start, op, **args)
+        except Exception as e:
+            self.err(e, self.daterange, "Can not select date range data")
+
+    def daterange_(self, datecol, date_start, op, **args):
+        """
+        Returns a DataSwim instance with rows in a date range
+        """
+        try:
+            df = self._daterange(datecol, date_start, op, **args)
+            return self.clone_(df)
+        except Exception as e:
+            self.err(e, self.daterange_, "Can not select date range data")
+
+    def _daterange(self, datecol, date_start, op, **args):
+        """
+        Returns rows in a date range
+        """
+        try:
+            start_date = pd.Timestamp(date_start)
+            self.df[datecol] = pd.to_datetime(self.df[datecol])
+            if op == "+":
+                end_date = start_date + pd.DateOffset(**args)
+            elif op == "-":
+                end_date = start_date - pd.DateOffset(**args)
+            mask = (self.df[datecol] > start_date) & (
+                self.df[datecol] <= end_date)
+            df = self.df.loc[mask]
+            return df
+        except Exception as e:
+            self.err(e, self._daterange, "Can not select date range data")
 
     def to_records_(self):
         """

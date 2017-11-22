@@ -31,15 +31,37 @@ class Count():
 
     def count(self):
         """
-        Count the number of rows of the main dataframe
+        Counts the number of rows of the main dataframe
         """
         try:
-            num = len(self.df.index)
+            num = self._count()
         except Exception as e:
             self.err(e, self.count, "Can not count data")
             return
         if self.autoprint is True:
             self.ok("Found", num, "rows in the dataframe")
+
+    def count_(self):
+        """
+        Returns the number of rows of the main dataframe
+        """
+        try:
+            num = self._count()
+        except Exception as e:
+            self.err(e, self.count_, "Can not count data")
+            return
+        return num
+
+    def _count(self):
+        """
+        Count the number of rows of the main dataframe
+        """
+        try:
+            num = len(self.df.index)
+            return num
+        except Exception as e:
+            self.err(e)
+            return
 
     def count_empty(self, field):
         """

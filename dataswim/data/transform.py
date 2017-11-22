@@ -149,7 +149,7 @@ class Transform():
         try:
             self.df = self.df.iloc[::-1]
         except Exception as e:
-            self.err(e, self.revert, "Can not reverse the dataframe")
+            self.err(e, self.reverse, "Can not reverse the dataframe")
 
     def sort(self, column):
         """
@@ -158,7 +158,7 @@ class Transform():
         try:
             self.df = self.df.copy().sort_values(column)
         except Exception as e:
-            self.err(e, self.revert,
+            self.err(e, self.reverse,
                      "Can not sort the dataframe from column " + column)
 
     def apply(self, function):
@@ -169,6 +169,33 @@ class Transform():
             self.df = self.df.apply(function, axis=1)
         except Exception as e:
             self.err(e, self.apply, "Can not apply function")
+
+    def pivot(self, index, columns, values):
+        """
+        Pivots a dataframe
+        """
+        try:
+            self.df = self._pivot(index, columns, values)
+        except Exception as e:
+            self.err(e, self._pivot, "Can not pivot table")
+
+    def pivot_(self, index, columns, values):
+        """
+        Pivots a dataframe
+        """
+        try:
+            return self.clone_(self._pivot(index, columns, values))
+        except Exception as e:
+            self.err(e, self._pivot, "Can not pivot table")
+
+    def _pivot(self, index, columns, values):
+        """
+        Pivots a dataframe
+        """
+        try:
+            return self.df.pivot(index=index, columns=columns, values=values)
+        except Exception as e:
+            self.err(e, self._pivot, "Can not pivot table")
 
     def concat(self, *dfs):
         """
