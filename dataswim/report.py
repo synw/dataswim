@@ -29,9 +29,10 @@ class Report():
             chart_obj = self.chart_obj
         try:
             html = self.get_html(chart_obj, slug)
-            if html is None:
+            if html is None or html == "":
                 self.err(
                     self.stack, "Can not stack: empty html reveived for " + str(chart_obj), "-", slug)
+                return
             htitle = ""
             if title is not None:
                 htitle = "<h3>" + title + "</h3>"
@@ -55,15 +56,17 @@ class Report():
         else:
             self.report_path = folderpath
         html = self._get_header(header)
+        if html is None or html == "":
+            self.err(self.to_file, "Can not get html header")
         for report in self.reports:
             html += report["title"] + report["html"]
         html += self._get_footer(footer)
         try:
             self._write_file(slug, folderpath, html)
-            self.reports = self.report_engines = []
         except Exception as e:
             self.err(e, self.to_file, "Can not save report to file")
             return
+        self.reports = self.report_engines = []
         if self.autoprint is True:
             self.ok("Data writen to file")
 
@@ -81,8 +84,9 @@ class Report():
             self.report_path = folderpath
         try:
             for report in self.reports:
-                if not report["html"]:
-                    self.err(self.to_files, "No html for report")
+                if not "html" in report:
+                    self.err(self.to_files, "No html for report " + str(report))
+                    return
                 html = report["title"] + report["html"]
                 self._write_file(report["slug"], folderpath, html)
             self.reports = self.report_engines = []
