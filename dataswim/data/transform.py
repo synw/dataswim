@@ -102,8 +102,12 @@ class Transform():
                 return
             if self.autoprint is True:
                 self.ok("Data resampled by", time_period)
-            ds3 = self.transform_(dateindex, index_col,
-                                  fill_col, None, df=ds2.df)
+            try:
+                ds3 = self.transform_(None, index_col,
+                                      fill_col, None, df=ds2.df)
+            except Exception as e:
+                self.err(e, self._resample,
+                         "Can not transform data after resampling")
             return ds3.df
         except Exception as e:
             self.err(e, self._resample, "Can not resample data")
@@ -161,12 +165,17 @@ class Transform():
             self.err(e, self.reverse,
                      "Can not sort the dataframe from column " + column)
 
-    def apply(self, function):
+    def apply(self, function, cols=None, axis=1):
         """
         Apply a function on columns values
         """
         try:
-            self.df = self.df.apply(function, axis=1)
+            if cols is None:
+                obj = self.df
+                self.df = obj.apply(function, axis=axis)
+            else:
+                obj = self.df[cols]
+                self.df[cols] = obj.apply(function, axis=axis)
         except Exception as e:
             self.err(e, self.apply, "Can not apply function")
 
@@ -232,6 +241,17 @@ class Transform():
             self.df = df
         except Exception as e:
             self.err(e, self.add, "Can not add column")
+
+    def copy_col(self, origin_col, end_col):
+        """
+        Copy a columns values in another column
+        """
+        try:
+            df = self.df.copy()
+            df[end_col] = df[[origin_col]]
+            self.df = df
+        except Exception as e:
+            self.err(e, self.copy_col, "Can not copy column")
 
     def index_col(self, column="index"):
         """

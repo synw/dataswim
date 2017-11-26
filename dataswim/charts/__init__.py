@@ -1,8 +1,9 @@
 from .bokeh import Bokeh
 from .altair import Altair
+from .colors import Colors
 
 
-class Plot(Bokeh, Altair):
+class Plot(Bokeh, Altair, Colors):
     """
     Class to handle charts
     """

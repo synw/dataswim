@@ -229,11 +229,12 @@ class Clean():
             return
         return self.clone_(df=df)
 
-    def _dateindex(self, datafield, indexfield):
+    def _dateindex(self, datafield, indexfield, df=None):
         """
         Returns a datetime index from a column
         """
-        df = self.df.copy()
+        if df is None:
+            df = self.df.copy()
         try:
             index = pd.DatetimeIndex(df[datafield])
             df = df.set_index(index)
@@ -251,42 +252,6 @@ class Clean():
             self.ok("Added a datetime index from column", datafield)
         return df
 
-    def rangeindex(self, index_col="index"):
-        """
-        Index the main dataframe
-        """
-        try:
-            self.df = self._rangeindex(index_col)
-        except Exception as e:
-            self.err(e)
-
-    def rangeindex_(self, index_col="index"):
-        """
-        Returns an indexed DataSwim instance
-        """
-        try:
-            return self.clone_(self._rangeindex(index_col))
-        except Exception as e:
-            self.err(e)
-
-    def _rangeindex(self, index_col):
-        """
-        Returns a range indexed dataframe
-        """
-        df = self.df
-        try:
-            df = df.reindex(index=range(len(df)))
-            #vals = range(0, len(df[df[0]]))
-            #index = pd.RangeIndex(vals)
-            #df.index = index
-        except Exception as e:
-            msg = "Can not reindex"
-            self.err(e, msg, self._rangeindex)
-            return
-        if self.autoprint is True:
-            self.ok("Added a range index")
-        return df
-
     def transform_(self, dateindex=None, index_col=None, fill_col=None, num_col=None, df=None):
         """
         Returns a DataSwim instance transformed according to the given parameters
@@ -295,13 +260,14 @@ class Clean():
             if self.df is None:
                 self.err(
                     self._transform, "No dataframe: please provide one in parameters or set it")
+                return
             df = self.df.copy()
         ds2 = self.clone_(df)
         if dateindex is None and index_col is None and fill_col is None and num_col is None:
             return ds2
         try:
             if dateindex is not None:
-                ds2 = ds2.dateindex_(dateindex)
+                ds2 = ds2.dateindex_(dateindex, df=df)
             if fill_col is not None:
                 ds2 = ds2.fill_nan_(0, fill_col)
             if index_col is not None:

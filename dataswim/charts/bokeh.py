@@ -41,7 +41,15 @@ class Bokeh():
         """
         Get a Bokeh chart object
         """
-        args = dict(data=self.df, kdims=[x_field], vdims=[y_field])
+        if type(x_field) == list:
+            kdims = x_field
+        else:
+            kdims = [x_field]
+        if type(y_field) == list:
+            vdims = y_field
+        else:
+            vdims = [y_field]
+        args = dict(data=self.df, kdims=kdims, vdims=vdims)
         if label is not None:
             args["label"] = label
         else:

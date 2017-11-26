@@ -56,13 +56,14 @@ class Select():
         except Exception as e:
             self.err(e, self.unique, "Can not select unique data")
 
-    def range_(self, num, unit):
+    def range_(self, **args):
         """
         Limit the data in a time range
         """
         try:
             df = self.df[self.df.last_valid_index() -
-                         pd.DateOffset(num, unit):]
+                         pd.DateOffset(**args):]
+            #df = self.df.tshift(num, freq=unit)
             return self.clone_(df=df)
         except Exception as e:
             self.err(e, self.range_, "Can not select range data")
@@ -99,7 +100,7 @@ class Select():
                 end_date = start_date + pd.DateOffset(**args)
             elif op == "-":
                 end_date = start_date - pd.DateOffset(**args)
-            mask = (self.df[datecol] > start_date) & (
+            mask = (self.df[datecol] >= start_date) & (
                 self.df[datecol] <= end_date)
             df = self.df.loc[mask]
             return df

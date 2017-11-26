@@ -34,7 +34,7 @@ class Altair():
         """
         return header
 
-    def _get_altair_chart(self, xfield, yfield, chart_type, label, opts, style):
+    def _get_altair_chart(self, xfield, yfield, chart_type, label, opts={}, style={}):
         """
         Get an Altair chart object
         """
@@ -46,10 +46,10 @@ class Altair():
         opts["chart_type"] = chart_type
         # generate
         try:
-            chart.serialize(**opts)
             chartobj = chart.serialize(**opts)
         except Exception as e:
-            self.err(e, self._get_altair_chart, "Can not get chart object")
+            self.err(e, self._get_altair_chart,
+                     "Can not get Altair chart object")
             return
         return chartobj
 
