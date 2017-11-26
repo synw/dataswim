@@ -177,9 +177,9 @@ class View():
 
     def vals(self, field):
         """
-        Print the values count of a column     
+        Set the main dataframe to the values count of a column     
         """
-        return self._vals(field)
+        self.df = self._vals(field)
 
     def vals_(self, field, index_col="index"):
         """
