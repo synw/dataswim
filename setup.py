@@ -29,6 +29,7 @@ setup(
         'bokeh==0.12.10',
         'altair==1.2.1',
         'gencharts',
+        'influxdb',
     ],
     zip_safe=False
 )
