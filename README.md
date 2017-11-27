@@ -84,12 +84,12 @@ ds.load_csv("data/users.csv")
 #ds.connect('sqlite:////path/to/db.sqlite3')
 #ds.load("auth_user")
 
-# for a full report:
+# for a full report (small datasets only):
 #ds.report()
 # for a data description:
 #ds.describe()
 # for a quick look:
-ds.look()
+#ds.look()
 ```
 
     221 rows
@@ -103,9 +103,9 @@ ds.look()
 # drop null values
 ds.drop_nan()
 # format date fields
-ds.date(["last_login", "date_joined"])
+ds.date("last_login", "date_joined")
 # keep only the relevant data
-ds.reduce("username", "date_joined")
+ds.keep("username", "date_joined")
 # print data
 ds.show()
 ```
@@ -163,9 +163,9 @@ ds.show()
 
 ```python
 # Add a num field
-ds.add("Logins", 1)
+ds.add(1, "Logins")
 # Create a datetime index
-ds.index("date_joined", "Date")
+ds.dateindex("date_joined", "Date")
 ds.show()
 ```
 
@@ -235,19 +235,17 @@ ds.show()
 # see Pandas frequencies for units: 
 # https://github.com/pandas-dev/pandas/blob/master/pandas/tseries/frequencies.py#L98
 # try "1D" for 1 day
-df = ds.resample("1A").sum()
+df = ds.rsum("1A")
 ```
 
 
 ```python
-# Set the new data as the main dataset
-ds.set(df)
 # set nulls to 0
-ds.fill("Logins")
+ds.fill_nan("Logins")
 # convert floats
 ds.to_int("Logins")
 # Add a date column from index
-ds.date_field("Date")
+ds.indexfield("Date")
 ```
 
 
@@ -319,33 +317,32 @@ hv.extension('bokeh')
 
 ```python
 ds.chart("Date", "Logins")
-ds.line()
+ds.line_()
 ```
 
 ![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/line.png)
 
 ```python
 ds.color("green")
-ds.bar()
+ds.bar_()
 ```
 
 ![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/bar.png)
 
 ```python
 colors=dict(line="orange", point="blue")
-ds.line_point(colors)
+ds.line_point_(colors)
 ```
 
 ![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/line_point.png)
 
 ```python
-ds.width(300)
-ds.height(180)
-ds.color("blue")
+ds.opts(dict(width=300, height=100))
+ds.style(dict(color="blue"))
 line = ds.line()
-ds.color("red")
+ds.style(dict(color="red"))
 point = ds.point()
-ds.color("green")
+ds.style(dict(color="green"))
 bar = ds.bar()
 point+line+bar
 ```
