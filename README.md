@@ -339,11 +339,11 @@ ds.line_point_(colors)
 ```python
 ds.opts(dict(width=300, height=100))
 ds.style(dict(color="blue"))
-line = ds.line()
+line = ds.line_()
 ds.style(dict(color="red"))
-point = ds.point()
+point = ds.point_()
 ds.style(dict(color="green"))
-bar = ds.bar()
+bar = ds.bar_()
 point+line+bar
 ```
 
