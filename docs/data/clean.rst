@@ -69,3 +69,7 @@ Cleaning
 
     Returns a DataSwim instance transformed according to the given parameters
     
+**format_date_** (``date``)
+
+    Formats a date
+    

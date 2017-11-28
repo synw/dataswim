@@ -112,7 +112,7 @@ class Clean():
         """
         n = [None, ""]
         try:
-            self.df[field] = self.df[field].replace(n, NaN)
+            self.df[field] = self.df[field].replace(n, nan)
         except Exception as e:
             self.err(e)
 
@@ -209,21 +209,21 @@ class Clean():
         except Exception as e:
             self.err(e, self.date, "Can not process date field")
 
-    def dateindex(self, datafield, indexfield="date_index"):
+    def dateindex(self, datafield, indexfield="date_index", df=None):
         """
         Set a datetime index from a column
         """
         try:
-            self.df = self._dateindex(datafield, indexfield)
+            self.df = self._dateindex(datafield, indexfield, df)
         except Exception as e:
             self.err(e, self.dateindex, "Can not index data")
 
-    def dateindex_(self, datafield, indexfield="date_index"):
+    def dateindex_(self, datafield, indexfield="date_index", df=None):
         """
         Returns a DataSwim instance index from a column
         """
         try:
-            df = self._dateindex(datafield, indexfield)
+            df = self._dateindex(datafield, indexfield, df)
         except Exception as e:
             self.err(e, self.dateindex_, "Can not index data")
             return
@@ -251,6 +251,12 @@ class Clean():
         if self.autoprint is True:
             self.ok("Added a datetime index from column", datafield)
         return df
+
+    def format_date_(self, date):
+        """
+        Formats a date
+        """
+        return date.strftime('%Y-%m-%d %H:%M:%S')
 
     def transform_(self, dateindex=None, index_col=None, fill_col=None, num_col=None, df=None):
         """
