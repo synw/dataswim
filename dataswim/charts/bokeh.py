@@ -37,7 +37,7 @@ class Bokeh():
         """
         return header
 
-    def _get_bokeh_chart(self, x_field, y_field, chart_type, label, opts, style):
+    def _get_bokeh_chart(self, x_field, y_field, chart_type, label, opts, style, **kwargs):
         """
         Get a Bokeh chart object
         """
@@ -49,7 +49,10 @@ class Bokeh():
             vdims = y_field
         else:
             vdims = [y_field]
-        args = dict(data=self.df, kdims=kdims, vdims=vdims)
+        args = kwargs
+        args["data"] = self.df
+        args["kdims"] = kdims
+        args["vdims"] = vdims
         if label is not None:
             args["label"] = label
         else:
@@ -58,10 +61,7 @@ class Bokeh():
         chart = None
         try:
             if chart_type == "line":
-                try:
-                    chart = hv.Curve(**args)
-                except Exception as e:
-                    self.err(e)
+                chart = hv.Curve(**args)
             elif chart_type == "point":
                 chart = hv.Scatter(**args)
             elif chart_type == "area":

@@ -22,25 +22,26 @@ class Plot(Bokeh, Altair, Colors):
         self.label = None
         self.engine = "bokeh"
 
-    def chart(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None):
+    def chart(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None, **kwargs):
         """
         Get a chart
         """
         try:
-            self.chart_obj = self._chart(x, y, chart_type, opts, style, label)
+            self.chart_obj = self._chart(
+                x, y, chart_type, opts, style, label, **kwargs)
         except Exception as e:
             self.err(e, self.chart, "Can not create chart")
 
-    def chart_(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None):
+    def chart_(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None, **kwargs):
         """
         Get a chart
         """
         try:
-            return self._chart(x, y, chart_type, opts, style, label)
+            return self._chart(x, y, chart_type, opts, style, label, **kwargs)
         except Exception as e:
             self.err(e, self.chart, "Can not create chart")
 
-    def _chart(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None):
+    def _chart(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None, **kwargs):
         """
         Initialize chart options
         """
@@ -54,7 +55,7 @@ class Plot(Bokeh, Altair, Colors):
         self.y = y
         try:
             chart_obj = self._get_chart(chart_type, x,
-                                        y, style=style, opts=opts, label=label)
+                                        y, style=style, opts=opts, label=label, **kwargs)
             return chart_obj
         except Exception as e:
             self.err(e)
@@ -151,7 +152,7 @@ class Plot(Bokeh, Altair, Colors):
         for k in dictobj:
             self.chart_style[k] = dictobj[k]
 
-    def _get_chart(self, chart_type, x=None, y=None, style=None, opts=None, label=None):
+    def _get_chart(self, chart_type, x=None, y=None, style=None, opts=None, label=None, **kwargs):
         """
         Get a full chart object
         """
@@ -184,7 +185,7 @@ class Plot(Bokeh, Altair, Colors):
             return
         try:
             chart = func(
-                x, y, chart_type, label, opts, style)
+                x, y, chart_type, label, opts, style, **kwargs)
             return chart
         except Exception as e:
             self.err(e)

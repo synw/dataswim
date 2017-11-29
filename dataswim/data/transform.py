@@ -211,7 +211,26 @@ class Transform():
         Concatenate dataframes from a list and set it to the main dataframe
         """
         try:
-            self.df = pd.concat(dfs)
+            self.df = self._concat(*dfs)
+        except Exception as e:
+            self.err(e, self.concat, "Can not concatenate data")
+
+    def concat_(self, *dfs):
+        """
+        Concatenate dataframes from a list and returns a new DataSwim instance
+        """
+        try:
+            ds2 = self.clone_(self._concat(*dfs))
+            return ds2
+        except Exception as e:
+            self.err(e, self.concat, "Can not concatenate data")
+
+    def _concat(self, *dfs):
+        """
+        Concatenate dataframes from a list and set it to the main dataframe
+        """
+        try:
+            return pd.concat(dfs)
         except Exception as e:
             self.err(e, self.concat, "Can not concatenate data")
 

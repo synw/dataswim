@@ -6,7 +6,7 @@ from .report import Report
 from .errors import Errors
 from .messages import Messages
 
-__version__ = "0.3.7"
+__version__ = "0.3.6"
 
 
 class DataSwim(Db, Df, Plot, Report, Errors, Messages):
@@ -39,6 +39,7 @@ class DataSwim(Db, Df, Plot, Report, Errors, Messages):
         self.report_engines = [self.engine]
         self.start_time = None
         self.influx_cli = None
+        self.datapath = None
 
     def __repr__(self):
         num = 0

@@ -86,6 +86,7 @@ class Report():
             for report in self.reports:
                 if not "html" in report:
                     self.err(self.to_files, "No html for report " + str(report))
+                    self.reports = self.report_engines = []
                     return
                 html = report["title"] + report["html"]
                 self._write_file(report["slug"], folderpath, html)

@@ -20,6 +20,7 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         Initialize with an empty dataframe
         """
         self.df = df
+        self.datapath = None
 
     def duplicate_(self, df=None, db=None, quiet=False):
         """

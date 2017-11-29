@@ -77,6 +77,10 @@ Dataframes
 
     Concatenate dataframes from a list and set it to the main dataframe
     
+**concat_** (``*dfs``)
+
+    Concatenate dataframes from a list and returns a DataSwim instance
+    
 **split_** (``*col``)
 
     Split the main dataframe according to column values

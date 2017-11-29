@@ -56,19 +56,38 @@ class Select():
         except Exception as e:
             self.err(e, self.unique, "Can not select unique data")
 
+    def range(self, **args):
+        """
+        Limit the data in a time range
+        """
+        try:
+            self.df = self._range(**args)
+        except Exception as e:
+            self.err(e, self.range_, "Can not select range data")
+            return
+
     def range_(self, **args):
+        """
+        Limit the data in a time range
+        """
+        try:
+            ds2 = self.clone_(self._range(**args))
+            return ds2
+        except Exception as e:
+            self.err(e, self.range_, "Can not select range data")
+            return
+
+    def _range(self, **args):
         """
         Limit the data in a time range
         """
         try:
             df = self.df[self.df.last_valid_index() -
                          pd.DateOffset(**args):]
-            #df = self.df.tshift(num, freq=unit)
-            return self.clone_(df=df)
+            return df
         except Exception as e:
             self.err(e, self.range_, "Can not select range data")
             return
-        return self.duplicate(df)
 
     def daterange(self, datecol, date_start, op, **args):
         """

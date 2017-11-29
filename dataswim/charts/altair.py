@@ -34,7 +34,7 @@ class Altair():
         """
         return header
 
-    def _get_altair_chart(self, xfield, yfield, chart_type, label, opts={}, style={}):
+    def _get_altair_chart(self, xfield, yfield, chart_type, label, opts={}, style={}, **kwargs):
         """
         Get an Altair chart object
         """

@@ -32,9 +32,13 @@ Rows
 
     Returns a list of dictionary records from the main dataframe
     
+**range** (``num``, ``unit``)
+
+    Limit the data in a time range and set the main dataframe
+    
 **range_** (``num``, ``unit``)
 
-    Limit the data in a time range
+    Limit the data in a time range and returns a DataSwim instance
     
 **contains** (``column``, ``value``)
 
