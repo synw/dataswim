@@ -35,11 +35,6 @@ class Relation():
         if self.autoprint is True:
             self.start("Processing relation",
                        origin_field, "->", search_field)
-        try:
-            self._check_db()
-        except Exception as e:
-            self.err(e, self.count_rows, "Can not connect to database")
-            return
         df = self.df.copy()
         if destination_field is None:
             destination_field = search_field
