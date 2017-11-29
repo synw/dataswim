@@ -248,7 +248,7 @@ class Transform():
                 dss[key] = ds2
             return dss
         except Exception as e:
-            self.err(e, self.unique, "Can not split dataframe")
+            self.err(e, self.split_, "Can not split dataframe")
 
     def add(self, column, value):
         """
