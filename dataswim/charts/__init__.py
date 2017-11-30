@@ -22,26 +22,26 @@ class Plot(Bokeh, Altair, Colors):
         self.label = None
         self.engine = "bokeh"
 
-    def chart(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None, **kwargs):
+    def chart(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None, options={}, **kwargs):
         """
         Get a chart
         """
         try:
             self.chart_obj = self._chart(
-                x, y, chart_type, opts, style, label, **kwargs)
+                x, y, chart_type, opts, style, label, options=options, **kwargs)
         except Exception as e:
             self.err(e, self.chart, "Can not create chart")
 
-    def chart_(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None, **kwargs):
+    def chart_(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None, options={}, **kwargs):
         """
         Get a chart
         """
         try:
-            return self._chart(x, y, chart_type, opts, style, label, **kwargs)
+            return self._chart(x, y, chart_type, opts, style, label, options=options, **kwargs)
         except Exception as e:
             self.err(e, self.chart, "Can not create chart")
 
-    def _chart(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None, **kwargs):
+    def _chart(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None, options={}, **kwargs):
         """
         Initialize chart options
         """
@@ -55,75 +55,76 @@ class Plot(Bokeh, Altair, Colors):
         self.y = y
         try:
             chart_obj = self._get_chart(chart_type, x,
-                                        y, style=style, opts=opts, label=label, **kwargs)
+                                        y, style=style, opts=opts, label=label, options=options, **kwargs)
             return chart_obj
         except Exception as e:
             self.err(e)
 
-    def bar_(self, label=None, style=None, opts=None):
+    def bar_(self, label=None, style=None, opts=None, options={}):
         """
         Get a bar chart
         """
         try:
-            return self._get_chart("bar", style=style, opts=opts, label=label)
+            return self._get_chart("bar", style=style, opts=opts, label=label, options=options)
         except Exception as e:
             self.err(e, self.chart, "Can draw bar chart")
 
-    def line_(self, label=None, style=None, opts=None):
+    def line_(self, label=None, style=None, opts=None, options={}):
         """
         Get a line chart
         """
         try:
-            return self._get_chart("line", style=style, opts=opts, label=label)
+            return self._get_chart("line", style=style, opts=opts, label=label, options=options)
         except Exception as e:
             self.err(e, self.line_, "Can draw line chart")
 
-    def area_(self, label=None, style=None, opts=None):
+    def area_(self, label=None, style=None, opts=None, options={}):
         """
         Get an area chart
         """
         try:
-            return self._get_chart("area", style=style, opts=opts, label=label)
+            return self._get_chart("area", style=style, opts=opts, label=label, options=options)
         except Exception as e:
             self.err(e, self.area_, "Can draw area chart")
 
-    def hist_(self, label=None, style=None, opts=None):
+    def hist_(self, label=None, style=None, opts=None, options={}):
         """
         Get an historiogram chart
         """
         try:
-            return self._get_chart("hist", style=style, opts=opts, label=label)
+            return self._get_chart("hist", style=style, opts=opts, label=label, options=options)
         except Exception as e:
             self.err(e, self.hist_, "Can draw historiogram")
 
-    def errorbar_(self, label=None, style=None, opts=None):
+    def errorbar_(self, label=None, style=None, opts=None, options={}):
         """
         Get a point chart
         """
         try:
-            return self._get_chart("err", style=style, opts=opts, label=label)
+            return self._get_chart("err", style=style, opts=opts, label=label, options=options)
         except Exception as e:
             self.err(e, self.errorbar_, "Can draw errorbar chart")
 
-    def point_(self, label=None, style=None, opts=None):
+    def point_(self, label=None, style=None, opts=None, options={}):
         """
         Get a point chart
         """
         try:
-            return self._get_chart("point", style=style, opts=opts, label=label)
+            return self._get_chart("point", style=style, opts=opts, label=label, options=options)
         except Exception as e:
             self.err(e, self.point_, "Can draw point chart")
 
-    def heatmap_(self, label=None, style=None, opts=None):
+    def heatmap_(self, label=None, style=None, opts=None, options={}):
         """
         Get a heatmap chart
         """
         try:
-            return self._get_chart("point", style=style, opts=opts, label=label)
+            return self._get_chart("point", style=style, opts=opts, label=label, options=options)
         except Exception as e:
             self.err(e, self.heatmap_, "Can draw heatmap")
 
-    def line_point_(self, label=None, style=None, opts=None, colors={"line": "yellow", "point": "navy"}):
+    def line_point_(self, label=None, style=None, opts=None, options={},
+                    colors={"line": "yellow", "point": "navy"}):
         """
         Get a line and point chart
         """
@@ -131,9 +132,11 @@ class Plot(Bokeh, Altair, Colors):
             if style is None:
                 style = self.chart_style
             style["color"] = colors["line"]
-            l = self._get_chart("line", style=style, opts=opts, label=label)
+            l = self._get_chart("line", style=style, opts=opts,
+                                label=label, options=options)
             style["color"] = colors["point"]
-            p = self._get_chart("point", style=style, opts=opts, label=label)
+            p = self._get_chart("point", style=style,
+                                opts=opts, label=label, options=options)
             return l * p
         except Exception as e:
             self.err(e, self.line_point_, "Can draw line_point chart")
@@ -152,7 +155,7 @@ class Plot(Bokeh, Altair, Colors):
         for k in dictobj:
             self.chart_style[k] = dictobj[k]
 
-    def _get_chart(self, chart_type, x=None, y=None, style=None, opts=None, label=None, **kwargs):
+    def _get_chart(self, chart_type, x=None, y=None, style=None, opts=None, label=None, options={}, **kwargs):
         """
         Get a full chart object
         """
@@ -185,7 +188,7 @@ class Plot(Bokeh, Altair, Colors):
             return
         try:
             chart = func(
-                x, y, chart_type, label, opts, style, **kwargs)
+                x, y, chart_type, label, opts, style, options=options, **kwargs)
             return chart
         except Exception as e:
             self.err(e)

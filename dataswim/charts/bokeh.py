@@ -37,7 +37,7 @@ class Bokeh():
         """
         return header
 
-    def _get_bokeh_chart(self, x_field, y_field, chart_type, label, opts, style, **kwargs):
+    def _get_bokeh_chart(self, x_field, y_field, chart_type, label, opts, style, options={}, **kwargs):
         """
         Get a Bokeh chart object
         """
