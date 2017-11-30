@@ -31,7 +31,7 @@ class Search():
         Returns rows that has the exact string value in a column
         """
         try:
-            df2 = self.df[column].isin(list(values))
+            df2 = self.df[column].isin(values)
             df = self.df[df2]
             return self.clone_(df)
         except KeyError:
