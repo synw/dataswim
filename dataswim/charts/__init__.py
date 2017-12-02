@@ -1,10 +1,11 @@
 import holoviews as hv
 from .bokeh import Bokeh
 from .altair import Altair
+from .chartjs import Chartjs
 from .colors import Colors
 
 
-class Plot(Bokeh, Altair, Colors):
+class Plot(Bokeh, Altair, Chartjs, Colors):
     """
     Class to handle charts
     """
@@ -251,6 +252,8 @@ class Plot(Bokeh, Altair, Colors):
             func = self._get_bokeh_chart
         elif self.engine == "altair":
             func = self._get_altair_chart
+        elif self.engine == "chartjs":
+            func = self._get_chartjs_chart
         else:
             self.err(self._get_chart, "Engine " + self.engine + " unknown")
             return

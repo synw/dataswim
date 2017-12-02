@@ -28,7 +28,10 @@ class Report():
                 return
             chart_obj = self.chart_obj
         try:
-            html = self.get_html(chart_obj, slug)
+            if self.engine == "chartjs":
+                html = chart_obj
+            else:
+                html = self.get_html(chart_obj, slug)
             if html is None or html == "":
                 self.err(
                     self.stack, "Can not stack: empty html reveived for " + str(chart_obj), "-", slug)

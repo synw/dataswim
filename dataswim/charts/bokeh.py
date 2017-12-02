@@ -24,6 +24,16 @@ class Bokeh():
         self.label = None
         self.engine = "bokeh"
 
+    def layout_(self, dataset, kdims, cols=3):
+        """
+        Create a Holoview NdLayout from a dictionnary of chart objects
+        """
+        try:
+            l = hv.NdLayout(dataset, kdims=kdims).cols(cols)
+            return l
+        except Exception as e:
+            self.err(e, self.layout_, "Can not create layout")
+
     def bokeh_header_(self):
         """
         Returns html script tags for Bokeh
@@ -70,7 +80,7 @@ class Bokeh():
                 chart = hv.Bars(**args)
             elif chart_type == "hist":
                 chart = hv.Histogram(**args)
-            elif chart_type == "err":
+            elif chart_type == "errorBar":
                 chart = hv.ErrorBars(**args)
             endchart = chart(plot=opts, style=style)
             return endchart

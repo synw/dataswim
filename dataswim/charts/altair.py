@@ -44,9 +44,10 @@ class Altair():
         opts["yfield"] = yfield
         opts["dataobj"] = self.df
         opts["chart_type"] = chart_type
+        opts["options"] = options
         # generate
         try:
-            chartobj = chart.serialize(options=options, **opts)
+            chartobj = chart.serialize(**opts)
         except Exception as e:
             self.err(e, self._get_altair_chart,
                      "Can not get Altair chart object")
