@@ -17,7 +17,7 @@ class Report():
         self.report_path = None
         self.report_engines = [self.engine]
 
-    def stack(self, slug, title=None, chart_obj=None):
+    def stack(self, slug, chart_obj=None, title=None):
         """
         Get the html for a chart and store it
         """
