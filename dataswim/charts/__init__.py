@@ -1,3 +1,4 @@
+import holoviews as hv
 from .bokeh import Bokeh
 from .altair import Altair
 from .colors import Colors
@@ -101,7 +102,7 @@ class Plot(Bokeh, Altair, Colors):
         Get a point chart
         """
         try:
-            return self._get_chart("err", style=style, opts=opts, label=label, options=options)
+            return self._get_chart("errorBar", style=style, opts=opts, label=label, options=options)
         except Exception as e:
             self.err(e, self.errorbar_, "Can draw errorbar chart")
 
@@ -114,12 +115,48 @@ class Plot(Bokeh, Altair, Colors):
         except Exception as e:
             self.err(e, self.point_, "Can draw point chart")
 
+    def circle_(self, label=None, style=None, opts=None, options={}):
+        """
+        Get a circle chart
+        """
+        try:
+            return self._get_chart("circle", style=style, opts=opts, label=label, options=options)
+        except Exception as e:
+            self.err(e, self.point_, "Can draw circle chart")
+
+    def square_(self, label=None, style=None, opts=None, options={}):
+        """
+        Get a square chart
+        """
+        try:
+            return self._get_chart("square", style=style, opts=opts, label=label, options=options)
+        except Exception as e:
+            self.err(e, self.point_, "Can draw square chart")
+
+    def tick_(self, label=None, style=None, opts=None, options={}):
+        """
+        Get a tick chart
+        """
+        try:
+            return self._get_chart("tick", style=style, opts=opts, label=label, options=options)
+        except Exception as e:
+            self.err(e, self.point_, "Can draw tick chart")
+
+    def rule_(self, label=None, style=None, opts=None, options={}):
+        """
+        Get a rule chart
+        """
+        try:
+            return self._get_chart("rule", style=style, opts=opts, label=label, options=options)
+        except Exception as e:
+            self.err(e, self.point_, "Can draw rule chart")
+
     def heatmap_(self, label=None, style=None, opts=None, options={}):
         """
         Get a heatmap chart
         """
         try:
-            return self._get_chart("point", style=style, opts=opts, label=label, options=options)
+            return self._get_chart("heatmap", style=style, opts=opts, label=label, options=options)
         except Exception as e:
             self.err(e, self.heatmap_, "Can draw heatmap")
 
@@ -141,6 +178,13 @@ class Plot(Bokeh, Altair, Colors):
         except Exception as e:
             self.err(e, self.line_point_, "Can draw line_point chart")
 
+    def hline_(self, col):
+        """
+        Returns an horizontal line from a column mean value
+        """
+        c = hv.HLine(self.df[col].mean())
+        return c
+
     def opts(self, dictobj):
         """
         Add or update an option value to defaults
@@ -154,6 +198,30 @@ class Plot(Bokeh, Altair, Colors):
         """
         for k in dictobj:
             self.chart_style[k] = dictobj[k]
+
+    def color(self, val):
+        """
+        Change the chart's color
+        """
+        self.style(dict(color=val))
+
+    def width(self, val):
+        """
+        Change the chart's width
+        """
+        self.opts(dict(width=val))
+
+    def height(self, val):
+        """
+        Change the chart's height
+        """
+        self.opts(dict(height=val))
+
+    def size(self, val):
+        """
+        Change the chart's point size
+        """
+        self.style(dict(size=val))
 
     def _get_chart(self, chart_type, x=None, y=None, style=None, opts=None, label=None, options={}, **kwargs):
         """
