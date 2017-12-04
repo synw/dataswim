@@ -2,7 +2,7 @@
 
 import time
 import pandas as pd
-from numpy.core.numeric import nan
+from numpy.core.numeric import nan, NaN
 from goerr.colors import colors
 
 
@@ -127,9 +127,14 @@ class Clean():
 
         """
         ds2 = self.clone_()
+
+        def convert(val):
+            try:
+                return int(val)
+            except:
+                return val
         try:
-            ds2.drop_nan(field, method="any")
-            ds2.df[field] = ds2.df[field].apply(lambda x: int(x))
+            ds2.df[field] = ds2.df[field].apply(convert)
             self.df = ds2.df
         except Exception as e:
             self.err(e, self.to_int, "Can not convert column values to integer")
@@ -184,7 +189,7 @@ class Clean():
         except Exception as e:
             self.err(e)
 
-    def date(self, *fields):
+    def date(self, *fields, precision="S"):
         """
         Convert column values to properly formated datetime
         """
@@ -194,7 +199,18 @@ class Clean():
                 int(time.mktime(t1))
             except:
                 return nan
-            return row.strftime('%Y-%m-%d %H:%M:%S')
+            encoded = '%Y-%m-%d %H:%M:%S'
+            if precision == "Min":
+                encoded = '%Y-%m-%d %H:%M'
+            elif precision == "H":
+                encoded = '%Y-%m-%d %H'
+            elif precision == "D":
+                encoded = '%Y-%m-%d'
+            elif precision == "M":
+                encoded = '%Y-%m'
+            elif precision == "M":
+                encoded = '%Y'
+            return row.strftime(encoded)
 
         try:
             for f in fields:

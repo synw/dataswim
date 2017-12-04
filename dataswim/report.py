@@ -87,6 +87,7 @@ class Report():
             self.report_path = folderpath
         try:
             for report in self.reports:
+                #print("REPORT", report)
                 if not "html" in report:
                     self.err(self.to_files, "No html for report " + str(report))
                     self.reports = self.report_engines = []

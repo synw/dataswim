@@ -1,3 +1,4 @@
+import uuid
 from pychartjs import chart
 
 
@@ -17,15 +18,20 @@ class Chartjs():
                      "Can not get data for y field ", ycol)
             return
         try:
-            ydata = list(self.df[ycol])
+            if type(ycol) != list:
+                ydata = dict(name="dataset", data=list(self.df[ycol]))
+            else:
+                ydata = {}
+                for col in ycol:
+                    ydata[col] = list(self.df[col])
         except Exception as e:
             self.err(e, self._get_chartjs_chart,
                      "Can not get data for x field ", xcol)
             return
         try:
-            if chart_type == "bar":
-                html = chart.bar("slug", xdata, ydata, label,
-                                 opts, style, **kwargs)
-                return html
+            slug = str(uuid.uuid4())
+            html = chart.get(slug, xdata, ydata, label,
+                             opts, style, chart_type, **kwargs)
+            return html
         except Exception as e:
             self.err(e, self._get_chartjs_chart, "Can not get chart")
