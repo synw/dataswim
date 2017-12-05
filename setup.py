@@ -30,6 +30,7 @@ setup(
         'altair==1.2.1',
         'gencharts',
         'influxdb',
+        'chartjspy',
     ],
     zip_safe=False
 )

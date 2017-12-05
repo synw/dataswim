@@ -1,5 +1,5 @@
 import uuid
-from pychartjs import chart
+from chartjspy import chart
 
 
 class Chartjs():
