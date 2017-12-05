@@ -12,7 +12,9 @@ A simple api to clean, transform and visualize data. This api is:
 
 [Dataset](https://dataset.readthedocs.io/en/latest/) and [Sql Alchemy](http://www.sqlalchemy.org) to work with databases
 
-[Holoviews](http://holoviews.org/) and [Bokeh](https://bokeh.pydata.org/en/latest/) to chart data
+[Bokeh](https://bokeh.pydata.org/en/latest/) with [Holoviews](http://holoviews.org/), 
+[Vega Lite](https://vega.github.io/vega-lite/) with [Altair](https://altair-viz.github.io/), 
+and [Chartjs](http://www.chartjs.org/) to chart data
 
 ## Supported databases
 
