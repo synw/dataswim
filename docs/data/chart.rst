@@ -48,6 +48,14 @@ Charts
 
     Get a heatmap chart
     
+Layouts
+-------
+
+**layout_** (``chart_objs``, ``cols=3``)
+
+    Returns a Holoview layout from chart objects
+
+    
 Chart options
 -------------
     

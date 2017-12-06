@@ -186,6 +186,15 @@ class Plot(Bokeh, Altair, Chartjs, Colors):
         c = hv.HLine(self.df[col].mean())
         return c
 
+    def layout_(self, chart_objs, cols=3):
+        """
+        Returns a Holoview layout from chart objects
+        """
+        try:
+            return hv.Layout(chart_objs).cols(cols)
+        except Exception as e:
+            self.err(e, self.layout_, "Can not build layout")
+
     def opts(self, dictobj):
         """
         Add or update an option value to defaults
