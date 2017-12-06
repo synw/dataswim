@@ -28,9 +28,9 @@ Columns
 
     Returns a DatasWim instance with a new column filled from the index
     
-**keep_** (``source_col``, ``dest_col``)
+**exclude** (``col``, ``val``)
 
-    Renames a column in the main dataframe
+    Delete rows based on value
     
 Rows
 ----

@@ -52,6 +52,16 @@ class Transform():
         except Exception as e:
             self.err(e, self.drop, "Can not drop column")
 
+    def exclude(self, col, val):
+        """
+        Delete rows based on value
+        """
+        try:
+            self.df = self.df[self.df[col] != val]
+        except Exception as e:
+            self.err(e, self.exclude,
+                     "Can not exclude rows based on value " + val)
+
     def rsum(self, time_period="1Min", num_col="num", dateindex=None, index_col="date", fill_col=None):
         """
         Resample, and sum the main dataframe to a time period
