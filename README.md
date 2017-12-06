@@ -73,206 +73,164 @@ connecting to a Django database.
 To run the notebooks online click the 
 badge: [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/synw/dataswim-notebooks/master)
 
-The users demo notebook: 
+### User registrations demo notebook: 
+
+Goal: chart user registrations over time from fake Django user data
 
 ```python
 from dataswim import ds
-
-# Load from csv
-ds.load_csv("data/users.csv")
 
 # Load from a Django database
 #ds.connect('postgresql://user:xxxx@localhost/dbname')
 #ds.connect('sqlite:////path/to/db.sqlite3')
 #ds.load("auth_user")
 
-# for a full report (small datasets only):
+# Load demo data from csv
+ds.load_csv("data/users.csv")
+
+# for a full report (very small datasets only):
 #ds.report()
 # for a data description:
 #ds.describe()
 # for a quick look:
 #ds.look()
-```
-
-    221 rows
-    Fields: id, password, last_login, is_superuser, first_name, last_name, email, is_staff, is_active, date_joined, username
-
-
-### Clean and format the data
-
-
-```python
-# drop null values
-ds.drop_nan()
-# format date fields
-ds.date("last_login", "date_joined")
-# keep only the relevant data
-ds.keep("username", "date_joined")
-# print data
+# for a sample:
 ds.show()
 ```
 
-    221 rows
-    Fields: username, date_joined
+    [START] Loading csv...
+    [END] Finished loading csv in 0.12 seconds
+    [INFO] The dataframe has 1007 rows and 11 columns:
+    id, password, last_login, is_superuser, first_name, last_name, email, is_staff, is_active, 
+    date_joined, username
 
-
-
-
-
-<div>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>username</th>
+      <th>id</th>
+      <th>password</th>
+      <th>last_login</th>
+      <th>is_superuser</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>email</th>
+      <th>is_staff</th>
+      <th>is_active</th>
       <th>date_joined</th>
+      <th>username</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>bob</td>
-      <td>2017-10-31 09:24:10</td>
+      <td>1</td>
+      <td>pbkdf2_sha256$36000$TGjJvvfpuFhR$jVD3mP8MNxNYD...</td>
+      <td>2017-12-02 14:05:30.796573</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>True</td>
+      <td>True</td>
+      <td>2017-12-02 13:57:53.393755</td>
+      <td>ggg</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>denise40</td>
-      <td>1974-03-15 13:13:54</td>
+      <td>2</td>
+      <td>Cupiditate accusamus velit sit dolor. Doloribu...</td>
+      <td>1986-07-16 11:22:02.000000</td>
+      <td>False</td>
+      <td>Lindsey</td>
+      <td>Thompson</td>
+      <td>farmermeghan@henderson.com</td>
+      <td>False</td>
+      <td>False</td>
+      <td>1997-08-06 16:23:37.000000</td>
+      <td>jrichards</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>hannah55</td>
-      <td>2008-03-05 13:25:32</td>
+      <td>3</td>
+      <td>Nobis quisquam voluptatibus nulla.\nEa archite...</td>
+      <td>1981-04-06 06:48:03.000000</td>
+      <td>False</td>
+      <td>Kurt</td>
+      <td>Black</td>
+      <td>kellycharles@marsh.com</td>
+      <td>True</td>
+      <td>True</td>
+      <td>2013-08-29 18:04:10.000000</td>
+      <td>eroberts</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>dbaker</td>
-      <td>2017-04-10 19:12:24</td>
+      <td>4</td>
+      <td>Inventore ea quia ducimus eligendi quod. Velit...</td>
+      <td>1991-08-08 22:23:45.000000</td>
+      <td>True</td>
+      <td>Sandra</td>
+      <td>Wilson</td>
+      <td>antoniobowers@hotmail.com</td>
+      <td>True</td>
+      <td>False</td>
+      <td>1981-04-22 05:32:55.000000</td>
+      <td>emilykelley</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>youngnatasha</td>
-      <td>1975-01-15 08:02:34</td>
+      <td>5</td>
+      <td>Veniam sequi aut nisi vitae. Quasi explicabo v...</td>
+      <td>1971-02-08 15:53:42.000000</td>
+      <td>True</td>
+      <td>Andrew</td>
+      <td>Guzman</td>
+      <td>hannahconner@yahoo.com</td>
+      <td>False</td>
+      <td>False</td>
+      <td>2010-11-10 17:53:54.000000</td>
+      <td>lsmith</td>
     </tr>
   </tbody>
 </table>
 </div>
 
-
-
-### Transform the data
-
-
-```python
-# Add a num field
-ds.add(1, "Logins")
-# Create a datetime index
-ds.dateindex("date_joined", "Date")
-ds.show()
-```
-
-    221 rows
-    Fields: username, date_joined, Logins
-
-
-
-
-
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>username</th>
-      <th>date_joined</th>
-      <th>Logins</th>
-    </tr>
-    <tr>
-      <th>Date</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2017-10-31 09:24:10</th>
-      <td>bob</td>
-      <td>2017-10-31 09:24:10</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>1974-03-15 13:13:54</th>
-      <td>denise40</td>
-      <td>1974-03-15 13:13:54</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>2008-03-05 13:25:32</th>
-      <td>hannah55</td>
-      <td>2008-03-05 13:25:32</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>2017-04-10 19:12:24</th>
-      <td>dbaker</td>
-      <td>2017-04-10 19:12:24</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>1975-01-15 08:02:34</th>
-      <td>youngnatasha</td>
-      <td>1975-01-15 08:02:34</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
+## Transform the data
 
 
 ```python
 # Resample data by one year
 # see Pandas frequencies for units: 
 # https://github.com/pandas-dev/pandas/blob/master/pandas/tseries/frequencies.py#L98
-# try "1D" for 1 day
-df = ds.rsum("1A")
-```
-
-
-```python
-# set nulls to 0
-ds.fill_nan("Logins")
-# convert floats
-ds.to_int("Logins")
-# Add a date column from index
-ds.indexfield("Date")
-```
-
-
-```python
-# check it out
+# try "1D" for one day
+ds.rsum("1A", dateindex="date_joined", num_col="Registrations", index_col="Date")
+# Convert nulls to zeros
+ds.zero_nan("Registrations")
+# Keep only the fields we need
+ds.keep("Date", "Registrations")
+ds.backup()
 ds.show()
 ```
 
-    48 rows
-    Fields: Logins, Date
+    [OK] Added a datetime index from column date_joined
+    [OK] Data resampled by 1A
+    [OK] Column Date added from index
+    [OK] Replaced 0 values by nan in column Registrations
+    [OK] Setting dataframe to columns Date Registrations
+    [OK] Dataframe backed up
+    [INFO] The dataframe has 48 rows and 2 columns:
+    Date, Registrations
 
-
-
-
-
-<div>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Logins</th>
       <th>Date</th>
+      <th>Registrations</th>
     </tr>
     <tr>
-      <th>Date</th>
+      <th>date_joined</th>
       <th></th>
       <th></th>
     </tr>
@@ -280,74 +238,88 @@ ds.show()
   <tbody>
     <tr>
       <th>1970-12-31</th>
-      <td>7</td>
       <td>1970-12-31</td>
+      <td>20</td>
     </tr>
     <tr>
       <th>1971-12-31</th>
-      <td>4</td>
       <td>1971-12-31</td>
+      <td>21</td>
     </tr>
     <tr>
       <th>1972-12-31</th>
-      <td>6</td>
       <td>1972-12-31</td>
+      <td>20</td>
     </tr>
     <tr>
       <th>1973-12-31</th>
-      <td>4</td>
       <td>1973-12-31</td>
+      <td>25</td>
     </tr>
     <tr>
       <th>1974-12-31</th>
-      <td>6</td>
       <td>1974-12-31</td>
+      <td>26</td>
     </tr>
   </tbody>
 </table>
 </div>
 
-
-
-### Draw charts
-
+## Draw charts
 
 ```python
 import holoviews as hv
 hv.extension('bokeh')
 ```
+### Simple line
 
 ```python
-ds.chart("Date", "Logins")
+ds.chart("Date", "Registrations", label="Registrations")
 ds.line_()
 ```
 
 ![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/line.png)
 
-```python
-ds.color("green")
-ds.bar_()
-```
-
-![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/bar.png)
+### Line and points
 
 ```python
-colors=dict(line="orange", point="blue")
-ds.line_point_(colors)
+ds.opts(dict(width=940, height=300))
+line = ds.line_()
+style = dict(color="orange", size=10)
+opts = dict(tools=["hover"])
+point = ds.point_(style=style, opts=opts)
+# The * operator merge the two charts in one
+line*point
 ```
 
 ![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/line_point.png)
 
+### Different types of chart
+
 ```python
-ds.opts(dict(width=300, height=100))
-ds.style(dict(color="blue"))
-line = ds.line_()
-ds.style(dict(color="red"))
+ds.width(300)
+ds.height(200)
+ds.color("orange")
+area = ds.area_()
+ds.color("green")
 point = ds.point_()
-ds.style(dict(color="green"))
+ds.color("grey")
 bar = ds.bar_()
-point+line+bar
+area+point+bar
 ```
 
 ![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/multi.png)
+
+### Histogram and mean line
+
+```python
+ds.color("green")
+ds.width(850)
+ds.height(300)
+c7 = ds.hline_("Registrations")
+c8 = ds.area_("Registrations").hist()
+c8*c7
+```
+
+![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/hist.png)
 
