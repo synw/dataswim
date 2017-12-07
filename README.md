@@ -29,7 +29,7 @@ Using conda:
    conda install pandas sqlalchemy
    conda install -c ioam holoviews bokeh
    conda install altair --channel conda-forge
-   pip install dataset pandas-profiling pytablewriter goerr gencharts
+   pip install dataset pandas-profiling pytablewriter goerr gencharts chartjspy
    pip install dataswim --no-deps
    ```
 
