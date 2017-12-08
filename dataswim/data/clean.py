@@ -149,15 +149,15 @@ class Clean():
         Convert colums values to float
         """
         try:
-            df = self._to_type("float64", *cols)
+            df = self.to_type("float64", *cols)
             self.df = df
         except Exception as e:
-            self.err(e, self._to_type, "Can not convert column values to float")
+            self.err(e, self.to_type, "Can not convert column values to float")
             return
         if self.autoprint is True:
             self.ok("Converted column values to float")
 
-    def _to_type(self, dtype, *cols):
+    def to_type(self, dtype, *cols):
         """
         Convert colums values to a given type
         """
@@ -166,7 +166,7 @@ class Clean():
         try:
             for col in cols:
                 if col not in allcols:
-                    self.err(self._to_type, "Column " + col + " not found")
+                    self.err(self.to_type, "Column " + col + " not found")
                     return
                 df[col] = df[col].astype(dtype)
             return df
