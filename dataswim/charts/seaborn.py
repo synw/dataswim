@@ -6,85 +6,96 @@ class Seaborn():
     A class to handle Seaborn charts
     """
 
-    def residual_(self, label=None, style={}, opts={}, options={}):
+    def residual_(self, label=None, style=None, opts=None):
         """
         Returns a Seaborn models residuals chart
         """
+        opts, style = self._get_opts(opts, style)
         self._check_defaults(x_only=True)
         self._set_seaborn_engine()
-        color, _ = self._get_color_style(style)
+        color, _ = self._get_color_size(style)
         try:
             fig = sns.residplot(self.df[self.x], self.df[self.y],
                                 lowess=True, color=color)
+            fig = self._set_with_height(fig, opts)
             return fig
         except Exception as e:
             self.err(e, self.residual_,
                      "Can not draw models residuals chart")
 
-    def density_(self, label=None, style={}, opts={}, options={}):
+    def density_(self, label=None, style=None, opts=None):
         """
         Returns a Seaborn density chart
         """
+        opts, style = self._get_opts(opts, style)
         self._check_defaults(x_only=True)
         self._set_seaborn_engine()
         try:
             fig = sns.kdeplot(self.df[self.x], self.df[self.y])
+            fig = self._set_with_height(fig, opts)
             return fig
         except Exception as e:
             self.err(e, self.density_,
                      "Can not draw density chart")
 
-    def distrib_(self, label=None, style={}, opts={}, options={}):
+    def distrib_(self, label=None, style=None, opts=None):
         """
         Returns a Seaborn distribution chart
         """
+        opts, style = self._get_opts(opts, style)
         self._check_defaults(x_only=True)
         self._set_seaborn_engine()
-        color, _ = self._get_color_style(style)
+        color, _ = self._get_color_size(style)
         try:
             fig = sns.distplot(self.df[self.x], color=color)
+            fig = self._set_with_height(fig, opts)
             return fig
         except Exception as e:
             self.err(e, self.distrib_,
                      "Can not draw distribution chart")
 
-    def linear_(self, label=None, style={}, opts={}, options={}):
+    def linear_(self, label=None, style=None, opts=None):
         """
         Returns a Seaborn linear regression plot
         """
+        opts, style = self._get_opts(opts, style)
         self._check_defaults()
         self._set_seaborn_engine()
         xticks, yticks = self._get_ticks(opts)
-        color, size = self._get_color_style(style)
+        color, size = self._get_color_size(style)
         self.chart_type = "linear"
         try:
             fig = sns.lmplot(self.x, self.y, data=self.df)
+            fig = self._set_with_height(fig, opts)
             return fig
         except Exception as e:
             self.err(e, self.linear_,
                      "Can not draw linear regression chart")
 
-    def dlinear_(self, label=None, style={}, opts={}, options={}):
+    def dlinear_(self, label=None, style=None, opts=None):
         """
         Returns a Seaborn linear regression plot with marginal distribution
         """
+        opts, style = self._get_opts(opts, style)
         self._check_defaults()
         self._set_seaborn_engine()
         xticks, yticks = self._get_ticks(opts)
-        color, size = self._get_color_style(style)
+        color, size = self._get_color_size(style)
         self.chart_type = "linear"
         try:
             fig = sns.jointplot(self.x, self.y, data=self.df, kind="reg",
                                 xlim=xticks, ylim=yticks, color=color, size=size)
+            fig = self._set_with_height(fig, opts)
             return fig
         except Exception as e:
             self.err(e, self.dlinear_,
                      "Can not draw linear regression chart with distribution")
 
-    def _get_seaborn_chart(self, xfield, yfield, chart_type, label, opts={}, style={}, options={}, **kwargs):
+    def _get_seaborn_chart(self, xfield, yfield, chart_type, label, opts=None, style=None, **kwargs):
         """
         Get an Seaborn chart object
         """
+        opts, style = self._get_opts(opts, style)
         # params
         opts["xfield"] = xfield
         opts["yfield"] = yfield
@@ -118,6 +129,7 @@ class Seaborn():
         """
         Check if xticks and yticks are set
         """
+        opts, _ = self._get_opts(opts, None)
         if not "xticks" in opts:
             if not "xticks" in self.chart_opts:
                 self.err(self.dlinear_,
@@ -135,20 +147,53 @@ class Seaborn():
             else:
                 yticks = self.chart_opts["yticks"]
         else:
-            xticks = opts["xticks"]
+            yticks = opts["yticks"]
         return xticks, yticks
 
-    def _get_color_style(self, style_):
+    def _get_color_size(self, style):
         """
-        Get color and style for a Seaborn chart
+        Get color and size from a style dict
         """
         color = "b"
-        if "color" in style_:
-            color = style_["color"]
+        if "color" in style:
+            color = style["color"]
         size = 7
-        if "size" in style_:
-            size = style_["size"]
+        if "size" in style:
+            size = style["size"]
         return color, size
+
+    def _set_with_height(self, fig, opts):
+        """
+        Set the width and height of a Matplotlib figure
+        """
+        h = 6
+        if "height" in opts:
+            h = opts["height"]
+        w = 6
+        if "width" in opts:
+            w = opts["width"]
+        try:
+            fig.figure.set_size_inches((w, h))
+            return fig
+        except:
+            try:
+                fig.fig.set_size_inches((w, h))
+                return fig
+            except Exception as e:
+                self.err(e, self._set_with_height,
+                         "Can not set figure width and height from chart object")
+
+    def _get_opts(self, opts, style):
+        """
+        Get default options
+        """
+        o = opts
+        if opts is None:
+            o = self.chart_opts
+        s = style
+        if style is None:
+            s = self.chart_style
+        return o, s
 
     def _set_seaborn_engine(self):
         """
