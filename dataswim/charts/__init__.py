@@ -1,10 +1,11 @@
 from .bokeh import Bokeh
 from .altair import Altair
 from .chartjs import Chartjs
+from .seaborn import Seaborn
 from .colors import Colors
 
 
-class Plot(Bokeh, Altair, Chartjs, Colors):
+class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
     """
     Class to handle charts
     """
@@ -23,7 +24,7 @@ class Plot(Bokeh, Altair, Chartjs, Colors):
         self.label = None
         self.engine = "bokeh"
 
-    def chart(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None, options={}, **kwargs):
+    def chart(self, x=None, y=None, chart_type=None, opts=None, style=None, label=None, options={}, **kwargs):
         """
         Get a chart
         """
@@ -33,7 +34,7 @@ class Plot(Bokeh, Altair, Chartjs, Colors):
         except Exception as e:
             self.err(e, self.chart, "Can not create chart")
 
-    def chart_(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None, options={}, **kwargs):
+    def chart_(self, x=None, y=None, chart_type=None, opts=None, style=None, label=None, options={}, **kwargs):
         """
         Get a chart
         """
@@ -42,7 +43,7 @@ class Plot(Bokeh, Altair, Chartjs, Colors):
         except Exception as e:
             self.err(e, self.chart, "Can not create chart")
 
-    def _chart(self, x=None, y=None, chart_type="line", opts=None, style=None, label=None, options={}, **kwargs):
+    def _chart(self, x, y, chart_type, opts, style, label, options, **kwargs):
         """
         Initialize chart options
         """
@@ -54,6 +55,8 @@ class Plot(Bokeh, Altair, Chartjs, Colors):
             self.label = label
         self.x = x
         self.y = y
+        if chart_type is None:
+            return
         try:
             chart_obj = self._get_chart(chart_type, x,
                                         y, style=style, opts=opts, label=label, options=options, **kwargs)
@@ -246,6 +249,8 @@ class Plot(Bokeh, Altair, Chartjs, Colors):
             func = self._get_altair_chart
         elif self.engine == "chartjs":
             func = self._get_chartjs_chart
+        elif self.engine == "seaborn":
+            func = self._get_seaborn_chart
         else:
             self.err(self._get_chart, "Engine " + self.engine + " unknown")
             return

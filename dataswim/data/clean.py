@@ -131,7 +131,9 @@ class Clean():
         def convert(val):
             try:
                 return int(val)
-            except:
+            except Exception as e:
+                print(val, str(type(val)))
+                raise(e)
                 return val
         try:
             ds2.df[field] = ds2.df[field].apply(convert)
@@ -208,7 +210,7 @@ class Clean():
                 encoded = '%Y-%m-%d'
             elif precision == "M":
                 encoded = '%Y-%m'
-            elif precision == "M":
+            elif precision == "Y":
                 encoded = '%Y'
             return row.strftime(encoded)
 

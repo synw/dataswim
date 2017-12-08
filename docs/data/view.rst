@@ -21,10 +21,6 @@ View data
 
     Returns basic data info
     
-**report** (``df=None``)
-
-    Returns a dataframe profiling report
-    
 **display** (``*fields``)
 
     Display some columns head

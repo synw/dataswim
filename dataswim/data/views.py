@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
-
 import pandas as pd
-from pandas_profiling import ProfileReport
 from goerr.colors import colors
 
 
@@ -86,17 +83,6 @@ class View():
                       colors.bold(num_fields), "columns:")
             print(fields)
         return df.head(rows)
-
-    def report(self, df=None):
-        """
-        Returns a dataframe profiling report
-        """
-        if df is None:
-            df = self.df
-        if self.df is None:
-            self.warning("Dataframe is empty: nothing to report")
-            return
-        return ProfileReport(df)
 
     def display(self, *fields):
         """
