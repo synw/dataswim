@@ -344,6 +344,10 @@ ds.opts(dict(xticks=(1970, 2017), yticks=(0, 35)))
 c = ds.linear_()
 ```
 
+```
+    [INFO] Switching to the Seaborn engine to draw this chart
+```
+
 ![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/linear.png)
 
 
