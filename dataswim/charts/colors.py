@@ -8,11 +8,13 @@ class Colors():
     Class to handle colors for charts
     """
 
-    def color(self):
+    def color_(self, i=None):
         """
         Get a color from the palette
         """
         global palette, color_num
+        if i is not None:
+            color_num = i
         if color_num == len(palette) - 1:
             color_num = 0
         res = palette[color_num]
