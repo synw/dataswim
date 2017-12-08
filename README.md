@@ -326,27 +326,50 @@ c8*c7
 
 ![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/hist.png)
 
-### Linear regression with marginal distributions
+### Distribution chart
 
-Convert all to integers for the plot to work
+Prepare the data: convert all to integers to make these charts to work
 
 ```python
 ds.to_int("Date")
 ds.to_int("Registrations")
 ```
 
-Draw the chart
+```
+    [OK] Converted column values to integers
+    [OK] Converted column values to integers
+```
+
+![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/distribution.png)
+
+### Density chart
 
 ```python
-% matplotlib inline
+ds.chart("Date", "Registrations")
+c = ds.density_()
+```
+
+![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/density.png)
+
+### Linear regression with marginal distributions
+
+```python
 ds.opts(dict(xticks=(1970, 2017), yticks=(0, 35)))
-c = ds.linear_()
+c = ds.dlinear_()
 ```
 
-```
-    [INFO] Switching to the Seaborn engine to draw this chart
+![Us```python
+ds.opts(dict(xticks=(1970, 2017), yticks=(0, 35)))
+c = ds.dlinear_()
 ```
 
-![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/linear.png)
+![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/dlinear.png)
 
+### Models residuals chart
+
+```python
+c = ds.residual_()
+```
+
+![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/residual.png)
 
