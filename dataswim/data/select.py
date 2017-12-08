@@ -51,10 +51,11 @@ class Select():
         Returns unique values in a column
         """
         try:
-            df = self.df[column].unique()
-            return df
+            df = self.df.copy()
+            df.drop_duplicates(subset=[column], inplace=True)
+            return self.clone_(df)
         except Exception as e:
-            self.err(e, self.unique, "Can not select unique data")
+            self.err(e, self.unique_, "Can not select unique data")
 
     def range(self, **args):
         """
@@ -63,7 +64,7 @@ class Select():
         try:
             self.df = self._range(**args)
         except Exception as e:
-            self.err(e, self.range_, "Can not select range data")
+            self.err(e, self.range, "Can not select range data")
             return
 
     def range_(self, **args):
@@ -86,7 +87,7 @@ class Select():
                          pd.DateOffset(**args):]
             return df
         except Exception as e:
-            self.err(e, self.range_, "Can not select range data")
+            self.err(e, self._range, "Can not select range data")
             return
 
     def daterange(self, datecol, date_start, op, **args):
