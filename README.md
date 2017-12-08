@@ -340,6 +340,15 @@ ds.to_int("Registrations")
     [OK] Converted column values to integers
 ```
 
+
+Draw the chart
+
+```python
+% matplotlib inline
+ds.chart("Registrations", "Date")
+c = ds.distrib_()
+```
+
 ![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/distribution.png)
 
 ### Density chart
@@ -354,11 +363,6 @@ c = ds.density_()
 ### Linear regression with marginal distributions
 
 ```python
-ds.opts(dict(xticks=(1970, 2017), yticks=(0, 35)))
-c = ds.dlinear_()
-```
-
-![Us```python
 ds.opts(dict(xticks=(1970, 2017), yticks=(0, 35)))
 c = ds.dlinear_()
 ```
