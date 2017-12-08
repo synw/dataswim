@@ -339,7 +339,6 @@ Draw the chart
 
 ```python
 % matplotlib inline
-ds.chart("Date", "Registrations")
 ds.opts(dict(xticks=(1970, 2017), yticks=(0, 35)))
 c = ds.linear_()
 ```
