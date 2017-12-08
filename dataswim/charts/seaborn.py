@@ -6,6 +6,21 @@ class Seaborn():
     A class to handle Seaborn charts
     """
 
+    def residual_(self, label=None, style={}, opts={}, options={}):
+        """
+        Returns a Seaborn models residuals chart
+        """
+        self._check_defaults(x_only=True)
+        self._set_seaborn_engine()
+        color, _ = self._get_color_style(style)
+        try:
+            fig = sns.residplot(self.df[self.x], self.df[self.y],
+                                lowess=True, color=color)
+            return fig
+        except Exception as e:
+            self.err(e, self.residual_,
+                     "Can not draw models residuals chart")
+
     def density_(self, label=None, style={}, opts={}, options={}):
         """
         Returns a Seaborn density chart
@@ -32,6 +47,22 @@ class Seaborn():
         except Exception as e:
             self.err(e, self.distrib_,
                      "Can not draw distribution chart")
+
+    def linear_(self, label=None, style={}, opts={}, options={}):
+        """
+        Returns a Seaborn linear regression plot
+        """
+        self._check_defaults()
+        self._set_seaborn_engine()
+        xticks, yticks = self._get_ticks(opts)
+        color, size = self._get_color_style(style)
+        self.chart_type = "linear"
+        try:
+            fig = sns.lmplot(self.x, self.y, data=self.df)
+            return fig
+        except Exception as e:
+            self.err(e, self.linear_,
+                     "Can not draw linear regression chart")
 
     def dlinear_(self, label=None, style={}, opts={}, options={}):
         """
@@ -65,10 +96,14 @@ class Seaborn():
         try:
             if chart_type == "dlinear":
                 chart_obj = self.dlinear_(label, style, opts, options)
+            elif chart_type == "linear":
+                chart_obj = self.linear_(label, style, opts, options)
             elif chart_type == "distribution":
                 chart_obj = self.distrib_(label, style, opts, options)
             elif chart_type == "density":
                 chart_obj = self.density_(label, style, opts, options)
+            elif chart_type == "residual":
+                chart_obj = self.residual_(label, style, opts, options)
             else:
                 self.err(self._get_seaborn_chart, "Chart type " +
                          chart_type + " not supported with Seaborn")
