@@ -260,3 +260,18 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             return chart
         except Exception as e:
             self.err(e)
+
+    def _check_defaults(self, x_only=True):
+        """
+        Checks if charts defaults are set
+        """
+        if self.x is None:
+            self.err(
+                self.linear_, "X field is not set: please specify a parameter")
+            return
+        if x_only is True:
+            return
+        if self.y is None:
+            self.err(
+                self.linear_, "Y field is not set: please specify a parameter")
+            return
