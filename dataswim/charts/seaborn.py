@@ -12,7 +12,7 @@ class Seaborn():
         """
         if self.x is None:
             self.err(
-                self._linear_, "X field is not set: please specify a parameter")
+                self.linear_, "X field is not set: please specify a parameter")
             return
         x = self.x
         if self.y is None:
@@ -35,7 +35,7 @@ class Seaborn():
             xticks = opts["xticks"]
         if not "yticks" in opts:
             if not "yticks" in self.chart_opts:
-                self.err(self._linear,
+                self.err(self.linear_,
                          "Please set the yticks option for this chart to work")
                 return
             else:
