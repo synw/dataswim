@@ -48,6 +48,26 @@ Charts
 
     Get a heatmap chart
     
+**linear_** (``style=None``, ``opts=None``, ``label=None``)
+
+    Get a linear regression chart
+    
+**dlinear_** (``style=None``, ``opts=None``, ``label=None``)
+
+    Get a linear regression chart with marginal distribution
+    
+**density_** (``style=None``, ``opts=None``, ``label=None``)
+
+    Get a density chart
+    
+**distrib_** (``style=None``, ``opts=None``, ``label=None``)
+
+    Get a distribution chart
+    
+**residual_** (``style=None``, ``opts=None``, ``label=None``)
+
+    Returns a models residuals chart
+    
 Layouts
 -------
 
