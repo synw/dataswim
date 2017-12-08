@@ -40,6 +40,7 @@ class DataSwim(Db, Df, Plot, Report, Errors, Messages):
         self.start_time = None
         self.influx_cli = None
         self.datapath = None
+        self.report_path = None
 
     def __repr__(self):
         num = 0

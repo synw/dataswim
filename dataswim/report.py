@@ -1,4 +1,5 @@
 import os
+import seaborn
 
 
 class Report():
@@ -16,6 +17,7 @@ class Report():
         self.reports = []
         self.report_path = None
         self.report_engines = [self.engine]
+        self.imgs_path = None
 
     def stack(self, slug, chart_obj=None, title=None):
         """
@@ -28,19 +30,21 @@ class Report():
                 return
             chart_obj = self.chart_obj
         try:
+            seaborn_chart = None
             if self.engine == "chartjs":
                 html = chart_obj
+            elif self.engine == "seaborn":
+                html = ""
+                seaborn_chart = chart_obj
             else:
                 html = self.get_html(chart_obj, slug)
-            if html is None or html == "":
+            if html is None and seaborn_chart is None:
                 self.err(
                     self.stack, "Can not stack: empty html reveived for " + str(chart_obj), "-", slug)
                 return
-            htitle = ""
-            if title is not None:
-                htitle = "<h3>" + title + "</h3>"
-            report = dict(slug=slug, title=htitle,
-                          html=html)
+            report = dict(slug=slug, html=html)
+            if seaborn_chart is not None:
+                report["seaborn_chart"] = seaborn_chart
             if self.engine not in self.report_engines:
                 self.report_engines.append(self.engine)
             self.reports.append(report)
@@ -78,28 +82,54 @@ class Report():
         Writes the html report to one file per report
         """
         if folderpath is None:
-            if self.report_path is None:
-                self.err(
-                    self.to_files, "No folder path set for reports: please provide one as argument")
+            if self.report_path is None and "seaborn" not in self.report_engines:
+                self.err(self.to_files, "No folder path set for reports: please provide "
+                         "one as argument or set ds.report_path")
                 return
             folderpath = self.report_path
         else:
             self.report_path = folderpath
         try:
             for report in self.reports:
-                #print("REPORT", report)
                 if not "html" in report:
                     self.err(self.to_files, "No html for report " + str(report))
                     self.reports = self.report_engines = []
                     return
-                html = report["title"] + report["html"]
-                self._write_file(report["slug"], folderpath, html)
+                if "seaborn_chart" in report:
+                    self._save_seaborn_chart(report, folderpath)
+                else:
+                    html = report["title"] + report["html"]
+                    self._write_file(report["slug"], folderpath, html)
             self.reports = self.report_engines = []
         except Exception as e:
             self.err(e, self.to_files, "Can not save reports to files")
             return
         if self.autoprint is True:
             self.ok("Data writen to files")
+
+    def _save_seaborn_chart(self, report, folderpath):
+        """
+        Saves a png image of the seaborn chart
+        """
+        if folderpath is None:
+            if self.imgs_path is None:
+                self.err(self._save_seaborn_chart,
+                         "Please set a path where save images: ds.imgs_path = '/my/path'")
+                return
+            path = self.imgs_path
+        else:
+            path = folderpath
+        path = path + "/" + report["slug"] + ".png"
+        try:
+            if type(report["seaborn_chart"]) == seaborn.axisgrid.JointGrid:
+                report["seaborn_chart"].savefig(path)
+            else:
+                report["seaborn_chart"].figure.savefig(path)
+        except Exception as e:
+            self.err(e, self._save_seaborn_chart, "Can not save Seaborn chart")
+            return
+        if self.autoprint is True:
+            self.ok("Seaborn chart writen to file")
 
     def get_html(self, chart_obj=None, slug=None):
         """
