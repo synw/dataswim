@@ -29,7 +29,7 @@ To chart data:
 Using conda:
 
    ```
-   conda install pandas sqlalchemy
+   conda install pandas sqlalchemy seaborn
    conda install -c ioam holoviews bokeh
    conda install altair --channel conda-forge
    pip install dataset pandas-profiling pytablewriter goerr gencharts chartjspy
