@@ -1,4 +1,3 @@
-import holoviews as hv
 from .bokeh import Bokeh
 from .altair import Altair
 from .chartjs import Chartjs
@@ -178,22 +177,6 @@ class Plot(Bokeh, Altair, Chartjs, Colors):
             return l * p
         except Exception as e:
             self.err(e, self.line_point_, "Can draw line_point chart")
-
-    def hline_(self, col):
-        """
-        Returns an horizontal line from a column mean value
-        """
-        c = hv.HLine(self.df[col].mean())
-        return c
-
-    def layout_(self, chart_objs, cols=3):
-        """
-        Returns a Holoview layout from chart objects
-        """
-        try:
-            return hv.Layout(chart_objs).cols(cols)
-        except Exception as e:
-            self.err(e, self.layout_, "Can not build layout")
 
     def opts(self, dictobj):
         """

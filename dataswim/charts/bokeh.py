@@ -24,15 +24,23 @@ class Bokeh():
         self.label = None
         self.engine = "bokeh"
 
-    def layout_(self, dataset, kdims, cols=3):
+    def ndlayout_(self, dataset, kdims, cols=3):
         """
         Create a Holoview NdLayout from a dictionnary of chart objects
         """
         try:
-            l = hv.NdLayout(dataset, kdims=kdims).cols(cols)
-            return l
+            return hv.NdLayout(dataset, kdims=kdims).cols(cols)
         except Exception as e:
             self.err(e, self.layout_, "Can not create layout")
+
+    def layout_(self, chart_objs, cols=3):
+        """
+        Returns a Holoview Layout from chart objects
+        """
+        try:
+            return hv.Layout(chart_objs).cols(cols)
+        except Exception as e:
+            self.err(e, self.layout_, "Can not build layout")
 
     def bokeh_header_(self):
         """
@@ -46,6 +54,13 @@ class Bokeh():
         </script>
         """
         return header
+
+    def hline_(self, col, label=None):
+        """
+        Returns an horizontal line from a column mean value
+        """
+        c = hv.HLine(self.df[col].mean())
+        return c
 
     def _get_bokeh_chart(self, x_field, y_field, chart_type, label, opts, style, options={}, **kwargs):
         """
