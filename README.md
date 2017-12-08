@@ -326,3 +326,24 @@ c8*c7
 
 ![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/hist.png)
 
+### Linear regression with marginal distributions
+
+Convert all to integers for the plot to work
+
+```python
+ds.to_int("Date")
+ds.to_int("Registrations")
+```
+
+Draw the chart
+
+```python
+% matplotlib inline
+ds.chart("Date", "Registrations")
+ds.opts(dict(xticks=(1970, 2017), yticks=(0, 35)))
+c = ds.linear_()
+```
+
+![Users chart](https://github.com/synw/dataswim/blob/master/docs/img/linear.png)
+
+
