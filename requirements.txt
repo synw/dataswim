@@ -9,3 +9,4 @@ altair==1.2.1
 gencharts==0.4
 influxdb
 chartjspy
+seaborn
