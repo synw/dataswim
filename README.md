@@ -1,6 +1,6 @@
 # Dataswim
 
-A simple api to clean, transform and visualize data. This api is:
+A simple api to explore, clean, transform and visualize data. This api is:
 
 - **Minimalistic**: short names, simple functionalites, minimal parameters
 - **Pragmatic**: focuses on raw efficiency rather than idiomatic code
@@ -32,7 +32,7 @@ Using conda:
    conda install pandas sqlalchemy seaborn
    conda install -c ioam holoviews bokeh
    conda install altair --channel conda-forge
-   pip install dataset pandas-profiling pytablewriter goerr gencharts chartjspy
+   pip install dataset pytablewriter goerr gencharts chartjspy
    pip install dataswim --no-deps
    ```
 
