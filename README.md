@@ -91,8 +91,6 @@ from dataswim import ds
 # Load demo data from csv
 ds.load_csv("data/users.csv")
 
-# for a full report (very small datasets only):
-#ds.report()
 # for a data description:
 #ds.describe()
 # for a quick look:
