@@ -80,6 +80,9 @@ class Export():
         """
         Saves the main dataframe to a csv file
         """
+        if self.datapath is not None:
+            if filepath.startswith("/") is False:
+                filepath = self.datapath + "/" + filepath
         self.df.to_csv(filepath, encoding='utf-8', index=index, **args)
         if self.autoprint is True:
             self.ok("Data exported to", filepath)
