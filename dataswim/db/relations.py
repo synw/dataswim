@@ -12,7 +12,8 @@ class Relation():
         """
         self.db = db
 
-    def relation(self, search_ds, origin_field, search_field, destination_field=None, id_field="id"):
+    def relation(self, search_ds, origin_field, search_field, destination_field=None,
+                 id_field="id"):
         """
         Add a column to the main dataframe from a relation foreign key 
         """
@@ -20,7 +21,8 @@ class Relation():
                             search_field, destination_field, id_field)
         self.df = df
 
-    def relation_(self, search_ds, origin_field, search_field, destination_field=None, id_field="id"):
+    def relation_(self, search_ds, origin_field, search_field, destination_field=None,
+                  id_field="id"):
         """
         Returns a DataSwim instance with a column filled from a relation foreign key 
         """
@@ -41,12 +43,15 @@ class Relation():
         df[destination_field] = None
 
         if origin_field not in self.df.columns.values:
-            self.warning("Can not find field",
-                         origin_field, "in related dataset")
+            msg = "Can not find field " + origin_field + " in dataset: "
+            msg += "found fields " + ", ".join(list(self.df.columns.values))
+            self.warning(msg)
             return
         if search_field not in search_ds.df.columns.values:
-            self.warning("Can not find field",
-                         search_field, "in related dataset")
+            msg = "Can not find field " + search_field + " in related dataset: "
+            msg += "found fields " + \
+                ", ".join(list(search_ds.df.columns.values))
+            self.warning(msg)
             return
 
         def set_rel(row):
