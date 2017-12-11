@@ -40,6 +40,14 @@ Rows
 
     Limit the data in a time range and returns a DataSwim instance
     
+**nowrange** (``col``, ``interval``, ``unit="D"``)
+
+    Set the main dataframe with rows within a date range from now
+    
+**nowrange_** (``col``, ``interval``, ``unit="D"``)
+
+    Returns a Dataswim instance with rows within a date range from now
+    
 **contains** (``column``, ``value``)
 
     Returns rows that contains a string value in a column
