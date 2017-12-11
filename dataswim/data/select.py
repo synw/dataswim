@@ -1,3 +1,4 @@
+from datetime import datetime
 import pandas as pd
 
 
@@ -67,17 +68,6 @@ class Select():
             self.err(e, self.range, "Can not select range data")
             return
 
-    def range_(self, **args):
-        """
-        Limit the data in a time range
-        """
-        try:
-            ds2 = self.clone_(self._range(**args))
-            return ds2
-        except Exception as e:
-            self.err(e, self.range_, "Can not select range data")
-            return
-
     def _range(self, **args):
         """
         Limit the data in a time range
@@ -89,6 +79,48 @@ class Select():
         except Exception as e:
             self.err(e, self._range, "Can not select range data")
             return
+
+    def range_(self, **args):
+        """
+        Limit the data in a time range
+        """
+        try:
+            ds2 = self.clone_(self._range(**args))
+            return ds2
+        except Exception as e:
+            self.err(e, self.range_, "Can not select range data")
+
+    def nowrange(self, col, interval, unit="D"):
+        """
+        Set the main dataframe with rows within a date range from now
+        """
+        try:
+            df = self._nowrange(col, interval, unit)
+            self.set(df)
+        except Exception as e:
+            self.err(e, self.nowrange_, "Can not select range data from now")
+
+    def nowrange_(self, col, interval, unit="D"):
+        """
+        Returns a Dataswim instance with rows within a date range from now
+        """
+        try:
+            df = self._nowrange(col, interval, unit)
+            return self.clone_(df)
+        except Exception as e:
+            self.err(e, self.nowrange_, "Can not select range data from now")
+
+    def _nowrange(self, col, interval, unit):
+        """
+        Returns a dataframe with rows within a date range from now
+        """
+        try:
+            df = self.df.copy()
+            df = df[df[col].dt.date > datetime.now().date(
+            ) - pd.to_timedelta(interval, unit=unit)]
+            return df
+        except Exception as e:
+            self.err(e, self._nowrange, "Can not select range data from now")
 
     def daterange(self, datecol, date_start, op, **args):
         """
