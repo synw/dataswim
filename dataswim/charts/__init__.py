@@ -219,7 +219,14 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         """
         self.style(dict(size=val))
 
-    def _get_chart(self, chart_type, x=None, y=None, style=None, opts=None, label=None, options={}, **kwargs):
+    def reset_opts(self):
+        """
+        Reset the chart options
+        """
+        self.chart_opts = {}
+
+    def _get_chart(self, chart_type, x=None, y=None, style=None, opts=None,
+                   label=None, options={}, **kwargs):
         """
         Get a full chart object
         """

@@ -120,41 +120,41 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         if self.autoprint is True:
             self.ok("Dataframe is restored")
 
-    def load_csv(self, url, dateindex=None, index_col=None, fill_col=None):
+    def load_csv(self, url, dateindex=None, index_col=None, fill_col=None, **kwargs):
         """
         Initialize the main dataframe from csv data
         """
         try:
             self.df = self._load_csv(
-                url, dateindex, index_col, fill_col)
+                url, dateindex, index_col, fill_col, **kwargs)
         except Exception as e:
             self.err(e, self.load_csv, "Can not load csv file")
 
-    def load_csv_(self, url, dateindex=None, index_col=None, fill_col=None):
+    def load_csv_(self, url, dateindex=None, index_col=None, fill_col=None, **kwargs):
         """
         Returns a DataSwim instance from csv data
         """
         try:
-            df = self._load_csv(url, dateindex, index_col, fill_col)
+            df = self._load_csv(url, dateindex, index_col, fill_col, **kwargs)
             return self.clone_(df)
         except Exception as e:
             self.err(e, self.load_csv_, "Can not load csv file")
 
-    def _load_csv(self, url, dateindex, index_col, fill_col):
+    def _load_csv(self, url, dateindex, index_col, fill_col, **kwargs):
         """
         Returns a DataSwim instance from csv data
         """
         if self.autoprint is True:
             self.start("Loading csv...")
         try:
-            df = pd.read_csv(url)
+            df = pd.read_csv(url, **kwargs)
             ds2 = self.clone_(df=df)
         except FileNotFoundError as e:
             msg = "File " + url + " not found"
             self.warning(msg)
             return
         except Exception as e:
-            self.err(e)
+            self.err(e, self._load_csv, "Can not load csv file")
             return
         try:
             ds2 = self.transform_(dateindex, index_col, fill_col, df=df)

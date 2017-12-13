@@ -15,7 +15,7 @@ class Chartjs():
             xdata = list(self.df[xcol])
         except Exception as e:
             self.err(e, self._get_chartjs_chart,
-                     "Can not get data for y field ", ycol)
+                     "Can not get data for x field ", ycol)
             return
         try:
             if type(ycol) != list:
@@ -26,7 +26,7 @@ class Chartjs():
                     ydata[col] = list(self.df[col])
         except Exception as e:
             self.err(e, self._get_chartjs_chart,
-                     "Can not get data for x field ", xcol)
+                     "Can not get data for y field ", xcol)
             return
         try:
             slug = str(uuid.uuid4())
