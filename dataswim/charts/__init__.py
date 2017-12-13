@@ -20,7 +20,7 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         self.y = None
         self.chart_obj = None
         self.chart_opts = dict(width=940)
-        self.chart_style = None
+        self.chart_style = {}
         self.label = None
         self.engine = "bokeh"
 

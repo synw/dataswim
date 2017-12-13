@@ -195,6 +195,30 @@ class Seaborn():
             s = self.chart_style
         return o, s
 
+    def _save_seaborn_chart(self, report, folderpath):
+        """
+        Saves a png image of the seaborn chart
+        """
+        if folderpath is None:
+            if self.imgs_path is None:
+                self.err(self._save_seaborn_chart,
+                         "Please set a path where save images: ds.imgs_path = '/my/path'")
+                return
+            path = self.imgs_path
+        else:
+            path = folderpath
+        path = path + "/" + report["slug"] + ".png"
+        try:
+            if type(report["seaborn_chart"]) == seaborn.axisgrid.JointGrid:
+                report["seaborn_chart"].savefig(path)
+            else:
+                report["seaborn_chart"].figure.savefig(path)
+        except Exception as e:
+            self.err(e, self._save_seaborn_chart, "Can not save Seaborn chart")
+            return
+        if self.autoprint is True:
+            self.ok("Seaborn chart writen to file")
+
     def _set_seaborn_engine(self):
         """
         Set the current chart engine to Seaborn

@@ -26,7 +26,7 @@ class DataSwim(Db, Df, Plot, Report, Errors, Messages):
         self.y = None
         self.chart_obj = None
         self.chart_opts = dict(width=940)
-        self.chart_style = dict(color="blue")
+        self.chart_style = {}
         self.engine = "bokeh"
         self.label = None
         self.backup_df = None

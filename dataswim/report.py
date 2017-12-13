@@ -1,5 +1,6 @@
 import os
 import seaborn
+from IPython.core.display import display, HTML
 
 
 class Report():
@@ -66,16 +67,18 @@ class Report():
         if html is None or html == "":
             self.err(self.to_file, "Can not get html header")
         for report in self.reports:
-            html += report["title"] + report["html"]
+            html += report["html"]
         html += self._get_footer(footer)
         try:
-            self._write_file(slug, folderpath, html)
+            path = self._write_file(slug, folderpath, html)
         except Exception as e:
             self.err(e, self.to_file, "Can not save report to file")
             return
         self.reports = self.report_engines = []
         if self.autoprint is True:
             self.ok("Data writen to file")
+        link = '<a href="' + path + '" target="_blank">' + path + '</a>'
+        return display(HTML(link))
 
     def to_files(self, folderpath=None):
         """
@@ -98,7 +101,7 @@ class Report():
                 if "seaborn_chart" in report:
                     self._save_seaborn_chart(report, folderpath)
                 else:
-                    html = report["title"] + report["html"]
+                    html = report["html"]
                     self._write_file(report["slug"], folderpath, html)
             self.reports = self.report_engines = []
         except Exception as e:
@@ -106,30 +109,6 @@ class Report():
             return
         if self.autoprint is True:
             self.ok("Data writen to files")
-
-    def _save_seaborn_chart(self, report, folderpath):
-        """
-        Saves a png image of the seaborn chart
-        """
-        if folderpath is None:
-            if self.imgs_path is None:
-                self.err(self._save_seaborn_chart,
-                         "Please set a path where save images: ds.imgs_path = '/my/path'")
-                return
-            path = self.imgs_path
-        else:
-            path = folderpath
-        path = path + "/" + report["slug"] + ".png"
-        try:
-            if type(report["seaborn_chart"]) == seaborn.axisgrid.JointGrid:
-                report["seaborn_chart"].savefig(path)
-            else:
-                report["seaborn_chart"].figure.savefig(path)
-        except Exception as e:
-            self.err(e, self._save_seaborn_chart, "Can not save Seaborn chart")
-            return
-        if self.autoprint is True:
-            self.ok("Seaborn chart writen to file")
 
     def get_html(self, chart_obj=None, slug=None):
         """
@@ -162,6 +141,13 @@ class Report():
                 return
         except Exception as e:
             self.err(e, self.get_html, "Can not get html from chart object")
+
+    def set_engine(self, engine):
+        """
+        Sets a chart engine reseting all the others in the report stack
+        """
+        self.engine = engine
+        self.report_engines = [engine]
 
     def _get_header(self, header):
         """
@@ -209,6 +195,7 @@ class Report():
                     self.html("File written to", html)
         except Exception as e:
             self.err(e)
+        return filepath
 
     def _header(self):
         """
@@ -225,6 +212,8 @@ class Report():
             html += self.bokeh_header_()
         if "altair" in self.report_engines:
             html += self.altair_header_()
+        if "chartjs" in self.report_engines:
+            html += self.chartjs_header_()
         html += """
         </head>
         <body>

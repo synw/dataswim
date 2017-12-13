@@ -336,6 +336,42 @@ class Transform():
                 self.info("Skipped columns", ','.join(
                     skipped), "while removing white space")
 
+    def append(self, vals, index=None):
+        """
+        Append a row to the main dataframe
+        """
+        try:
+            self.set(self._append(vals, index))
+        except Exception as e:
+            self.err(e, self.append, "Can not append row")
+            return
+
+    def append_(self, vals, index=None):
+        """
+        Returns a dataswim instance with one more row
+        """
+        try:
+            return self.duplicate_(self._append(vals, index))
+        except Exception as e:
+            self.err(e, self.append_, "Can not append row")
+            return
+
+    def _append(self, vals, index):
+        """
+        Returns a dataframe with a new row
+        """
+        try:
+            df = self.df.copy()
+            if index is None:
+                index = len(df)
+            df.loc[index] = vals
+            return df
+        except Exception as e:
+            self.err(e, self._append, "Can not append row")
+            return
+        if self.autoprint is True:
+            self.ok("Row added to dataframe")
+
     def rename(self, source_col, dest_col):
         """
         Renames a column in the main dataframe

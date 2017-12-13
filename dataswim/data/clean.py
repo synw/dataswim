@@ -106,6 +106,35 @@ class Clean():
             self.ok("Filled nan values in columns", *fields)
         return df
 
+    def replace(self, col, searchval, replaceval):
+        """
+        Replace a value in a colum in the main dataframe
+        """
+        try:
+            self.df = self._replace(col, searchval, replaceval)
+        except Exception as e:
+            self.err(e, self.replace, "Can not replace value in column")
+
+    def replace_(self, col, searchval, replaceval):
+        """
+        Returns a Dataswim instance with replaced values in a column
+        """
+        try:
+            return self._replace(col, searchval, replaceval)
+        except Exception as e:
+            self.err(e, self.replace_, "Can not replace value in column")
+
+    def _replace(self, col, searchval, replaceval):
+        """
+        Replace a value in a colum
+        """
+        df = self.df.copy()
+        try:
+            df[col] = df[col].replace(searchval, replaceval)
+            return df
+        except Exception as e:
+            self.err(e, self._replace, "Can not replace value in column")
+
     def fill_nulls(self, field):
         """
         Fill all null values with NaN values
@@ -268,6 +297,44 @@ class Clean():
             return
         if self.autoprint is True:
             self.ok("Added a datetime index from column", datafield)
+        return df
+
+    def index(self, indexcol):
+        """
+        Set an index to the main dataframe
+        """
+        try:
+            self.df = self._index(indexcol)
+        except KeyError as e:
+            self.err(e, self.index, "Can not create index")
+
+    def index_(self, indexcol):
+        """
+        Returns a Dataswim instance with an index
+        """
+        try:
+            return self._index(indexcol)
+        except KeyError as e:
+            self.err(e, self.index_, "Can not create index")
+
+    def _index(self, indexcol):
+        """
+        Set an index to the main dataframe
+        """
+        df = self.df.copy()
+        try:
+            df = df.set_index(df[indexcol])
+        except KeyError as e:
+            self.err(e, self._index, "Can not find column " +
+                     colors.bold(indexcol) + " in data")
+            return
+        except Exception as e:
+            msg = "Can not index with columns " + \
+                colors.bold(indexcol) + " and indexfield "
+            self.err(e, self._index, msg)
+            return
+        if self.autoprint is True:
+            self.ok("Added an index from column", indexcol)
         return df
 
     def format_date_(self, date):

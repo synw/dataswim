@@ -84,6 +84,25 @@ class View():
             print(fields)
         return df.head(rows)
 
+    def one(self):
+        """
+        Shows one row of the main dataframe and the field names wiht count
+        """
+        try:
+            return self.show(1)
+        except Exception as e:
+            self.err(e, self.one, "Can not display dataframe")
+
+    def title(self, txt):
+        """
+        Prints a title for pipelines
+        """
+        num = len(txt)
+        ticks = "=" * num
+        print(ticks)
+        print(txt)
+        print(ticks)
+
     def display(self, *fields):
         """
         Display some columns head
@@ -163,13 +182,14 @@ class View():
 
     def vals(self, field):
         """
-        Set the main dataframe to the values count of a column     
+        Print the values count of a column
         """
-        self.df = self._vals(field)
+        df = self._vals(field)
+        return df.head(30)
 
     def vals_(self, field, index_col="index"):
         """
-        Returns a DatasWim instance from values count of a column     
+        Returns a DatasWim instance from values count of a column
         """
         ds2 = self.clone_(df=self._vals(field))
         ds2.index_col(index_col)
@@ -177,7 +197,7 @@ class View():
 
     def _vals(self, field):
         """
-        Returns a DatasWim instance from values count of a column     
+        Returns a DatasWim instance from values count of a column
         """
         if self.df is None:
             self.warning("Dataframe is empty: no values to show")

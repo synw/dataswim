@@ -35,3 +35,12 @@ class Chartjs():
             return html
         except Exception as e:
             self.err(e, self._get_chartjs_chart, "Can not get chart")
+
+    def chartjs_header_(self):
+        """
+        Returns html script tags for Chartjs
+        """
+        header = """
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+        """
+        return header
