@@ -9,13 +9,6 @@ class Messages():
     A class to handle output
     """
 
-    def __init__(self):
-        """
-        Set notebook mode
-        """
-        self.notebook = False
-        self.start_time = None
-
     def ok(self, *msg):
         """
         Prints a message with an ok prefix
@@ -98,8 +91,9 @@ class Messages():
         """
         Prints a message with a label
         """
-        txt = self._unpack_msg(*msg)
-        print("[" + label + "] " + txt)
+        if self.quiet is False:
+            txt = self._unpack_msg(*msg)
+            print("[" + label + "] " + txt)
 
     def _unpack_msg(self, *msg):
         """

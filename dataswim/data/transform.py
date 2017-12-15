@@ -314,27 +314,30 @@ class Transform():
         except Exception as e:
             self.err(e)
 
-    def strip_cols(self):
+    def drop_rows(self, *rows):
         """
-        Remove white space in columns names
+        Drops some rows from the main dataframe
         """
         try:
-            cols = {}
-            skipped = []
-            for col in self.df.columns.values:
-                try:
-                    cols[col] = col.strip()
-                except:
-                    skipped.append(str(col))
-            self.df = self.df.rename(columns=cols)
+            self.df = self._drop_rows(rows)
         except Exception as e:
-            self.err(e, self.strip_cols, "Can not strip white space in columns")
+            self.err(e, self.drop_rows, "Can not drop rows")
+            return
+
+    def _drop_rows(self, rows):
+        """
+        Drops some rows from the main dataframe
+        """
+        try:
+            df = self.df.copy()
+            rows = list(rows)
+            df = df.drop(rows)
+            return df
+        except Exception as e:
+            self.err(e, self._drop_rows, "Can not drop rows")
             return
         if self.autoprint is True:
-            self.ok("White space removed in columns names")
-            if len(skipped) > 0:
-                self.info("Skipped columns", ','.join(
-                    skipped), "while removing white space")
+            self.ok("Dropped rows", ", ".join(rows))
 
     def append(self, vals, index=None):
         """

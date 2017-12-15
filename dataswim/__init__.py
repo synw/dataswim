@@ -41,6 +41,7 @@ class DataSwim(Db, Df, Plot, Report, Errors, Messages):
         self.influx_cli = None
         self.datapath = None
         self.report_path = None
+        self.quiet = False
 
     def __repr__(self):
         num = 0

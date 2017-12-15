@@ -180,28 +180,33 @@ class View():
         except Exception as e:
             self.err(e)
 
-    def vals(self, field):
+    def vals(self, col, num_col="Number"):
         """
         Print the values count of a column
         """
-        df = self._vals(field)
-        return df.head(30)
+        df = self._vals(col, num_col)
+        return df.head(0)
 
-    def vals_(self, field, index_col="index"):
+    def vals_(self, col, index_col=None, num_col="Number"):
         """
         Returns a DatasWim instance from values count of a column
         """
-        ds2 = self.clone_(df=self._vals(field))
+        ds2 = self.clone_(self._vals(col, num_col))
+        self.quiet = True
+        if index_col is None:
+            index_col = col
         ds2.index_col(index_col)
+        self.quiet = False
         return ds2
 
-    def _vals(self, field):
+    def _vals(self, col, num_col):
         """
         Returns a DatasWim instance from values count of a column
         """
         if self.df is None:
             self.warning("Dataframe is empty: no values to show")
             return
-        count = self.df[field].value_counts()
+        count = self.df[col].value_counts()
         df = pd.DataFrame(count)
+        df = df.rename(columns={col: num_col})
         return df

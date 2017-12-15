@@ -337,6 +337,28 @@ class Clean():
             self.ok("Added an index from column", indexcol)
         return df
 
+    def strip_cols(self):
+        """
+        Remove white space in columns names
+        """
+        try:
+            cols = {}
+            skipped = []
+            for col in self.df.columns.values:
+                try:
+                    cols[col] = col.strip()
+                except:
+                    skipped.append(str(col))
+            self.df = self.df.rename(columns=cols)
+        except Exception as e:
+            self.err(e, self.strip_cols, "Can not strip white space in columns")
+            return
+        if self.autoprint is True:
+            self.ok("White space removed in columns names")
+            if len(skipped) > 0:
+                self.info("Skipped columns", ','.join(
+                    skipped), "while removing white space")
+
     def format_date_(self, date):
         """
         Formats a date
