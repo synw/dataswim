@@ -71,14 +71,16 @@ class Report():
         html += self._get_footer(footer)
         try:
             path = self._write_file(slug, folderpath, html)
+            path = "file://" + path
         except Exception as e:
             self.err(e, self.to_file, "Can not save report to file")
             return
         self.reports = self.report_engines = []
         if self.autoprint is True:
-            self.ok("Data writen to file")
-        link = '<a href="' + path + '" target="_blank">' + path + '</a>'
-        return display(HTML(link))
+            link = '<a href="' + path + '" target="_blank">' + path + '</a>'
+            return display(HTML(link))
+        else:
+            return None
 
     def to_files(self, folderpath=None):
         """

@@ -31,7 +31,7 @@ class Select():
 
     def limit(self, r=5):
         """
-        Limit selection the a range in the main dataframe
+        Limit selection to a range in the main dataframe
         """
         try:
             self.df = self.df[:r]
