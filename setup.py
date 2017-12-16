@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 
-version = "0.4.3"
+version = "0.4.4"
 
 setup(
     name='dataswim',
@@ -21,7 +21,6 @@ setup(
     ],
     install_requires=[
         'pandas',
-        'pandas_profiling',
         'dataset',
         "pytablewriter",
         'goerr',
