@@ -27,7 +27,8 @@ class Chartjs():
                 ydata = []
                 for col in ycol:
                     y = {}
-                    y[col] = list(self.df[col])
+                    y["name"] = col
+                    y["data"] = list(self.df[col])
                     ydata.append(y)
         except Exception as e:
             self.err(e, self._get_chartjs_chart,

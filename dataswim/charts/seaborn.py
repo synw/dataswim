@@ -10,9 +10,7 @@ class Seaborn():
         """
         Returns a Seaborn models residuals chart
         """
-        opts, style = self._get_opts(opts, style)
-        self._check_defaults(x_only=True)
-        self._set_seaborn_engine()
+        opts, style = self._get_opts_seaborn(opts, style)
         color, _ = self._get_color_size(style)
         try:
             fig = sns.residplot(self.df[self.x], self.df[self.y],
@@ -27,9 +25,7 @@ class Seaborn():
         """
         Returns a Seaborn density chart
         """
-        opts, style = self._get_opts(opts, style)
-        self._check_defaults(x_only=True)
-        self._set_seaborn_engine()
+        opts, style = self._get_opts_seaborn(opts, style)
         try:
             fig = sns.kdeplot(self.df[self.x], self.df[self.y])
             fig = self._set_with_height(fig, opts)
@@ -42,9 +38,7 @@ class Seaborn():
         """
         Returns a Seaborn distribution chart
         """
-        opts, style = self._get_opts(opts, style)
-        self._check_defaults(x_only=True)
-        self._set_seaborn_engine()
+        opts, style = self._get_opts_seaborn(opts, style)
         color, _ = self._get_color_size(style)
         try:
             fig = sns.distplot(self.df[self.x], color=color)
@@ -58,9 +52,7 @@ class Seaborn():
         """
         Returns a Seaborn linear regression plot
         """
-        opts, style = self._get_opts(opts, style)
-        self._check_defaults()
-        self._set_seaborn_engine()
+        opts, style = self._get_opts_seaborn(opts, style)
         xticks, yticks = self._get_ticks(opts)
         color, size = self._get_color_size(style)
         self.chart_type = "linear"
@@ -76,12 +68,10 @@ class Seaborn():
         """
         Returns a Seaborn linear regression plot with marginal distribution
         """
-        opts, style = self._get_opts(opts, style)
-        self._check_defaults()
-        self._set_seaborn_engine()
+        opts, style = self._get_opts_seaborn(opts, style)
         xticks, yticks = self._get_ticks(opts)
         color, size = self._get_color_size(style)
-        self.chart_type = "linear"
+        self.chart_type = "dlinear"
         try:
             fig = sns.jointplot(self.x, self.y, data=self.df, kind="reg",
                                 xlim=xticks, ylim=yticks, color=color, size=size)
@@ -91,37 +81,63 @@ class Seaborn():
             self.err(e, self.dlinear_,
                      "Can not draw linear regression chart with distribution")
 
+    def seaborn_bar_(self, label=None, style=None, opts=None):
+        """
+        Get a Seaborn bar chart
+        """
+        opts, style = self._get_opts_seaborn(opts, style)
+        try:
+            fig = sns.barplot(self.x, self.y, palette="BuGn_d")
+            fig = self._set_with_height(fig, opts)
+            return fig
+        except Exception as e:
+            self.err(e, self.seaborn_bar_,
+                     "Can not get Seaborn bar chart object")
+
+    def _get_opts_seaborn(self, _opts, _style):
+        """
+        Initialialize for chart rendering
+        """
+        opts, style = self._get_opts(_opts, _style)
+        self._check_defaults()
+        self._set_seaborn_engine()
+        return opts, style
+
     def _get_seaborn_chart(self, xfield, yfield, chart_type, label, opts=None, style=None, **kwargs):
         """
         Get an Seaborn chart object
         """
-        opts, style = self._get_opts(opts, style)
+        try:
+            opts, style = self._get_opts(opts, style)
+        except Exception as e:
+            self.err(e, self._get_seaborn_chart, "Can not get chart options")
         # params
         opts["xfield"] = xfield
         opts["yfield"] = yfield
         opts["dataobj"] = self.df
         opts["chart_type"] = chart_type
-        opts["options"] = options
-        sns.set(style="darkgrid", color_codes=True)
         # generate
         try:
+            sns.set(style="darkgrid", color_codes=True)
             if chart_type == "dlinear":
-                chart_obj = self.dlinear_(label, style, opts, options)
+                chart_obj = self.dlinear_(label, style, opts)
             elif chart_type == "linear":
-                chart_obj = self.linear_(label, style, opts, options)
+                chart_obj = self.linear_(label, style, opts)
             elif chart_type == "distribution":
-                chart_obj = self.distrib_(label, style, opts, options)
+                chart_obj = self.distrib_(label, style, opts)
             elif chart_type == "density":
-                chart_obj = self.density_(label, style, opts, options)
+                chart_obj = self.density_(label, style, opts)
             elif chart_type == "residual":
-                chart_obj = self.residual_(label, style, opts, options)
+                chart_obj = self.residual_(label, style, opts)
+            elif chart_type == "bar":
+                chart_obj = self.seaborn_bar_(label, style, opts)
             else:
                 self.err(self._get_seaborn_chart, "Chart type " +
                          chart_type + " not supported with Seaborn")
                 return
         except Exception as e:
             self.err(e, self._get_seaborn_chart,
-                     "Can not get Altair chart object")
+                     "Can not get Seaborn chart object")
             return
         return chartobj
 
