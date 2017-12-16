@@ -150,11 +150,11 @@ class Clean():
         Convert some column values to integers
         """
         """
-        for field in fields:
-            self.drop_nan(field)
-            self.df[field] = self.df[field].dropna().astype(int)
+		for field in fields:
+			self.drop_nan(field)
+			self.df[field] = self.df[field].dropna().astype(int)
 
-        """
+		"""
         ds2 = self.clone_()
 
         def convert(val):
@@ -336,6 +336,23 @@ class Clean():
         if self.autoprint is True:
             self.ok("Added an index from column", indexcol)
         return df
+
+    def strip(self, col):
+        """
+        Remove white space in a column's values
+        """
+        def remove_ws(row):
+            if " " in row[col]:
+                row[col] = row[col].replace(" ", "")
+            return row
+
+        try:
+            self.apply(remove_ws)
+        except Exception as e:
+            self.err(e, self.strip, "Can not remove white space in column")
+            return
+        if self.autoprint is True:
+            self.ok("White space removed in column values")
 
     def strip_cols(self):
         """
