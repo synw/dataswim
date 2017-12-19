@@ -225,6 +225,12 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         """
         self.chart_opts = {}
 
+    def reset_style(self):
+        """
+        Reset the chart options
+        """
+        self.chart_style = {}
+
     def _get_chart(self, chart_type, x=None, y=None, style=None, opts=None,
                    label=None, options={}, **kwargs):
         """

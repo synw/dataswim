@@ -147,6 +147,8 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         if self.autoprint is True:
             self.start("Loading csv...")
         try:
+            if self.datapath is not None and url.startswith("/") is False:
+                url = self.datapath + "/" + url
             df = pd.read_csv(url, **kwargs)
             ds2 = self.clone_(df=df)
         except FileNotFoundError as e:

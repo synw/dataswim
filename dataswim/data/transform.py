@@ -216,33 +216,37 @@ class Transform():
         except Exception as e:
             self.err(e, self._pivot, "Can not pivot table")
 
-    def concat(self, *dfs):
+    def concat(self, *dss):
         """
         Concatenate dataframes from a list and set it to the main dataframe
         """
         try:
-            self.df = self._concat(*dfs)
+            self.df = self._concat(*dss)
         except Exception as e:
             self.err(e, self.concat, "Can not concatenate data")
 
-    def concat_(self, *dfs):
+    def concat_(self, *dss):
         """
         Concatenate dataframes from a list and returns a new DataSwim instance
         """
         try:
-            ds2 = self.clone_(self._concat(*dfs))
+            ds2 = self.new_(self.df.copy(), quiet=True)
+            ds2.df = self._concat(*dss)
             return ds2
         except Exception as e:
-            self.err(e, self.concat, "Can not concatenate data")
+            self.err(e, self.concat_, "Can not concatenate data")
 
-    def _concat(self, *dfs):
+    def _concat(self, *dss):
         """
         Concatenate dataframes from a list and set it to the main dataframe
         """
         try:
-            return pd.concat(dfs)
+            df = pd.DataFrame()
+            for dsx in dss:
+                df = pd.concat([df, dsx.df])
+            return df
         except Exception as e:
-            self.err(e, self.concat, "Can not concatenate data")
+            self.err(e, self._concat, "Can not concatenate data")
 
     def split_(self, col):
         """

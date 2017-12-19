@@ -7,6 +7,15 @@ class Chartjs():
     A class to handle charts with the Chartjs library
     """
 
+    def radar_(self, label=None, style=None, opts=None, options={}):
+        """
+        Get a radar chart
+        """
+        try:
+            return self._get_chart("radar", style=style, opts=opts, label=label, options=options)
+        except Exception as e:
+            self.err(e, self.radar_, "Can not draw radar chart")
+
     def _get_chartjs_chart(self, xcol, ycol, chart_type, label=None, opts={},
                            style={}, options={}, **kwargs):
         """

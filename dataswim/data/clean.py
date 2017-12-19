@@ -108,7 +108,7 @@ class Clean():
 
     def replace(self, col, searchval, replaceval):
         """
-        Replace a value in a colum in the main dataframe
+        Replace a value in a column in the main dataframe
         """
         try:
             self.df = self._replace(col, searchval, replaceval)
@@ -150,11 +150,11 @@ class Clean():
         Convert some column values to integers
         """
         """
-		for field in fields:
-			self.drop_nan(field)
-			self.df[field] = self.df[field].dropna().astype(int)
+        for field in fields:
+            self.drop_nan(field)
+            self.df[field] = self.df[field].dropna().astype(int)
 
-		"""
+        """
         ds2 = self.clone_()
 
         def convert(val):
@@ -342,8 +342,9 @@ class Clean():
         Remove white space in a column's values
         """
         def remove_ws(row):
-            if " " in row[col]:
-                row[col] = row[col].replace(" ", "")
+            val = str(row[col])
+            if " " in val:
+                row[col] = val.replace(" ", "")
             return row
 
         try:

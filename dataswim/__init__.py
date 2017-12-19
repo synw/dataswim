@@ -50,7 +50,7 @@ class DataSwim(Db, Df, Plot, Report, Errors, Messages):
         msg = "<DataSwim object | " + str(num) + " rows>"
         return msg
 
-    def new_(self, df=None, db=None, quiet=False):
+    def new_(self, df=pd.DataFrame(), db=None, quiet=False):
         """
         Returns a new DataSwim instance from a dataframe
         """
