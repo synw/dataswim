@@ -27,14 +27,14 @@ class Altair():
         https://github.com/synw/django-chartflo/blob/master/chartflo/static/js/vegalite/
         """
         header = """
-        <script src="https://rawgit.com/synw/django-chartflo/master/chartflo/static/js/vegalite/vega.js" charset="utf-8"></script>
-        <script src="https://rawgit.com/synw/django-chartflo/master/chartflo/static/js/vegalite/vega-lite.js" charset="utf-8"></script>
-        <script src="https://rawgit.com/synw/django-chartflo/master/chartflo/static/js/vegalite/vega-embed.js" charset="utf-8"></script>
-        <style>.vega-embed canvas {max-width:100%;}</style>
-        """
+		<script src="https://rawgit.com/synw/django-chartflo/master/chartflo/static/js/vegalite/vega.js" charset="utf-8"></script>
+		<script src="https://rawgit.com/synw/django-chartflo/master/chartflo/static/js/vegalite/vega-lite.js" charset="utf-8"></script>
+		<script src="https://rawgit.com/synw/django-chartflo/master/chartflo/static/js/vegalite/vega-embed.js" charset="utf-8"></script>
+		<style>.vega-embed canvas {max-width:100%;}</style>
+		"""
         return header
 
-    def _get_altair_chart(self, xfield, yfield, chart_type, label, opts={}, style={}, options={}, **kwargs):
+    def _get_altair_chart(self, xfield, yfield, chart_type, label, opts={}, style={}, **kwargs):
         """
         Get an Altair chart object
         """
@@ -44,7 +44,14 @@ class Altair():
         opts["yfield"] = yfield
         opts["dataobj"] = self.df
         opts["chart_type"] = chart_type
-        opts["options"] = options
+        if "color" in style:
+            opts["color"] = style["color"]
+        opts["width"] = self.chart_opts["width"]
+        if "height" not in self.chart_opts:
+            height = 300
+        else:
+            height = self.chart_opts["height"]
+        opts["height"] = height
         # generate
         try:
             chartobj = chart.serialize(**opts)
