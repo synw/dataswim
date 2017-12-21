@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 
-version = "0.4.4"
+version = "0.4.5"
 
 setup(
     name='dataswim',
@@ -12,7 +12,7 @@ setup(
     author_email='synwe@yahoo.com',
     url='https://github.com/synw/dataswim',
     download_url='https://github.com/synw/dataswim/releases/tag/' + version,
-    keywords=['data_visualization', "data_exploration"],
+    keywords=['data_visualization', "data_exploration", "charts"],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
