@@ -99,14 +99,15 @@ class Bokeh():
                 chart = hv.ErrorBars(**args)
             endchart = chart(plot=opts, style=style)
             return endchart
+            if chart is None:
+                self.err("Chart type " + chart_type +
+                         " unknown", self._get_bokeh_chart)
+                return
         except DataError as e:
             msg = "Column not found in " + x_field + " and " + y_field
             self.err(e, self._get_bokeh_chart, msg)
         except Exception as e:
             self.err(e)
-        if chart is None:
-            self.err("Chart type " + chart_type +
-                     " unknown", self._get_bokeh_chart)
 
     def _get_bokeh_html(self, chart_obj):
         """
