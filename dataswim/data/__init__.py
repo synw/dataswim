@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
+from goerr import err
 from .views import View
 from .clean import Clean
 from .count import Count
