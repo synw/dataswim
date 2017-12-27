@@ -120,6 +120,61 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         if self.autoprint is True:
             self.ok("Dataframe is restored")
 
+    def load_data(self, dataset):
+        """
+        Set the main dataframe with the input data
+        """
+        try:
+            df = self._load_data(dataset)
+            self.df = df
+        except Exception as e:
+            err.new(e, self.load_data, "Can not load dataset")
+
+    def load_data_(self, dataset):
+        """
+        Returns an instance with the input data
+        """
+        try:
+            df = self._load_data(dataset)
+            return self.clone_(df)
+        except Exception as e:
+            err.new(e, self._load_data, "Can not load dataset")
+
+    def _load_data(self, dataset):
+        """
+        Convert the input data to pandas dataframe
+        """
+        df = pd.DataFrame()
+        try:
+            if isinstance(dataset, pd.DataFrame):
+                return dataset
+            elif isinstance(dataset, dict):
+                df = self._dict_to_df(dataset)
+            elif isinstance(dataset, list):
+                return pd.DataFrame(dataset)
+            else:
+                err.new(self._load_data,
+                        "Data format unknown: "
+                        + str(type(dataset)) +
+                        " please provide a dictionnary, a list or a Pandas DataFrame")
+        except Exception as e:
+            err.new(e, self._load_data, "Can not convert dataset")
+        if err.exists:
+            err.throw()
+        return df
+
+    def _dict_to_df(self, dictobj):
+        """
+        Converts a dictionary to a pandas dataframe
+        """
+        x = []
+        y = []
+        for datapoint in dictobj:
+            x.append(datapoint)
+            y.append(dictobj[datapoint])
+        df = pd.DataFrame(dictobj)
+        return df
+
     def load_csv(self, url, dateindex=None, index_col=None, fill_col=None, **kwargs):
         """
         Initialize the main dataframe from csv data
