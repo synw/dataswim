@@ -379,6 +379,25 @@ class Transform():
         if self.autoprint is True:
             self.ok("Row added to dataframe")
 
+    def diff(self, diffcol, name="Diff"):
+        """
+        Add a diff column to the main dataframe
+        """
+        try:
+            df = self.df.copy()
+            keys = df.columns.values
+            cols = []
+            for k in keys:
+                cols.append(df[k])
+            df = pd.concat([*cols, df[diffcol].diff()],
+                           axis=1, keys=[*keys, name])
+            self.set(df)
+        except Exception as e:
+            self.err(e, self._append, "Can not diff column")
+            return
+        if self.autoprint is True:
+            self.ok("Diff column " + name + " added to the dataframe")
+
     def rename(self, source_col, dest_col):
         """
         Renames a column in the main dataframe
