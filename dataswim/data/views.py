@@ -103,6 +103,15 @@ class View():
         print(txt)
         print(ticks)
 
+    def subtitle(self, txt):
+        """
+        Prints a subtitle for pipelines
+        """
+        num = len(txt)
+        ticks = "-" * num
+        print(txt)
+        print(ticks)
+
     def display(self, *fields):
         """
         Display some columns head
