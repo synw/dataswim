@@ -41,7 +41,8 @@ class Report():
                 html = self.get_html(chart_obj, slug)
             if html is None and seaborn_chart is None:
                 self.err(
-                    self.stack, "Can not stack: empty html reveived for " + str(chart_obj), "-", slug)
+                    self.stack, "Can not stack: empty html reveived for " +
+                    str(chart_obj), "-", slug)
                 return
             report = dict(slug=slug, html=html)
             if seaborn_chart is not None:
@@ -93,7 +94,10 @@ class Report():
                 return
             folderpath = self.report_path
         else:
-            self.report_path = folderpath
+            if folderpath.startswith('/') or folderpath.startswith("."):
+                folderpath = self.report_path
+            else:
+                folderpath = self.report_path + "/" + folderpath
         try:
             for report in self.reports:
                 if not "html" in report:
@@ -204,12 +208,12 @@ class Report():
         Default html header
         """
         html = """ 
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="utf-8">
-            <title>Report</title>     
-        """
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<meta charset="utf-8">
+			<title>Report</title>	 
+		"""
         if "bokeh" in self.report_engines:
             html += self.bokeh_header_()
         if "altair" in self.report_engines:
@@ -217,9 +221,9 @@ class Report():
         if "chartjs" in self.report_engines:
             html += self.chartjs_header_()
         html += """
-        </head>
-        <body>
-        """
+		</head>
+		<body>
+		"""
         return html
 
     def _footer(self):
