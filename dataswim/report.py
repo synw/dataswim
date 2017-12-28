@@ -104,7 +104,7 @@ class Report():
             for report in self.reports:
                 if "html" not in report:
                     self.err(self.to_files,
-                             "No html for report " + str(report))
+                             "No html for report " + report)
                     self.reports = self.report_engines = []
                     return
                 if "seaborn_chart" in report:
@@ -112,7 +112,8 @@ class Report():
                 else:
                     html = report["html"]
                     self._write_file(report["slug"], folderpath, html)
-            self.reports = self.report_engines = []
+            self.reports = []
+            self.report_engines = []
         except Exception as e:
             self.err(e, self.to_files, "Can not save reports to files")
             return
