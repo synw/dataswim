@@ -1,5 +1,4 @@
 import os
-import seaborn
 from IPython.core.display import display, HTML
 
 
@@ -27,7 +26,8 @@ class Report():
         if chart_obj is None:
             if self.chart_obj is None:
                 self.err(
-                    self.stack, "No chart object set: please provide one in parameters")
+                    self.stack,
+                    "No chart object set: please provide one in parameters")
                 return
             chart_obj = self.chart_obj
         try:
@@ -88,8 +88,10 @@ class Report():
         Writes the html report to one file per report
         """
         if folderpath is None:
-            if self.report_path is None and "seaborn" not in self.report_engines:
-                self.err(self.to_files, "No folder path set for reports: please provide "
+            if self.report_path is None and "seaborn" \
+                    not in self.report_engines:
+                self.err(self.to_files,
+                         "No folder path set for reports: please provide "
                          "one as argument or set ds.report_path")
                 return
             folderpath = self.report_path
@@ -100,8 +102,9 @@ class Report():
                 folderpath = self.report_path + "/" + folderpath
         try:
             for report in self.reports:
-                if not "html" in report:
-                    self.err(self.to_files, "No html for report " + str(report))
+                if "html" not in report:
+                    self.err(self.to_files,
+                             "No html for report " + str(report))
                     self.reports = self.report_engines = []
                     return
                 if "seaborn_chart" in report:
@@ -124,7 +127,8 @@ class Report():
             if self.chart_obj is None:
                 self.err(
                     self.get_html,
-                    "No chart object registered, please provide one in parameters"
+                    "No chart object registered, please provide "
+                    "one in parameters"
                 )
                 return
             chart_obj = self.chart_obj
@@ -188,7 +192,7 @@ class Report():
                 return
         # construct file path
         filepath = folderpath + "/" + slug + ".html"
-        #~ write the file
+        # write the file
         try:
             filex = open(filepath, "w")
             filex.write(html)
@@ -207,12 +211,12 @@ class Report():
         """
         Default html header
         """
-        html = """ 
+        html = """
 		<!DOCTYPE html>
 		<html lang="en">
 		<head>
 			<meta charset="utf-8">
-			<title>Report</title>	 
+			<title>Report</title>
 		"""
         if "bokeh" in self.report_engines:
             html += self.bokeh_header_()

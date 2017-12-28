@@ -24,22 +24,25 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         self.label = None
         self.engine = "bokeh"
 
-    def chart(self, x=None, y=None, chart_type=None, opts=None, style=None, label=None, options={}, **kwargs):
+    def chart(self, x=None, y=None, chart_type=None, opts=None,
+              style=None, label=None, options={}, **kwargs):
         """
         Get a chart
         """
         try:
-            self.chart_obj = self._chart(
-                x, y, chart_type, opts, style, label, options=options, **kwargs)
+            self.chart_obj = self._chart(x, y, chart_type, opts, style, label,
+                                         options=options, **kwargs)
         except Exception as e:
             self.err(e, self.chart, "Can not create chart")
 
-    def chart_(self, x=None, y=None, chart_type=None, opts=None, style=None, label=None, options={}, **kwargs):
+    def chart_(self, x=None, y=None, chart_type=None, opts=None, style=None,
+               label=None, options={}, **kwargs):
         """
         Get a chart
         """
         try:
-            return self._chart(x, y, chart_type, opts, style, label, options=options, **kwargs)
+            return self._chart(x, y, chart_type, opts, style, label,
+                               options=options, **kwargs)
         except Exception as e:
             self.err(e, self.chart, "Can not create chart")
 
@@ -58,8 +61,9 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         if chart_type is None:
             return
         try:
-            chart_obj = self._get_chart(chart_type, x,
-                                        y, style=style, opts=opts, label=label, options=options, **kwargs)
+            chart_obj = self._get_chart(chart_type, x, y, style=style,
+                                        opts=opts, label=label,
+                                        options=options, **kwargs)
             return chart_obj
         except Exception as e:
             self.err(e)
@@ -69,7 +73,8 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         Get a bar chart
         """
         try:
-            return self._get_chart("bar", style=style, opts=opts, label=label, options=options)
+            return self._get_chart("bar", style=style, opts=opts, label=label,
+                                   options=options)
         except Exception as e:
             self.err(e, self.chart, "Can draw bar chart")
 
@@ -78,7 +83,8 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         Get a line chart
         """
         try:
-            return self._get_chart("line", style=style, opts=opts, label=label, options=options)
+            return self._get_chart("line", style=style, opts=opts,
+                                   label=label, options=options)
         except Exception as e:
             self.err(e, self.line_, "Can draw line chart")
 
@@ -87,7 +93,8 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         Get an area chart
         """
         try:
-            return self._get_chart("area", style=style, opts=opts, label=label, options=options)
+            return self._get_chart("area", style=style, opts=opts,
+                                   label=label, options=options)
         except Exception as e:
             self.err(e, self.area_, "Can draw area chart")
 
@@ -96,7 +103,8 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         Get an historiogram chart
         """
         try:
-            return self._get_chart("hist", style=style, opts=opts, label=label, options=options)
+            return self._get_chart("hist", style=style, opts=opts,
+                                   label=label, options=options)
         except Exception as e:
             self.err(e, self.hist_, "Can draw historiogram")
 
@@ -105,7 +113,8 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         Get a point chart
         """
         try:
-            return self._get_chart("errorBar", style=style, opts=opts, label=label, options=options)
+            return self._get_chart("errorBar", style=style, opts=opts,
+                                   label=label, options=options)
         except Exception as e:
             self.err(e, self.errorbar_, "Can draw errorbar chart")
 
@@ -114,7 +123,8 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         Get a point chart
         """
         try:
-            return self._get_chart("point", style=style, opts=opts, label=label, options=options)
+            return self._get_chart("point", style=style, opts=opts,
+                                   label=label, options=options)
         except Exception as e:
             self.err(e, self.point_, "Can draw point chart")
 
@@ -123,7 +133,8 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         Get a circle chart
         """
         try:
-            return self._get_chart("circle", style=style, opts=opts, label=label, options=options)
+            return self._get_chart("circle", style=style, opts=opts,
+                                   label=label, options=options)
         except Exception as e:
             self.err(e, self.point_, "Can draw circle chart")
 
@@ -132,7 +143,8 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         Get a square chart
         """
         try:
-            return self._get_chart("square", style=style, opts=opts, label=label, options=options)
+            return self._get_chart("square", style=style, opts=opts,
+                                   label=label, options=options)
         except Exception as e:
             self.err(e, self.point_, "Can draw square chart")
 
@@ -141,7 +153,8 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         Get a tick chart
         """
         try:
-            return self._get_chart("tick", style=style, opts=opts, label=label, options=options)
+            return self._get_chart("tick", style=style, opts=opts,
+                                   label=label, options=options)
         except Exception as e:
             self.err(e, self.point_, "Can draw tick chart")
 
@@ -150,7 +163,8 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         Get a rule chart
         """
         try:
-            return self._get_chart("rule", style=style, opts=opts, label=label, options=options)
+            return self._get_chart("rule", style=style, opts=opts,
+                                   label=label, options=options)
         except Exception as e:
             self.err(e, self.point_, "Can draw rule chart")
 
@@ -159,7 +173,8 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         Get a heatmap chart
         """
         try:
-            return self._get_chart("heatmap", style=style, opts=opts, label=label, options=options)
+            return self._get_chart("heatmap", style=style, opts=opts,
+                                   label=label, options=options)
         except Exception as e:
             self.err(e, self.heatmap_, "Can draw heatmap")
 
@@ -172,12 +187,12 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             if style is None:
                 style = self.chart_style
             style["color"] = colors["line"]
-            l = self._get_chart("line", style=style, opts=opts,
+            c = self._get_chart("line", style=style, opts=opts,
                                 label=label, options=options)
             style["color"] = colors["point"]
-            p = self._get_chart("point", style=style,
-                                opts=opts, label=label, options=options)
-            return l * p
+            c2 = self._get_chart("point", style=style, opts=opts,
+                                 label=label, options=options)
+            return c * c2
         except Exception as e:
             self.err(e, self.line_point_, "Can draw line_point chart")
 
@@ -239,13 +254,15 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         if x is None:
             if self.x is None:
                 self.err(
-                    self._get_chart, "X field is not set: please specify a parameter")
+                    self._get_chart,
+                    "X field is not set: please specify a parameter")
                 return
             x = self.x
         if y is None:
             if self.y is None:
                 self.err(
-                    self._get_chart, "Y field is not set: please specify a parameter")
+                    self._get_chart,
+                    "Y field is not set: please specify a parameter")
                 return
             y = self.y
         if opts is None:
@@ -269,7 +286,8 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             return
         try:
             chart = func(
-                x, y, chart_type, label, opts, style, options=options, **kwargs)
+                x, y, chart_type, label, opts, style,
+                options=options, **kwargs)
             return chart
         except Exception as e:
             self.err(e)
