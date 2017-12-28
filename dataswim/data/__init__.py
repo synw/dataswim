@@ -37,7 +37,8 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
                         " was provided: please provide a dataframe as argument")
                     return
                 df = self.df.copy()
-            ds2 = self.new_(df, db, quiet=True)
+            ds2 = self
+            ds2.set(df)
             ds2.db = self.db
             ds2.x = self.x
             ds2.y = self.y
