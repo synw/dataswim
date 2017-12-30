@@ -62,7 +62,8 @@ class Transform():
             self.err(e, self.exclude,
                      "Can not exclude rows based on value " + val)
 
-    def rsum(self, time_period="1Min", num_col="num", dateindex=None, index_col="date", fill_col=None):
+    def rsum(self, time_period="1Min", num_col="num",
+             dateindex=None, index_col="date", fill_col=None):
         """
         Resample, and sum the main dataframe to a time period
         """
@@ -72,7 +73,8 @@ class Transform():
         except Exception as e:
             self.err(e, self.rsum, "Can not sum data")
 
-    def rsum_(self, time_period="1Min", num_col="num", dateindex=None, index_col="date", fill_col=None):
+    def rsum_(self, time_period="1Min", num_col="num",
+              dateindex=None, index_col="date", fill_col=None):
         """
         Resample, and sum a dataframe to a time period
         """
@@ -86,7 +88,8 @@ class Transform():
             return
         return self.clone_(df)
 
-    def _resample(self, method, time_period, num_col, dateindex, index_col, fill_col):
+    def _resample(self, method, time_period, num_col,
+                  dateindex, index_col, fill_col):
         """
         Resample the main dataframe to a time period
         """
@@ -123,7 +126,8 @@ class Transform():
             self.err(e, self._resample, "Can not resample data")
             return
 
-    def rmean(self, time_period="1Min", num_col="num", dateindex=None, index_col="date", fill_col=None):
+    def rmean(self, time_period="1Min", num_col="num",
+              dateindex=None, index_col="date", fill_col=None):
         """
         Resample, and sum the main dataframe to a time period
         """
@@ -133,7 +137,8 @@ class Transform():
         except Exception as e:
             self.err(e, self.rmean, "Can not mean data")
 
-    def rmean_(self, time_period="1Min", num_col="num", dateindex=None, index_col="date", fill_col=None):
+    def rmean_(self, time_period="1Min", num_col="num",
+               dateindex=None, index_col="date", fill_col=None):
         """
         Resample, and sum a dataframe to a time period
         """
@@ -385,13 +390,20 @@ class Transform():
         """
         try:
             df = self.df.copy()
-            keys = df.columns.values
-            cols = []
-            for k in keys:
-                cols.append(df[k])
-            df = pd.concat([*cols, df[diffcol].diff()],
-                           axis=1, keys=[*keys, name])
+            previous = 0
+            i = 0
+            vals = [df[diffcol].iloc[0]]
+            for _, row in df.iterrows():
+                val = row[diffcol] - previous
+                new = round(val, 1)
+                previous = row[diffcol]
+                if i == 0:
+                    vals = [0]
+                else:
+                    vals.append(new)
+                i = 1
             self.set(df)
+            self.add("Diff", vals)
         except Exception as e:
             self.err(e, self._append, "Can not diff column")
             return
