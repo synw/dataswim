@@ -376,6 +376,19 @@ class Clean():
             if len(skipped) > 0:
                 self.info("Skipped columns", ','.join(
                     skipped), "while removing white space")
+                
+    def round(self, col, precision=2):
+        """
+        Round floats in a column
+        """
+        try:
+            self.to_float([col])
+            self.df[col] = self.df[col].apply(lambda x: round(x, precision))
+        except Exception as e:
+            self.err(e, self.round, "Can not round column values")
+            return
+        if self.autoprint is True:
+            self.ok("Rounded values in column " + col)
 
     def format_date_(self, date):
         """
