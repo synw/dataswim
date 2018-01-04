@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
+from numpy import NaN
 
 
 class Transform():
@@ -384,6 +385,30 @@ class Transform():
         if self.autoprint is True:
             self.ok("Row added to dataframe")
 
+    def diffn(self, diffcol, name="Diff"):
+        """
+        Add a diff column to the main dataframe
+        """
+        try:
+            vals = []
+            i = 0
+            for _, row in self.df.iterrows():
+                current = row[diffcol]
+                try:
+                    nextv = self.df[diffcol].iloc[i + 1]
+                except Exception:
+                    vals.append(NaN)
+                    continue
+                val = nextv - current
+                vals.append(round(val, 1))
+                i += 1
+            self.add("Diff", vals)
+        except Exception as e:
+            self.err(e, self._append, "Can not diff column")
+            return
+        if self.autoprint is True:
+            self.ok("Diff column " + name + " added to the dataframe")
+
     def diff(self, diffcol, name="Diff"):
         """
         Add a diff column to the main dataframe
@@ -403,7 +428,7 @@ class Transform():
                     vals.append(new)
                 i = 1
             self.set(df)
-            self.add("Diff", vals)
+            self.add(name, vals)
         except Exception as e:
             self.err(e, self._append, "Can not diff column")
             return
