@@ -47,8 +47,8 @@ class Bokeh():
         Returns html script tags for Bokeh
         """
         header = """
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/0.12.10/bokeh.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/0.12.10/bokeh.min.js.map"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/0.12.11/bokeh.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/0.12.11/bokeh.min.js.map"></script>
         <script type="text/javascript">
             Bokeh.set_log_level("info");
         </script>
