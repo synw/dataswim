@@ -169,6 +169,40 @@ class Select():
         except Exception as e:
             self.err(e, self.to_records_, "Can not create records")
 
+    def subset(self, *args):
+        """
+        Set the main dataframe to a subset based in positions
+        """
+        try:
+            self.df = self._subset(*args)
+        except Exception as e:
+            self.err(e, self.subset, "Can get subset of data")
+
+    def subset_(self, *args):
+        """
+        Returns a Dataswim instance with a subset data based in positions
+        """
+        try:
+            df = self._subset(*args)
+            return self.clone_(df)
+        except Exception as e:
+            self.err(e, self.subset_, "Can not get subset of data")
+
+    def _subset(self, *args):
+        """
+        Select a subset of the main dataframe based on position:
+        ex: ds.subset(0,10) or ds.subset(10) is equivalent: it starts
+        at the first row if only one argument is provided
+        """
+        try:
+            end = args[0]
+            if len(args) > 1:
+                start = args[0]
+                end = args[1]
+            return self.df.iloc[start: end]
+        except Exception as e:
+            self.err(e, self._subset, "Can not select data")
+
     def nulls_(self, field):
         """
         Return all null rows
