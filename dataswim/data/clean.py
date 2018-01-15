@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-
 import time
 import pandas as pd
-from numpy.core.numeric import nan, NaN
+from numpy.core.numeric import nan
 from goerr.colors import colors
 
 
@@ -43,7 +42,8 @@ class Clean():
 
     def zero_nan_(self, *fields):
         """
-        Returns a DataSwim instance with zero values to nan values in selected columns
+        Returns a DataSwim instance with zero values to nan values in
+        selected columns
         """
         df = self.clone_(self._zero_nan(*fields))
         return self.clone_(df)
@@ -168,7 +168,8 @@ class Clean():
             ds2.df[field] = ds2.df[field].apply(convert)
             self.df = ds2.df
         except Exception as e:
-            self.err(e, self.to_int, "Can not convert column values to integer")
+            self.err(e, self.to_int,
+                     "Can not convert column values to integer")
             return
         if self.autoprint is True:
             self.ok("Converted column values to integers")
@@ -202,7 +203,8 @@ class Clean():
         except Exception as e:
             self.err(e)
 
-    def clean_ts(self, date_col, numeric_col=None, index=True, to_int=False, index_col=True):
+    def clean_ts(self, date_col, numeric_col=None, index=True, to_int=False,
+                 index_col=True):
         """
         Cleans and format a timeseries dataframe
         """
@@ -376,7 +378,7 @@ class Clean():
             if len(skipped) > 0:
                 self.info("Skipped columns", ','.join(
                     skipped), "while removing white space")
-                
+
     def round(self, col, precision=2):
         """
         Round floats in a column
@@ -396,18 +398,22 @@ class Clean():
         """
         return date.strftime('%Y-%m-%d %H:%M:%S')
 
-    def transform_(self, dateindex=None, index_col=None, fill_col=None, num_col=None, df=None):
+    def transform_(self, dateindex=None, index_col=None,
+                   fill_col=None, num_col=None, df=None):
         """
-        Returns a DataSwim instance transformed according to the given parameters
+        Returns a DataSwim instance transformed according to the
+        given parameters
         """
         if df is None:
             if self.df is None:
-                self.err(
-                    self._transform, "No dataframe: please provide one in parameters or set it")
+                self.err(self._transform,
+                         "No dataframe: please provide one "
+                         "in parameters or set it")
                 return
             df = self.df.copy()
         ds2 = self.clone_(df)
-        if dateindex is None and index_col is None and fill_col is None and num_col is None:
+        if dateindex is None and index_col is None and fill_col \
+                is None and num_col is None:
             return ds2
         try:
             if dateindex is not None:
