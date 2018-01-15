@@ -74,7 +74,8 @@ class Seaborn():
         self.chart_type = "dlinear"
         try:
             fig = sns.jointplot(self.x, self.y, data=self.df, kind="reg",
-                                xlim=xticks, ylim=yticks, color=color, size=size)
+                                xlim=xticks, ylim=yticks, color=color,
+                                size=size)
             fig = self._set_with_height(fig, opts)
             return fig
         except Exception as e:
@@ -103,7 +104,8 @@ class Seaborn():
         self._set_seaborn_engine()
         return opts, style
 
-    def _get_seaborn_chart(self, xfield, yfield, chart_type, label, opts=None, style=None, **kwargs):
+    def _get_seaborn_chart(self, xfield, yfield, chart_type, label,
+                           opts=None, style=None, **kwargs):
         """
         Get an Seaborn chart object
         """
@@ -139,15 +141,15 @@ class Seaborn():
             self.err(e, self._get_seaborn_chart,
                      "Can not get Seaborn chart object")
             return
-        return chartobj
+        return chart_obj
 
     def _get_ticks(self, opts):
         """
         Check if xticks and yticks are set
         """
         opts, _ = self._get_opts(opts, None)
-        if not "xticks" in opts:
-            if not "xticks" in self.chart_opts:
+        if "xticks" not in opts:
+            if "xticks" not in self.chart_opts:
                 self.err(self.dlinear_,
                          "Please set the xticks option for this chart to work")
                 return
@@ -155,8 +157,8 @@ class Seaborn():
                 xticks = self.chart_opts["xticks"]
         else:
             xticks = opts["xticks"]
-        if not "yticks" in opts:
-            if not "yticks" in self.chart_opts:
+        if "yticks" not in opts:
+            if "yticks"not in self.chart_opts:
                 self.err(self.dlinear_,
                          "Please set the yticks option for this chart to work")
                 return
@@ -218,22 +220,23 @@ class Seaborn():
         if folderpath is None:
             if self.imgs_path is None:
                 self.err(self._save_seaborn_chart,
-                         "Please set a path where save images: ds.imgs_path = '/my/path'")
+                         "Please set a path where save images: ds.imgs_path = "
+                         "'/my/path'")
                 return
             path = self.imgs_path
         else:
             path = folderpath
         path = path + "/" + report["slug"] + ".png"
         try:
-            if type(report["seaborn_chart"]) == seaborn.axisgrid.JointGrid:
+            try:
                 report["seaborn_chart"].savefig(path)
-            else:
+            except Exception:
                 report["seaborn_chart"].figure.savefig(path)
         except Exception as e:
             self.err(e, self._save_seaborn_chart, "Can not save Seaborn chart")
             return
         if self.autoprint is True:
-            self.ok("Seaborn chart writen to file")
+            self.ok("Seaborn chart writen to "+path)
 
     def _set_seaborn_engine(self):
         """
