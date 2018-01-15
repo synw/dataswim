@@ -179,13 +179,14 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             self.err(e, self.heatmap_, "Can draw heatmap")
 
     def line_point_(self, label=None, style=None, opts=None, options={},
-                    colors={"line": "yellow", "point": "navy"}):
+                    colors={"line": "orange", "point": "green"}):
         """
         Get a line and point chart
         """
         try:
             if style is None:
                 style = self.chart_style
+                style["size"] = 10
             style["color"] = colors["line"]
             c = self._get_chart("line", style=style, opts=opts,
                                 label=label, options=options)
