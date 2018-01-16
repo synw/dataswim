@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
-from numpy import NaN
+from numpy import nan
 
 
 class Transform():
@@ -40,7 +40,7 @@ class Transform():
 
     def drop(self, *cols):
         """
-        Drops a column from the main dataframe
+        Drops columns from the main dataframe
         """
         index = self.df.columns.values
         for col in cols:
@@ -397,7 +397,7 @@ class Transform():
                 try:
                     nextv = self.df[diffcol].iloc[i + 1]
                 except Exception:
-                    vals.append(NaN)
+                    vals.append(nan)
                     continue
                 val = nextv - current
                 vals.append(round(val, 1))
@@ -427,6 +427,29 @@ class Transform():
                 else:
                     vals.append(new)
                 i = 1
+            self.set(df)
+            self.add(name, vals)
+        except Exception as e:
+            self.err(e, self._append, "Can not diff column")
+            return
+        if self.autoprint is True:
+            self.ok("Diff column " + name + " added to the dataframe")
+
+    def diffm(self, diffcol, name="Diff"):
+        """
+        Add a diff from mean column to the main dataframe
+        """
+        try:
+            df = self.df.copy()
+            mean = self.df[diffcol].mean()
+            vals = []
+            for _, row in self.df.iterrows():
+                num = row[diffcol]
+                if num > 0:
+                    diff = int(((num - mean) * 100) / mean)
+                    vals.append(diff)
+                else:
+                    vals.append(nan)
             self.set(df)
             self.add(name, vals)
         except Exception as e:
