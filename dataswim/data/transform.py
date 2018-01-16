@@ -435,7 +435,7 @@ class Transform():
         if self.autoprint is True:
             self.ok("Diff column " + name + " added to the dataframe")
 
-    def diffm(self, diffcol, name="Diff"):
+    def diffm(self, diffcol, name="Diff", default=nan):
         """
         Add a diff from mean column to the main dataframe
         """
@@ -449,7 +449,7 @@ class Transform():
                     diff = int(((num - mean) * 100) / mean)
                     vals.append(diff)
                 else:
-                    vals.append(nan)
+                    vals.append(default)
             self.set(df)
             self.add(name, vals)
         except Exception as e:
