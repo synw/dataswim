@@ -69,9 +69,10 @@ class Export():
         Writes the main dataframe to an Excell file
         """
         writer = pytablewriter.ExcelXlsxTableWriter()
+        writer.from_dataframe(self.df)
         writer.open(filepath)
         writer.make_worksheet(title)
-        writer.write_table_iter()
+        writer.write_table()
         writer.close()
         if self.autoprint is True:
             self.ok("File exported to", filepath)
