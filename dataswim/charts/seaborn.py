@@ -41,7 +41,12 @@ class Seaborn():
         opts, style = self._get_opts_seaborn(opts, style)
         color, _ = self._get_color_size(style)
         try:
-            fig = sns.distplot(self.df[self.x], color=color)
+            kde = False
+            rug = True
+            if "kde" in opts:
+                kde = opts["kde"]
+                rug = opts["rug"]
+            fig = sns.distplot(self.df[self.x], color=color, kde=kde, rug=rug)
             fig = self._set_with_height(fig, opts)
             return fig
         except Exception as e:
@@ -184,16 +189,16 @@ class Seaborn():
         """
         Set the width and height of a Matplotlib figure
         """
-        h = 6
+        h = 5
         if "height" in opts:
             h = opts["height"]
-        w = 6
+        w = 12
         if "width" in opts:
             w = opts["width"]
         try:
             fig.figure.set_size_inches((w, h))
             return fig
-        except:
+        except Exception:
             try:
                 fig.fig.set_size_inches((w, h))
                 return fig
@@ -236,7 +241,7 @@ class Seaborn():
             self.err(e, self._save_seaborn_chart, "Can not save Seaborn chart")
             return
         if self.autoprint is True:
-            self.ok("Seaborn chart writen to "+path)
+            self.ok("Seaborn chart writen to " + path)
 
     def _set_seaborn_engine(self):
         """
