@@ -176,7 +176,30 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         df = pd.DataFrame(dictobj)
         return df
 
-    def load_csv(self, url, dateindex=None, index_col=None, fill_col=None, **kwargs):
+    def load_excel(self, filepath, sheet_name=0, index_col=0):
+        """
+        Rerturn a Dataswim instance populated with the content of an Excel file
+        """
+        try:
+            df = self._load_excel(filepath, sheet_name=sheet_name,
+                                  index_col=index_col)
+            self.set(df)
+        except Exception as e:
+            self.err(e, self.load_excel_, "Can not load Excel file")
+
+    def _load_excel(self, filepath, sheet_name, index_col):
+        """
+        Rerturn a dataframe populated with the content of an Excel file
+        """
+        try:
+            df = pd.read_excel(filepath, sheet_name=sheet_name,
+                               index_col=index_col)
+            return df
+        except Exception as e:
+            self.err(e, self._load_excel, "Can not load Excel file")
+
+    def load_csv(self, url, dateindex=None,
+                 index_col=None, fill_col=None, **kwargs):
         """
         Initialize the main dataframe from csv data
         """
@@ -186,7 +209,8 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         except Exception as e:
             self.err(e, self.load_csv, "Can not load csv file")
 
-    def load_csv_(self, url, dateindex=None, index_col=None, fill_col=None, **kwargs):
+    def load_csv_(self, url, dateindex=None,
+                  index_col=None, fill_col=None, **kwargs):
         """
         Returns a DataSwim instance from csv data
         """
