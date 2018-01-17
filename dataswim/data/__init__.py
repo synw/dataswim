@@ -244,3 +244,14 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         if self.autoprint is True:
             self.end("Finished loading csv")
         return ds2.df
+
+    def dateparser(self, dformat='%d/%m/%Y'):
+        """
+        Returns a date parser for pandas
+        """
+        try:
+            def dateparse(dates): return [
+                pd.datetime.strptime(d, dformat) for d in dates]
+            return dateparse
+        except Exception as e:
+            self.err(e, self.dateparser, "Can not create date parser")
