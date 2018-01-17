@@ -1,4 +1,5 @@
 import pandas as pd
+from numpy.core.numeric import nan
 from .db import Db
 from .charts import Plot
 from .data import Df
@@ -6,7 +7,7 @@ from .report import Report
 from .errors import Errors
 from .messages import Messages
 
-__version__ = "0.4.10"
+__version__ = "0.4.11"
 
 
 class DataSwim(Db, Df, Plot, Report, Errors, Messages):
@@ -42,6 +43,7 @@ class DataSwim(Db, Df, Plot, Report, Errors, Messages):
         self.datapath = None
         self.report_path = None
         self.quiet = False
+        self.nan = nan
 
     def __repr__(self):
         num = 0
