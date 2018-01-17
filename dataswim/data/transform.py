@@ -385,6 +385,40 @@ class Transform():
         if self.autoprint is True:
             self.ok("Row added to dataframe")
 
+    def merge(self, df, on, how="outer", **kwargs):
+        """
+        Set the main dataframe from the current dataframe and the passed
+        dataframe
+        """
+        try:
+            df = self._merge(df, on, how, **kwargs)
+            self.set(df)
+        except Exception as e:
+            self.err(e, self.merge, "Can not merge dataframes")
+
+    def merge_(self, df, on, how="outer", **kwargs):
+        """
+        Returns a Dataswim instance from the current dataframe and the passed
+        dataframe
+        """
+        try:
+            df = self._merge(df, on, how, **kwargs)
+            ds = self.clone_(df)
+            return ds
+        except Exception as e:
+            self.err(e, self.merge_, "Can not merge dataframes")
+
+    def _merge(self, df, on, how, **kwargs):
+        """
+        Returns a dataframe from the current dataframe and the passed
+        dataframe
+        """
+        try:
+            df = pd.merge(self.df, df, on=on, how=how, **kwargs)
+            return df
+        except Exception as e:
+            self.err(e, self._merge, "Can not merge dataframes")
+
     def diffn(self, diffcol, name="Diff"):
         """
         Add a diff column to the main dataframe
