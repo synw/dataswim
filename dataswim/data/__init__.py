@@ -176,24 +176,22 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         df = pd.DataFrame(dictobj)
         return df
 
-    def load_excel(self, filepath, sheet_name=0, index_col=0):
+    def load_excel(self, filepath, **kwargs):
         """
         Rerturn a Dataswim instance populated with the content of an Excel file
         """
         try:
-            df = self._load_excel(filepath, sheet_name=sheet_name,
-                                  index_col=index_col)
+            df = self._load_excel(filepath, **kwargs)
             self.set(df)
         except Exception as e:
             self.err(e, self.load_excel_, "Can not load Excel file")
 
-    def _load_excel(self, filepath, sheet_name, index_col):
+    def _load_excel(self, filepath, **kwargs):
         """
         Rerturn a dataframe populated with the content of an Excel file
         """
         try:
-            df = pd.read_excel(filepath, sheet_name=sheet_name,
-                               index_col=index_col)
+            df = pd.read_excel(filepath, **kwargs)
             return df
         except Exception as e:
             self.err(e, self._load_excel, "Can not load Excel file")
