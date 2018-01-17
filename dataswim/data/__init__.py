@@ -184,7 +184,7 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
             df = self._load_excel(filepath, **kwargs)
             self.set(df)
         except Exception as e:
-            self.err(e, self.load_excel_, "Can not load Excel file")
+            self.err(e, self.load_excel, "Can not load Excel file")
 
     def _load_excel(self, filepath, **kwargs):
         """
@@ -192,6 +192,8 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         """
         try:
             df = pd.read_excel(filepath, **kwargs)
+            if df is None:
+                self.warning("Empty Excel file. Can not set the dataframe.")
             return df
         except Exception as e:
             self.err(e, self._load_excel, "Can not load Excel file")
