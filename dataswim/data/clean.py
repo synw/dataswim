@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import time
+import arrow
 import pandas as pd
 from numpy.core.numeric import nan
 from goerr.colors import colors
@@ -21,6 +22,15 @@ class Clean():
                 self.df = self.df[self.df[field].notnull()]
         except Exception as e:
             self.err(e, self.drop_nan, "Error droping nan values")
+
+    def drop_nan_cols(self, method="all"):
+        """
+        Drop NaN values from a column
+        """
+        try:
+            self.df = self.df.dropna(axis="columns", how="all")
+        except Exception as e:
+            self.err(e, self.drop_nan_cols, "Error droping nan columns")
 
     def nan_empty(self, field):
         """
@@ -222,6 +232,24 @@ class Clean():
         except Exception as e:
             self.err(e)
 
+    def timestamps(self, col, **kwargs):
+        """
+        Add a timestamps column from a date column
+        """
+        try:
+            name = "Timestamps"
+            if "name" in kwargs:
+                name = kwargs["name"]
+            self.add(name, 0)
+            self.df[col] = pd.to_datetime(self.df[col], errors="coerce",
+                                          unit="ms")
+            ts = []
+            for el in self.df[col]:
+                ts.append(arrow.get(el).timestamp)
+            self.df[name] = ts
+        except Exception as e:
+            self.err(e, self.timestamps, "Can not convert to timestamps")
+
     def date(self, *fields, precision="S"):
         """
         Convert column values to properly formated datetime
@@ -230,7 +258,7 @@ class Clean():
             try:
                 t1 = row.timetuple()
                 int(time.mktime(t1))
-            except:
+            except Exception:
                 return nan
             encoded = '%Y-%m-%d %H:%M:%S'
             if precision == "Min":
@@ -367,11 +395,14 @@ class Clean():
             for col in self.df.columns.values:
                 try:
                     cols[col] = col.strip()
-                except:
+                except Exception:
                     skipped.append(str(col))
             self.df = self.df.rename(columns=cols)
         except Exception as e:
-            self.err(e, self.strip_cols, "Can not strip white space in columns")
+            self.err(
+                e,
+                self.strip_cols,
+                "Can not strip white space in columns")
             return
         if self.autoprint is True:
             self.ok("White space removed in columns names")
