@@ -186,7 +186,8 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         try:
             if style is None:
                 style = self.chart_style
-                style["size"] = 10
+                if style["size"] is None:
+                    style["size"] = 10
             style["color"] = colors["line"]
             c = self._get_chart("line", style=style, opts=opts,
                                 label=label, options=options)
