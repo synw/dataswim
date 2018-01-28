@@ -16,13 +16,6 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
     Class for manipulating dataframes
     """
 
-    def __init__(self, df=None, db=None):
-        """
-        Initialize with an empty dataframe
-        """
-        self.df = df
-        self.datapath = None
-
     def duplicate_(self, df=None, db=None, quiet=False):
         """
         Returns a new DataSwim instance using the previous database connection
@@ -52,6 +45,7 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
             ds2.errors_handling = self.errors_handling
             ds2.datapath = self.datapath
             ds2.report_path = self.report_path
+            ds2.static_path = self.static_path
         except Exception as e:
             self.err(e, self.duplicate_, "Can not duplicate instance")
             return
@@ -176,9 +170,19 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
         df = pd.DataFrame(dictobj)
         return df
 
+    def load_json(self, path, **kwargs):
+        """
+        Load data in the main dataframe from json
+        """
+        try:
+            df = pd.read_json(path, **kwargs)
+            self.set(df)
+        except Exception as e:
+            self.err(e, self.load_excel, "Can not load json")
+
     def load_excel(self, filepath, **kwargs):
         """
-        Rerturn a Dataswim instance populated with the content of an Excel file
+        Set the main dataframe with the content of an Excel file
         """
         try:
             df = self._load_excel(filepath, **kwargs)
@@ -188,7 +192,7 @@ class Df(Select, View, Transform, Clean, Count, Export, Search):
 
     def _load_excel(self, filepath, **kwargs):
         """
-        Rerturn a dataframe populated with the content of an Excel file
+        Set the main dataframe with the content of an Excel file
         """
         try:
             df = pd.read_excel(filepath, **kwargs)
