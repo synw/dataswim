@@ -189,24 +189,28 @@ class View():
         except Exception as e:
             self.err(e)
 
-    def vals(self, col, num_col="Number"):
+    def vals(self, col, num=15, index_col=None, num_col="Number"):
         """
         Print the values count of a column
         """
         df = self._vals(col, num_col)
-        return df.head(0)
+        ds = self.new_(df)
+        if index_col is None:
+            index_col = col
+        ds.index_col(index_col)
+        return ds.show(num)
 
     def vals_(self, col, index_col=None, num_col="Number"):
         """
         Returns a DatasWim instance from values count of a column
         """
-        ds2 = self.clone_(self._vals(col, num_col))
+        ds = self.clone_(self._vals(col, num_col))
         self.quiet = True
         if index_col is None:
             index_col = col
-        ds2.index_col(index_col)
+        ds.index_col(index_col)
         self.quiet = False
-        return ds2
+        return ds
 
     def _vals(self, col, num_col):
         """
