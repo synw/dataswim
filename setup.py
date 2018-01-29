@@ -21,6 +21,7 @@ setup(
     ],
     install_requires=[
         'pandas',
+        'scikit-learn',
         'dataset',
         "pytablewriter",
         'goerr',

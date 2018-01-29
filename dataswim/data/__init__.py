@@ -9,9 +9,10 @@ from .select import Select
 from .transform import Transform
 from .export import Export
 from .search import Search
+from .stats import Stats
 
 
-class Df(Select, View, Transform, Clean, Count, Export, Search):
+class Df(Select, View, Transform, Clean, Count, Export, Search, Stats):
     """
     Class for manipulating dataframes
     """
