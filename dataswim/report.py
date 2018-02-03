@@ -17,7 +17,6 @@ class Report():
         self.reports = []
         self.report_path = None
         self.report_engines = [self.engine]
-        self.imgs_path = None
 
     def stack(self, slug, chart_obj=None, title=None):
         """
@@ -61,6 +60,11 @@ class Report():
         Writes the html report to a file from the report stack
         """
         if folderpath is None:
+            if self.report_path is None:
+                self.err(
+                    self.to_file,
+                    "Please set the report_path parameter or pass a path in arguments")
+                return
             folderpath = self.report_path
         else:
             self.report_path = folderpath
@@ -87,6 +91,7 @@ class Report():
         """
         Writes the html report to one file per report
         """
+        fp = folderpath
         if folderpath is None:
             if self.report_path is None and "seaborn" \
                     not in self.report_engines:
@@ -97,7 +102,7 @@ class Report():
             folderpath = self.report_path
         else:
             if folderpath.startswith('/') or folderpath.startswith("."):
-                folderpath = self.report_path
+                pass
             else:
                 folderpath = self.report_path + "/" + folderpath
         try:
@@ -108,6 +113,14 @@ class Report():
                     self.reports = self.report_engines = []
                     return
                 if "seaborn_chart" in report:
+                    if fp is None and self.static_path is None:
+                        self.err("Please provide a folder path or set the "
+                                 "static_path property")
+                        return
+                    if self.static_path is None:
+                        folderpath = fp
+                    else:
+                        folderpath = self.static_path + "/" + fp
                     self._save_seaborn_chart(report, folderpath)
                 else:
                     html = report["html"]
