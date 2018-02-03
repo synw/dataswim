@@ -225,8 +225,8 @@ class Seaborn():
         if folderpath is None:
             if self.imgs_path is None:
                 self.err(self._save_seaborn_chart,
-                         "Please set a path where save images: ds.imgs_path = "
-                         "'/my/path'")
+                         "Please set a path where to save images: ds.imgs_path"
+                         " = '/my/path'")
                 return
             path = self.imgs_path
         else:
@@ -234,9 +234,17 @@ class Seaborn():
         path = path + "/" + report["slug"] + ".png"
         try:
             try:
-                report["seaborn_chart"].savefig(path)
-            except Exception:
-                report["seaborn_chart"].figure.savefig(path)
+                #print("*** TRY", report["seaborn_chart"].figure.show())
+                fig = report["seaborn_chart"].figure
+                fig.savefig(path)
+            except Exception as e:
+                try:
+                    fig = report["seaborn_chart"]
+                    fig.savefig(path)
+                except Exception:
+                    plot = report["seaborn_chart"]
+                    plot = plot.get_figure()
+                    plot.savefig(path)
         except Exception as e:
             self.err(e, self._save_seaborn_chart, "Can not save Seaborn chart")
             return
