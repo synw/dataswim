@@ -492,6 +492,19 @@ class Transform():
         if self.autoprint is True:
             self.ok("Diff column " + name + " added to the dataframe")
 
+    def gsum_(self, col, index_col=True):
+        """
+        Group by and sum column
+        """
+        try:
+            df = self.df.copy()
+            df = df.groupby([col]).sum()
+            if index_col is True:
+                df[col] = df.index.values
+            return self.clone_(df)
+        except Exception as e:
+            self.err(e, self.ratio, "Can not groupsum column")
+
     def ratio(self, col, ratio_col="Ratio"):
         """
         Add a column whith the percentages ratio from a column
