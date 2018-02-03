@@ -492,6 +492,18 @@ class Transform():
         if self.autoprint is True:
             self.ok("Diff column " + name + " added to the dataframe")
 
+    def ratio(self, col, ratio_col="Ratio"):
+        """
+        Add a column whith the percentages ratio from a column
+        """
+        try:
+            df = self.df.copy()
+            df[ratio_col] = df[[col]].apply(
+                lambda x: 100 * x / float(x.sum()))
+            self.set(df)
+        except Exception as e:
+            self.err(e, self.ratio, "Can not calculate ratio")
+
     def rename(self, source_col, dest_col):
         """
         Renames a column in the main dataframe
