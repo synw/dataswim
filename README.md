@@ -52,8 +52,8 @@ To get the Altair charts in notebooks running this command is required:
 
 Read the [api documentation](http://dataswim.readthedocs.io/en/latest/index.html). 
 
-Note: the api may change and is not stable yet. The doc is in sync with master. To autobuild the docs for your
-installed version clone and:
+Note: the api may change and is not stable yet. The doc is not in sync actually, things are moving fast. 
+To autobuild the docs for your installed version clone and:
 
    ```
    pip install sphinx
