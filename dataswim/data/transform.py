@@ -63,8 +63,8 @@ class Transform():
             self.err(e, self.exclude,
                      "Can not exclude rows based on value " + val)
 
-    def rsum(self, time_period="1Min", num_col="num",
-             dateindex=None, index_col="date", fill_col=None):
+    def rsum(self, time_period="1Min", num_col="Number",
+             dateindex=None, index_col="Date", fill_col=None):
         """
         Resample, and sum the main dataframe to a time period
         """
@@ -74,8 +74,8 @@ class Transform():
         except Exception as e:
             self.err(e, self.rsum, "Can not sum data")
 
-    def rsum_(self, time_period="1Min", num_col="num",
-              dateindex=None, index_col="date", fill_col=None):
+    def rsum_(self, time_period="1Min", num_col="Number",
+              dateindex=None, index_col="Date", fill_col=None):
         """
         Resample, and sum a dataframe to a time period
         """
@@ -127,8 +127,8 @@ class Transform():
             self.err(e, self._resample, "Can not resample data")
             return
 
-    def rmean(self, time_period="1Min", num_col="num",
-              dateindex=None, index_col="date", fill_col=None):
+    def rmean(self, time_period="1Min", num_col="Number",
+              dateindex=None, index_col="Date", fill_col=None):
         """
         Resample, and sum the main dataframe to a time period
         """
@@ -138,8 +138,8 @@ class Transform():
         except Exception as e:
             self.err(e, self.rmean, "Can not mean data")
 
-    def rmean_(self, time_period="1Min", num_col="num",
-               dateindex=None, index_col="date", fill_col=None):
+    def rmean_(self, time_period="1Min", num_col="Number",
+               dateindex=None, index_col="Date", fill_col=None):
         """
         Resample, and sum a dataframe to a time period
         """
