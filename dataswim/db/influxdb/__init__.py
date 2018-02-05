@@ -23,12 +23,42 @@ class InfluxDb():
             self.err(e, self.influx_init,
                      "Can not initialize Influxdb database")
 
+    def influx_query_(self, q):
+        """
+        Runs an Influx db query
+        """
+        if self.influx_cli is None:
+            self.err(
+                self.influx_query_,
+                "No database connected. Please initialize a connection")
+            return
+        try:
+            return self.influx_cli.query(q)
+        except Exception as e:
+            self.err(e, self.influx_query_,
+                     "Can not query database")
+
+    def influx_count_(self, measurement):
+        """
+        Count the number of rows for a measurement
+        """
+        try:
+            q = "select count(*) from " + measurement
+            self.start("Querying: count ...")
+            datalen = self.influx_cli.query(q)
+            self.end("Finished querying")
+            numrows = int(datalen[measurement][datalen[measurement].keys()[0]])
+            return numrows
+        except Exception as e:
+            self.err(e, self.influx_count_,
+                     "Can not count rows for measurement")
+
     def influx_to_csv(self, measurement, batch_size=5000):
         """
         Batch export data from an Influxdb measurement to csv
         """
         if self.autoprint is True:
-            self.start("Processing data from InfluxDb to csv")
+            print("Processing data from InfluxDb to csv")
         try:
             q = "select count(*) from " + measurement
             numrows = self.influx_cli.query(q)[measurement].iloc[0, 0]
@@ -41,7 +71,13 @@ class InfluxDb():
                     " limit " + str(batch_size)
                 if done > 0:
                     q += " offset " + str(offset)
+                if self.autoprint is True:
+                    self.start(
+                        "Querying database for the next " +
+                        str(batch_size) + " datapoints")
                 res = self.influx_cli.query(q)
+                if self.autoprint is True:
+                    self.end("Finished to query")
                 numres = 0
                 try:
                     numres = len(res[measurement])
@@ -65,4 +101,4 @@ class InfluxDb():
                      "Can not transfer data from Influxdb to csv")
             return
         if self.autoprint is True:
-            self.end("Finished processing data from InfluxDb to csv")
+            print("Finished processing data from InfluxDb to csv")
