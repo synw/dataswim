@@ -63,6 +63,12 @@ To autobuild the docs for your installed version clone and:
    firefox _build/html/api_auto.html&
    ``` 
 
+## Reporting
+
+To generate static html reports use [dsreports](https://github.com/synw/dsreports)
+
+To distribute reports with a http server use [django-chartflo](https://github.com/synw/django-chartflo)
+
 ## Example
 
 [Jupyter demo notebooks](https://github.com/synw/dataswim-notebooks) are available as example. 
