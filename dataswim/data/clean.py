@@ -423,6 +423,23 @@ class Clean():
         if self.autoprint is True:
             self.ok("Rounded values in column " + col)
 
+    def trimquants_(self, col, inf, sup):
+        """
+        Remove superior and inferior quantiles from the dataframe
+        """
+        try:
+            ds2 = self.clone_()
+            qi = ds2.df[col].quantile(inf)
+            qs = ds2.df[col].quantile(sup)
+            ds2.df = ds2.df[ds2.df[col] < qs]
+            ds2.df = ds2.df[ds2.df[col] > qi]
+        except Exception as e:
+            self.err(e, self.trimquants_, "Can not trim quantiles")
+        if self.autoprint is True:
+            self.ok("Removed values between", str(qi), "and", str(qs),
+                    "in column", col)
+        return ds2
+
     def format_date_(self, date):
         """
         Formats a date
