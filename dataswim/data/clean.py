@@ -429,7 +429,7 @@ class Clean():
         returns a Dataswim instance
         """
         try:
-            ds2 = self.clone()
+            ds2 = self.clone_()
             ds2.df = self._trimquants(col, inf, sup)
             return ds2
         except Exception as e:
