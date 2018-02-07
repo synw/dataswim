@@ -425,7 +425,29 @@ class Clean():
 
     def trimquants_(self, col, inf, sup):
         """
+        Remove superior and inferior quantiles from the dataframe and
+        returns a Dataswim instance
+        """
+        try:
+            ds2 = self.clone()
+            ds2.df = self._trimquants(col, inf, sup)
+            return ds2
+        except Exception as e:
+            self.err(e, self.trimquants_, "Can not trim quantiles")
+
+    def trimquants(self, col, inf, sup):
+        """
         Remove superior and inferior quantiles from the dataframe
+        """
+        try:
+            self.set(self._trimquants(col, inf, sup))
+        except Exception as e:
+            self.err(e, self.trimquants, "Can not trim quantiles")
+
+    def _trimquants(self, col, inf, sup):
+        """
+        Remove superior and inferior quantiles from the dataframe
+        and returs a dataframe
         """
         try:
             ds2 = self.clone_()
@@ -434,11 +456,11 @@ class Clean():
             ds2.df = ds2.df[ds2.df[col] < qs]
             ds2.df = ds2.df[ds2.df[col] > qi]
         except Exception as e:
-            self.err(e, self.trimquants_, "Can not trim quantiles")
+            self.err(e, self._trimquants, "Can not trim quantiles")
         if self.autoprint is True:
-            self.ok("Removed values between", str(qi), "and", str(qs),
+            self.ok("Removed values under", str(qi), "and upper", str(qs),
                     "in column", col)
-        return ds2
+        return ds2.df
 
     def format_date_(self, date):
         """
