@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 
-version = __import__('dataswim').__version__
+version = __import__('dataswim').__version__.version
 
 setup(
     name='dataswim',
