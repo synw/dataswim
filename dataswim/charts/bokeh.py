@@ -63,16 +63,42 @@ class Bokeh():
         c = hv.HLine(self.df[col].mean())
         return c
 
+    def _bokeh_quants(self, inf, sup, chart_type, color):
+        """
+        Draw a chart to visualize quantiles
+        """
+        try:
+            ds2 = self.clone_()
+            qi = ds2.df[ds2.y].quantile(inf)
+            qs = ds2.df[ds2.y].quantile(sup)
+            ds2.add("sup", qs)
+            ds2.add("inf", qi)
+            ds2.chart(ds2.x, ds2.y)
+            if chart_type == "point":
+                c = ds2.point_()
+            elif chart_type == "line_point":
+                c = ds2.line_point_()
+            else:
+                c = ds2.line_()
+            ds2.color(color)
+            ds2.chart(ds2.x, "sup")
+            c2 = ds2.line_()
+            ds2.chart(ds2.x, "inf")
+            c3 = ds2.line_()
+            return c * c2 * c3
+        except Exception as e:
+            self.err(e, self._bokeh_quants, "Can not draw quantile chart")
+
     def _get_bokeh_chart(self, x_field, y_field, chart_type,
                          label, opts, style, options={}, **kwargs):
         """
         Get a Bokeh chart object
         """
-        if type(x_field) == list:
+        if isinstance(x_field, list):
             kdims = x_field
         else:
             kdims = [x_field]
-        if type(y_field) == list:
+        if isinstance(y_field, list):
             vdims = y_field
         else:
             vdims = [y_field]

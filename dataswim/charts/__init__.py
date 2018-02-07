@@ -76,7 +76,17 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             return self._get_chart("bar", style=style, opts=opts, label=label,
                                    options=options)
         except Exception as e:
-            self.err(e, self.chart, "Can draw bar chart")
+            self.err(e, self.bar_, "Can draw bar chart")
+
+    def quants_(self, inf, sup, chart_type="point",
+                color="green"):
+        """
+        Draw a chart to visualize quantiles
+        """
+        try:
+            return self._bokeh_quants(inf, sup, chart_type, color)
+        except Exception as e:
+            self.err(e, self.quants_, "Can draw quantile chart")
 
     def line_(self, label=None, style=None, opts=None, options={}):
         """
