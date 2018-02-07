@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 
-version = "0.4.11"
+version = "0.4.12"
 
 setup(
     name='dataswim',
@@ -32,6 +32,7 @@ setup(
         'influxdb',
         'chartjspy',
         "seaborn",
+        "arrow",
     ],
     zip_safe=False
 )

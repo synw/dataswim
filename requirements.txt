@@ -10,3 +10,4 @@ gencharts==0.4
 influxdb
 chartjspy
 seaborn
+arrow
