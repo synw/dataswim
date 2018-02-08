@@ -204,25 +204,6 @@ class Clean():
         except Exception as e:
             self.err(e)
 
-    def clean_ts(self, date_col, numeric_col=None, index=True, to_int=False,
-                 index_col=True):
-        """
-        Cleans and format a timeseries dataframe
-        """
-        try:
-            self.date(date_col)
-            if index is True:
-                self.dateindex(date_col)
-            if numeric_col is not None:
-                self.fill_nan(numeric_col)
-                if to_int is True:
-                    self.to_int(numeric_col)
-            if index_col is True:
-                self.index_col()
-            self.index_col(date_col)
-        except Exception as e:
-            self.err(e)
-
     def timestamps(self, col, **kwargs):
         """
         Add a timestamps column from a date column
