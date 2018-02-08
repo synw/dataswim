@@ -492,6 +492,19 @@ class Transform():
         if self.autoprint is True:
             self.ok("Diff column " + name + " added to the dataframe")
 
+    def gmean_(self, col, index_col=True):
+        """
+        Group by and mean column
+        """
+        try:
+            df = self.df.copy()
+            df = df.groupby([col]).mean()
+            if index_col is True:
+                df[col] = df.index.values
+            return self.clone_(df)
+        except Exception as e:
+            self.err(e, self.gmean_, "Can not meansum column")
+
     def gsum_(self, col, index_col=True):
         """
         Group by and sum column
@@ -503,7 +516,7 @@ class Transform():
                 df[col] = df.index.values
             return self.clone_(df)
         except Exception as e:
-            self.err(e, self.ratio, "Can not groupsum column")
+            self.err(e, self.gsum_, "Can not groupsum column")
 
     def ratio(self, col, ratio_col="Ratio"):
         """
