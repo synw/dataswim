@@ -208,6 +208,54 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         except Exception as e:
             self.err(e, self.line_point_, "Can draw line_point chart")
 
+    def mpoint_(self, col, x, y, rsum=None):
+        """
+        Splits a column into multiple series based on the column's
+        unique values. Then visualize theses series in a chart.
+        Parameters: column to split, x axis column, y axis column
+        Optional: rsum="1D" to resample and sum data
+        """
+        return self._multiseries(col, x, y, "point", rsum)
+
+    def mline_(self, col, x, y, rsum=None):
+        """
+        Splits a column into multiple series based on the column's
+        unique values. Then visualize theses series in a chart.
+        Parameters: column to split, x axis column, y axis column
+        Optional: rsum="1D" to resample and sum data
+        """
+        return self._multiseries(col, x, y, "line", rsum)
+
+    def _multiseries(self, col, x, y, ctype="point", rsum=None):
+        """
+        Chart multiple series from a column distinct values
+        """
+        chart = None
+        series = self.split_(col)
+        for key in series:
+            instance = series[key]
+            if rsum is not None:
+                instance.rsum(rsum)
+            instance.chart(x, y)
+            self.scolor_()
+            c = None
+            if ctype == "point":
+                c = instance.point_(key)
+            if ctype == "line":
+                instance.zero_nan(y)
+                c = instance.line_(key)
+            if ctype == "bar":
+                c = instance.bar_(key)
+            if c is None:
+                self.warning("Chart type " + ctype +
+                             " not supported, aborting")
+                return
+            if chart is None:
+                chart = c
+            else:
+                chart = chart * c
+        return chart
+
     def opts(self, dictobj):
         """
         Add or update an option value to defaults
