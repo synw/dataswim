@@ -54,7 +54,7 @@ class Select():
         try:
             df = self.df.copy()
             df.drop_duplicates(subset=[column], inplace=True)
-            return self.clone_(df)
+            return list(df[column])
         except Exception as e:
             self.err(e, self.unique_, "Can not select unique data")
 
