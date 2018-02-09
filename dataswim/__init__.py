@@ -7,7 +7,6 @@ from .report import Report
 from .errors import Errors
 from .messages import Messages
 
-
 version = "0.4.14"
 
 
@@ -45,6 +44,7 @@ class DataSwim(Db, Df, Plot, Report, Errors, Messages):
         self.static_path = None
         self.quiet = False
         self.nan = nan
+        self.color_index = 0
 
     def resetall(self):
         self.__init__(self.df, self.db)
