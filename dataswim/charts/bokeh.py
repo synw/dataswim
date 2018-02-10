@@ -63,6 +63,16 @@ class Bokeh():
         c = hv.HLine(self.df[col].mean())
         return c
 
+    """def spikes_(self, col, label=None):
+        ""
+        Returns spikes chart from a column mean value
+        ""
+        try:
+            chart = hv.Spikes(list(self.df[col]), self.x, self.y)
+            return chart
+        except Exception as e:
+            self.err(e, self.spikes_, "Can not fraw spikes chart")"""
+
     def _bokeh_quants(self, inf, sup, chart_type, color):
         """
         Draw a chart to visualize quantiles
@@ -125,12 +135,12 @@ class Bokeh():
                 chart = hv.Histogram(**args)
             elif chart_type == "errorBar":
                 chart = hv.ErrorBars(**args)
-            endchart = chart(plot=opts, style=style)
-            return endchart
             if chart is None:
                 self.err("Chart type " + chart_type +
                          " unknown", self._get_bokeh_chart)
                 return
+            endchart = chart(plot=opts, style=style)
+            return endchart
         except DataError as e:
             msg = "Column not found in " + x_field + " and " + y_field
             self.err(e, self._get_bokeh_chart, msg)
