@@ -1,3 +1,4 @@
+import holoviews as hv
 from .bokeh import Bokeh
 from .altair import Altair
 from .chartjs import Chartjs
@@ -76,7 +77,22 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             return self._get_chart("bar", style=style, opts=opts, label=label,
                                    options=options)
         except Exception as e:
-            self.err(e, self.bar_, "Can draw bar chart")
+            self.err(e, self.bar_, "Can not draw bar chart")
+
+    def sbar_(self, stack_index=None, label=None, style=None, opts=None,
+              options={}):
+        """
+        Get a stacked bar chart
+        """
+        self.opts(dict(stack_index=stack_index, color_index=stack_index))
+        try:
+            if stack_index is None:
+                self.err(self.sbar_, "Please provide a stack index parameter")
+            options["stack_index"] = stack_index
+            return self._get_chart("bar", style=style, opts=opts, label=label,
+                                   options=options)
+        except Exception as e:
+            self.err(e, self.sbar_, "Can not draw stacked bar chart")
 
     def quants_(self, inf, sup, chart_type="point",
                 color="green"):
@@ -86,7 +102,7 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         try:
             return self._bokeh_quants(inf, sup, chart_type, color)
         except Exception as e:
-            self.err(e, self.quants_, "Can draw quantile chart")
+            self.err(e, self.quants_, "Can not draw quantile chart")
 
     def line_(self, label=None, style=None, opts=None, options={}):
         """
@@ -96,7 +112,7 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             return self._get_chart("line", style=style, opts=opts,
                                    label=label, options=options)
         except Exception as e:
-            self.err(e, self.line_, "Can draw line chart")
+            self.err(e, self.line_, "Can not draw line chart")
 
     def area_(self, label=None, style=None, opts=None, options={}):
         """
@@ -106,7 +122,17 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             return self._get_chart("area", style=style, opts=opts,
                                    label=label, options=options)
         except Exception as e:
-            self.err(e, self.area_, "Can draw area chart")
+            self.err(e, self.area_, "Can not draw area chart")
+
+    def sarea_(self, col, x=None, y=None, rsum=None, rmean=None):
+        """
+        Get an stacked area chart
+        """
+        try:
+            charts = self._multiseries(col, x, y, "area", rsum, rmean)
+            return hv.Area.stack(charts)
+        except Exception as e:
+            self.err(e, self.area_, "Can not draw stacked area chart")
 
     def hist_(self, label=None, style=None, opts=None, options={}):
         """
@@ -116,7 +142,7 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             return self._get_chart("hist", style=style, opts=opts,
                                    label=label, options=options)
         except Exception as e:
-            self.err(e, self.hist_, "Can draw historiogram")
+            self.err(e, self.hist_, "Can not draw historiogram")
 
     def errorbar_(self, label=None, style=None, opts=None, options={}):
         """
@@ -126,7 +152,7 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             return self._get_chart("errorBar", style=style, opts=opts,
                                    label=label, options=options)
         except Exception as e:
-            self.err(e, self.errorbar_, "Can draw errorbar chart")
+            self.err(e, self.errorbar_, "Can not draw errorbar chart")
 
     def point_(self, label=None, style=None, opts=None, options={}):
         """
@@ -136,7 +162,7 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             return self._get_chart("point", style=style, opts=opts,
                                    label=label, options=options)
         except Exception as e:
-            self.err(e, self.point_, "Can draw point chart")
+            self.err(e, self.point_, "Can not draw point chart")
 
     def circle_(self, label=None, style=None, opts=None, options={}):
         """
@@ -146,7 +172,7 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             return self._get_chart("circle", style=style, opts=opts,
                                    label=label, options=options)
         except Exception as e:
-            self.err(e, self.point_, "Can draw circle chart")
+            self.err(e, self.point_, "Can not draw circle chart")
 
     def square_(self, label=None, style=None, opts=None, options={}):
         """
@@ -156,7 +182,7 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             return self._get_chart("square", style=style, opts=opts,
                                    label=label, options=options)
         except Exception as e:
-            self.err(e, self.point_, "Can draw square chart")
+            self.err(e, self.point_, "Can not draw square chart")
 
     def tick_(self, label=None, style=None, opts=None, options={}):
         """
@@ -166,7 +192,7 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             return self._get_chart("tick", style=style, opts=opts,
                                    label=label, options=options)
         except Exception as e:
-            self.err(e, self.point_, "Can draw tick chart")
+            self.err(e, self.point_, "Can not draw tick chart")
 
     def rule_(self, label=None, style=None, opts=None, options={}):
         """
@@ -176,7 +202,7 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             return self._get_chart("rule", style=style, opts=opts,
                                    label=label, options=options)
         except Exception as e:
-            self.err(e, self.point_, "Can draw rule chart")
+            self.err(e, self.point_, "Can not draw rule chart")
 
     def heatmap_(self, label=None, style=None, opts=None, options={}):
         """
@@ -186,7 +212,7 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             return self._get_chart("heatmap", style=style, opts=opts,
                                    label=label, options=options)
         except Exception as e:
-            self.err(e, self.heatmap_, "Can draw heatmap")
+            self.err(e, self.heatmap_, "Can not draw heatmap")
 
     def line_point_(self, label=None, style=None, opts=None, options={},
                     colors={"line": "orange", "point": "green"}):
@@ -206,14 +232,15 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
                                  label=label, options=options)
             return c * c2
         except Exception as e:
-            self.err(e, self.line_point_, "Can draw line_point chart")
+            self.err(e, self.line_point_, "Can not draw line_point chart")
 
     def mpoint_(self, col, x=None, y=None, rsum=None, rmean=None):
         """
         Splits a column into multiple series based on the column's
         unique values. Then visualize theses series in a chart.
         Parameters: column to split, x axis column, y axis column
-        Optional: rsum="1D" to resample and sum data
+        Optional: rsum="1D" to resample and sum data an rmean="1D"
+        to mean the data
         """
         return self._multiseries(col, x, y, "point", rsum, rmean)
 
@@ -222,16 +249,28 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         Splits a column into multiple series based on the column's
         unique values. Then visualize theses series in a chart.
         Parameters: column to split, x axis column, y axis column
-        Optional: rsum="1D" to resample and sum data
+        Optional: rsum="1D" to resample and sum data an rmean="1D"
+        to mean the data
         """
         return self._multiseries(col, x, y, "line", rsum, rmean)
+
+    def mbar_(self, col, x=None, y=None, rsum=None, rmean=None):
+        """
+        Splits a column into multiple series based on the column's
+        unique values. Then visualize theses series in a chart.
+        Parameters: column to split, x axis column, y axis column
+        Optional: rsum="1D" to resample and sum data an rmean="1D"
+        to mean the data
+        """
+        return self._multiseries(col, x, y, "bar", rsum, rmean)
 
     def mline_point_(self, col, x=None, y=None, rsum=None, rmean=None):
         """
         Splits a column into multiple series based on the column's
         unique values. Then visualize theses series in a chart.
         Parameters: column to split, x axis column, y axis column
-        Optional: rsum="1D" to resample and sum data
+        Optional: rsum="1D" to resample and sum data an rmean="1D"
+        to mean the data
         """
         line = self._multiseries(col, x, y, "line", rsum, rmean)
         point = self._multiseries(col, x, y, "point", rsum, rmean)
@@ -242,18 +281,7 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         Chart multiple series from a column distinct values
         """
         self.autoprint = False
-        if x is None:
-            if self.x is not None:
-                x = self.x
-            else:
-                self.warning("X axis is not set. Please provide a"
-                             "parameter or set it globaly")
-        if y is None:
-            if self.y is not None:
-                x = self.y
-            else:
-                self.warning("Y axis is not set. Please provide a"
-                             "parameter or set it globaly")
+        x, y = self._check_fields(x, y)
         chart = None
         series = self.split_(col)
         for key in series:
@@ -272,6 +300,8 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
                 c = instance.line_(key)
             if ctype == "bar":
                 c = instance.bar_(key)
+            if ctype == "area":
+                c = instance.area_(label=key)
             if c is None:
                 self.warning("Chart type " + ctype +
                              " not supported, aborting")
