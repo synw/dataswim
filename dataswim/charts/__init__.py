@@ -266,17 +266,23 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         point = self._multiseries(col, x, y, "point", rsum, rmean)
         return line * point
 
-    def arrow_(self, xloc, yloc, text, orientation="v"):
+    def arrow_(self, xloc, yloc, text, orientation="v", arrowstyle='->'):
         """
         Returns an arrow for a chart. Params: the text, xloc and yloc are
         coordinates to position the arrow. Orientation is the way to display
-        the arrow: possible values are [<, ^, >, v]
+        the arrow: possible values are [<, ^, >, v]. Arrow style is the
+        graphic style of the arrow: possible values: [-, ->, -[, -|>, <->, <|-|>]
         """
         try:
-            arrow = hv.Arrow(xloc, yloc, text, orientation)
+            arrow = hv.Arrow(
+                xloc,
+                yloc,
+                text,
+                orientation,
+                arrowstyle=arrowstyle)
             return arrow
         except Exception as e:
-            self.err(e, self.arrow_, "Can not draw arro<")
+            self.err(e, self.arrow_, "Can not draw arrow chart")
 
     def _multiseries(self, col, x, y, ctype, rsum, rmean):
         """
