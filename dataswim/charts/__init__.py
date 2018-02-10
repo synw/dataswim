@@ -132,7 +132,7 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             charts = self._multiseries(col, x, y, "area", rsum, rmean)
             return hv.Area.stack(charts)
         except Exception as e:
-            self.err(e, self.area_, "Can not draw stacked area chart")
+            self.err(e, self.sarea_, "Can not draw stacked area chart")
 
     def hist_(self, label=None, style=None, opts=None, options={}):
         """
@@ -172,7 +172,7 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             return self._get_chart("circle", style=style, opts=opts,
                                    label=label, options=options)
         except Exception as e:
-            self.err(e, self.point_, "Can not draw circle chart")
+            self.err(e, self.circle_, "Can not draw circle chart")
 
     def square_(self, label=None, style=None, opts=None, options={}):
         """
@@ -182,17 +182,7 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             return self._get_chart("square", style=style, opts=opts,
                                    label=label, options=options)
         except Exception as e:
-            self.err(e, self.point_, "Can not draw square chart")
-
-    def tick_(self, label=None, style=None, opts=None, options={}):
-        """
-        Get a tick chart
-        """
-        try:
-            return self._get_chart("tick", style=style, opts=opts,
-                                   label=label, options=options)
-        except Exception as e:
-            self.err(e, self.point_, "Can not draw tick chart")
+            self.err(e, self.square_, "Can not draw square chart")
 
     def rule_(self, label=None, style=None, opts=None, options={}):
         """
@@ -202,7 +192,7 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
             return self._get_chart("rule", style=style, opts=opts,
                                    label=label, options=options)
         except Exception as e:
-            self.err(e, self.point_, "Can not draw rule chart")
+            self.err(e, self.rule_, "Can not draw rule chart")
 
     def heatmap_(self, label=None, style=None, opts=None, options={}):
         """
