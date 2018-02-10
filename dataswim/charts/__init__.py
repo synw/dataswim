@@ -266,6 +266,18 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         point = self._multiseries(col, x, y, "point", rsum, rmean)
         return line * point
 
+    def arrow_(self, xloc, yloc, text, orientation="v"):
+        """
+        Returns an arrow for a chart. Params: the text, xloc and yloc are
+        coordinates to position the arrow. Orientation is the way to display
+        the arrow: possible values are [<, ^, >, v]
+        """
+        try:
+            arrow = hv.Arrow(xloc, yloc, text, orientation)
+            return arrow
+        except Exception as e:
+            self.err(e, self.arrow_, "Can not draw arro<")
+
     def _multiseries(self, col, x, y, ctype, rsum, rmean):
         """
         Chart multiple series from a column distinct values
