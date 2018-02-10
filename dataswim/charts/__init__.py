@@ -208,34 +208,60 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         except Exception as e:
             self.err(e, self.line_point_, "Can draw line_point chart")
 
-    def mpoint_(self, col, x, y, rsum=None):
+    def mpoint_(self, col, x=None, y=None, rsum=None, rmean=None):
         """
         Splits a column into multiple series based on the column's
         unique values. Then visualize theses series in a chart.
         Parameters: column to split, x axis column, y axis column
         Optional: rsum="1D" to resample and sum data
         """
-        return self._multiseries(col, x, y, "point", rsum)
+        return self._multiseries(col, x, y, "point", rsum, rmean)
 
-    def mline_(self, col, x, y, rsum=None):
+    def mline_(self, col, x=None, y=None, rsum=None, rmean=None):
         """
         Splits a column into multiple series based on the column's
         unique values. Then visualize theses series in a chart.
         Parameters: column to split, x axis column, y axis column
         Optional: rsum="1D" to resample and sum data
         """
-        return self._multiseries(col, x, y, "line", rsum)
+        return self._multiseries(col, x, y, "line", rsum, rmean)
 
-    def _multiseries(self, col, x, y, ctype="point", rsum=None):
+    def mline_point_(self, col, x=None, y=None, rsum=None, rmean=None):
+        """
+        Splits a column into multiple series based on the column's
+        unique values. Then visualize theses series in a chart.
+        Parameters: column to split, x axis column, y axis column
+        Optional: rsum="1D" to resample and sum data
+        """
+        line = self._multiseries(col, x, y, "line", rsum, rmean)
+        point = self._multiseries(col, x, y, "point", rsum, rmean)
+        return line * point
+
+    def _multiseries(self, col, x, y, ctype, rsum, rmean):
         """
         Chart multiple series from a column distinct values
         """
+        self.autoprint = False
+        if x is None:
+            if self.x is not None:
+                x = self.x
+            else:
+                self.warning("X axis is not set. Please provide a"
+                             "parameter or set it globaly")
+        if y is None:
+            if self.y is not None:
+                x = self.y
+            else:
+                self.warning("Y axis is not set. Please provide a"
+                             "parameter or set it globaly")
         chart = None
         series = self.split_(col)
         for key in series:
             instance = series[key]
             if rsum is not None:
-                instance.rsum(rsum)
+                instance.rsum(rsum, index_col=x)
+            if rmean is not None:
+                instance.rmean(rmean, index_col=x)
             instance.chart(x, y)
             self.scolor_()
             c = None
@@ -254,6 +280,7 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
                 chart = c
             else:
                 chart = chart * c
+        self.autoprint = True
         return chart
 
     def opts(self, dictobj):
@@ -306,33 +333,37 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         """
         self.chart_style = {}
 
-    def _get_chart(self, chart_type, x=None, y=None, style=None, opts=None,
-                   label=None, options={}, **kwargs):
+    def _check_fields(self, x, y):
         """
-        Get a full chart object
+        Check x and y fields parameters and initialize
         """
         if x is None:
             if self.x is None:
                 self.err(
-                    self._get_chart,
+                    self._check_fields,
                     "X field is not set: please specify a parameter")
                 return
             x = self.x
         if y is None:
             if self.y is None:
                 self.err(
-                    self._get_chart,
+                    self._check_fields,
                     "Y field is not set: please specify a parameter")
                 return
             y = self.y
+        return x, y
+
+    def _get_chart(self, chart_type, x=None, y=None, style=None, opts=None,
+                   label=None, options={}, **kwargs):
+        """
+        Get a full chart object
+        """
+        x, y = self._check_fields(x, y)
+        self.trace()
         if opts is None:
             opts = self.chart_opts
         if style is None:
             style = self.chart_style
-        if x is None:
-            x = self.x
-        if y is None:
-            y = self.y
         if self.engine == "bokeh":
             func = self._get_bokeh_chart
         elif self.engine == "altair":
@@ -357,12 +388,12 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         Checks if charts defaults are set
         """
         if self.x is None:
-            self.err(
-                self.linear_, "X field is not set: please specify a parameter")
+            self.err(self._check_defaults,
+                     "X field is not set: please specify a parameter")
             return
         if x_only is True:
             return
         if self.y is None:
-            self.err(
-                self.linear_, "Y field is not set: please specify a parameter")
+            self.err(self._check_defaults,
+                     "Y field is not set: please specify a parameter")
             return
