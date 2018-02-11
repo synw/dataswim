@@ -149,6 +149,8 @@ class Bokeh():
                 chart = hv.Histogram(**args)
             elif chart_type == "errorBar":
                 chart = hv.ErrorBars(**args)
+            elif chart_type == "heatmap":
+                chart = hv.HeatMap(**args)
             elif chart_type == "sline":
                 window_size, y_label = options["window_size"], options["y_label"]
                 chart = self._sline(window_size, y_label)
