@@ -1,4 +1,5 @@
 import holoviews as hv
+import numpy as np
 from bokeh.embed import components
 from holoviews.core.data.interface import DataError
 
@@ -73,6 +74,19 @@ class Bokeh():
         except Exception as e:
             self.err(e, self.spikes_, "Can not fraw spikes chart")"""
 
+    def _sline(self, window_size, y_label):
+        """
+        Returns a chart with a smooth line from a serie
+        """
+        try:
+            ds2 = self.clone_()
+            window = np.ones(int(window_size)) / float(window_size)
+            ds2.df[y_label] = np.convolve(self.df[self.y], window, 'same')
+            ds2.chart(self.x, y_label)
+            return ds2.line_()
+        except Exception as e:
+            self.err(e, self._sline, "Can not draw smooth line chart")
+
     def _bokeh_quants(self, inf, sup, chart_type, color):
         """
         Draw a chart to visualize quantiles
@@ -135,6 +149,9 @@ class Bokeh():
                 chart = hv.Histogram(**args)
             elif chart_type == "errorBar":
                 chart = hv.ErrorBars(**args)
+            elif chart_type == "sline":
+                window_size, y_label = options["window_size"], options["y_label"]
+                chart = self._sline(window_size, y_label)
             if chart is None:
                 self.err("Chart type " + chart_type +
                          " unknown", self._get_bokeh_chart)

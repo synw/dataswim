@@ -114,6 +114,19 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         except Exception as e:
             self.err(e, self.line_, "Can not draw line chart")
 
+    def sline_(self, window_size=5,
+               y_label="Moving average", chart_label=None):
+        """
+        Get a moving average curve chart to smooth between points
+        """
+        options = dict(window_size=window_size, y_label=y_label)
+        try:
+            return self._get_chart("sline", style=self.chart_style,
+                                   opts=self.chart_opts, label=chart_label,
+                                   options=options)
+        except Exception as e:
+            self.err(e, self.sline_, "Can not draw smooth curve chart")
+
     def area_(self, label=None, style=None, opts=None, options={}):
         """
         Get an area chart
@@ -396,7 +409,8 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         """
         Get a full chart object
         """
-        x, y = self._check_fields(x, y)
+        if chart_type != "sline":
+            x, y = self._check_fields(x, y)
         self.trace()
         if opts is None:
             opts = self.chart_opts
