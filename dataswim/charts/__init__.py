@@ -217,6 +217,16 @@ class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
         except Exception as e:
             self.err(e, self.heatmap_, "Can not draw heatmap")
 
+    def lreg_(self, label=None, style=None, opts=None, options={}):
+        """
+        Get a linear regression chart
+        """
+        try:
+            return self._get_chart("lreg", style=style, opts=opts,
+                                   label=label, options=options)
+        except Exception as e:
+            self.err(e, self.rule_, "Can not draw linear regression chart")
+
     def line_point_(self, label=None, style=None, opts=None, options={},
                     colors={"line": "orange", "point": "green"}):
         """

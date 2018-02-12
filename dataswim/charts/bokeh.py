@@ -74,7 +74,7 @@ class Bokeh():
         except Exception as e:
             self.err(e, self.spikes_, "Can not fraw spikes chart")"""
 
-    def _sline(self, window_size, y_label):
+    def _sline_bokeh(self, window_size, y_label):
         """
         Returns a chart with a smooth line from a serie
         """
@@ -85,7 +85,22 @@ class Bokeh():
             ds2.chart(self.x, y_label)
             return ds2.line_()
         except Exception as e:
-            self.err(e, self._sline, "Can not draw smooth line chart")
+            self.err(e, self._sline_bokeh, "Can not draw smooth line chart")
+
+    def _lreg_bokeh(self):
+        """
+        Returns a Bokeh linear regression chart
+        """
+        try:
+            ds2 = self.clone_()
+            ds2.timestamps(ds2.x)
+            ds2.lreg("Timestamps", ds2.y)
+            ds2.chart(ds2.x, "Linear regression")
+            c = ds2.line_()
+            return c
+        except Exception as e:
+            self.err(e, self._lreg_bokeh,
+                     "Can not draw linear regression chart")
 
     def _bokeh_quants(self, inf, sup, chart_type, color):
         """
@@ -151,9 +166,11 @@ class Bokeh():
                 chart = hv.ErrorBars(**args)
             elif chart_type == "heatmap":
                 chart = hv.HeatMap(**args)
+            elif chart_type == "lreg":
+                chart = self._lreg_bokeh()
             elif chart_type == "sline":
                 window_size, y_label = options["window_size"], options["y_label"]
-                chart = self._sline(window_size, y_label)
+                chart = self._sline_bokeh(window_size, y_label)
             if chart is None:
                 self.err("Chart type " + chart_type +
                          " unknown", self._get_bokeh_chart)
