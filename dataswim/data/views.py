@@ -143,13 +143,13 @@ class View():
         df = pd.DataFrame(all_types, index=["type", "num"])
         return self.clone_(df)
 
-    def cols(self):
+    def cols(self, limit=100):
         """
         Prints columns info
         """
         try:
             df = self._cols()
-            return df.head(100)
+            return df.head(limit)
         except Exception as e:
             self.err(e, self._cols, "Can not display column infos")
 
