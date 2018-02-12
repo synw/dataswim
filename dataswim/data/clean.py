@@ -212,9 +212,15 @@ class Clean():
             name = "Timestamps"
             if "name" in kwargs:
                 name = kwargs["name"]
-            self.add(name, 0)
-            self.df[col] = pd.to_datetime(self.df[col], errors="coerce",
-                                          unit="ms")
+            if "errors" not in kwargs:
+                kwargs["errors"] = "coerce"
+            if "unit" in kwargs:
+                kwargs["unit"] = "ms"
+            #self.add(name, 0)
+            try:
+                self.df[col] = pd.to_datetime(self.df[col], **kwargs)
+            except TypeError:
+                pass
             ts = []
             for el in self.df[col]:
                 ts.append(arrow.get(el).timestamp)
