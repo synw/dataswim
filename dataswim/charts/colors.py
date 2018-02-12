@@ -29,7 +29,7 @@ class Colors():
         color_num += 1
         return res
 
-    def scolor_(self):
+    def scolor(self):
         """
         Set a unique color from a serie
         """
