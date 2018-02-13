@@ -65,7 +65,7 @@ class Map():
             kwargs["color"] = color
         if style is None:
             style = "font-size:18pt;font-weight:bold;" + \
-                "color:#35A1D2;border-radius:0.5"
+                "color:black;border-radius:0.5"
         try:
             xicon1 = folium.Icon(**kwargs)
             if text_mark is True:
