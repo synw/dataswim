@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 
-version = "0.4.14"
+version = "0.4.15"
 
 setup(
     name='dataswim',
