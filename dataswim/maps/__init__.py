@@ -1,4 +1,5 @@
 import folium
+from folium.features import DivIcon
 
 
 class Map():
@@ -9,40 +10,79 @@ class Map():
         """
         self.dsmap = None
 
-    def marker(self, lat, long, text, color="darkslategrey", icon=None):
+    def tmarker(self, lat, long, text, color=None, icon=None, style=None):
         """
-        Adds a marker to the default map
+        Returns the map with a text marker to the default map
         """
         try:
-            xicon = folium.Icon(color=color, icon=icon)
-            folium.Marker([lat, long], popup=text,
-                          icon=xicon).add_to(self.dsmap)
+            self.dsmap = self._marker(
+                lat, long, text, self.dsmap, color, icon, True, style)
+            return self.dsmap
+        except Exception as e:
+            self.err(e, self.tmarker, "Can not get text marker")
+
+    def tmarker_(self, lat, long, text, pmap,
+                 color=None, icon=None, style=None):
+        """
+        Returns the map with a text marker to the default map
+        """
+        try:
+            xmap = self._marker(
+                lat, long, text, pmap, color, icon, True, style)
+            return xmap
+        except Exception as e:
+            self.err(e, self.tmarker_, "Can not get text marker")
+
+    def marker_(self, lat, long, text, pmap, color=None, icon=None):
+        """
+        Returns the map with a marker to the default map
+        """
+        try:
+            xmap = self._marker(lat, long, text, pmap, color, icon)
+            return xmap
+        except Exception as e:
+            self.err(e, self.marker_, "Can not get marker")
+
+    def marker(self, lat, long, text, color=None, icon=None):
+        """
+        Set the main map with a marker to the default map
+        """
+        try:
+            self.dsmap = self._marker(lat, long, text, self.dsmap, color, icon)
+            return self.dsmap
         except Exception as e:
             self.err(e, self.marker, "Can not get marker")
 
-    def marker_(self, lat, long, text, xmap,
-                icon=None, color=None):
+    def _marker(self, lat, long, text, xmap, color=None, icon=None,
+                text_mark=False, style=None):
         """
-        Adds a marker to a map
+        Adds a marker to the default map
         """
         kwargs = {}
-        xicon = None
         if icon is not None:
             kwargs["icon"] = icon
         if color is not None:
             kwargs["color"] = color
-        if len(kwargs) > 0:
-            xicon = folium.Icon(**kwargs)
+        if style is None:
+            style = "font-size:18pt;font-weight:bold;" + \
+                "color:#35A1D2;border-radius:0.5"
         try:
-            kwargs = dict()
-            if xicon is not None:
-                kwargs["icon"] = xicon
-            folium.Marker([lat, long], popup=text, **kwargs).add_to(xmap)
+            xicon1 = folium.Icon(**kwargs)
+            if text_mark is True:
+                xicon = DivIcon(
+                    icon_size=(150, 36),
+                    icon_anchor=(0, 0),
+                    html='<div style="' + style + '">' + text + '</div>',
+                )
+                folium.Marker([lat, long], popup=text,
+                              icon=xicon).add_to(xmap)
+            folium.Marker([lat, long], popup=text,
+                          icon=xicon1).add_to(xmap)
             return xmap
         except Exception as e:
-            self.err(e, self.marker, "Can not get marker")
+            self.err(e, self._marker, "Can not get marker")
 
-    def map_(self, lat, long, zoom=10, tiles="map"):
+    def map_(self, lat, long, zoom=13, tiles="map"):
         """
         Returns a map
         """
@@ -51,16 +91,16 @@ class Map():
         except Exception as e:
             self.err(e, self.map_, "Can not get map")
 
-    def map(self, lat, long, zoom=10, tiles="map"):
+    def map(self, lat, long, zoom=13, tiles="map"):
         """
         Sets a map
         """
         try:
-            self.map = self._map(lat, long, zoom, tiles)
+            self.dsmap = self._map(lat, long, zoom, tiles)
         except Exception as e:
             self.err(e, self.map, "Can not get map")
 
-    def _map(self, lat, long, zoom=10, tiles="map"):
+    def _map(self, lat, long, zoom, tiles):
         """
         Returns a map
         """
@@ -71,11 +111,11 @@ class Map():
         elif tiles == "basic":
             tiles = "Stamen Toner"
         try:
-            map = folium.Map(
+            xmap = folium.Map(
                 location=[lat, long],
                 tiles=tiles,
                 zoom_start=zoom
             )
-            return map
+            return xmap
         except Exception as e:
             self.err(e, self._map, "Can not make map")
