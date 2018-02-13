@@ -422,6 +422,24 @@ class Clean():
         except Exception as e:
             self.err(e, self.trimquants, "Can not trim quantiles")
 
+    def trimsquants(self, col, sup):
+        """
+        Remove superior quantiles from the dataframe
+        """
+        try:
+            self.set(self._trimquants(col, None, sup))
+        except Exception as e:
+            self.err(e, self.trimsquants, "Can not trim superior quantiles")
+
+    def trimiquants(self, col, inf):
+        """
+        Remove superior and inferior quantiles from the dataframe
+        """
+        try:
+            self.set(self._trimquants(col, inf, None))
+        except Exception as e:
+            self.err(e, self.trimiquants, "Can not trim inferior quantiles")
+
     def _trimquants(self, col, inf, sup):
         """
         Remove superior and inferior quantiles from the dataframe
@@ -429,15 +447,24 @@ class Clean():
         """
         try:
             ds2 = self.clone_()
-            qi = ds2.df[col].quantile(inf)
-            qs = ds2.df[col].quantile(sup)
-            ds2.df = ds2.df[ds2.df[col] < qs]
-            ds2.df = ds2.df[ds2.df[col] > qi]
+            if inf is not None:
+                qi = ds2.df[col].quantile(inf)
+                ds2.df = ds2.df[ds2.df[col] > qi]
+            if sup is not None:
+                qs = ds2.df[col].quantile(sup)
+                ds2.df = ds2.df[ds2.df[col] < qs]
+
         except Exception as e:
             self.err(e, self._trimquants, "Can not trim quantiles")
         if self.autoprint is True:
-            self.ok("Removed values under", str(qi), "and upper", str(qs),
-                    "in column", col)
+            msg = "Removed values "
+            if inf is not None:
+                msg += "under " + str(qi)
+            if sup is not None and inf is not None:
+                msg += " and"
+            if sup is not None:
+                msg += "upper " + str(qs)
+            self.ok(msg, "in column", col)
         return ds2.df
 
     def format_date_(self, date):
