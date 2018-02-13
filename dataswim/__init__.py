@@ -2,6 +2,7 @@ import pandas as pd
 from numpy.core.numeric import nan
 from .db import Db
 from .charts import Plot
+from .maps import Map
 from .data import Df
 from .report import Report
 from .errors import Errors
@@ -10,7 +11,7 @@ from .messages import Messages
 version = "0.4.14"
 
 
-class DataSwim(Db, Df, Plot, Report, Errors, Messages):
+class DataSwim(Db, Df, Plot, Map, Report, Errors, Messages):
     """
     Main class
     """
@@ -45,6 +46,7 @@ class DataSwim(Db, Df, Plot, Report, Errors, Messages):
         self.quiet = False
         self.nan = nan
         self.color_index = 0
+        self.dsmap = None
 
     def resetall(self):
         self.__init__(self.df, self.db)

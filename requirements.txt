@@ -11,3 +11,4 @@ influxdb
 chartjspy
 seaborn
 arrow
+folium

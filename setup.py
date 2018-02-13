@@ -33,6 +33,7 @@ setup(
         'chartjspy',
         "seaborn",
         "arrow",
+        "folium",
     ],
     zip_safe=False
 )
