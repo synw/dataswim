@@ -79,7 +79,8 @@ connecting to a Django database.
 
 **Resample data**: shows how to resample data by time periods. Uses fake Django user registration data
 
-**Linear regression**: shows how to draw linear regression charts. Uses fake Django user registration data
+**Linear regression**: shows how to draw linear regression charts and deal with extreme values. 
+Uses fake Django user registration data
 
 **Data exploration**: shows how to explore data. Uses a Starwars dataset
 
