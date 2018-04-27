@@ -14,12 +14,12 @@ class Search():
 
     def contains(self, column, value):
         """
-        Returns a dataframe instance with rows that contains a string
+        Set the main dataframe instance to rows that contains a string
         value in a column
         """
         try:
             df = self._contains(column, value)
-            return df
+            self.df = df
         except KeyError:
             self.err(self.contains, "Can not find " +
                      colors.bold(column) + " column")
@@ -58,12 +58,12 @@ class Search():
 
     def exact(self, column, *values):
         """
-        Returns a dataframe with rows that has the exact string
+        Sets the main dataframe to rows that has the exact string
         value in a column
         """
         try:
             df = self._exact(column, *values)
-            return df
+            self.df = df
         except KeyError:
             self.err(self.exact, "Can not find " +
                      colors.bold(column) + " column")
