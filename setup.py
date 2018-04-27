@@ -34,6 +34,7 @@ setup(
         "seaborn",
         "arrow",
         "folium",
+        "nltk",
     ],
     zip_safe=False
 )

@@ -1,5 +1,5 @@
 pandas
-pandas-profiling
+scikit-learn
 dataset
 goerr
 pytablewriter
@@ -12,3 +12,4 @@ chartjspy
 seaborn
 arrow
 folium
+nltk
