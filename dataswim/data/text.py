@@ -8,6 +8,23 @@ class Text():
     Class to process text
     """
 
+    def flat_(self, col, nums=True):
+        """
+        Returns a flat representation of a column's values
+        """
+        try:
+            res = ""
+            i = 0
+            for el in self.df[col].tolist():
+                if nums is True:
+                    res = res + str(i) + " " + el + " "
+                else:
+                    res = res + el + " "
+                i += 1
+            return res
+        except Exception as e:
+            self.err(e, self.first, "Can not display " + col)
+
     def mfw_(self, col, sw_lang="english", limit=100):
         """
         Returns a Dataswim instance with the most frequent words in a
