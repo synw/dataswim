@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
+import deepdish as dd
 from goerr import err
 from .views import View
 from .clean import Clean
@@ -181,6 +182,21 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
             self.set(df)
         except Exception as e:
             self.err(e, self.load_excel, "Can not load json")
+
+    def load_h5(self, filepath):
+        """
+        Load a Hdf5 file to the main dataframe
+        """
+        try:
+            if self.autoprint is True:
+                self.start("Loading Hdf5 data...")
+            ds2 = self.clone_()
+            ds2.df = dd.io.load(filepath)
+            self = ds2
+            if self.autoprint is True:
+                self.end("Finished loading Hdf5 data...")
+        except Exception as e:
+            self.err(e, self.load_excel, "Can not load Hdf5 file")
 
     def load_excel(self, filepath, **kwargs):
         """

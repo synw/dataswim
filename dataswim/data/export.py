@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pytablewriter
+import deepdish as dd
 
 
 class Export():
@@ -23,6 +24,20 @@ class Export():
         renderer = pytablewriter.JsonTableWriter
         data = self._build_export(renderer)
         return data
+
+    def to_h5_(self, filepath):
+        """
+        Export the main dataframe as Hdf5 file
+        """
+        try:
+            if self.autoprint is True:
+                self.start("Saving data to Hdf5...")
+            dd.io.save(filepath, self.df)
+            if self.autoprint is True:
+                self.end("Finished saving Hdf5 data")
+        except Exception as e:
+            self.err("data.Export.to_h5_", e)
+            return
 
     def to_markdown_(self):
         """
