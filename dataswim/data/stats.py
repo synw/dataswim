@@ -25,11 +25,10 @@ class Stats():
         Returns the coefficient of variance of a column
         """
         try:
-            v = np.var(self.df[col]), np.std(
-                self.df[col]) / np.mean(self.df[col])
-            return v[1]
+            v = np.std(self.df[col]) / np.mean(self.df[col])
+            return v
         except Exception as e:
             self.err(
                 e,
-                self.lreg,
+                self.cvar,
                 "Can not calculate coefficient of variation")
