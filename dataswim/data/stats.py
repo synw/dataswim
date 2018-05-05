@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*
+import numpy as np
 from sklearn import linear_model
 
 
@@ -18,3 +19,17 @@ class Stats():
             self.df[name] = predictions
         except Exception as e:
             self.err(e, self.lreg, "Can not calculate linear regression")
+
+    def cvar_(self, col):
+        """
+        Returns the coefficient of variance of a column
+        """
+        try:
+            v = np.var(self.df[col]), np.std(
+                self.df[col]) / np.mean(self.df[col])
+            return v[1]
+        except Exception as e:
+            self.err(
+                e,
+                self.lreg,
+                "Can not calculate coefficient of variation")
