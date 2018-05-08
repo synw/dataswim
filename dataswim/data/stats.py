@@ -23,12 +23,13 @@ class Stats():
     def cvar_(self, col):
         """
         Returns the coefficient of variance of a column
+        in percentage
         """
         try:
-            v = np.std(self.df[col]) / np.mean(self.df[col])
+            v = (np.std(self.df[col]) / np.mean(self.df[col])) * 100
             return v
         except Exception as e:
             self.err(
                 e,
                 self.cvar,
-                "Can not calculate coefficient of variation")
+                "Can not calculate coefficient of variance")
