@@ -6,11 +6,19 @@ A simple api to explore, clean, transform and visualize data. This api is:
 - **Pragmatic**: focuses on raw efficiency rather than idiomatic code
 - **Simple stupid**: keep it easy to understand for both code and api
 
+## Features
+
+- **Explore data**: describe, search and visualize raw data
+- **Clean and transform data**: select, filter, normalize and reshape data
+- **Visualize data**: many kind of charts and maps for geo data
+
 ## Dependencies
 
-[Pandas](https://github.com/pandas-dev/pandas) to work with data
+To compute data:
 
-[Dataset](https://dataset.readthedocs.io/en/latest/) and [Sql Alchemy](http://www.sqlalchemy.org) to work with databases
+- [Pandas](https://github.com/pandas-dev/pandas)
+- [Scikit-learn](http://scikit-learn.org)
+- [Nltk](https://www.nltk.org/)
 
 To chart data:
 
@@ -18,6 +26,11 @@ To chart data:
 - [Vega Lite](https://vega.github.io/vega-lite/) with [Altair](https://altair-viz.github.io/) 
 - [Seaborn](http://seaborn.pydata.org)
 - [Chartjs](http://www.chartjs.org/)
+- [Folium](https://github.com/python-visualization/folium) for the maps
+
+To handle databases:
+
+- [Dataset](https://dataset.readthedocs.io/en/latest/) and [Sql Alchemy](http://www.sqlalchemy.org)
 
 ## Supported databases
 
