@@ -2,7 +2,6 @@
 
 import pandas as pd
 import deepdish as dd
-from goerr import err
 from .views import View
 from .clean import Clean
 from .count import Count
@@ -66,14 +65,14 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
         except Exception as e:
             self.err(e, self.clone_, "Can not clone instance")
 
-    def set(self, df):
+    def set(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         Set a main dataframe
         """
         try:
             self.df = df.copy()
         except Exception as e:
-            self.err(e, self.set, "Can not set the main dataframe")
+            self.err(e)
 
     def backup(self):
         """
@@ -82,9 +81,9 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
         try:
             self.backup_df = self.df.copy()
         except Exception as e:
-            self.err(e, self.backup, "Can not backup data")
-        if self.autoprint is True:
-            self.ok("Dataframe backed up")
+            self.err(e, "Can not backup data")
+            return
+        self.ok("Dataframe backed up")
 
     def restore(self):
         """
@@ -126,7 +125,7 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
             df = self._load_data(dataset)
             self.df = df
         except Exception as e:
-            err.new(e, self.load_data, "Can not load dataset")
+            self.err(e, self.load_data, "Can not load dataset")
 
     def load_data_(self, dataset):
         """
@@ -136,7 +135,7 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
             df = self._load_data(dataset)
             return self.clone_(df)
         except Exception as e:
-            err.new(e, self._load_data, "Can not load dataset")
+            self.err(e, self._load_data, "Can not load dataset")
 
     def _load_data(self, dataset):
         """
@@ -151,14 +150,12 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
             elif isinstance(dataset, list):
                 return pd.DataFrame(dataset)
             else:
-                err.new(self._load_data,
-                        "Data format unknown: "
-                        + str(type(dataset)) +
-                        " please provide a dictionnary, a list or a Pandas DataFrame")
+                self.err(self._load_data,
+                         "Data format unknown: "
+                         + str(type(dataset)) +
+                         " please provide a dictionnary, a list or a Pandas DataFrame")
         except Exception as e:
-            err.new(e, self._load_data, "Can not convert dataset")
-        if err.exists:
-            err.throw()
+            self.err(e, self._load_data, "Can not convert dataset")
         return df
 
     def _dict_to_df(self, dictobj):

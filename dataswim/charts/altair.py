@@ -1,4 +1,3 @@
-from goerr import err
 from gencharts import ChartsGenerator
 
 

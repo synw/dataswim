@@ -3,13 +3,17 @@ import time
 import arrow
 import pandas as pd
 from numpy.core.numeric import nan
+from goerr import Trace
 from goerr.colors import colors
 
 
-class Clean():
+class Clean(Trace):
     """
     Class to clean the data
     """
+
+    def __init__(self, df=None):
+        self.df = df
 
     def drop_nan(self, field=None, method="all", **kwargs):
         """
@@ -21,7 +25,7 @@ class Clean():
             else:
                 self.df = self.df[self.df[field].notnull()]
         except Exception as e:
-            self.err(e, self.drop_nan, "Error droping nan values")
+            self.err(e, "Error dropping nan values")
 
     def nan_empty(self, field):
         """

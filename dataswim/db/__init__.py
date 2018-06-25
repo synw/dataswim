@@ -1,7 +1,6 @@
 from numpy.core.numeric import nan
 import dataset
 import pandas as pd
-from goerr import err
 from .infos import Info
 from .select import Select
 from .relations import Relation
@@ -73,7 +72,8 @@ class Db(Info, Select, Insert, Relation, InfluxDb):
             self.ok("Data loaded from table", table)
         return ds2.df
 
-    def load_django(self, query, dateindex=None, index_col=None, fill_col=None):
+    def load_django(self, query, dateindex=None,
+                    index_col=None, fill_col=None):
         """
         Returns a DataSwim instance from a django orm query
         """
@@ -82,7 +82,8 @@ class Db(Info, Select, Insert, Relation, InfluxDb):
         except Exception as e:
             self.err(e, self.load_django, "Can not load data from query")
 
-    def load_django_(self, query, dateindex=None, index_col=None, fill_col=None):
+    def load_django_(self, query, dateindex=None,
+                     index_col=None, fill_col=None):
         """
         Returns a DataSwim instance from a django orm query
         """

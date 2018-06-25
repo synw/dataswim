@@ -1,17 +1,17 @@
 import pandas as pd
 from numpy.core.numeric import nan
+from goerr import Trace
 from .db import Db
 from .charts import Plot
 from .maps import Map
 from .data import Df
 from .report import Report
-from .errors import Errors
 from .messages import Messages
 
 version = "0.4.18"
 
 
-class DataSwim(Db, Df, Plot, Map, Report, Errors, Messages):
+class DataSwim(Db, Df, Plot, Map, Report, Messages, Trace):
     """
     Main class
     """
@@ -48,9 +48,6 @@ class DataSwim(Db, Df, Plot, Map, Report, Errors, Messages):
         self.color_index = 0
         self.dsmap = None
 
-    def resetall(self):
-        self.__init__(self.df, self.db)
-
     def __repr__(self):
         num = 0
         if self.df is not None:
@@ -62,19 +59,19 @@ class DataSwim(Db, Df, Plot, Map, Report, Errors, Messages):
         """
         Returns a new DataSwim instance from a dataframe
         """
-        try:
-            ds2 = DataSwim(df, db)
-        except Exception as e:
-            self.err(e, self.new_, "Can not set new instance")
-        if self.autoprint is True and quiet is False:
+        ds2 = DataSwim(df, db)
+        if quiet is False:
             self.ok("A new instance was created")
         return ds2
 
+    """def resetall(self):
+        self.__init__(self.df, self.db)
+
     def set_df(self, data, **args):
-        """
+        ""
         Set a dataframe and an instance
-        """
-        self.df = pd.DataFrame(data, **args)
+        ""
+        self.df = pd.DataFrame(data, **args)"""
 
 
 ds = DataSwim()

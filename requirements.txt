@@ -6,7 +6,7 @@ pytablewriter
 holoviews==1.9.1
 bokeh==0.12.11
 altair==1.2.1
-gencharts==0.4
+gencharts
 influxdb
 chartjspy
 seaborn
