@@ -3,17 +3,14 @@ import time
 import arrow
 import pandas as pd
 from numpy.core.numeric import nan
-from goerr import Trace
+from goerr import Err
 from goerr.colors import colors
 
 
-class Clean(Trace):
+class Clean(Err):
     """
     Class to clean the data
     """
-
-    def __init__(self, df=None):
-        self.df = df
 
     def drop_nan(self, field=None, method="all", **kwargs):
         """
@@ -25,7 +22,7 @@ class Clean(Trace):
             else:
                 self.df = self.df[self.df[field].notnull()]
         except Exception as e:
-            self.err(e, "Error dropping nan values")
+            self.error(e, "Error dropping nan values")
 
     def nan_empty(self, field):
         """
@@ -33,8 +30,9 @@ class Clean(Trace):
         """
         try:
             self.df[field] = self.df[field].replace('', nan)
+            self.ok("Filled empty values with nan in column " + field)
         except Exception as e:
-            self.err(e, self.nan_empty_, "Can not fill empty values with nan")
+            self.err(e, "Can not fill empty values with nan")
 
     def zero_nan(self, *fields):
         """
@@ -43,7 +41,7 @@ class Clean(Trace):
         try:
             self.df = self._zero_nan(*fields)
         except Exception as e:
-            self.err(e, self.nan_empty_, "Can not fill zero values with nan")
+            self.err(e, "Can not fill zero values with nan")
 
     def zero_nan_(self, *fields):
         """

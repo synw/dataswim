@@ -21,8 +21,7 @@ class Messages():
         Prints a message with an info prefix
         """
         label = colors.blue("INFO")
-        endmsg = self.msg_(label, *msg)
-        print(endmsg)
+        self._msg(label, *msg)
 
     def warning(self, *msg):
         """
@@ -59,7 +58,8 @@ class Messages():
         """
         if self.start_time is None:
             self.err(
-                self.end, "No start time set: please use start() before using this function")
+                self.end, "No start time set: please use start() "
+                "before using this function")
         endtime = datetime.datetime.now()
         rd = dateutil.relativedelta.relativedelta(endtime, self.start_time)
         endmsg = self._endmsg(rd)
@@ -91,9 +91,8 @@ class Messages():
         """
         Prints a message with a label
         """
-        if self.quiet is False:
-            txt = self._unpack_msg(*msg)
-            print("[" + label + "] " + txt)
+        txt = self._unpack_msg(*msg)
+        print("[" + label + "] " + txt)
 
     def _unpack_msg(self, *msg):
         """

@@ -1,6 +1,6 @@
 import pandas as pd
 from numpy.core.numeric import nan
-from goerr import Trace
+from goerr import Err
 from .db import Db
 from .charts import Plot
 from .maps import Map
@@ -8,10 +8,11 @@ from .data import Df
 from .report import Report
 from .messages import Messages
 
+
 version = "0.4.18"
 
 
-class DataSwim(Db, Df, Plot, Map, Report, Messages, Trace):
+class DataSwim(Db, Df, Plot, Map, Report, Messages, Err):
     """
     Main class
     """
@@ -20,6 +21,7 @@ class DataSwim(Db, Df, Plot, Map, Report, Messages, Trace):
         """
         Initialize with an empty dataframe
         """
+        self.msg = Messages()
         self.version = version
         self.df = df
         self.db = db
@@ -63,15 +65,6 @@ class DataSwim(Db, Df, Plot, Map, Report, Messages, Trace):
         if quiet is False:
             self.ok("A new instance was created")
         return ds2
-
-    """def resetall(self):
-        self.__init__(self.df, self.db)
-
-    def set_df(self, data, **args):
-        ""
-        Set a dataframe and an instance
-        ""
-        self.df = pd.DataFrame(data, **args)"""
 
 
 ds = DataSwim()

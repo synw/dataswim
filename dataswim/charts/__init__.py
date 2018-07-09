@@ -1,12 +1,12 @@
 import holoviews as hv
 from .bokeh import Bokeh
-from .altair import Altair
+#from .altair import Altair
 from .chartjs import Chartjs
 from .seaborn import Seaborn
 from .colors import Colors
 
 
-class Plot(Bokeh, Altair, Chartjs, Seaborn, Colors):
+class Plot(Bokeh, Chartjs, Seaborn, Colors):
     """
     Class to handle charts
     """
