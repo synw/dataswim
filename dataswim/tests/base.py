@@ -13,6 +13,11 @@ class BaseDsTest(unittest.TestCase):
         self.df = pd.DataFrame({"one": 1, "two": 2}, ["1", "2"])
         self.path = os.path.dirname(os.path.realpath(__file__))
 
+    def debug(self, *elements):
+        print("-------------------------------------------")
+        ds.debug(*elements)
+        print("-------------------------------------------")
+
     def assertPrint(self, expected, func, *args, **kwargs):
         f = StringIO()
         with redirect_stdout(f):

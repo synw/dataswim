@@ -38,65 +38,70 @@ class Clean(Err):
         """
         Converts zero values to nan values in selected columns
         """
-        try:
-            self.df = self._zero_nan(*fields)
-        except Exception as e:
-            self.err(e, "Can not fill zero values with nan")
+        df = self._zero_nan(*fields)
+        if df is None:
+            self.err("Can not fill zero values with nan")
+            return
+        self.set(df)
 
     def zero_nan_(self, *fields):
         """
         Returns a DataSwim instance with zero values to nan values in
         selected columns
         """
-        df = self.clone_(self._zero_nan(*fields))
-        return self.clone_(df)
+        df = self._zero_nan(*fields)
+        if df is None:
+            self.err("Can not fill zero values with nan")
+            return
+        ds2 = self.clone_(quiet=True)
+        ds2.df = df
+        return ds2
 
     def _zero_nan(self, *fields):
-        """
-        Converts zero values to nan values in selected columns
-        """
-        df = self.df.copy()
         try:
+            df = self.df.copy()
             for field in fields:
-                df = df.replace({field: {nan: 0}})
-            if self.autoprint is True:
-                s = "s"
-                if len(fields) == 1:
-                    s = ""
-                self.ok("Replaced 0 values by nan in column" + s, field)
+                if field not in df.columns:
+                    self.warning("Column "+field+" does not exist")
+                    return
+                df = df.replace({field: {0: nan}})
+            if len(fields) > 1:
+                self.ok("Replaced 0 values by nan in columns",
+                        str(fields))
+            else:
+                self.ok("Replaced 0 values by nan in column",
+                        field)
             return df
         except Exception as e:
             self.err(e)
 
     def fill_nan(self, val, *fields):
         """
-        Fill NaN values with new values
+        Fill NaN values with new values in the main dataframe
         """
-        try:
-            self.df = self._fill_nan(val, *fields)
-        except Exception as e:
-            self.err(e, self.fill_nan, "Can not fill nan values")
+        df = self._fill_nan(val, *fields)
+        if df is not None:
+            self.df = df
+        else:
+            self.err("Can not fill nan values")
 
     def fill_nan_(self, val, *fields):
         """
         Returns a DataSwim instance with NaN values filled
         """
-        fields = list(fields)
-        if len(fields) == 0:
-            fields = self.df.index.values
-        try:
-            df = self._fill_nan(val, *fields)
-            return self.clone_(df=df)
-        except Exception as e:
-            self.err(e, self.fill_nan_, "Can not fill nan values")
+        df = self._fill_nan(val, *fields)
+        if df is not None:
+            return self._duplicate_(df=df)
+        else:
+            self.err("Can not fill nan values")
 
     def _fill_nan(self, val, *fields):
-        """
-        Fill NaN values with new values
-        """
         fields = list(fields)
-        df = self.df.copy()
+        if len(fields) == 0:
+            fields = self.df.columns.values
+        df = None
         try:
+            df = self.df.copy()
             for el in fields:
                 try:
                     df[el] = df[[el]].fillna(val)
@@ -104,39 +109,38 @@ class Clean(Err):
                     self.warning("Can not find column ", el)
                     return
         except Exception as e:
-            self.err(e, self._fill_nan, "Can not fill nan values")
-        if self.autoprint is True:
-            self.ok("Filled nan values in columns", *fields)
+            self.err(e, "Can not fill nan values")
+            return
+        self.ok("Filled nan values in columns", *fields)
         return df
 
     def replace(self, col, searchval, replaceval):
         """
         Replace a value in a column in the main dataframe
         """
-        try:
-            self.df = self._replace(col, searchval, replaceval)
-        except Exception as e:
-            self.err(e, self.replace, "Can not replace value in column")
+        df = self._replace(col, searchval, replaceval)
+        if df is not None:
+            self.df = df
+        else:
+            self.err("Can not replace value in column")
 
     def replace_(self, col, searchval, replaceval):
         """
         Returns a Dataswim instance with replaced values in a column
         """
-        try:
-            return self._replace(col, searchval, replaceval)
-        except Exception as e:
-            self.err(e, self.replace_, "Can not replace value in column")
+        df = self._replace(col, searchval, replaceval)
+        if df is not None:
+            return self._duplicate_(df)
+        else:
+            self.err("Can not replace value in column")
 
     def _replace(self, col, searchval, replaceval):
-        """
-        Replace a value in a colum
-        """
-        df = self.df.copy()
         try:
+            df = self.df.copy()
             df[col] = df[col].replace(searchval, replaceval)
             return df
         except Exception as e:
-            self.err(e, self._replace, "Can not replace value in column")
+            self.err(e, "Can not replace value in column")
 
     def fill_nulls(self, field):
         """
@@ -152,63 +156,49 @@ class Clean(Err):
         """
         Convert some column values to integers
         """
-        """
-        for field in fields:
-            self.drop_nan(field)
-            self.df[field] = self.df[field].dropna().astype(int)
-
-        """
-        ds2 = self.clone_()
-
         def convert(val):
-            try:
-                return int(val)
-            except Exception as e:
-                print(val, str(type(val)))
-                raise(e)
-                return val
+            return int(val)
+
         try:
+            ds2 = self.clone_()
             ds2.df[field] = ds2.df[field].apply(convert)
             self.df = ds2.df
         except Exception as e:
-            self.err(e, self.to_int,
-                     "Can not convert column values to integer")
+            self.err(e, "Can not convert column values to integer")
             return
-        if self.autoprint is True:
-            self.ok("Converted column values to integers")
+        self.ok("Converted column values to integers")
 
     def to_float(self, *cols):
         """
         Convert colums values to float
         """
-        try:
-            df = self.to_type("float64", *cols)
+        df = self.to_type("float64", *cols)
+        if df is not None:
             self.df = df
-        except Exception as e:
-            self.err(e, self.to_type, "Can not convert column values to float")
+        else:
+            self.err("Can not convert column values to float")
             return
-        if self.autoprint is True:
-            self.ok("Converted column values to float")
+        self.ok("Converted column values to float")
 
     def to_type(self, dtype, *cols):
         """
         Convert colums values to a given type
         """
-        df = self.df.copy()
-        allcols = df.columns.values
         try:
+            df = self.df.copy()
+            allcols = df.columns.values
             for col in cols:
                 if col not in allcols:
-                    self.err(self.to_type, "Column " + col + " not found")
+                    self.err("Column " + col + " not found")
                     return
                 df[col] = df[col].astype(dtype)
             return df
         except Exception as e:
-            self.err(e)
+            self.err(e, "Can not convert to type")
 
     def timestamps(self, col, **kwargs):
         """
-        Add a timestamps column from a date column
+        Add  a timestamps column from a date column
         """
         try:
             name = "Timestamps"
@@ -218,7 +208,6 @@ class Clean(Err):
                 kwargs["errors"] = "coerce"
             if "unit" in kwargs:
                 kwargs["unit"] = "ms"
-            #self.add(name, 0)
             try:
                 self.df[col] = pd.to_datetime(self.df[col], **kwargs)
             except TypeError:
@@ -228,18 +217,13 @@ class Clean(Err):
                 ts.append(arrow.get(el).timestamp)
             self.df[name] = ts
         except Exception as e:
-            self.err(e, self.timestamps, "Can not convert to timestamps")
+            self.err(e, "Can not convert to timestamps")
 
     def date(self, *fields, precision="S"):
         """
         Convert column values to properly formated datetime
         """
         def convert(row):
-            try:
-                t1 = row.timetuple()
-                int(time.mktime(t1))
-            except Exception:
-                return nan
             encoded = '%Y-%m-%d %H:%M:%S'
             if precision == "Min":
                 encoded = '%Y-%m-%d %H:%M'
@@ -256,15 +240,14 @@ class Clean(Err):
         try:
             for f in fields:
                 try:
-                    df2 = self.df.copy()
-                    self.df[f] = pd.to_datetime(df2[f]).apply(convert)
-                except ValueError:
-                    pass
+                    self.df[f] = pd.to_datetime(self.df[f]).apply(convert)
+                except ValueError as e:
+                    self.err(e, "Can not convert date")
         except KeyError:
             self.warning("Can not find colums " + " ".join(fields))
             return
         except Exception as e:
-            self.err(e, self.date, "Can not process date field")
+            self.err(e, "Can not process date field")
 
     def dateindex(self, datafield, indexfield="date_index", df=None):
         """

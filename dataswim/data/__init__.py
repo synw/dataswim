@@ -18,9 +18,6 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
     """
 
     def _duplicate_(self, df=None, db=None, quiet=False):
-        """
-        Returns a new DataSwim instance using the previous database connection
-        """
         try:
             if db is None:
                 db = self.db
@@ -53,15 +50,16 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
             self.ok("A duplicated instance was created")
         return ds2
 
-    def clone_(self):
+    def clone_(self, quiet=False):
         """
         Clone the DataSwim instance
         """
         ds2 = self._duplicate_(quiet=True)
         if ds2 is None:
-            self.err()
+            self.err("Can not clone instance")
         else:
-            self.ok("Instance cloned")
+            if quiet is True:
+                self.ok("Instance cloned")
         return ds2
 
     def set(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -69,9 +67,9 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
         Set a main dataframe
         """
         try:
-            self.df = df.copy()
+            self.df = df
         except Exception as e:
-            self.error(e)
+            self.err(e, "Can not set dataframe")
 
     def backup(self):
         """
