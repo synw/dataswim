@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+import datetime
 import pandas as pd
+import numpy as np
 from numpy import nan
 from pandas.testing import assert_frame_equal
 from dataswim.tests.base import BaseDsTest
@@ -145,6 +147,85 @@ class TestDsDataClean(BaseDsTest):
         ds.df = None
         ds.timestamps("two")
         self.assertRaises(AttributeError)
+
+    def test_date_index(self):
+        df1 = pd.DataFrame({"one": ["one","two"], "date":
+            ["2002/12/01", "2002/12/02"]}, [1, 2])
+        ds.df = df1
+        ds.dateindex("date")
+        index = np.array(['2002-12-01T00:00:00.000000000',
+                       '2002-12-02T00:00:00.000000000'],
+                        dtype="datetime64[ns]")
+        np.testing.assert_array_equal(ds.df.index.values, index)
+        ds.df = df1
+        ds2 = ds.dateindex_("date")
+        np.testing.assert_array_equal(ds2.df.index.values, index)
+        ds.df = None
+        ds.dateindex_("date")
+        self.assertRaises(TypeError)
+        ds.dateindex("date")
+        self.assertRaises(TypeError)
+        ds.dateindex("wrong")
+        self.assertRaises(TypeError)
+
+    def test_index(self):
+        df1 = pd.DataFrame([[1, 3], [2, 4]], columns=["one", "two"])
+        ds.df = df1
+        ds.index("one")
+        index = np.array([1, 2])
+        np.testing.assert_array_equal(ds.df.index.values, index)
+        ds.df = df1
+        ds2 = ds.index_("one")
+        np.testing.assert_array_equal(ds2.df.index.values, index)
+        ds.df = None
+        ds.index("one")
+        self.assertRaises(TypeError)
+        ds.index_("one")
+        self.assertRaises(TypeError)
+
+    def test_strip(self):
+        df1 = pd.DataFrame([[" whitespace ", 3], [2, 4]],
+                           index=["one", "two"])
+        ds.df = df1
+        ds.strip("one")
+        df2 = pd.DataFrame([["whitespace", 3], [2, 4]],
+                           index=["one", "two"])
+        assert_frame_equal(ds.df, df2)
+        ds.df = None
+        ds.strip("one")
+        self.assertRaises(TypeError)
+        ds.df = "wrong"
+        ds.index("one")
+        self.assertRaises(AttributeError)
+
+    def test_strip_cols(self):
+        df1 = pd.DataFrame([[1, 3], [2, 4]],
+                           columns=[" one ", " two "])
+        ds.df = df1
+        ds.strip_cols()
+        df2 = pd.DataFrame([[1, 3], [2, 4]],
+                           columns=["one", "two"])
+        assert_frame_equal(ds.df, df2)
+        ds.df = pd.DataFrame([[1, 3], [2, 4]],
+                           columns=["one", None])
+        ds.strip_cols()
+
+    def test_roundvals(self):
+        df1 = pd.DataFrame([[1.345854, 3.0], [2.1, 4.0]],
+                           columns=["one", "two"])
+        ds.df = df1
+        ds.roundvals("one")
+        df2 = pd.DataFrame([[1.35, 3.0], [2.1, 4.0]],
+                           columns=["one", "two"])
+        assert_frame_equal(ds.df, df2)
+        ds.df = df1
+        ds.roundvals("wrong")
+        self.assertRaises(KeyError)
+
+    def test_format_date(self):
+        date = datetime.datetime(2011, 1, 3, 0, 0)
+        d2 = ds.format_date_(date)
+        self.assertEqual(d2, '2011-01-03 00:00:00')
 
     def test_dates(self):
         ds.df = pd.DataFrame({"one": ["one","two"], "two":

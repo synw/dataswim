@@ -104,6 +104,16 @@ class Export():
         if self.autoprint is True:
             self.ok("Data exported to", filepath)
 
+    def to_records_(self):
+        """
+        Returns a list of dictionary records from the main dataframe
+        """
+        try:
+            dic = self.df.to_dict(orient="records")
+            return dic
+        except Exception as e:
+            self.err(e, self.to_records_, "Can not create records")
+
     def _build_export(self, renderer, table_name=None):
         """
         Builds an export with a renderer

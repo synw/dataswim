@@ -22,14 +22,6 @@ class TestDsDataInit(BaseDsTest):
         self.assertRaises(AttributeError)
         ds2 = ds._duplicate_(self.df, "db", False)
 
-    def test_set(self):
-        ds.set(self.df)
-        assert_frame_equal(self.df, ds.df)
-        # errors
-        ds.set("wrong")
-        self.assertRaises(AttributeError)
-        ds.new_(quiet=True)
-
     def test_load_json(self):
         data = self.df.to_json()
         ds.load_json(data)

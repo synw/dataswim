@@ -58,18 +58,9 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
         if ds2 is None:
             self.err("Can not clone instance")
         else:
-            if quiet is True:
+            if quiet is False:
                 self.ok("Instance cloned")
         return ds2
-
-    def set(self, df: pd.DataFrame) -> pd.DataFrame:
-        """
-        Set a main dataframe
-        """
-        try:
-            self.df = df
-        except Exception as e:
-            self.err(e, "Can not set dataframe")
 
     def backup(self):
         """
@@ -137,7 +128,7 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
                 url = self.datapath + "/" + url
             df = pd.read_csv(url, **kwargs)
             self.df = df
-        except FileNotFoundError as e:
+        except FileNotFoundError:
             msg = "File " + url + " not found"
             self.warning(msg)
             return

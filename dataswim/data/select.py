@@ -7,19 +7,7 @@ class Select():
     Class to select data
     """
 
-    def __init__(self, df=None):
-        """
-        Initialize with an empty dataframe
-        """
-        self.df = df
-
     def first_(self):
-        """
-        Returns the first row
-        """
-        return self._first()
-
-    def _first(self):
         """
         Select the first row
         """
@@ -27,7 +15,7 @@ class Select():
             val = self.df.iloc[0]
             return val
         except Exception as e:
-            self.err(e, self.first, "Can not select first row")
+            self.err(e, "Can not select first row")
 
     def limit(self, r=5):
         """
@@ -36,138 +24,117 @@ class Select():
         try:
             self.df = self.df[:r]
         except Exception as e:
-            self.err(e, self.limit, "Can not limit data")
+            self.err(e, "Can not limit data")
 
     def limit_(self, r=5):
         """
         Returns a DataSwim instance with limited selection
         """
         try:
-            return self.new(self.df[:r])
+            return self._duplicate_(self.df[:r])
         except Exception as e:
-            self.err(e)
+            self.err(e, "Can not limit data")
 
     def unique_(self, column):
         """
         Returns unique values in a column
         """
         try:
-            df = self.df.copy()
-            df.drop_duplicates(subset=[column], inplace=True)
+            df = self.df.drop_duplicates(subset=[column], inplace=False)
             return list(df[column])
         except Exception as e:
-            self.err(e, self.unique_, "Can not select unique data")
+            self.err(e, "Can not select unique data")
 
-    def range(self, **args):
+    def vrange(self, **args):
         """
-        Limit the data in a time range
+        Limit the data in a time range from a date offset
         """
-        try:
-            self.df = self._range(**args)
-        except Exception as e:
-            self.err(e, self.range, "Can not select range data")
+        df = self._range(**args)
+        if df is None:
+            self.err("Can not select range data")
             return
-
-    def _range(self, **args):
-        """
-        Limit the data in a time range
-        """
-        try:
-            df = self.df[self.df.last_valid_index() -
-                         pd.DateOffset(**args):]
-            return df
-        except Exception as e:
-            self.err(e, self._range, "Can not select range data")
-            return
+        self.df = df
 
     def range_(self, **args):
         """
-        Limit the data in a time range
+        Limit the data in a time range from a date offset
         """
+        df = self._range(**args)
+        if df is None:
+            self.err("Can not select range data")
+            return
+        return self._duplicate_(df)
+
+    def _range(self, **args):
         try:
-            ds2 = self.clone_(self._range(**args))
-            return ds2
+            df = self.df[:self.df.first_valid_index() + pd.DateOffset(**args)]
+            return df
         except Exception as e:
-            self.err(e, self.range_, "Can not select range data")
+            self.err(e, "Can not select range data")
+            return
 
     def nowrange(self, col, interval, unit="D"):
         """
         Set the main dataframe with rows within a date range from now
         """
-        try:
-            df = self._nowrange(col, interval, unit)
-            self.set(df)
-        except Exception as e:
-            self.err(e, self.nowrange_, "Can not select range data from now")
+        df = self._nowrange(col, interval, unit)
+        if df is None:
+            self.err("Can not select range data from now")
+            return
+        self.df = df
 
     def nowrange_(self, col, interval, unit="D"):
         """
         Returns a Dataswim instance with rows within a date range from now
         """
-        try:
-            df = self._nowrange(col, interval, unit)
-            return self.clone_(df)
-        except Exception as e:
-            self.err(e, self.nowrange_, "Can not select range data from now")
+        df = self._nowrange(col, interval, unit)
+        if df is None:
+            self.err("Can not select range data from now")
+            return
+        return self._duplicate_(df)
 
     def _nowrange(self, col, interval, unit):
-        """
-        Returns a dataframe with rows within a date range from now
-        """
         try:
-            df = self.df.copy()
-            df = df[df[col].dt.date > datetime.now().date(
-            ) - pd.to_timedelta(interval, unit=unit)]
+            df = self.df[self.df[col].dt.date < datetime.now().date(
+            ) + pd.to_timedelta(interval, unit=unit)]
             return df
         except Exception as e:
-            self.err(e, self._nowrange, "Can not select range data from now")
+            self.err(e, "Can not select range data from now")
 
     def daterange(self, datecol, date_start, op, **args):
         """
         Returns rows in a date range
         """
-        try:
-            self.df = self._daterange(datecol, date_start, op, **args)
-        except Exception as e:
-            self.err(e, self.daterange, "Can not select date range data")
+        df = self._daterange(datecol, date_start, op, **args)
+        if df is None:
+            self.err("Can not select date range data")
+        self.df = df
 
     def daterange_(self, datecol, date_start, op, **args):
         """
         Returns a DataSwim instance with rows in a date range
         """
-        try:
-            df = self._daterange(datecol, date_start, op, **args)
-            return self.clone_(df)
-        except Exception as e:
-            self.err(e, self.daterange_, "Can not select date range data")
+        df = self._daterange(datecol, date_start, op, **args)
+        if df is None:
+            self.err("Can not select date range data")
+        return self._duplicate_(df)
 
     def _daterange(self, datecol, date_start, op, **args):
-        """
-        Returns rows in a date range
-        """
         try:
-            start_date = pd.Timestamp(date_start)
+            idate = pd.Timestamp(date_start)
             self.df[datecol] = pd.to_datetime(self.df[datecol])
             if op == "+":
-                end_date = start_date + pd.DateOffset(**args)
+                end_date = idate + pd.DateOffset(**args)
+                start_date = idate
             elif op == "-":
-                end_date = start_date - pd.DateOffset(**args)
+                start_date = idate - pd.DateOffset(**args)
+                end_date = idate
             mask = (self.df[datecol] >= start_date) & (
                 self.df[datecol] <= end_date)
             df = self.df.loc[mask]
             return df
         except Exception as e:
             self.err(e, self._daterange, "Can not select date range data")
-
-    def to_records_(self):
-        """
-        Returns a list of dictionary records from the main dataframe
-        """
-        try:
-            dic = self.df.to_dict(orient="records")
-            return dic
-        except Exception as e:
-            self.err(e, self.to_records_, "Can not create records")
 
     def subset(self, *args):
         """

@@ -42,7 +42,7 @@ class Clean(Err):
         if df is None:
             self.err("Can not fill zero values with nan")
             return
-        self.set(df)
+        self.df = df
 
     def zero_nan_(self, *fields):
         """
@@ -249,208 +249,112 @@ class Clean(Err):
         except Exception as e:
             self.err(e, "Can not process date field")
 
-    def dateindex(self, datafield, indexfield="date_index", df=None):
+    def dateindex(self, datafield):
         """
         Set a datetime index from a column
         """
-        try:
-            self.df = self._dateindex(datafield, indexfield, df)
-        except Exception as e:
-            self.err(e, self.dateindex, "Can not index data")
+        df = self._dateindex(datafield)
+        if df is None:
+            self.err("Can not index data")
+            return
+        self.df = df
 
-    def dateindex_(self, datafield, indexfield="date_index", df=None):
+    def dateindex_(self, datafield):
         """
         Returns a DataSwim instance index from a column
         """
-        try:
-            df = self._dateindex(datafield, indexfield, df)
-        except Exception as e:
-            self.err(e, self.dateindex_, "Can not index data")
-            return
-        return self.clone_(df=df)
-
-    def _dateindex(self, datafield, indexfield, df=None):
-        """
-        Returns a datetime index from a column
-        """
+        df = self._dateindex(datafield)
         if df is None:
-            df = self.df.copy()
+            self.err("Can not index data")
+            return
+        return self._duplicate_(df=df)
+
+    def _dateindex(self, datafield):
         try:
-            index = pd.DatetimeIndex(df[datafield])
-            df = df.set_index(index)
-        except KeyError as e:
-            self.err(e, self._dateindex, "Can not find column " +
-                     colors.bold(datafield) + " in data")
-            return
+            index = pd.DatetimeIndex(self.df[datafield])
+            df = self.df.set_index(index)
         except Exception as e:
-            msg = "Can not reindex with datafield " + \
-                colors.bold(datafield) + " and indexfield " + \
-                colors.bold(indexfield)
-            self.err(e, self._dateindex, msg)
+            self.err(e, "Can not index with column " +
+                     colors.bold(datafield))
             return
-        if self.autoprint is True:
-            self.ok("Added a datetime index from column", datafield)
+        self.ok("Added a datetime index from column", datafield)
         return df
 
     def index(self, indexcol):
         """
         Set an index to the main dataframe
         """
-        try:
-            self.df = self._index(indexcol)
-        except KeyError as e:
-            self.err(e, self.index, "Can not create index")
+        df = self._index(indexcol)
+        if df is None:
+            self.err("Can not create index")
+            return
+        self.df = df
 
     def index_(self, indexcol):
         """
         Returns a Dataswim instance with an index
         """
-        try:
-            return self._index(indexcol)
-        except KeyError as e:
-            self.err(e, self.index_, "Can not create index")
+        df = self._index(indexcol)
+        if df is None:
+            self.err("Can not create index")
+            return
+        return self._duplicate_(df)
 
     def _index(self, indexcol):
-        """
-        Set an index to the main dataframe
-        """
-        df = self.df.copy()
         try:
-            df = df.set_index(df[indexcol])
-        except KeyError as e:
+            df = self.df.set_index(self.df[indexcol])
+        except Exception as e:
             self.err(e, self._index, "Can not find column " +
                      colors.bold(indexcol) + " in data")
             return
-        except Exception as e:
-            msg = "Can not index with columns " + \
-                colors.bold(indexcol) + " and indexfield "
-            self.err(e, self._index, msg)
-            return
-        if self.autoprint is True:
-            self.ok("Added an index from column", indexcol)
+        self.ok("Added an index from column", indexcol)
         return df
 
     def strip(self, col):
         """
-        Remove white space in a column's values
+        Remove leading and trailing white spaces in a column's values
         """
         def remove_ws(row):
             val = str(row[col])
             if " " in val:
-                row[col] = val.replace(" ", "")
+                row[col] = val.strip()
             return row
 
         try:
-            self.apply(remove_ws)
+            self.df.apply(remove_ws)
         except Exception as e:
-            self.err(e, self.strip, "Can not remove white space in column")
+            self.err(e, "Can not remove white space in column")
             return
-        if self.autoprint is True:
-            self.ok("White space removed in column values")
+        self.ok("White space removed in column values")
 
     def strip_cols(self):
         """
-        Remove white space in columns names
+        Remove leading and trailing white spaces in columns names
         """
-        try:
-            cols = {}
-            skipped = []
-            for col in self.df.columns.values:
-                try:
-                    cols[col] = col.strip()
-                except Exception:
-                    skipped.append(str(col))
-            self.df = self.df.rename(columns=cols)
-        except Exception as e:
-            self.err(
-                e,
-                self.strip_cols,
-                "Can not strip white space in columns")
-            return
-        if self.autoprint is True:
-            self.ok("White space removed in columns names")
-            if len(skipped) > 0:
-                self.info("Skipped columns", ','.join(
-                    skipped), "while removing white space")
+        cols = {}
+        skipped = []
+        for col in self.df.columns.values:
+            try:
+                cols[col] = col.strip()
+            except Exception:
+                skipped.append(str(col))
+        self.df = self.df.rename(columns=cols)
+        self.ok("White spaces removed in columns names")
+        if len(skipped) > 0:
+            self.info("Skipped columns", ','.join(
+                skipped), "while removing white spaces")
 
-    def round(self, col, precision=2):
+    def roundvals(self, col, precision=2):
         """
         Round floats in a column
         """
         try:
-            self.to_float([col])
+            self.df[col] = self.df[col].astype("float64")
             self.df[col] = self.df[col].apply(lambda x: round(x, precision))
         except Exception as e:
-            self.err(e, self.round, "Can not round column values")
+            self.err(e, "Can not round column values")
             return
-        if self.autoprint is True:
-            self.ok("Rounded values in column " + col)
-
-    def trimquants_(self, col, inf, sup):
-        """
-        Remove superior and inferior quantiles from the dataframe and
-        returns a Dataswim instance
-        """
-        try:
-            ds2 = self.clone_()
-            ds2.df = self._trimquants(col, inf, sup)
-            return ds2
-        except Exception as e:
-            self.err(e, self.trimquants_, "Can not trim quantiles")
-
-    def trimquants(self, col, inf, sup):
-        """
-        Remove superior and inferior quantiles from the dataframe
-        """
-        try:
-            self.set(self._trimquants(col, inf, sup))
-        except Exception as e:
-            self.err(e, self.trimquants, "Can not trim quantiles")
-
-    def trimsquants(self, col, sup):
-        """
-        Remove superior quantiles from the dataframe
-        """
-        try:
-            self.set(self._trimquants(col, None, sup))
-        except Exception as e:
-            self.err(e, self.trimsquants, "Can not trim superior quantiles")
-
-    def trimiquants(self, col, inf):
-        """
-        Remove superior and inferior quantiles from the dataframe
-        """
-        try:
-            self.set(self._trimquants(col, inf, None))
-        except Exception as e:
-            self.err(e, self.trimiquants, "Can not trim inferior quantiles")
-
-    def _trimquants(self, col, inf, sup):
-        """
-        Remove superior and inferior quantiles from the dataframe
-        and returs a dataframe
-        """
-        try:
-            ds2 = self.clone_()
-            if inf is not None:
-                qi = ds2.df[col].quantile(inf)
-                ds2.df = ds2.df[ds2.df[col] > qi]
-            if sup is not None:
-                qs = ds2.df[col].quantile(sup)
-                ds2.df = ds2.df[ds2.df[col] < qs]
-
-        except Exception as e:
-            self.err(e, self._trimquants, "Can not trim quantiles")
-        if self.autoprint is True:
-            msg = "Removed values "
-            if inf is not None:
-                msg += "under " + str(qi)
-            if sup is not None and inf is not None:
-                msg += " and"
-            if sup is not None:
-                msg += "upper " + str(qs)
-            self.ok(msg, "in column", col)
-        return ds2.df
+        self.ok("Rounded values in column " + col)
 
     def format_date_(self, date):
         """
@@ -458,12 +362,13 @@ class Clean(Err):
         """
         return date.strftime('%Y-%m-%d %H:%M:%S')
 
+    """
     def transform_(self, dateindex=None, index_col=None,
                    fill_col=None, num_col=None, df=None):
-        """
+        ""
         Returns a DataSwim instance transformed according to the
         given parameters
-        """
+        ""
         if df is None:
             if self.df is None:
                 self.err(self._transform,
@@ -487,3 +392,4 @@ class Clean(Err):
             return ds2
         except Exception as e:
             self.err(e, self.transform_, "Can not transform data")
+    """

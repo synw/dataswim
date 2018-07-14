@@ -541,3 +541,69 @@ class Transform():
             return
         if self.autoprint is True:
             self.ok("Column", source_col, "renamed")
+
+    def trimquants_(self, col, inf, sup):
+        """
+        Remove superior and inferior quantiles from the dataframe and
+        returns a Dataswim instance
+        """
+        try:
+            ds2 = self.clone_()
+            ds2.df = self._trimquants(col, inf, sup)
+            return ds2
+        except Exception as e:
+            self.err(e, self.trimquants_, "Can not trim quantiles")
+
+    def trimquants(self, col, inf, sup):
+        """
+        Remove superior and inferior quantiles from the dataframe
+        """
+        try:
+            self.set(self._trimquants(col, inf, sup))
+        except Exception as e:
+            self.err(e, self.trimquants, "Can not trim quantiles")
+
+    def trimsquants(self, col, sup):
+        """
+        Remove superior quantiles from the dataframe
+        """
+        try:
+            self.set(self._trimquants(col, None, sup))
+        except Exception as e:
+            self.err(e, self.trimsquants, "Can not trim superior quantiles")
+
+    def trimiquants(self, col, inf):
+        """
+        Remove superior and inferior quantiles from the dataframe
+        """
+        try:
+            self.set(self._trimquants(col, inf, None))
+        except Exception as e:
+            self.err(e, self.trimiquants, "Can not trim inferior quantiles")
+
+    def _trimquants(self, col, inf, sup):
+        """
+        Remove superior and inferior quantiles from the dataframe
+        and returs a dataframe
+        """
+        try:
+            ds2 = self.clone_()
+            if inf is not None:
+                qi = ds2.df[col].quantile(inf)
+                ds2.df = ds2.df[ds2.df[col] > qi]
+            if sup is not None:
+                qs = ds2.df[col].quantile(sup)
+                ds2.df = ds2.df[ds2.df[col] < qs]
+
+        except Exception as e:
+            self.err(e, self._trimquants, "Can not trim quantiles")
+        if self.autoprint is True:
+            msg = "Removed values "
+            if inf is not None:
+                msg += "under " + str(qi)
+            if sup is not None and inf is not None:
+                msg += " and"
+            if sup is not None:
+                msg += "upper " + str(qs)
+            self.ok(msg, "in column", col)
+        return ds2.df
