@@ -4,6 +4,7 @@ from io import StringIO
 from contextlib import redirect_stdout
 import pandas as pd
 from goerr.colors import colors
+from goerr.testing import assert_err
 from dataswim import ds
 
 
@@ -18,14 +19,26 @@ class BaseDsTest(unittest.TestCase):
         ds.debug(*elements)
         print("-------------------------------------------")
 
-    def assertPrint(self, expected, func, *args, **kwargs):
+    def assertErr(self, err_type, func, *args, **kwargs):
+        assert_err(err_type, func, *args, **kwargs)
+
+    def assertWarning(self, txt, func, *args, **kwargs):
+        self._assertPrintMsg(True, "warning", txt, func, *args, **kwargs)
+
+    def assertOk(self, txt, func, *args, **kwargs):
+        self._assertPrintMsg(False, "ok", txt, func, *args, **kwargs)
+
+    def _assertPrint(self, contains, expected, func, *args, **kwargs):
         f = StringIO()
         with redirect_stdout(f):
             func(*args, **kwargs)
         displayed = f.getvalue()
-        self.assertEqual(displayed, expected)
+        if contains is True:
+            self.assertIn(expected, displayed)
+        else:
+            self.assertEqual(displayed, expected)
 
-    def assertPrintMsg(self, msg_class, txt, func, *args, **kwargs):
+    def _assertPrintMsg(self, contains, msg_class, txt, func, *args, **kwargs):
         if msg_class == "ok":
             label = colors.green("OK")
         elif msg_class == "warning":
@@ -39,4 +52,4 @@ class BaseDsTest(unittest.TestCase):
         elif msg_class == "end":
             label = colors.purple("END")
         expected = ds.msg_(label, txt)+"\n"
-        self.assertPrint(expected, func, *args, **kwargs)
+        self._assertPrint(contains, expected, func, *args, **kwargs)

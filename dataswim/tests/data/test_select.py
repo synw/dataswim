@@ -71,6 +71,22 @@ class TestDsDataSelect(BaseDsTest):
         ds.daterange("one", "2013-01-02", "+", days=2)
         self.assertRaises(AttributeError)
 
+    def test_subset(self):
+        df1 = pd.DataFrame([["one", "one"], ["two", "two"],
+                            ["three", "three"]])
+        ds.df = df1
+        ds.subset(2)
+        df2 = pd.DataFrame([["one", "one"], ["two", "two"]])
+        assert_frame_equal(ds.df, df2)
+        ds.df = df1
+        ds2 = ds.subset_(0, 2)
+        assert_frame_equal(ds2.df, df2)
+        ds.df = None
+        ds.subset(2)
+        self.assertRaises(AttributeError)
+        _ = ds.subset_(2)
+        self.assertRaises(AttributeError)
+
     def test_nowrange(self):
         vdates = list(pd.date_range(datetime.datetime.now(), periods=6))
         dates = []

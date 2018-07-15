@@ -139,43 +139,36 @@ class Select():
     def subset(self, *args):
         """
         Set the main dataframe to a subset based in positions
-        """
-        try:
-            self.df = self._subset(*args)
-        except Exception as e:
-            self.err(e, self.subset, "Can get subset of data")
-
-    def subset_(self, *args):
-        """
-        Returns a Dataswim instance with a subset data based in positions
-        """
-        try:
-            df = self._subset(*args)
-            return self.clone_(df)
-        except Exception as e:
-            self.err(e, self.subset_, "Can not get subset of data")
-
-    def _subset(self, *args):
-        """
         Select a subset of the main dataframe based on position:
         ex: ds.subset(0,10) or ds.subset(10) is equivalent: it starts
         at the first row if only one argument is provided
         """
+        df = self._subset(*args)
+        if df is None:
+            self.err("Can get subset of data")
+            return
+        self.df = df
+
+    def subset_(self, *args):
+        """
+        Returns a Dataswim instance with a subset data based in positions
+        Select a subset of the main dataframe based on position:
+        ex: ds.subset(0,10) or ds.subset(10) is equivalent: it starts
+        at the first row if only one argument is provided
+        """
+        df = self._subset(*args)
+        if df is None:
+            self.err("Can not get subset of data")
+            return
+        return self._duplicate_(df)
+
+    def _subset(self, *args):
         try:
+            start = 0
             end = args[0]
             if len(args) > 1:
                 start = args[0]
                 end = args[1]
             return self.df.iloc[start: end]
         except Exception as e:
-            self.err(e, self._subset, "Can not select data")
-
-    def nulls_(self, field):
-        """
-        Return all null rows
-        """
-        try:
-            null_rows = self.df[field][self.df[field].isnull()]
-        except Exception as e:
-            self.err(e, self.nulls_, "Can not select null rows")
-        return null_rows
+            self.err(e, "Can not select data")

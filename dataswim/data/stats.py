@@ -18,7 +18,7 @@ class Stats():
             predictions = lm.predict(x)
             self.df[name] = predictions
         except Exception as e:
-            self.err(e, self.lreg, "Can not calculate linear regression")
+            self.err(e, "Can not calculate linear regression")
 
     def cvar_(self, col):
         """

@@ -106,12 +106,12 @@ class Clean(Err):
                 try:
                     df[el] = df[[el]].fillna(val)
                 except KeyError:
-                    self.warning("Can not find column ", el)
+                    self.warning("Can not find column", el)
                     return
         except Exception as e:
             self.err(e, "Can not fill nan values")
             return
-        self.ok("Filled nan values in columns", *fields)
+        self.ok("Filled nan values in columns", ",".join(fields))
         return df
 
     def replace(self, col, searchval, replaceval):
@@ -160,9 +160,7 @@ class Clean(Err):
             return int(val)
 
         try:
-            ds2 = self.clone_()
-            ds2.df[field] = ds2.df[field].apply(convert)
-            self.df = ds2.df
+            self.df[field] = self.df[field].apply(convert)
         except Exception as e:
             self.err(e, "Can not convert column values to integer")
             return

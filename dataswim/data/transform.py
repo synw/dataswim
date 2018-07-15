@@ -9,34 +9,27 @@ class Transform():
     Class to transform data
     """
 
-    def __init__(self, df=None, db=None):
-        """
-        Initialize with an empty dataframe
-        """
-        self.df = df
-        self.db = db
-
     def keep_(self, *fields):
         """
         Limit a dataframe to some columns
         """
         try:
-            return self.clone_(self.df[list(fields)].copy())
+            return self._duplicate_(self.df[list(fields)])
         except Exception as e:
-            self.err(e, self.keep_, "Can not remove colums")
-        if self.autoprint is True:
-            self.ok("Columns", " ,".join(fields), "kept")
+            self.err(e, "Can not remove colums")
+            return
+        self.ok("Columns", " ,".join(fields), "kept")
 
     def keep(self, *fields):
         """
         Limit a dataframe to some columns
         """
         try:
-            self.df = self.df[list(fields)].copy()
+            self.df = self.df[list(fields)]
         except Exception as e:
-            self.err(e, self.keep, "Can not remove colums")
-        if self.autoprint is True:
-            self.ok("Setting dataframe to columns", " ".join(fields))
+            self.err(e, "Can not remove colums")
+            return
+        self.ok("Setting dataframe to columns", " ".join(fields))
 
     def drop(self, *cols):
         """

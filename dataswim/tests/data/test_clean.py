@@ -23,27 +23,28 @@ class TestDsDataClean(BaseDsTest):
         ds.drop_nan(method="any")
         assert_frame_equal(ds.df, df2)
         ds.df = None
-        ds.drop_nan()
-        self.assertRaises(AttributeError)
+        self.assertErr("TypeError", ds.drop_nan, "one")
 
     def test_zero_nan(self):
         df1 = pd.DataFrame({"one": ["one","two"], "two":
             ["two", 0]}, ["1", "2"])
         ds.df = df1
         ds.zero_nan("two")
-        df2 = pd.DataFrame({"one": ["one","two"], "two":
-            ["two", nan]}, ["1", "2"])
+        df2 = pd.DataFrame({"one": ["one", "two"], "two":
+                ["two", nan]}, ["1", "2"])
         assert_frame_equal(ds.df, df2)
         ds.df = df1
         ds2 = ds.zero_nan_("two")
         assert_frame_equal(ds2.df, df2)
         ds.zero_nan("two", "one")
         ds.df = None
-        ds.zero_nan("two")
-        self.assertRaises(AttributeError)
+        self.assertErr("AttributeError", ds.zero_nan, "one", "two")
         ds.df = df1
-        ds.zero_nan("wrong", "wrong")
-        ds.zero_nan_("wrong", "wrong")
+        msg = "Column wrong does not exist"
+        self.assertWarning(msg, ds.zero_nan, "wrong", "two")
+        self.assertErr(None, ds.zero_nan, "wrong", "wrong")
+        self.assertWarning(msg, ds.zero_nan_, "wrong", "two")
+        self.assertErr(None, ds.zero_nan_, "wrong", "wrong")
 
     def test_fill_nan(self):
         df1 = pd.DataFrame({"one": ["one", "two"], "two":
@@ -60,12 +61,12 @@ class TestDsDataClean(BaseDsTest):
         ds2 = ds.fill_nan_("two", "two")
         assert_frame_equal(ds2.df, df2)
         ds.df = None
-        ds.fill_nan("two", "two")
-        ds.fill_nan_("two", "two")
-        self.assertRaises(AttributeError)
+        self.assertErr("AttributeError", ds.fill_nan, "val", "two")
+        self.assertErr("AttributeError", ds.fill_nan_, "val", "two")
         ds.df = df1
-        ds.fill_nan("two", "wrong")
-        self.assertRaises(KeyError)
+        msg = "Can not find column wrong"
+        self.assertWarning(msg, ds.fill_nan, "val", "wrong")
+        self.assertErr(None, ds.fill_nan, "val", "wrong")
 
     def test_replace(self):
         df1 = pd.DataFrame({"one": ["one", "two"], "two":
@@ -79,40 +80,32 @@ class TestDsDataClean(BaseDsTest):
         ds2 = ds.replace_("one", "two", "three")
         assert_frame_equal(ds2.df, df2)
         ds.df = None
-        ds.replace_("one", "two", "three")
-        self.assertRaises(AttributeError)
-        ds.replace("one", "two", "three")
-        self.assertRaises(AttributeError)
+        self.assertErr("AttributeError", ds.replace, "one", "two", "three")
+        self.assertErr("AttributeError", ds.replace_, "one", "two", "three")
 
     def test_to_int(self):
         df1 = pd.DataFrame({"one": ["one", "two"], "two":
                             [1.0, 2.0]}, ["1", "2"])
         ds.df = df1
         ds.to_int("two")
-        df2 = pd.DataFrame({"one": ["one", "two"], "two":
-                            [1, 2]}, ["1", "2"])
-        assert_frame_equal(ds.df, df2)
+        self.assertEqual(list(ds.df["two"]), [1, 2])
         ds.df = None
-        ds.to_int("two")
-        self.assertRaises(AttributeError)
+        self.assertErr("TypeError", ds.to_int, "two")
         ds.df = pd.DataFrame({"one": ["one", "two"], "two":
                             ["wrong", 2.0]}, ["1", "2"])
-        self.assertRaises(ValueError)
+        self.assertErr("ValueError", ds.to_int, "two")
 
     def test_to_float(self):
         df1 = pd.DataFrame({"one": ["one", "two"], "two":
                             [1, 2]}, ["1", "2"])
         ds.df = df1
         ds.to_float("two")
-        df2 = pd.DataFrame({"one": ["one", "two"], "two":
-                            [1.0, 2.0]}, ["1", "2"])
-        assert_frame_equal(ds.df, df2)
+        self.assertEqual(list(ds.df["two"]), [1.0, 2.0])
         ds.df = None
-        ds.to_float("two")
-        self.assertRaises(AttributeError)
+        self.assertErr("AttributeError", ds.to_float, "two")
         ds.df = pd.DataFrame({"one": ["one", "two"], "two":
                             ["wrong", 2]}, ["1", "2"])
-        self.assertRaises(ValueError)
+        self.assertErr("ValueError", ds.to_float, "two")
 
     def test_to_type(self):
         df1 = pd.DataFrame({"one": ["one", "two"], "two":

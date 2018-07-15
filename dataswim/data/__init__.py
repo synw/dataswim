@@ -17,7 +17,7 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
     Class for manipulating dataframes
     """
 
-    def _duplicate_(self, df=None, db=None, quiet=False):
+    def _duplicate_(self, df=None, db=None, quiet=True):
         try:
             if db is None:
                 db = self.db
