@@ -5,9 +5,12 @@ from .test_search import TestDsDataSearch
 from .test_select import TestDsDataSelect
 from .test_text import TestDsDataText
 from .test_stats import TestDsDataStats
+from .test_transform import TestDsDataTransform
 
 
-#class TestDsData(TestDsDataInit, TestDsDataCount, TestDsDataClean,
-#                 TestDsDataSearch, TestDsDataSelect, TestDsDataText):
-class TestDsData(TestDsDataClean):
+"""class TestDsData(TestDsDataInit, TestDsDataCount, TestDsDataClean,
+                 TestDsDataSearch, TestDsDataSelect, TestDsDataText,
+                    TestDsDataStats):
+    pass"""
+class TestDsData(TestDsDataTransform):
     pass

@@ -68,7 +68,7 @@ class View():
             if df is None:
                 self.warning("Dataframe is empty: nothing to show")
                 return
-            num = len(df.index)
+            num = len(df.columns.values)
         except Exception as e:
             self.err(e, self.show, "Can not show dataframe")
             return

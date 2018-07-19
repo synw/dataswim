@@ -29,7 +29,5 @@ class Stats():
             v = (np.std(self.df[col]) / np.mean(self.df[col])) * 100
             return v
         except Exception as e:
-            self.err(
-                e,
-                self.cvar,
-                "Can not calculate coefficient of variance")
+            self.err(e,
+                     "Can not calculate coefficient of variance")

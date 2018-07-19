@@ -20,4 +20,11 @@ class TestDsDataStats(BaseDsTest):
         expected = pd.Series([1.2, 1.9, 2.6, 3.3], name="regression")
         assert_series_equal(ds.df["regression"], expected)
         ds.df = None
-        self.assert_err("TypeError", ds.lreg, "x", "y")
+        self.assertErr("TypeError", ds.lreg, "x", "y")
+
+    def test_cvar(self):
+        ds.df = pd.DataFrame([1, 3, 3, 1])
+        cv = ds.cvar_(0)
+        self.assertEqual(cv, 50.0)
+        ds.df = None
+        self.assertErr("TypeError", ds.cvar_, 0)

@@ -14,11 +14,12 @@ class Transform():
         Limit a dataframe to some columns
         """
         try:
-            return self._duplicate_(self.df[list(fields)])
+            ds2 = self._duplicate_(self.df[list(fields)])
         except Exception as e:
             self.err(e, "Can not remove colums")
             return
         self.ok("Columns", " ,".join(fields), "kept")
+        return ds2
 
     def keep(self, *fields):
         """
@@ -35,14 +36,14 @@ class Transform():
         """
         Drops columns from the main dataframe
         """
-        index = self.df.columns.values
-        for col in cols:
-            if col not in index:
-                self.warning("Column", col, "not found. Aborting.")
-                return
         try:
+            index = self.df.columns.values
             for col in cols:
-                self.df = self.df.drop(col, axis=1)
+                if col not in index:
+                    self.warning("Column", col, "not found. Aborting")
+                    return
+                for col in cols:
+                    self.df = self.df.drop(col, axis=1)
         except Exception as e:
             self.err(e, self.drop, "Can not drop column")
 
@@ -53,48 +54,43 @@ class Transform():
         try:
             self.df = self.df[self.df[col] != val]
         except Exception as e:
-            self.err(e, self.exclude,
-                     "Can not exclude rows based on value " + val)
+            self.err(e, "Can not exclude rows based on value " + str(val))
 
     def rsum(self, time_period="1Min", num_col="Number",
              dateindex=None, index_col="Date", fill_col=None):
         """
         Resample, and sum the main dataframe to a time period
         """
-        try:
-            self.df = self._resample("sum", time_period,
+        df = self._resample_("sum", time_period,
                                      num_col, dateindex, index_col, fill_col)
-        except Exception as e:
-            self.err(e, self.rsum, "Can not sum data")
+        if df is None:
+            self.err("Can not sum data")
+            return
+        self.df = df
 
     def rsum_(self, time_period="1Min", num_col="Number",
               dateindex=None, index_col="Date", fill_col=None):
         """
         Resample, and sum a dataframe to a time period
         """
-        try:
-            df = self._resample("sum", time_period,
-                                num_col, dateindex, index_col, fill_col)
-            if num_col is not None:
-                self.add(0, num_col)
-        except Exception as e:
-            self.err(e, self.rsum_, "Can not sum data")
+        df = self._resample_("sum", time_period,
+                            num_col, dateindex, index_col, fill_col)
+        if df is None:
+            self.err("Can not sum data")
             return
-        return self.clone_(df)
+        return self._duplicate_(df)
 
-    def _resample(self, method, time_period, num_col,
+    def _resample_(self, method, time_period, num_col,
                   dateindex, index_col, fill_col):
         """
         Resample the main dataframe to a time period
         """
         try:
-            ds2 = self.clone_()
+            ds2 = self._duplicate_()
             if dateindex is not None:
-                try:
-                    ds2 = ds2.dateindex_(dateindex)
-                    dateindex = None
-                except Exception as e:
-                    self.err(e, self._resample, "Can not process date index")
+                ds2 = self.dateindex_(dateindex)
+                if ds2 is None:
+                    self.err(e, "Can not process date index")
                     return
             if num_col is not None:
                 ds2.add(num_col, 1)
@@ -102,22 +98,23 @@ class Transform():
             if method == "sum":
                 ds2.df = ds2.df.sum()
             elif method == "mean":
+                if num_col is not None:
+                    num_vals = ds2.df[num_col].sum()
                 ds2.df = ds2.df.mean()
+                ds2.df[num_col] = num_vals
             else:
-                self.err(self._resample, "Resampling method " +
-                         method + " unknown")
+                self.err("Resampling method " + method + " unknown")
                 return
-            if self.autoprint is True:
-                self.ok("Data resampled by", time_period)
-            try:
-                ds3 = self.transform_(None, index_col,
-                                      fill_col, None, df=ds2.df)
-            except Exception as e:
-                self.err(e, self._resample,
-                         "Can not transform data after resampling")
-            return ds3.df
+            self.ok("Data resampled by", time_period)
+            ds2 = self.transform_(None, index_col,
+                                 fill_col, None, df=ds2.df)
+            df = ds2.df
+            if df is None:
+                self.err("Can not transform data after resampling")
+                return
+            return df
         except Exception as e:
-            self.err(e, self._resample, "Can not resample data")
+            self.err(e, "Can not resample data")
             return
 
     def rmean(self, time_period="1Min", num_col="Number",
@@ -125,24 +122,24 @@ class Transform():
         """
         Resample, and sum the main dataframe to a time period
         """
-        try:
-            self.df = self._resample("mean", time_period,
-                                     num_col, dateindex, index_col, fill_col)
-        except Exception as e:
-            self.err(e, self.rmean, "Can not mean data")
+        df = self._resample_("mean", time_period,
+                            num_col, dateindex, index_col, fill_col)
+        if df is None:
+            self.err("Can not mean data")
+            return
+        self.df = df
 
     def rmean_(self, time_period="1Min", num_col="Number",
                dateindex=None, index_col="Date", fill_col=None):
         """
         Resample, and sum a dataframe to a time period
         """
-        try:
-            df = self._resample("mean", time_period,
-                                num_col, dateindex, index_col, fill_col)
-        except Exception as e:
-            self.err(e, self.rmean_, "Can not mean data")
+        df = self._resample_("mean", time_period,
+                            num_col, dateindex, index_col, fill_col)
+        if df is None:
+            self.err("Can not mean data")
             return
-        return self.clone_(df)
+        return self._duplicate_(df)
 
     def sum_(self, column):
         """
@@ -300,7 +297,7 @@ class Transform():
         """
         try:
             df = self._index_col(column)
-            return self.clone_(df=df)
+            return self.df
         except Exception as e:
             self.err(e, self.index_col_, "Can not add index column")
 
@@ -600,3 +597,32 @@ class Transform():
                 msg += "upper " + str(qs)
             self.ok(msg, "in column", col)
         return ds2.df
+
+    def transform_(self, dateindex=None, index_col=None,
+                   fill_col=None, num_col=None, df=None):
+        """
+        Returns a DataSwim instance transformed according to the
+        given parameters
+        """
+        if df is None:
+            if self.df is None:
+                self.err("No dataframe: please provide one "
+                         "in parameters or set it")
+                return
+            df = self.df
+        ds2 = self._duplicate_(df)
+        if dateindex is None and index_col is None and fill_col \
+                is None and num_col is None:
+            return ds2
+        try:
+            if dateindex is not None:
+                ds2.dateindex(dateindex, df=df)
+            if fill_col is not None:
+                ds2.fill_nan(0, fill_col)
+            if index_col is not None:
+                ds2.index_col(index_col)
+            if num_col is not None:
+                ds2.add(num_col, 1)
+            return ds2
+        except Exception as e:
+            self.err(e, "Can not transform data")

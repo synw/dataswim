@@ -10,7 +10,7 @@ class TestDsDataCount(BaseDsTest):
     def test_count(self):
         ds.df = self.df
         msg = "Found 2 rows in the dataframe"
-        self.assertPrintMsg("ok", msg, ds.count)
+        self.assertOk(msg, ds.count)
         num = ds.count_()
         self.assertEqual(num, 2)
         ds.df = None

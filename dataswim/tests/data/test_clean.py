@@ -116,13 +116,11 @@ class TestDsDataClean(BaseDsTest):
                             [1.0, 2.0]}, ["1", "2"])
         assert_frame_equal(df, df2)
         ds.df = None
-        df = ds.to_type("float64", "two")
-        self.assertRaises(AttributeError)
+        self.assertErr("AttributeError", ds.to_type, "float64", "two")
         ds.df = pd.DataFrame({"one": ["one", "two"], "two":
                             ["wrong", 2.0]}, ["1", "2"])
-        self.assertRaises(ValueError)
-        df = ds.to_type(float, "wrong")
-        self.assertRaises(AttributeError)
+        self.assertErr(None, ds.to_type, "float64", "two")
+        self.assertErr(None, ds.to_type, "float64", "wrong")
 
     def tests_timestamps(self):
         df1 = pd.DataFrame({"one": ["one","two"], "two":

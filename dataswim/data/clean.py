@@ -265,7 +265,7 @@ class Clean(Err):
         if df is None:
             self.err("Can not index data")
             return
-        return self._duplicate_(df=df)
+        return self._duplicate_(df)
 
     def _dateindex(self, datafield):
         try:
@@ -359,35 +359,3 @@ class Clean(Err):
         Formats a date
         """
         return date.strftime('%Y-%m-%d %H:%M:%S')
-
-    """
-    def transform_(self, dateindex=None, index_col=None,
-                   fill_col=None, num_col=None, df=None):
-        ""
-        Returns a DataSwim instance transformed according to the
-        given parameters
-        ""
-        if df is None:
-            if self.df is None:
-                self.err(self._transform,
-                         "No dataframe: please provide one "
-                         "in parameters or set it")
-                return
-            df = self.df.copy()
-        ds2 = self.clone_(df)
-        if dateindex is None and index_col is None and fill_col \
-                is None and num_col is None:
-            return ds2
-        try:
-            if dateindex is not None:
-                ds2 = ds2.dateindex_(dateindex, df=df)
-            if fill_col is not None:
-                ds2 = ds2.fill_nan_(0, fill_col)
-            if index_col is not None:
-                ds2 = ds2.index_col_(index_col)
-            if num_col is not None:
-                ds2.add(num_col, 1)
-            return ds2
-        except Exception as e:
-            self.err(e, self.transform_, "Can not transform data")
-    """
