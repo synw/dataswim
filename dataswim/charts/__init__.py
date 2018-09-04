@@ -322,7 +322,7 @@ class Plot(Bokeh, Chartjs, Seaborn, Colors):
             if rmean is not None:
                 instance.rmean(rmean, index_col=x)
             instance.chart(x, y)
-            self.scolor_()
+            self.scolor()
             c = None
             if ctype == "point":
                 c = instance.point_(key)
@@ -341,7 +341,6 @@ class Plot(Bokeh, Chartjs, Seaborn, Colors):
                 chart = c
             else:
                 chart = chart * c
-        self.autoprint = True
         return chart
 
     def opts(self, dictobj):

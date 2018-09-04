@@ -35,15 +35,27 @@ class Select():
         except Exception as e:
             self.err(e, "Can not limit data")
 
-    def unique_(self, column):
+    def unique_(self, col):
         """
         Returns unique values in a column
         """
         try:
-            df = self.df.drop_duplicates(subset=[column], inplace=False)
-            return list(df[column])
+            df = self.df.drop_duplicates(subset=[col], inplace=False)
+            return list(df[col])
         except Exception as e:
             self.err(e, "Can not select unique data")
+
+    def wunique_(self, col):
+        """
+        Weight unique values: returns a dataframe with a count
+        of unique values
+        """
+        try:
+            s = pd.value_counts(self.df[col].values)
+            df = pd.DataFrame(s, columns=["Number"])
+            return df
+        except Exception as e:
+            self.err(e, "Can not weight unique data")
 
     def vrange(self, **args):
         """

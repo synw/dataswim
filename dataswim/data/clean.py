@@ -217,10 +217,13 @@ class Clean(Err):
         except Exception as e:
             self.err(e, "Can not convert to timestamps")
 
-    def date(self, *fields, precision="S"):
+    def date(self, *fields, precision="S", format=None):
         """
         Convert column values to properly formated datetime
         """
+        def formatdate(row):
+            return row.strftime(format)
+            
         def convert(row):
             encoded = '%Y-%m-%d %H:%M:%S'
             if precision == "Min":
@@ -238,9 +241,13 @@ class Clean(Err):
         try:
             for f in fields:
                 try:
-                    self.df[f] = pd.to_datetime(self.df[f]).apply(convert)
+                    if format is None:
+                        self.df[f] = pd.to_datetime(self.df[f]).apply(convert)
+                    else:
+                        self.df[f] = pd.to_datetime(self.df[f]).apply(formatdate)
                 except ValueError as e:
                     self.err(e, "Can not convert date")
+                    return
         except KeyError:
             self.warning("Can not find colums " + " ".join(fields))
             return

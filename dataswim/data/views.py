@@ -73,15 +73,14 @@ class View():
             self.err(e, self.show, "Can not show dataframe")
             return
         f = list(df)
-        num_fields = len(f)
         fds = []
         for fi in f:
             fds.append(str(fi))
         fields = ", ".join(fds)
-        if self.autoprint is True:
-            self.info("The dataframe has", colors.bold(num), "rows and",
-                      colors.bold(num_fields), "columns:")
-            print(fields)
+        num_rows = len(df.index)
+        self.info("The dataframe has", colors.bold(num_rows), "rows and",
+                  colors.bold(num), "columns:")
+        print(fields)
         return df.head(rows)
 
     def one(self):

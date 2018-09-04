@@ -70,12 +70,13 @@ class Count(Err):
             return
         self.ok("Found", num, "zero values in column", field)
 
-    def count_unique(self, field):
+    def count_unique_(self, field):
         """
         Return the number of unique values in a column
         """
         try:
             num = self.df[field].nunique()
+            return num
         except Exception as e:
             self.err(e, "Can not count unique values")
             return

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
+import numpy as np
 from numpy import nan
 
 
@@ -82,9 +83,6 @@ class Transform():
 
     def _resample_(self, method, time_period, num_col,
                   dateindex, index_col, fill_col):
-        """
-        Resample the main dataframe to a time period
-        """
         try:
             ds2 = self._duplicate_()
             if dateindex is not None:
@@ -150,7 +148,7 @@ class Transform():
             num = df.sum()
             return num
         except Exception as e:
-            self.err(e, self.sum_, "Can not sum data on column " + column)
+            self.err(e, "Can not sum data on column " + str(column))
 
     def reverse(self):
         """
@@ -159,7 +157,7 @@ class Transform():
         try:
             self.df = self.df.iloc[::-1]
         except Exception as e:
-            self.err(e, self.reverse, "Can not reverse the dataframe")
+            self.err(e, "Can not reverse the dataframe")
 
     def sort(self, column):
         """
@@ -168,97 +166,104 @@ class Transform():
         try:
             self.df = self.df.copy().sort_values(column)
         except Exception as e:
-            self.err(e, self.reverse,
-                     "Can not sort the dataframe from column " + column)
+            self.err(e, "Can not sort the dataframe from column " + 
+                     str(column))
 
-    def apply(self, function, cols=None, axis=1):
+    def apply(self, function, *cols, **kwargs):
         """
         Apply a function on columns values
         """
         try:
-            if cols is None:
-                obj = self.df
-                self.df = obj.apply(function, axis=axis)
+            if len(cols) == 0:
+                self.df = self.df.apply(function, **kwargs)
             else:
-                obj = self.df[cols]
-                self.df[cols] = obj.apply(function, axis=axis)
+                cols = list(cols)
+                self.df[cols] = self.df[cols].apply(function, **kwargs)
         except Exception as e:
-            self.err(e, self.apply, "Can not apply function")
+            self.err(e, "Can not apply function")
 
-    def pivot(self, index, columns, values):
+    def replace(self, col, origin, dest, **kwargs):
+        """
+        Replace a value in a column
+        """
+        try:
+            self.df[col] = self.df[col].replace(origin, dest)
+        except Exception as e:
+            self.err(e, "Can not replace value")
+            return
+        self.ok("Replaced value in column " + str(col))
+
+    def pivot(self, index, **kwargs):
         """
         Pivots a dataframe
         """
-        try:
-            self.df = self._pivot(index, columns, values)
-        except Exception as e:
-            self.err(e, self._pivot, "Can not pivot table")
+        df = self._pivot(index, **kwargs)
+        if df is None:
+            self.err("Can not pivot table")
+            return
+        self.df = df
 
-    def pivot_(self, index, columns, values):
+    def pivot_(self, index, **kwargs):
         """
         Pivots a dataframe
         """
-        try:
-            return self.clone_(self._pivot(index, columns, values))
-        except Exception as e:
-            self.err(e, self._pivot, "Can not pivot table")
+        df = self._pivot(index, **kwargs)
+        if df is None:
+            self.err("Can not pivot table")
+            return
+        return self._duplicate_(df)
 
-    def _pivot(self, index, columns, values):
-        """
-        Pivots a dataframe
-        """
+    def _pivot(self, index, **kwargs):
         try:
-            return self.df.pivot(index=index, columns=columns, values=values)
+            kwargs["index"] = index
+            return pd.pivot_table(self.df, **kwargs)
         except Exception as e:
-            self.err(e, self._pivot, "Can not pivot table")
+            self.err(e, "Can not pivot table")
 
-    def concat(self, *dss):
+    def concat(self, *dss, **kwargs):
         """
-        Concatenate dataframes from a list and set it to the main dataframe
+        Concatenate instances from a list and set it to the main dataframe
         """
-        try:
-            self.df = self._concat(*dss)
-        except Exception as e:
-            self.err(e, self.concat, "Can not concatenate data")
+        df = self._concat(*dss, **kwargs)
+        if df is None:
+            self.err("Can not concatenate data")
+            return
+        self.df = df
 
-    def concat_(self, *dss):
+    def concat_(self, *dss, **kwargs):
         """
         Concatenate dataframes from a list and returns a new DataSwim instance
         """
-        try:
-            ds2 = self.new_(self.df.copy(), quiet=True)
-            ds2.df = self._concat(*dss)
-            return ds2
-        except Exception as e:
-            self.err(e, self.concat_, "Can not concatenate data")
+        df = self._concat(*dss, **kwargs)
+        if df is None:
+            self.err("Can not concatenate data")
+            return
+        return self._duplicate_(df)
 
-    def _concat(self, *dss):
-        """
-        Concatenate dataframes from a list and set it to the main dataframe
-        """
+    def _concat(self, *dss, **kwargs):
         try:
             df = pd.DataFrame()
             for dsx in dss:
-                df = pd.concat([df, dsx.df])
+                df = pd.concat([df, dsx.df], **kwargs)
             return df
         except Exception as e:
-            self.err(e, self._concat, "Can not concatenate data")
+            self.err(e, "Can not concatenate data")
 
     def split_(self, col):
         """
-        Split the main dataframe according to column values
+        Split the main dataframe according to a column's unique values and
+        return a dict of dataswim instances
         """
-        df = self.df.copy()
         try:
             dss = {}
-            unique = df[col].unique()
+            unique = self.df[col].unique()
             for key in unique:
-                df2 = df.loc[df[col] == key]
-                ds2 = self.clone_(df2)
+                df2 = self.df.loc[self.df[col] == key]
+                ds2 = self._duplicate_(df2)
                 dss[key] = ds2
             return dss
         except Exception as e:
-            self.err(e, self.split_, "Can not split dataframe")
+            self.err(e, "Can not split dataframe")
 
     def add(self, column, value):
         """
@@ -451,7 +456,7 @@ class Transform():
                 else:
                     vals.append(new)
                 i = 1
-            self.set(df)
+            self.df = df
             self.add(name, vals)
         except Exception as e:
             self.err(e, self._append, "Can not diff column")
@@ -474,7 +479,7 @@ class Transform():
                     vals.append(diff)
                 else:
                     vals.append(default)
-            self.set(df)
+            self.df = df
             self.add(name, vals)
         except Exception as e:
             self.err(e, self._append, "Can not diff column")

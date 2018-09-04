@@ -118,7 +118,7 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
             self.err(e, "Can not load Excel file")
 
     def load_csv(self, url, dateindex=None,
-                 index_col=None, fill_col=None, **kwargs):
+                 index_col=None, fill_col=None, num_col=None, **kwargs):
         """
         Loads csv data in the main dataframe
         """
@@ -135,13 +135,11 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
         except Exception as e:
             self.err(e, "Can not load csv file")
             return
-        """
-        try:
-            ds2 = self.transform_(dateindex, index_col, fill_col, df=df)
-        except Exception as e:
-            self.err(e)
+        ds2 = self.transform_(dateindex, index_col, fill_col, df=self.df)
+        if ds2 is None:
+            self.err("Can not load csv")
             return
-        """
+        self = ds2
         self.end("Finished loading csv")
 
     def dateparser(self, dformat='%d/%m/%Y'):
