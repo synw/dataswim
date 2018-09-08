@@ -52,6 +52,7 @@ Using conda:
 Using pip:
 
    ```
+   pip install --no-cache-dir dataset
    pip install dataswim
    ```
 
