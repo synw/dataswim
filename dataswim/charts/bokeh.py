@@ -3,7 +3,6 @@ import numpy as np
 from bokeh.embed import components
 from holoviews.core.data.interface import DataError
 
-
 bokeh_renderer = hv.renderer('bokeh')
 
 
@@ -89,13 +88,14 @@ class Bokeh():
 
     def _lreg_bokeh(self):
         """
-        Returns a Bokeh linear regression chart
+        Returns a Bokeh linear regression line
         """
         try:
             ds2 = self.clone_()
             ds2.timestamps(ds2.x)
             ds2.lreg("Timestamps", ds2.y)
-            ds2.chart(ds2.x, "Linear regression")
+            ds2.df = ds2.df.rename(columns={'regression': "Value"})
+            ds2.chart("Date", "Value")
             c = ds2.line_()
             return c
         except Exception as e:
@@ -172,7 +172,7 @@ class Bokeh():
                 window_size, y_label = options["window_size"], options["y_label"]
                 chart = self._sline_bokeh(window_size, y_label)
             if chart is None:
-                self.err("Chart type " + chart_type +
+                self.err("Chart type " + chart_type + 
                          " unknown", self._get_bokeh_chart)
                 return
             endchart = chart(plot=opts, style=style)

@@ -40,7 +40,7 @@ class Report():
                 html = self.get_html(chart_obj, slug)
             if html is None and seaborn_chart is None:
                 self.err(
-                    self.stack, "Can not stack: empty html reveived for " +
+                    self.stack, "Can not stack: empty html reveived for " + 
                     str(chart_obj), "-", slug)
                 return
             report = dict(slug=slug, html=html)
@@ -91,7 +91,6 @@ class Report():
         """
         Writes the html report to one file per report
         """
-        fp = folderpath
         if folderpath is None:
             if self.report_path is None and "seaborn" \
                     not in self.report_engines:
@@ -113,15 +112,11 @@ class Report():
                     self.reports = self.report_engines = []
                     return
                 if "seaborn_chart" in report:
-                    if fp is None and self.static_path is None:
+                    if folderpath is None and self.static_path is None:
                         self.err("Please provide a folder path or set the "
                                  "static_path property")
                         return
-                    if self.static_path is None:
-                        folderpath = fp
-                    else:
-                        folderpath = self.static_path + "/" + fp
-                    self._save_seaborn_chart(report, folderpath)
+                    self._save_seaborn_chart(report, self.static_path)
                 else:
                     html = report["html"]
                     self._write_file(report["slug"], folderpath, html)
@@ -130,8 +125,7 @@ class Report():
         except Exception as e:
             self.err(e, self.to_files, "Can not save reports to files")
             return
-        if self.autoprint is True:
-            self.ok("Data writen to files")
+        self.ok("Data writen to files")
 
     def get_html(self, chart_obj=None, slug=None):
         """
@@ -160,7 +154,7 @@ class Report():
                              "No html returned for " + str(chart_obj))
                 return html
             else:
-                self.err(self.get_html, "Chart engine " +
+                self.err(self.get_html, "Chart engine " + 
                          self.engine + " unknown")
                 return
         except Exception as e:

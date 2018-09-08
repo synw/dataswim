@@ -22,6 +22,13 @@ class Messages():
         """
         label = colors.blue("INFO")
         self._msg(label, *msg)
+        
+    def status(self, *msg):
+        """
+        Prints a status message
+        """
+        label = colors.yellow("STATUS")
+        self._msg(label, *msg)
 
     def warning(self, *msg):
         """

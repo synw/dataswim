@@ -1,6 +1,6 @@
 import holoviews as hv
 from .bokeh import Bokeh
-#from .altair import Altair
+# from .altair import Altair
 from .chartjs import Chartjs
 from .seaborn import Seaborn
 from .colors import Colors
@@ -334,7 +334,7 @@ class Plot(Bokeh, Chartjs, Seaborn, Colors):
             if ctype == "area":
                 c = instance.area_(label=key)
             if c is None:
-                self.warning("Chart type " + ctype +
+                self.warning("Chart type " + ctype + 
                              " not supported, aborting")
                 return
             if chart is None:
@@ -342,6 +342,33 @@ class Plot(Bokeh, Chartjs, Seaborn, Colors):
             else:
                 chart = chart * c
         return chart
+
+    def density_(self, label=None, style=None, opts=None):
+        """
+        Get a Seaborn density chart
+        """
+        try:
+            return self._get_chart("density", style=style, opts=opts, label=label)
+        except Exception as e:
+            self.err(e, "Can not draw density chart")
+            
+    def dlinear_(self, label=None, style=None, opts=None):
+        """
+        Get a Seaborn linear + distribution chart
+        """
+        try:
+            return self._get_chart("dlinear", style=style, opts=opts, label=label)
+        except Exception as e:
+            self.err(e, "Can not draw dlinear chart")
+            
+    def distrib_(self, label=None, style=None, opts=None):
+        """
+        Get a Seaborn distribution chart
+        """
+        try:
+            return self._get_chart("distribution", style=style, opts=opts, label=label)
+        except Exception as e:
+            self.err(e, "Can not draw distrinution chart")
 
     def opts(self, dictobj):
         """
@@ -418,9 +445,11 @@ class Plot(Bokeh, Chartjs, Seaborn, Colors):
         """
         Get a full chart object
         """
+        sbcharts = ["density", "linear", "distribution", "dlinear"]
+        if chart_type in sbcharts:
+            self._set_seaborn_engine()
         if chart_type != "sline":
             x, y = self._check_fields(x, y)
-        self.trace()
         if opts is None:
             opts = self.chart_opts
         if style is None:
@@ -434,7 +463,7 @@ class Plot(Bokeh, Chartjs, Seaborn, Colors):
         elif self.engine == "seaborn":
             func = self._get_seaborn_chart
         else:
-            self.err(self._get_chart, "Engine " + self.engine + " unknown")
+            self.err("Engine " + self.engine + " unknown")
             return
         try:
             chart = func(
