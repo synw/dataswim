@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-
 import pandas as pd
-import numpy as np
 from numpy import nan
 
 
@@ -88,7 +86,7 @@ class Transform():
             if dateindex is not None:
                 ds2 = self.dateindex_(dateindex)
                 if ds2 is None:
-                    self.err(e, "Can not process date index")
+                    self.err("Can not process date index")
                     return
             if num_col is not None:
                 ds2.add(num_col, 1)
@@ -349,7 +347,7 @@ class Transform():
         Append a row to the main dataframe
         """
         try:
-            self.set(self._append(vals, index))
+            self.df = self._append(vals, index)
         except Exception as e:
             self.err(e, self.append, "Can not append row")
             return
@@ -387,7 +385,7 @@ class Transform():
         """
         try:
             df = self._merge(df, on, how, **kwargs)
-            self.set(df)
+            self.df = df
         except Exception as e:
             self.err(e, self.merge, "Can not merge dataframes")
 
@@ -521,7 +519,7 @@ class Transform():
             df = self.df.copy()
             df[ratio_col] = df[[col]].apply(
                 lambda x: 100 * x / float(x.sum()))
-            self.set(df)
+            self.df = df
         except Exception as e:
             self.err(e, self.ratio, "Can not calculate ratio")
 
@@ -563,7 +561,7 @@ class Transform():
         Remove superior quantiles from the dataframe
         """
         try:
-            self.set(self._trimquants(col, None, sup))
+            self.df = self._trimquants(col, None, sup)
         except Exception as e:
             self.err(e, self.trimsquants, "Can not trim superior quantiles")
 
@@ -572,7 +570,7 @@ class Transform():
         Remove superior and inferior quantiles from the dataframe
         """
         try:
-            self.set(self._trimquants(col, inf, None))
+            self.df = self._trimquants(col, inf, None)
         except Exception as e:
             self.err(e, self.trimiquants, "Can not trim inferior quantiles")
 
