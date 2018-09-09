@@ -554,7 +554,7 @@ class Transform():
         Remove superior and inferior quantiles from the dataframe
         """
         try:
-            self.set(self._trimquants(col, inf, sup))
+            self.df = self._trimquants(col, inf, sup)
         except Exception as e:
             self.err(e, self.trimquants, "Can not trim quantiles")
 
