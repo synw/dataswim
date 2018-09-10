@@ -1,7 +1,8 @@
-import seaborn as sns
+# -*- coding: utf-8 -*
 import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 class Seaborn():
