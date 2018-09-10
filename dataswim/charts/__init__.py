@@ -1,12 +1,12 @@
 import holoviews as hv
 from .bokeh import Bokeh
-# from .altair import Altair
+from .altair import Altair
 from .chartjs import Chartjs
 from .seaborn import Seaborn
 from .colors import Colors
 
 
-class Plot(Bokeh, Chartjs, Seaborn, Colors):
+class Plot(Bokeh, Chartjs, Seaborn, Altair, Colors):
     """
     Class to handle charts
     """
@@ -114,6 +114,16 @@ class Plot(Bokeh, Chartjs, Seaborn, Colors):
         except Exception as e:
             self.err(e, self.line_, "Can not draw line chart")
 
+    def hline_(self, label=None, style=None, opts=None, options={}):
+        """
+        Get a mean line chart
+        """
+        try:
+            return self._get_chart("hline", style=style, opts=opts,
+                                   label=label, options=options)
+        except Exception as e:
+            self.err(e, self.line_, "Can not draw mean line chart")
+
     def sline_(self, window_size=5,
                y_label="Moving average", chart_label=None):
         """
@@ -196,6 +206,16 @@ class Plot(Bokeh, Chartjs, Seaborn, Colors):
                                    label=label, options=options)
         except Exception as e:
             self.err(e, self.square_, "Can not draw square chart")
+
+    def tick_(self, label=None, style=None, opts=None, options={}):
+        """
+        Get an tick chart
+        """
+        try:
+            self._get_chart("tick", style=style, opts=opts,
+                                   label=label, options=options)
+        except Exception as e:
+            self.err(e, "Can not draw tick chart")
 
     def rule_(self, label=None, style=None, opts=None, options={}):
         """
@@ -400,13 +420,23 @@ class Plot(Bokeh, Chartjs, Seaborn, Colors):
         """
         Remove one option
         """
-        del self.chart_opts[name]
+        try:
+            del self.chart_opts[name]
+        except KeyError:
+            self.warning("Option " + name + " is not set")
+        except:
+            self.err("Can not remove option " + name)
 
     def rstyle(self, name):
         """
         Remove one style
         """
-        del self.chart_style[name]
+        try:
+            del self.chart_style[name]
+        except KeyError:
+            self.warning("Style " + name + " is not set")
+        except:
+            self.err("Can not remove style " + name)
 
     def color(self, val):
         """
@@ -470,8 +500,11 @@ class Plot(Bokeh, Chartjs, Seaborn, Colors):
         Get a full chart object
         """
         sbcharts = ["density", "linear", "distribution", "dlinear"]
+        acharts = ["tick"]
         if chart_type in sbcharts:
             self._set_seaborn_engine()
+        if chart_type in acharts:
+            self._set_altair_engine()
         if chart_type != "sline":
             x, y = self._check_fields(x, y)
         if opts is None:

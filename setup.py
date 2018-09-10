@@ -26,7 +26,7 @@ setup(
         'goerr',
         'holoviews',
         'bokeh',
-        'altair==1.2.1',
+        'altair',
         'gencharts',
         'influxdb',
         'chartjspy',

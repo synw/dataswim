@@ -5,7 +5,7 @@ goerr
 pytablewriter
 holoviews
 bokeh
-altair==1.2.1
+altair
 gencharts
 influxdb
 chartjspy

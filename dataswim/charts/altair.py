@@ -1,4 +1,5 @@
-from gencharts import ChartsGenerator
+# -*- coding: utf-8 -*-
+from altair import Chart
 
 
 class Altair():
@@ -6,18 +7,11 @@ class Altair():
     A class to handle charts with the Altair library
     """
 
-    def __init__(self, df=None, db=None):
+    def __init__(self, df=None):
         """
         Initialize
         """
         self.df = df
-        self.x_field = None
-        self.y_field = None
-        self.chart_obj = None
-        self.chart_opts = dict(width=940)
-        self.chart_style = None
-        self.label = None
-        self.engine = "bokeh"
 
     def altair_header_(self):
         """
@@ -33,46 +27,72 @@ class Altair():
 		"""
         return header
 
+    def _altair_hline_(self, xfield, yfield, opts, style, encode):
+        """
+        Get a mean line chart
+        """
+        try:
+            mean = self.df[yfield].mean()
+            l = []
+            i = 0
+            while i < len(self.df[yfield]):
+                l.append(mean)
+                i += 1
+            self.df["Mean"] = l
+            chart = Chart(self.df).mark_line(**style).encode(x=xfield, \
+                                            y="Mean", **encode).properties(**opts)
+            self.drop("Mean")
+            return chart
+        except Exception as e:
+            self.err(e, "Can not draw mean line chart")
+
     def _get_altair_chart(self, xfield, yfield, chart_type,
                           label, opts={}, style={}, **kwargs):
         """
         Get an Altair chart object
         """
-        chart = ChartsGenerator()
-        # params
-        opts["xfield"] = xfield
-        opts["yfield"] = yfield
-        opts["dataobj"] = self.df
-        opts["chart_type"] = chart_type
+        encode = {}
         if "color" in style:
-            opts["color"] = style["color"]
-        opts["width"] = self.chart_opts["width"]
-        if "height" not in self.chart_opts:
-            height = 300
-        else:
-            height = self.chart_opts["height"]
-        opts["height"] = height
-        # generate
-        try:
-            chartobj = chart.serialize(**opts)
-        except Exception as e:
-            self.err(e, self._get_altair_chart,
-                     "Can not get Altair chart object")
-            return
-        return chartobj
+            encode["color"] = style["color"]
+        chart = None
+        if chart_type == "bar":
+            chart = Chart(self.df).mark_bar(**style).encode(x=xfield, \
+                                            y=yfield, **encode).properties(**opts)
+        elif chart_type == "circle":
+            chart = Chart(self.df).mark_circle(**style).encode(x=xfield, \
+                                            y=yfield, **encode).properties(**opts)
+        elif chart_type == "line":
+            chart = Chart(self.df).mark_line(**style).encode(x=xfield, \
+                                            y=yfield, **encode).properties(**opts)
+        elif chart_type == "hline":
+            chart = self._altair_hline_(xfield, yfield, opts, style, encode)
+        elif chart_type == "point":
+            chart = Chart(self.df).mark_point(**style).encode(x=xfield, \
+                                            y=yfield, **encode).properties(**opts)
+        elif chart_type == "area":
+            chart = Chart(self.df).mark_area(**style).encode(x=xfield, \
+                                            y=yfield, **encode).properties(**opts)
+        elif chart_type == "heatmap":
+            chart = Chart(self.df).mark_rect(**style).encode(x=xfield, \
+                                            y=yfield, **encode).properties(**opts)
+        elif chart_type == "text":
+            chart = Chart(self.df).mark_text(**style).encode(x=xfield, \
+                                            y=yfield, **encode).properties(**opts)
+        elif chart_type == "square":
+            chart = Chart(self.df).mark_square(**style).encode(x=xfield, \
+                                                y=yfield, **encode).properties(**opts)
+        elif chart_type == "tick":
+            chart = Chart(self.df).mark_tick(**style).encode(x=xfield, \
+                                            y=yfield, **encode).properties(**opts)
+        elif chart_type == "rule":
+            chart = Chart(self.df).mark_rule(**style).encode(x=xfield, \
+                                            y=yfield, **encode).properties(**opts)
+        return chart
 
-    def _get_altair_html(self, chart_obj, slug):
+    def _set_altair_engine(self):
         """
-        Get the html for an Altair chart
+        Set the current chart engine to Altair
         """
-        global renderer
-        try:
-            chart = ChartsGenerator()
-            html = chart.html(slug, None, chart_obj)
-            if err.exists:
-                if self.errors_handling == "exceptions":
-                    err.throw()
-            return html
-        except Exception as e:
-            self.err(e, self._get_altair_html,
-                     "Can not get html from the Altair rendering engine")
+        if self.engine != "altair":
+            self.engine = "altair"
+            self.info("Switching to the Altair engine to draw this chart")
