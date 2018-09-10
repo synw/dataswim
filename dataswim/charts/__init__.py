@@ -412,7 +412,7 @@ class Plot(Bokeh, Chartjs, Seaborn, Colors):
         """
         Change the chart's color
         """
-        self.style(dict(color=val))
+        self.style("color", val)
 
     def width(self, val):
         """
