@@ -95,6 +95,8 @@ class Bokeh():
             ds2.timestamps(ds2.x)
             ds2.lreg("Timestamps", ds2.y)
             ds2.df = ds2.df.rename(columns={'regression': "Value"})
+            if "date_format" in self.chart_style:
+                ds2.date("Date", format=self.chart_style["date_format"])
             ds2.chart("Date", "Value")
             c = ds2.line_()
             return c
