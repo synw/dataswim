@@ -370,19 +370,43 @@ class Plot(Bokeh, Chartjs, Seaborn, Colors):
         except Exception as e:
             self.err(e, "Can not draw distrinution chart")
 
+    def opt(self, name, value):
+        """
+        Add or update one option
+        """
+        self.chart_opts[name] = value
+
+    def style(self, name, value):
+        """
+        Add or update one style
+        """
+        self.chart_style[name] = value
+
     def opts(self, dictobj):
         """
-        Add or update an option value to defaults
+        Add or update options
         """
         for k in dictobj:
             self.chart_opts[k] = dictobj[k]
 
-    def style(self, dictobj):
+    def styles(self, dictobj):
         """
-        Add or update a style value to defaults
+        Add or update styles
         """
         for k in dictobj:
             self.chart_style[k] = dictobj[k]
+
+    def ropt(self, name):
+        """
+        Remove one option
+        """
+        del self.chart_opts[name]
+
+    def rstyle(self, name):
+        """
+        Remove one style
+        """
+        del self.chart_style[name]
 
     def color(self, val):
         """
