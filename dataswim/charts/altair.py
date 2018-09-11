@@ -84,14 +84,25 @@ class Altair():
         Get html for an Altair chart
         """
         try:
-            json_data = chart_obj.to_json()
+            json_data = chart_obj.to_json(indent=0)
         except Exception as e:
             self.err(e)
-        html = '<div id="chart-' + slug + '"></div>'
-        html += '<script>'
-        html += 'var s' + slug + ' = ' + json_data + ';'
-        html += 'vega.embed("#chart-' + slug + '", s' + slug + ');'
-        # html += 'console.log(JSON.stringify(s{id}, null, 2));'
+        html = '<div id="' + slug + '"></div>\n'
+        html += '<script type="text/javascript">'
+        html += 'var spec = ' + json_data.replace("\n", "") + ";"
+        html += """
+        var embed_opt = {"mode": "vega-lite"};
+        function showError(el, error){
+            el.innerHTML = ('<div class="error">'
+                            + '<p>JavaScript Error: ' + error.message + '</p>'
+                            + "<p>This usually means there's a typo in your chart specification. "
+                            + "See the javascript console for the full traceback.</p>"
+                            + '</div>');
+            throw error;
+        };\n"""
+        html += "const el = document.getElementById('" + slug + "');"
+        html += "vegaEmbed('#" + slug + "', spec, embed_opt)"
+        html += ".catch(error => showError(el, error));"
         html += '</script>'
         return html
 
