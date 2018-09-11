@@ -62,7 +62,6 @@ class Report():
         if folderpath is None:
             if self.report_path is None:
                 self.err(
-                    self.to_file,
                     "Please set the report_path parameter or pass a path in arguments")
                 return
             folderpath = self.report_path
@@ -91,11 +90,13 @@ class Report():
         """
         Writes the html report to one file per report
         """
+        if len(self.reports) == 0:
+            self.warning("No charts to save. Use stack to add charts for saving")
+            return
         if folderpath is None:
             if self.report_path is None and "seaborn" \
                     not in self.report_engines:
-                self.err(self.to_files,
-                         "No folder path set for reports: please provide "
+                self.err("No folder path set for reports: please provide "
                          "one as argument or set ds.report_path")
                 return
             folderpath = self.report_path
@@ -107,8 +108,7 @@ class Report():
         try:
             for report in self.reports:
                 if "html" not in report:
-                    self.err(self.to_files,
-                             "No html for report " + report)
+                    self.err("No html for report " + report)
                     self.reports = self.report_engines = []
                     return
                 if "seaborn_chart" in report:
@@ -134,7 +134,6 @@ class Report():
         if chart_obj is None:
             if self.chart_obj is None:
                 self.err(
-                    self.get_html,
                     "No chart object registered, please provide "
                     "one in parameters"
                 )
@@ -144,28 +143,18 @@ class Report():
             if self.engine == "bokeh":
                 html = self._get_bokeh_html(chart_obj)
                 if html is None:
-                    self.err(self.get_html,
-                             "No html returned for " + str(chart_obj))
+                    self.err("No html returned for " + str(chart_obj))
                 return html
             elif self.engine == "altair":
-                html = self._get_altair_html(chart_obj, slug)
+                html = self._get_altair_html_(chart_obj, slug)
                 if html is None:
-                    self.err(self.get_html,
-                             "No html returned for " + str(chart_obj))
+                    self.err("No html returned for " + str(chart_obj))
                 return html
             else:
-                self.err(self.get_html, "Chart engine " + 
-                         self.engine + " unknown")
+                self.err("Chart engine " + self.engine + " unknown")
                 return
         except Exception as e:
-            self.err(e, self.get_html, "Can not get html from chart object")
-
-    def set_engine(self, engine):
-        """
-        Sets a chart engine reseting all the others in the report stack
-        """
-        self.engine = engine
-        self.report_engines = [engine]
+            self.err(e, "Can not get html from chart object")
 
     def _get_header(self, header):
         """
@@ -195,6 +184,7 @@ class Report():
         if not os.path.isdir(folderpath):
             try:
                 os.makedirs(folderpath)
+                self.info("Creating directory " + folderpath)
             except Exception as e:
                 self.err(e)
                 return
@@ -205,12 +195,11 @@ class Report():
             filex = open(filepath, "w")
             filex.write(html)
             filex.close()
-            if self.autoprint is True:
-                if self.notebook is False:
-                    self.ok("File written to", filepath)
-                else:
-                    html = '<a href="' + filepath + '">' + filepath + '</a>'
-                    self.html("File written to", html)
+            if self.notebook is False:
+                self.ok("File written to", filepath)
+            else:
+                html = '<a href="' + filepath + '">' + filepath + '</a>'
+                self.html("File written to", html)
         except Exception as e:
             self.err(e)
         return filepath
@@ -220,12 +209,12 @@ class Report():
         Default html header
         """
         html = """
-		<!DOCTYPE html>
-		<html lang="en">
-		<head>
-			<meta charset="utf-8">
-			<title>Report</title>
-		"""
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>Report</title>
+        """
         if "bokeh" in self.report_engines:
             html += self.bokeh_header_()
         if "altair" in self.report_engines:
@@ -233,9 +222,9 @@ class Report():
         if "chartjs" in self.report_engines:
             html += self.chartjs_header_()
         html += """
-		</head>
-		<body>
-		"""
+        </head>
+        <body>
+        """
         return html
 
     def _footer(self):

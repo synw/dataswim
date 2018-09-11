@@ -56,7 +56,7 @@ class Bokeh():
         """
         return header
 
-    def hline_(self, col, label=None):
+    def _hline_bokeh_(self, col):
         """
         Returns an horizontal line from a column mean value
         """
@@ -156,6 +156,8 @@ class Bokeh():
         try:
             if chart_type == "line":
                 chart = hv.Curve(**args)
+            if chart_type == "hline":
+                chart = self._hline_bokeh_(y_field)
             elif chart_type == "point":
                 chart = hv.Scatter(**args)
             elif chart_type == "area":

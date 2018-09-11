@@ -500,7 +500,7 @@ class Plot(Bokeh, Chartjs, Seaborn, Altair, Colors):
         Get a full chart object
         """
         sbcharts = ["density", "linear", "distribution", "dlinear"]
-        acharts = ["tick"]
+        acharts = ["tick", "circle"]
         if chart_type in sbcharts:
             self._set_seaborn_engine()
         if chart_type in acharts:

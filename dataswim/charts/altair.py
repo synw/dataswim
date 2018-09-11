@@ -1,5 +1,6 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*
 from altair import Chart
+import json
 
 
 class Altair():
@@ -13,29 +14,18 @@ class Altair():
         """
         self.df = df
 
-    def altair_header_(self):
-        """
-        Returns html script tags for Altair
-        To get the right Vega Lite library versions use this link:
-        https://github.com/synw/django-chartflo/blob/master/chartflo/static/js/vegalite/
-        """
-        header = """
-		<script src="https://rawgit.com/synw/django-chartflo/master/chartflo/static/js/vegalite/vega.js" charset="utf-8"></script>
-		<script src="https://rawgit.com/synw/django-chartflo/master/chartflo/static/js/vegalite/vega-lite.js" charset="utf-8"></script>
-		<script src="https://rawgit.com/synw/django-chartflo/master/chartflo/static/js/vegalite/vega-embed.js" charset="utf-8"></script>
-		<style>.vega-embed canvas {max-width:100%;}</style>
-		"""
-        return header
-
     def _altair_hline_(self, xfield, yfield, opts, style, encode):
         """
         Get a mean line chart
         """
         try:
-            mean = self.df[yfield].mean()
+            rawy = yfield
+            if ":" in yfield:
+                rawy = yfield.split(":")[0]
+            mean = self.df[rawy].mean()
             l = []
             i = 0
-            while i < len(self.df[yfield]):
+            while i < len(self.df[rawy]):
                 l.append(mean)
                 i += 1
             self.df["Mean"] = l
@@ -88,6 +78,22 @@ class Altair():
             chart = Chart(self.df).mark_rule(**style).encode(x=xfield, \
                                             y=yfield, **encode).properties(**opts)
         return chart
+
+    def _get_altair_html_(self, chart_obj, slug):
+        """
+        Get html for an Altair chart
+        """
+        try:
+            json_data = chart_obj.to_json()
+        except Exception as e:
+            self.err(e)
+        html = '<div id="chart-' + slug + '"></div>'
+        html += '<script>'
+        html += 'var s' + slug + ' = ' + json_data + ';'
+        html += 'vega.embed("#chart-' + slug + '", s' + slug + ');'
+        # html += 'console.log(JSON.stringify(s{id}, null, 2));'
+        html += '</script>'
+        return html
 
     def _set_altair_engine(self):
         """
