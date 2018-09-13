@@ -390,6 +390,33 @@ class Plot(Bokeh, Chartjs, Seaborn, Altair, Colors):
         except Exception as e:
             self.err(e, "Can not draw distrinution chart")
 
+    def text_(self, label=None, style=None, opts=None):
+        """
+        Get an Altair text marks chart
+        """
+        try:
+            return self._get_chart("text", style=style, opts=opts, label=label)
+        except Exception as e:
+            self.err(e, "Can not draw text marks chart")
+
+    def line_num_(self, label=None, style=None, opts=None):
+        """
+        Get an Altair line + number marks chart
+        """
+        try:
+            return self._get_chart("line_num", style=style, opts=opts, label=label)
+        except Exception as e:
+            self.err(e, "Can not draw line and numbers chart")
+
+    def bar_num_(self, label=None, style=None, opts=None):
+        """
+        Get an Altair bar + number marks chart
+        """
+        try:
+            return self._get_chart("bar_num", style=style, opts=opts, label=label)
+        except Exception as e:
+            self.err(e, "Can not draw line and numbers chart")
+
     def opt(self, name, value):
         """
         Add or update one option
@@ -443,6 +470,12 @@ class Plot(Bokeh, Chartjs, Seaborn, Altair, Colors):
         Change the chart's color
         """
         self.style("color", val)
+
+    def rcolor(self):
+        """
+        Reset the color to the base color
+        """
+        self.style("color", "#30A2DA")
 
     def width(self, val):
         """
@@ -499,8 +532,8 @@ class Plot(Bokeh, Chartjs, Seaborn, Altair, Colors):
         """
         Get a full chart object
         """
-        sbcharts = ["density", "linear", "distribution", "dlinear"]
-        acharts = ["tick", "circle"]
+        sbcharts = ["density", "distribution", "dlinear"]
+        acharts = ["tick", "circle", "text", "line_num", "bar_num"]
         if chart_type in sbcharts:
             self._set_seaborn_engine()
         if chart_type in acharts:

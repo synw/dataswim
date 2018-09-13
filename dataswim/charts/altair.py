@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*
 from altair import Chart
-import json
 
 
 class Altair():
@@ -13,6 +12,79 @@ class Altair():
         Initialize
         """
         self.df = df
+        self.altair_encode = {}
+
+    def aenc(self, key, value):
+        """
+        Add an entry to the altair encoding dict
+        """
+        self.altair_encode[key] = value
+
+    def raenc(self, key):
+        """
+        Remove an entry from the altair encoding dict
+        """
+        if key in self.altair_encode:
+            del self.altair_encode[key]
+        else:
+            self.warning("Key " + key + " not found in Altair encoding dict")
+
+    def raencs(self):
+        """
+        Reset the altair encoding dict
+        """
+        self.altair_encode = {}
+
+    def _altair_line_num_(self, xfield, yfield, opts, style, encode):
+        """
+        Get a line + text number chart
+        """
+        try:
+            c = self._altair_chart_num_("line", xfield,
+                                           yfield, opts, style, encode)
+        except Exception as e:
+            self.err(e, "Can not draw a line num chart")
+            return
+        return c
+
+    def _altair_bar_num_(self, xfield, yfield, opts, style, encode):
+        """
+        Get a bar + text number chart
+        """
+        try:
+            c = self._altair_chart_num_("bar", xfield,
+                                           yfield, opts, style, encode)
+        except Exception as e:
+            self.err(e, "Can not draw a bar num chart")
+            return
+        return c
+
+    def _altair_chart_num_(self, chart_type, xfield, yfield, opts, style, encode):
+        """
+        Get a chart + text number chart
+        """
+        text_color = "grey"
+        if "text_color" in style:
+            text_color = style["text_color"]
+            del style["text_color"]
+            if "text_color" in self.chart_style:
+                del self.chart_style["text_color"]
+        if chart_type == "line":
+            c = Chart(self.df).mark_line(**style).encode(x=xfield, \
+                                                y=yfield, **encode).properties(**opts)
+        if chart_type == "bar":
+            c = Chart(self.df).mark_bar(**style).encode(x=xfield, \
+                                                y=yfield, **encode).properties(**opts)
+        if "text" not in encode:
+            encode["text"] = yfield
+        if "align" not in style:
+            style["align"] = "center"
+        if "dy" not in style:
+            style["dy"] = -5
+        style["color"] = text_color
+        num = Chart(self.df).mark_text(**style).encode(x=xfield, \
+                                            y=yfield, **encode).properties(**opts)
+        return c + num
 
     def _altair_hline_(self, xfield, yfield, opts, style, encode):
         """
@@ -41,9 +113,7 @@ class Altair():
         """
         Get an Altair chart object
         """
-        encode = {}
-        if "color" in style:
-            encode["color"] = style["color"]
+        encode = self.altair_encode
         chart = None
         if chart_type == "bar":
             chart = Chart(self.df).mark_bar(**style).encode(x=xfield, \
@@ -56,6 +126,10 @@ class Altair():
                                             y=yfield, **encode).properties(**opts)
         elif chart_type == "hline":
             chart = self._altair_hline_(xfield, yfield, opts, style, encode)
+        elif chart_type == "line_num":
+            chart = self._altair_line_num_(xfield, yfield, opts, style, encode)
+        elif chart_type == "bar_num":
+            chart = self._altair_bar_num_(xfield, yfield, opts, style, encode)
         elif chart_type == "point":
             chart = Chart(self.df).mark_point(**style).encode(x=xfield, \
                                             y=yfield, **encode).properties(**opts)
