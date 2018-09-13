@@ -248,7 +248,7 @@ class Plot(Bokeh, Chartjs, Seaborn, Altair, Colors):
             self.err(e, self.rule_, "Can not draw linear regression chart")
 
     def line_point_(self, label=None, style=None, opts=None, options={},
-                    colors={"line": "orange", "point": "green"}):
+                    colors={"line": "orange", "point": "#30A2DA"}):
         """
         Get a line and point chart
         """
@@ -465,6 +465,28 @@ class Plot(Bokeh, Chartjs, Seaborn, Altair, Colors):
         except:
             self.err("Can not remove style " + name)
 
+    def ropts(self):
+        """
+        Reset the chart options
+        """
+        self.chart_opts = {}
+
+    def rstyles(self):
+        """
+        Reset the chart options
+        """
+        self.chart_style = {}
+
+    def defaults(self):
+        """
+        Reset the chart options and style to defaults
+        """
+        self.chart_style = {}
+        self.chart_opts = {}
+        self.style("color", "#30A2DA")
+        self.width(900)
+        self.height(250)
+
     def color(self, val):
         """
         Change the chart's color
@@ -493,19 +515,7 @@ class Plot(Bokeh, Chartjs, Seaborn, Altair, Colors):
         """
         Change the chart's point size
         """
-        self.style(dict(size=val))
-
-    def reset_opts(self):
-        """
-        Reset the chart options
-        """
-        self.chart_opts = {}
-
-    def reset_style(self):
-        """
-        Reset the chart options
-        """
-        self.chart_style = {}
+        self.styles(dict(size=val))
 
     def _check_fields(self, x, y):
         """

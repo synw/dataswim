@@ -86,18 +86,18 @@ class Bokeh():
         except Exception as e:
             self.err(e, self._sline_bokeh, "Can not draw smooth line chart")
 
-    def _lreg_bokeh(self):
+    def _lreg_bokeh(self, **kwargs):
         """
         Returns a Bokeh linear regression line
         """
         try:
-            ds2 = self.clone_()
+            ds2 = self._duplicate_()
             ds2.timestamps(ds2.x)
             ds2.lreg("Timestamps", ds2.y)
-            ds2.df = ds2.df.rename(columns={'regression': "Value"})
+            ds2.drop(ds2.y)
+            ds2.df = ds2.df.rename(columns={'Regression': ds2.y})
             if "date_format" in self.chart_style:
                 ds2.date("Date", format=self.chart_style["date_format"])
-            ds2.chart("Date", "Value")
             c = ds2.line_()
             return c
         except Exception as e:
@@ -171,7 +171,7 @@ class Bokeh():
             elif chart_type == "heatmap":
                 chart = hv.HeatMap(**args)
             elif chart_type == "lreg":
-                chart = self._lreg_bokeh()
+                chart = self._lreg_bokeh(**args)
             elif chart_type == "sline":
                 window_size, y_label = options["window_size"], options["y_label"]
                 chart = self._sline_bokeh(window_size, y_label)

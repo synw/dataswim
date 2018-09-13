@@ -5,7 +5,7 @@ from sklearn import linear_model
 
 class Stats():
 
-    def lreg(self, xcol, ycol, name="regression"):
+    def lreg(self, xcol, ycol, name="Regression"):
         """
         Add a column to the main dataframe populted with
         the model's linear regression for a column

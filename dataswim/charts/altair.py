@@ -59,10 +59,11 @@ class Altair():
             return
         return c
 
-    def _altair_chart_num_(self, chart_type, xfield, yfield, opts, style, encode):
+    def _altair_chart_num_(self, chart_type, xfield, yfield, opts, style2, encode):
         """
         Get a chart + text number chart
         """
+        style = {**style2}
         text_color = "grey"
         if "text_color" in style:
             text_color = style["text_color"]
@@ -81,6 +82,8 @@ class Altair():
             style["align"] = "center"
         if "dy" not in style:
             style["dy"] = -5
+        if "size" in style:
+            del style["size"]
         style["color"] = text_color
         num = Chart(self.df).mark_text(**style).encode(x=xfield, \
                                             y=yfield, **encode).properties(**opts)

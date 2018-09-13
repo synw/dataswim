@@ -8,7 +8,6 @@ from .data import Df
 from .report import Report
 from .messages import Messages
 
-
 version = "0.4.18"
 
 
@@ -49,6 +48,7 @@ class DataSwim(Db, Df, Plot, Map, Report, Messages, Err):
         self.nan = nan
         self.color_index = 0
         self.dsmap = None
+        self.altair_encode = {}
 
     def __repr__(self):
         num = 0
