@@ -19,20 +19,22 @@ class Info():
         pmodels = self._tables(name)
         if pmodels is None:
             return
-        if self.autoprint is True:
-            num = len(pmodels)
-            s = "s"
-            if num == 1:
-                s = ""
-            msg = "Found " + colors.bold(str(num)) + " table" + s + ":\n"
-            msg += "\n".join(pmodels)
-            self.info(msg)
+        num = len(pmodels)
+        s = "s"
+        if num == 1:
+            s = ""
+        msg = "Found " + colors.bold(str(num)) + " table" + s + ":\n"
+        msg += "\n".join(pmodels)
+        self.info(msg)
 
     def tables_(self, name=None):
         """
         Print existing tables in a database
         """
-        pmodels = self._tables(name)
+        try:
+            pmodels = self._tables(name)
+        except Exception as e:
+            self.err(e, "Can not print tables")
         return pmodels
 
     def _tables(self, name):

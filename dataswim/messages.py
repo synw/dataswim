@@ -64,8 +64,7 @@ class Messages():
         Prints an end message with elapsed time
         """
         if self.start_time is None:
-            self.err(
-                self.end, "No start time set: please use start() "
+            self.err("No start time set: please use start() "
                 "before using this function")
         endtime = datetime.datetime.now()
         rd = dateutil.relativedelta.relativedelta(endtime, self.start_time)

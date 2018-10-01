@@ -169,17 +169,17 @@ class Altair():
         html += 'var spec = ' + json_data.replace("\n", "") + ";"
         html += """
         var embed_opt = {"mode": "vega-lite"};
-        function showError(el, error){
-            el.innerHTML = ('<div class="error">'
+        function showError(altel, error){
+            altel.innerHTML = ('<div class="error">'
                             + '<p>JavaScript Error: ' + error.message + '</p>'
                             + "<p>This usually means there's a typo in your chart specification. "
                             + "See the javascript console for the full traceback.</p>"
                             + '</div>');
             throw error;
         };\n"""
-        html += "const el = document.getElementById('" + slug + "');"
+        html += "const el_" + slug + " = document.getElementById('" + slug + "');"
         html += "vegaEmbed('#" + slug + "', spec, embed_opt)"
-        html += ".catch(error => showError(el, error));"
+        html += ".catch(error => showError(el_" + slug + ", error));"
         html += '</script>'
         return html
 

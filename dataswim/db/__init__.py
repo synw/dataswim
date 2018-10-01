@@ -1,6 +1,9 @@
 from numpy.core.numeric import nan
 import dataset
+from stuf import stuf
 import pandas as pd
+from ..messages import Messages
+from ..errors import Error
 from .infos import Info
 from .select import Select
 from .relations import Relation
@@ -8,7 +11,7 @@ from .insert import Insert
 from .influxdb import InfluxDb
 
 
-class Db(Info, Select, Insert, Relation, InfluxDb):
+class Db(Messages, Info, Select, Insert, Relation, InfluxDb, Error):
     """
     Class for manipulating databases
     """
@@ -24,15 +27,14 @@ class Db(Info, Select, Insert, Relation, InfluxDb):
         Connect to the database and set it as main database
         """
         try:
-            self.db = dataset.connect(url)
+            self.db = dataset.connect(url, row_type=stuf)
         except Exception as e:
-            self.err(e, self.connect, "Can not connect to database")
+            self.err(e, "Can not connect to database")
             return
         if self.db is None:
-            self.err("Database" + url + " not found", self.connect)
+            self.err("Database" + url + " not found")
             return
-        if self.autoprint is True:
-            self.ok("Db", self.db.url, "connected")
+        self.ok("Db", self.db.url, "connected")
 
     def load(self, table, dateindex=None, index_col=None, fill_col=None):
         """
@@ -41,7 +43,7 @@ class Db(Info, Select, Insert, Relation, InfluxDb):
         try:
             self.df = self._load(table, dateindex, index_col, fill_col)
         except Exception as e:
-            self.err(e, self.load, "Can not load table " + table)
+            self.err(e, "Can not load table " + table)
 
     def load_(self, table, dateindex=None, index_col=None, fill_col=None):
         """
@@ -51,7 +53,7 @@ class Db(Info, Select, Insert, Relation, InfluxDb):
             df = self._load(table, dateindex, index_col, fill_col)
             return self.clone_(df)
         except Exception as e:
-            self.err(e, self.load_, "Can not load table " + table)
+            self.err(e, "Can not load table " + table)
 
     def _load(self, table, dateindex, index_col, fill_col):
         """
@@ -61,15 +63,14 @@ class Db(Info, Select, Insert, Relation, InfluxDb):
         try:
             df = self.getall(table)
         except Exception as e:
-            self.err(e, self._load, "Can not fetch data from table " + table)
+            self.err(e, "Can not fetch data from table " + table)
             return self.df
         try:
             ds2 = self.transform_(dateindex, index_col, fill_col, df=df)
         except Exception as e:
-            self.err(e, self.load, "Can not transform dataframe")
+            self.err(e, "Can not transform dataframe")
             return self.df
-        if self.autoprint is True:
-            self.ok("Data loaded from table", table)
+        self.ok("Data loaded from table", table)
         return ds2.df
 
     def load_django(self, query, dateindex=None,
@@ -80,7 +81,7 @@ class Db(Info, Select, Insert, Relation, InfluxDb):
         try:
             self.df = self._load_django(query, dateindex, index_col, fill_col)
         except Exception as e:
-            self.err(e, self.load_django, "Can not load data from query")
+            self.err(e, "Can not load data from query")
 
     def load_django_(self, query, dateindex=None,
                      index_col=None, fill_col=None):
@@ -91,7 +92,7 @@ class Db(Info, Select, Insert, Relation, InfluxDb):
             df = self._load_django(query, dateindex, index_col, fill_col)
             return self.clone_(df)
         except Exception as e:
-            self.err(e, self.load_django_, "Can not load data from query")
+            self.err(e, "Can not load data from query")
 
     def _load_django(self, query, dateindex, index_col, fill_col):
         """
@@ -106,10 +107,9 @@ class Db(Info, Select, Insert, Relation, InfluxDb):
             ds2 = self.transform_(dateindex, index_col, fill_col, df=df)
             df = ds2.df
         except Exception as e:
-            self.err(e, self.load, "Can not transform dataframe")
+            self.err(e, "Can not transform dataframe")
             return
-        if self.autoprint is True:
-            self.ok("Loaded data from django orm query")
+        self.ok("Loaded data from django orm query")
         return df
 
     def csv_to_db(self):
@@ -123,4 +123,4 @@ class Db(Info, Select, Insert, Relation, InfluxDb):
         Checks the database connection
         """
         if self.db is None:
-            self.err(self._check_db, "Database not connected")
+            self.warning("Database not connected")

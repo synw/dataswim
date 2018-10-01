@@ -28,15 +28,16 @@ class Relation():
         """
         df = self._relation(search_ds, origin_field,
                             search_field, destination_field, id_field)
-        return self.clone_(df)
+        return self._duplicate_(df)
 
-    def _relation(self, search_ds, origin_field, search_field, destination_field, id_field):
+    def _relation(self, table, origin_field, search_field, destination_field, id_field):
         """
         Add a column to the main dataframe from a relation foreign key 
         """
-        if self.autoprint is True:
-            self.start("Processing relation",
-                       origin_field, "->", search_field)
+        self.start("Processing relation",
+                   origin_field, "->", search_field)
+        search_ds = self.new_(db=self.db, quiet=True)
+        search_ds.load(table)
         df = self.df.copy()
         if destination_field is None:
             destination_field = search_field

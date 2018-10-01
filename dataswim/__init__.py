@@ -1,17 +1,17 @@
 import pandas as pd
 from numpy.core.numeric import nan
-from goerr import Err
 from .db import Db
 from .charts import Plot
 from .maps import Map
 from .data import Df
 from .report import Report
 from .messages import Messages
+from .errors import Error
 
 version = "0.4.18"
 
 
-class DataSwim(Db, Df, Plot, Map, Report, Messages, Err):
+class DataSwim(Db, Df, Plot, Map, Report, Messages, Error):
     """
     Main class
     """
@@ -32,7 +32,7 @@ class DataSwim(Db, Df, Plot, Map, Report, Messages, Err):
         self.engine = "bokeh"
         self.label = None
         self.backup_df = None
-        self.autoprint = True
+        self.autoprint = False
         self.errors_handling = "exceptions"
         self.notebook = False
         self.header = self._header
@@ -62,8 +62,7 @@ class DataSwim(Db, Df, Plot, Map, Report, Messages, Err):
         Returns a new DataSwim instance from a dataframe
         """
         ds2 = DataSwim(df, db)
-        if quiet is False:
-            self.ok("A new instance was created")
+        self.ok("A new instance was created")
         return ds2
 
 

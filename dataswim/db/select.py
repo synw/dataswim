@@ -19,15 +19,14 @@ class Select():
         try:
             self._check_db()
         except Exception as e:
-            self.err(e, self.getall, "Can not connect to database")
+            self.err(e, "Can not connect to database")
             return
         if table not in self.db.tables:
-            self.warning("The table " + table +
-                         " does not exists", self.getall)
+            self.warning("The table " + table + " does not exists")
             return
         try:
             res = self.db[table].all()
             df = pd.DataFrame(list(res))
             return df
         except Exception as e:
-            self.err(e, self.getall, "Error retrieving data in table")
+            self.err(e, "Error retrieving data in table")

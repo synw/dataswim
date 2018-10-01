@@ -3,11 +3,10 @@ import time
 import arrow
 import pandas as pd
 from numpy.core.numeric import nan
-from goerr import Err
 from goerr.colors import colors
 
 
-class Clean(Err):
+class Clean():
     """
     Class to clean the data
     """
@@ -62,7 +61,7 @@ class Clean(Err):
             df = self.df.copy()
             for field in fields:
                 if field not in df.columns:
-                    self.warning("Column "+field+" does not exist")
+                    self.warning("Column " + field + " does not exist")
                     return
                 df = df.replace({field: {0: nan}})
             if len(fields) > 1:
@@ -156,6 +155,7 @@ class Clean(Err):
         """
         Convert some column values to integers
         """
+
         def convert(val):
             return int(val)
 
@@ -221,6 +221,7 @@ class Clean(Err):
         """
         Convert column values to properly formated datetime
         """
+
         def formatdate(row):
             return row.strftime(format)
             
@@ -279,7 +280,7 @@ class Clean(Err):
             index = pd.DatetimeIndex(self.df[datafield])
             df = self.df.set_index(index)
         except Exception as e:
-            self.err(e, "Can not index with column " +
+            self.err(e, "Can not index with column " + 
                      colors.bold(datafield))
             return
         self.ok("Added a datetime index from column", datafield)
@@ -309,7 +310,7 @@ class Clean(Err):
         try:
             df = self.df.set_index(self.df[indexcol])
         except Exception as e:
-            self.err(e, self._index, "Can not find column " +
+            self.err(e, self._index, "Can not find column " + 
                      colors.bold(indexcol) + " in data")
             return
         self.ok("Added an index from column", indexcol)
@@ -319,6 +320,7 @@ class Clean(Err):
         """
         Remove leading and trailing white spaces in a column's values
         """
+
         def remove_ws(row):
             val = str(row[col])
             if " " in val:

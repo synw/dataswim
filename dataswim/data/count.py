@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from numpy import where
-from goerr import Err
 
 
-class Count(Err):
+class Count():
     """
     Class to count data
     """
@@ -55,7 +54,7 @@ class Count(Err):
         except Exception as e:
             self.err(e, "Can not count empty values")
             return
-        self.ok("Found", num, "empty rows in column "+field)
+        self.ok("Found", num, "empty rows in column " + field)
 
     def count_zero(self, field):
         """
