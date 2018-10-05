@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# @PydevCodeAnalysisIgnore
 import time
 import arrow
 import pandas as pd
@@ -221,7 +221,7 @@ class Clean():
         """
         Convert column values to properly formated datetime
         """
-
+        
         def formatdate(row):
             return row.strftime(format)
             
@@ -243,9 +243,13 @@ class Clean():
             for f in fields:
                 try:
                     if format is None:
-                        self.df[f] = pd.to_datetime(self.df[f]).apply(convert)
+                        self.df[f] = pd.to_datetime(
+                            pd.to_datetime(self.df[f]).apply(convert)
+                            )
                     else:
-                        self.df[f] = pd.to_datetime(self.df[f]).apply(formatdate)
+                        self.df[f] = pd.to_datetime(
+                            pd.to_datetime(self.df[f]).apply(formatdate)
+                            )
                 except ValueError as e:
                     self.err(e, "Can not convert date")
                     return

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# @PydevCodeAnalysisIgnore
 import pandas as pd
 from numpy import nan
 

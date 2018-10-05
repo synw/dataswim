@@ -1,5 +1,8 @@
+# @PydevCodeAnalysisIgnore
 from datetime import datetime
+import arrow
 import pandas as pd
+import numpy as np
 
 
 class Select():
@@ -85,30 +88,50 @@ class Select():
             self.err(e, "Can not select range data")
             return
 
-    def nowrange(self, col, interval, unit="D"):
+    def nowrange(self, col, timeframe):
         """
         Set the main dataframe with rows within a date range from now
         """
-        df = self._nowrange(col, interval, unit)
+        df = self._nowrange(col, timeframe)
         if df is None:
             self.err("Can not select range data from now")
             return
         self.df = df
 
-    def nowrange_(self, col, interval, unit="D"):
+    def nowrange_(self, col, timeframe):
         """
         Returns a Dataswim instance with rows within a date range from now
         """
-        df = self._nowrange(col, interval, unit)
+        df = self._nowrange(col, timeframe)
         if df is None:
             self.err("Can not select range data from now")
             return
         return self._duplicate_(df)
 
-    def _nowrange(self, col, interval, unit):
+    def _nowrange(self, col, timeframe):
         try:
-            df = self.df[self.df[col].dt.date < datetime.now().date(
-            ) + pd.to_timedelta(interval, unit=unit)]
+            # df = self.df[self.df[col].dt.date < datetime.now().date(
+            # ) + pd.to_timedelta(interval, unit=unit)]
+            unit = timeframe[-1:]
+            i = int(timeframe[0:(len(timeframe) - 1)])
+            interval = int(np.negative(i))
+            print("U:", unit, "I:", interval)
+            if unit == "S":
+                date = arrow.now().shift(seconds=interval).naive
+            if unit == "M":
+                date = arrow.now().shift(minutes=interval).naive
+            if unit == "H":
+                date = arrow.now().shift(hours=interval).naive
+            if unit == "D":
+                date = arrow.now().shift(days=interval).naive
+            if unit == "W":
+                date = arrow.now().shift(weeks=interval).naive
+            if unit == "M":
+                date = arrow.now().shift(months=interval).naive
+            if unit == "Y":
+                date = arrow.now().shift(years=interval).naive
+            df = self.df.copy()
+            df = df[df[col] > date]
             return df
         except Exception as e:
             self.err(e, "Can not select range data from now")

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# @PydevCodeAnalysisIgnore
 import pandas as pd
 import deepdish as dd
 from .views import View
@@ -146,6 +146,8 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
         """
         Returns a date parser for pandas
         """
+
         def dateparse(dates):
             return [pd.datetime.strptime(d, dformat) for d in dates]
+
         return dateparse

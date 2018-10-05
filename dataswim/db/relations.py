@@ -12,21 +12,21 @@ class Relation():
         """
         self.db = db
 
-    def relation(self, search_ds, origin_field, search_field, destination_field=None,
+    def relation(self, table, origin_field, search_field, destination_field=None,
                  id_field="id"):
         """
         Add a column to the main dataframe from a relation foreign key 
         """
-        df = self._relation(search_ds, origin_field,
+        df = self._relation(table, origin_field,
                             search_field, destination_field, id_field)
         self.df = df
 
-    def relation_(self, search_ds, origin_field, search_field, destination_field=None,
+    def relation_(self, table, origin_field, search_field, destination_field=None,
                   id_field="id"):
         """
         Returns a DataSwim instance with a column filled from a relation foreign key 
         """
-        df = self._relation(search_ds, origin_field,
+        df = self._relation(table, origin_field,
                             search_field, destination_field, id_field)
         return self._duplicate_(df)
 
@@ -70,6 +70,5 @@ class Relation():
         except Exception as e:
             self.err(e, self._relation, "Can not get relation data")
             return
-        if self.autoprint is True:
-            self.end("Finished processing relation")
+        self.end("Finished processing relation")
         return df

@@ -82,10 +82,13 @@ class Altair():
             style["align"] = "center"
         if "dy" not in style:
             style["dy"] = -5
+        if "dx" not in style:
+            style["dx"] = 8
         if "size" in style:
             del style["size"]
         style["color"] = text_color
-        num = Chart(self.df).mark_text(**style).encode(x=xfield, \
+        df2 = self.df.replace({yfield.split(":")[0]: {0: self.nan}})
+        num = Chart(df2).mark_text(**style).encode(x=xfield, \
                                             y=yfield, **encode).properties(**opts)
         return c + num
 
