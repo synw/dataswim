@@ -76,8 +76,9 @@ class Altair():
         if chart_type == "bar":
             c = Chart(self.df).mark_bar(**style).encode(x=xfield, \
                                                 y=yfield, **encode).properties(**opts)
-        if "text" not in encode:
-            encode["text"] = yfield
+        encoder = encode
+        if "text" not in encoder:
+            encoder["text"] = yfield
         if "align" not in style:
             style["align"] = "center"
         if "dy" not in style:
@@ -89,7 +90,7 @@ class Altair():
         style["color"] = text_color
         df2 = self.df.replace({yfield.split(":")[0]: {0: self.nan}})
         num = Chart(df2).mark_text(**style).encode(x=xfield, \
-                                            y=yfield, **encode).properties(**opts)
+                                            y=yfield, **encoder).properties(**opts)
         return c + num
 
     def _altair_hline_(self, xfield, yfield, opts, style, encode):
@@ -158,6 +159,18 @@ class Altair():
             chart = Chart(self.df).mark_rule(**style).encode(x=xfield, \
                                             y=yfield, **encode).properties(**opts)
         return chart
+
+    def altair_header_(self):
+        """
+        Returns html script tags for Altair
+        """
+        header = """
+        <script src="https://cdn.jsdelivr.net/npm/vega@3"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-lite@2"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-embed@3"></script>
+        <style>.vega-actions {display:none}</style>
+        """
+        return header
 
     def _get_altair_html_(self, chart_obj, slug):
         """

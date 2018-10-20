@@ -1,3 +1,4 @@
+# @PydevCodeAnalysisIgnore
 import pandas as pd
 from numpy.core.numeric import nan
 from .db import Db
@@ -38,7 +39,7 @@ class DataSwim(Db, Df, Plot, Map, Report, Messages, Error):
         self.header = self._header
         self.footer = self._footer
         self.reports = []
-        self.report_engines = [self.engine]
+        self.report_engines = []
         self.start_time = None
         self.influx_cli = None
         self.datapath = None
@@ -62,7 +63,8 @@ class DataSwim(Db, Df, Plot, Map, Report, Messages, Error):
         Returns a new DataSwim instance from a dataframe
         """
         ds2 = DataSwim(df, db)
-        self.ok("A new instance was created")
+        if quiet is False:
+            self.ok("A new instance was created")
         return ds2
 
 

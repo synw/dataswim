@@ -52,8 +52,7 @@ class Report():
         except Exception as e:
             self.err(e, self.stack, "Can not stack report")
             return
-        if self.autoprint is True:
-            self.ok("Stacked report", slug)
+        self.ok("Stacked report", slug)
 
     def to_file(self, slug, folderpath=None, header=None, footer=None):
         """
@@ -70,7 +69,11 @@ class Report():
         html = self._get_header(header)
         if html is None or html == "":
             self.err(self.to_file, "Can not get html header")
-        for report in self.reports:
+        for report in self.reports:  
+            if "html" not in report:
+                self.err("No html for report " + report)
+                self.reports = self.report_engines = []
+                return
             html += report["html"]
         html += self._get_footer(footer)
         try:
@@ -79,12 +82,11 @@ class Report():
         except Exception as e:
             self.err(e, self.to_file, "Can not save report to file")
             return
-        self.reports = self.report_engines = []
-        if self.autoprint is True:
+        self.reports = []
+        self.report_engines = []
+        if self.notebook is True:
             link = '<a href="' + path + '" target="_blank">' + path + '</a>'
             return display(HTML(link))
-        else:
-            return None
 
     def to_files(self, folderpath=None):
         """

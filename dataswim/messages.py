@@ -97,8 +97,9 @@ class Messages():
         """
         Prints a message with a label
         """
-        txt = self._unpack_msg(*msg)
-        print("[" + label + "] " + txt)
+        if self.quiet is False:
+            txt = self._unpack_msg(*msg)
+            print("[" + label + "] " + txt)
 
     def _unpack_msg(self, *msg):
         """

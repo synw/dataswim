@@ -36,7 +36,7 @@ class Relation():
         """
         self.start("Processing relation",
                    origin_field, "->", search_field)
-        search_ds = self.new_(db=self.db, quiet=True)
+        search_ds = self._duplicate_(db=self.db, quiet=True)
         search_ds.load(table)
         df = self.df.copy()
         if destination_field is None:

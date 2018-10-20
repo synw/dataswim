@@ -43,6 +43,7 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
             ds2.datapath = self.datapath
             ds2.report_path = self.report_path
             ds2.static_path = self.static_path
+            ds2.quiet = self.quiet
         except Exception as e:
             self.err(e, "Can not duplicate instance")
             return
@@ -71,7 +72,7 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
         except Exception as e:
             self.err(e, "Can not backup data")
             return
-        self.msg.ok("Dataframe backed up")
+        self.ok("Dataframe backed up")
 
     def restore(self):
         """
@@ -81,7 +82,7 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
             self.warning("No dataframe is backed up: nothing restore")
             return
         self.df = self.backup_df
-        self.msg.ok("Dataframe is restored")
+        self.ok("Dataframe is restored")
 
     def load_json(self, path, **kwargs):
         """

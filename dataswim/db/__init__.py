@@ -1,3 +1,4 @@
+# @PydevCodeAnalysisIgnore
 from numpy.core.numeric import nan
 import dataset
 from stuf import stuf
@@ -59,6 +60,7 @@ class Db(Messages, Info, Select, Insert, Relation, InfluxDb, Error):
         """
         Set the main dataframe or return table's data
         """
+        self.start("Loading data from table " + table)
         self._check_db()
         try:
             df = self.getall(table)
@@ -70,7 +72,7 @@ class Db(Messages, Info, Select, Insert, Relation, InfluxDb, Error):
         except Exception as e:
             self.err(e, "Can not transform dataframe")
             return self.df
-        self.ok("Data loaded from table", table)
+        self.end("Data loaded from table " + table)
         return ds2.df
 
     def load_django(self, query, dateindex=None,

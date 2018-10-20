@@ -91,6 +91,8 @@ class Select():
     def nowrange(self, col, timeframe):
         """
         Set the main dataframe with rows within a date range from now
+        ex: ds.nowrange("Date", "3D") for a 3 days range. Units are: S,
+        H, D, W, M, Y
         """
         df = self._nowrange(col, timeframe)
         if df is None:
@@ -101,6 +103,8 @@ class Select():
     def nowrange_(self, col, timeframe):
         """
         Returns a Dataswim instance with rows within a date range from now
+        ex: ds.nowrange("Date", "3D") for a 3 days range. Units are: S,
+        H, D, W, M, Y
         """
         df = self._nowrange(col, timeframe)
         if df is None:
@@ -115,21 +119,23 @@ class Select():
             unit = timeframe[-1:]
             i = int(timeframe[0:(len(timeframe) - 1)])
             interval = int(np.negative(i))
-            print("U:", unit, "I:", interval)
             if unit == "S":
                 date = arrow.now().shift(seconds=interval).naive
-            if unit == "M":
+            elif unit == "m":
                 date = arrow.now().shift(minutes=interval).naive
-            if unit == "H":
+            elif unit == "H":
                 date = arrow.now().shift(hours=interval).naive
-            if unit == "D":
+            elif unit == "D":
                 date = arrow.now().shift(days=interval).naive
-            if unit == "W":
+            elif unit == "W":
                 date = arrow.now().shift(weeks=interval).naive
-            if unit == "M":
+            elif unit == "M":
                 date = arrow.now().shift(months=interval).naive
-            if unit == "Y":
+            elif unit == "Y":
                 date = arrow.now().shift(years=interval).naive
+            else:
+                self.err("Wrong unit " + unit)
+                return
             df = self.df.copy()
             df = df[df[col] > date]
             return df
