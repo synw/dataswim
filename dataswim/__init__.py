@@ -9,7 +9,7 @@ from .report import Report
 from .messages import Messages
 from .errors import Error
 
-version = "0.4.18"
+version = "0.4.24"
 
 
 class DataSwim(Db, Df, Plot, Map, Report, Messages, Error):
