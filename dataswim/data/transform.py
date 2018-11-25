@@ -396,7 +396,7 @@ class Transform():
         """
         try:
             df = self._merge(df, on, how, **kwargs)
-            ds = self.clone_(df)
+            ds = self._duplicate_(df)
             return ds
         except Exception as e:
             self.err(e, self.merge_, "Can not merge dataframes")
@@ -494,7 +494,7 @@ class Transform():
             df = df.groupby([col]).mean()
             if index_col is True:
                 df[col] = df.index.values
-            return self.clone_(df)
+            return self._duplicate_(df)
         except Exception as e:
             self.err(e, self.gmean_, "Can not meansum column")
 
@@ -507,7 +507,7 @@ class Transform():
             df = df.groupby([col]).sum()
             if index_col is True:
                 df[col] = df.index.values
-            return self.clone_(df)
+            return self._duplicate_(df)
         except Exception as e:
             self.err(e, self.gsum_, "Can not groupsum column")
 
@@ -541,7 +541,7 @@ class Transform():
         returns a Dataswim instance
         """
         try:
-            ds2 = self.clone_()
+            ds2 = self._duplicate_()
             ds2.df = self._trimquants(col, inf, sup)
             return ds2
         except Exception as e:
@@ -580,7 +580,7 @@ class Transform():
         and returs a dataframe
         """
         try:
-            ds2 = self.clone_()
+            ds2 = self._duplicate_()
             if inf is not None:
                 qi = ds2.df[col].quantile(inf)
                 ds2.df = ds2.df[ds2.df[col] > qi]

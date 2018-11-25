@@ -1,3 +1,4 @@
+# @PydevCodeAnalysisIgnore
 import holoviews as hv
 import numpy as np
 from bokeh.embed import components
@@ -101,34 +102,34 @@ class Bokeh():
             c = ds2.line_()
             return c
         except Exception as e:
-            self.err(e, self._lreg_bokeh,
-                     "Can not draw linear regression chart")
+            self.err(e, "Can not draw linear regression chart")
 
     def _bokeh_quants(self, inf, sup, chart_type, color):
         """
         Draw a chart to visualize quantiles
         """
         try:
-            ds2 = self.clone_()
+            ds2 = self._duplicate_()
             qi = ds2.df[ds2.y].quantile(inf)
             qs = ds2.df[ds2.y].quantile(sup)
             ds2.add("sup", qs)
             ds2.add("inf", qi)
             ds2.chart(ds2.x, ds2.y)
             if chart_type == "point":
-                c = ds2.point_()
+                c = ds2.point_(opts=self.chart_opts, style=self.chart_style)
             elif chart_type == "line_point":
-                c = ds2.line_point_()
+                c = ds2.line_point_(opts=self.chart_opts, style=self.chart_style)
             else:
-                c = ds2.line_()
+                c = ds2.line_(opts=self.chart_opts, style=self.chart_style)
             ds2.color(color)
             ds2.chart(ds2.x, "sup")
             c2 = ds2.line_()
             ds2.chart(ds2.x, "inf")
             c3 = ds2.line_()
+            ds2.rcolor()
             return c * c2 * c3
         except Exception as e:
-            self.err(e, self._bokeh_quants, "Can not draw quantile chart")
+            self.err(e, "Can not draw quantile chart")
 
     def _get_bokeh_chart(self, x_field, y_field, chart_type,
                          label, opts, style, options={}, **kwargs):

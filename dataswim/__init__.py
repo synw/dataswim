@@ -12,7 +12,7 @@ from .errors import Error
 version = "0.4.24"
 
 
-class DataSwim(Db, Df, Plot, Map, Report, Messages, Error):
+class Ds(Db, Df, Plot, Map, Report, Messages, Error):
     """
     Main class
     """
@@ -28,7 +28,7 @@ class DataSwim(Db, Df, Plot, Map, Report, Messages, Error):
         self.x = None
         self.y = None
         self.chart_obj = None
-        self.chart_opts = dict(width=940)
+        self.chart_opts = dict(width=880)
         self.chart_style = {}
         self.engine = "bokeh"
         self.label = None
@@ -62,10 +62,10 @@ class DataSwim(Db, Df, Plot, Map, Report, Messages, Error):
         """
         Returns a new DataSwim instance from a dataframe
         """
-        ds2 = DataSwim(df, db)
+        ds2 = Ds(df, db)
         if quiet is False:
             self.ok("A new instance was created")
         return ds2
 
 
-ds = DataSwim()
+ds = Ds()

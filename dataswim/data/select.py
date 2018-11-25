@@ -120,24 +120,24 @@ class Select():
             i = int(timeframe[0:(len(timeframe) - 1)])
             interval = int(np.negative(i))
             if unit == "S":
-                date = arrow.now().shift(seconds=interval).naive
+                date = arrow.now().shift(seconds=interval)
             elif unit == "m":
-                date = arrow.now().shift(minutes=interval).naive
+                date = arrow.now().shift(minutes=interval)
             elif unit == "H":
-                date = arrow.now().shift(hours=interval).naive
+                date = arrow.now().shift(hours=interval)
             elif unit == "D":
-                date = arrow.now().shift(days=interval).naive
+                date = arrow.now().shift(days=interval)
             elif unit == "W":
-                date = arrow.now().shift(weeks=interval).naive
+                date = arrow.now().shift(weeks=interval)
             elif unit == "M":
-                date = arrow.now().shift(months=interval).naive
+                date = arrow.now().shift(months=interval)
             elif unit == "Y":
-                date = arrow.now().shift(years=interval).naive
+                date = arrow.now().shift(years=interval)
             else:
                 self.err("Wrong unit " + unit)
                 return
             df = self.df.copy()
-            df = df[df[col] > date]
+            df = df[df[col] > date.datetime]
             return df
         except Exception as e:
             self.err(e, "Can not select range data from now")

@@ -58,6 +58,18 @@ class Altair():
             self.err(e, "Can not draw a bar num chart")
             return
         return c
+    
+    def _altair_point_num_(self, xfield, yfield, opts, style, encode):
+        """
+        Get a point + text number chart
+        """
+        try:
+            c = self._altair_chart_num_("point", xfield,
+                                           yfield, opts, style, encode)
+        except Exception as e:
+            self.err(e, "Can not draw a line num chart")
+            return
+        return c
 
     def _altair_chart_num_(self, chart_type, xfield, yfield, opts, style2, encode):
         """
@@ -73,8 +85,11 @@ class Altair():
         if chart_type == "line":
             c = Chart(self.df).mark_line(**style).encode(x=xfield, \
                                                 y=yfield, **encode).properties(**opts)
-        if chart_type == "bar":
+        elif chart_type == "bar":
             c = Chart(self.df).mark_bar(**style).encode(x=xfield, \
+                                                y=yfield, **encode).properties(**opts)
+        elif chart_type == "point":
+            c = Chart(self.df).mark_point(**style).encode(x=xfield, \
                                                 y=yfield, **encode).properties(**opts)
         encoder = encode
         if "text" not in encoder:
@@ -137,6 +152,8 @@ class Altair():
             chart = self._altair_line_num_(xfield, yfield, opts, style, encode)
         elif chart_type == "bar_num":
             chart = self._altair_bar_num_(xfield, yfield, opts, style, encode)
+        elif chart_type == "point_num":
+            chart = self._altair_point_num_(xfield, yfield, opts, style, encode)
         elif chart_type == "point":
             chart = Chart(self.df).mark_point(**style).encode(x=xfield, \
                                             y=yfield, **encode).properties(**opts)
