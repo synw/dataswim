@@ -11,7 +11,7 @@ class Insert():
         """
         self.db = db
 
-    def insert(self, table, records, create_cols=True):
+    def insert(self, table, records, create_cols=True, dtypes=None):
         """
         Insert one or many records in the database from a dictionary or a list of dictionaries
         """
@@ -19,7 +19,7 @@ class Insert():
         try:
             table = self.db[table]
         except Exception as e:
-            self.err(e, self.update_db, "Can not find table " + table)
+            self.err(e, "Can not find table " + table)
         t = type(records)
         if t == dict:
             func = table.insert
@@ -28,23 +28,20 @@ class Insert():
         else:
             msg = "Rows datatype " + \
                 str(t) + " not valid: use a list or a dictionary"
-            self.err(self.insert, msg)
+            self.err(msg)
         if create_cols is True:
             try:
-                func(records, ensure=True)
+                func(records, ensure=True, types=dtypes)
             except Exception as e:
-                self.err(e, self.insert,
-                         "Can not insert create columns and insert data")
+                self.err(e, "Can not insert create columns and insert data")
             return
         else:
             try:
-                func(records)
+                func(records, types=dtypes)
             except Exception as e:
-                self.err(e, self.insert,
-                         "Can not insert create columns and insert data")
+                self.err(e, "Can not insert create columns and insert data")
             return
-        if self.autoprint is True:
-            self.ok("Rows inserted in the database")
+        self.ok("Rows inserted in the database")
 
     def update_db(self, table, keys=['id'], db_url=None):
         """
@@ -53,28 +50,24 @@ class Insert():
         try:
             table = self.db[table]
         except Exception as e:
-            self.err(e, self.update_db, "Can not find table " + table)
+            self.err(e, "Can not find table " + table)
         if self.db is None and db_url is None:
             msg = "Please connect a database before or provide a database url"
-            self.err(self.to_db, msg)
+            self.err(msg)
             return
         recs = self.to_records_()
         for rec in recs:
             table.insert_ignore(rec, keys, ensure=True)
-        if self.autoprint is True:
-            self.ok("Data updated in table", table)
+        self.ok("Data updated in table", table)
 
-    def to_db(self, table, db_url=None):
+    def to_db(self, table, dtypes=None):
         """
         Save the main dataframe to the database
         """
-        if self.db is None and db_url is None:
-            msg = "Please connect a database before or provide a database url"
-            self.err(self.to_db, msg)
+        if self.db is None:
+            self.err("Please connect a database before inserting data")
             return
-        if db_url is not None:
-            self.connect(db_url)
+        self.start("Saving data to database table " + table + " ...")
         recs = self.to_records_()
-        self.insert(table, recs)
-        if self.autoprint is True:
-            self.ok("Data inserted in table", table)
+        self.insert(table, recs, dtypes)
+        self.end("Data inserted in table", table)

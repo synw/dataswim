@@ -106,8 +106,16 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
             self.err(e, "Can not load Hdf5 file")
 
     def load_excel(self, filepath, **kwargs):
-        """
-        Set the main dataframe with the content of an Excel file
+        """Set the main dataframe with the content of an Excel file
+
+        :param filepath: url of the csv file to load,
+                         can be absolute if it starts with ``/``
+                         or relative if it starts with ``./``
+        :type filepath: str
+
+        :param kwargs: keyword arguments to pass to Pandas ``read_excel`` function
+
+        :example: ds.load_excel("./myfile.xlsx")
         """
         try:
             df = pd.read_excel(filepath, **kwargs)
@@ -118,11 +126,17 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
         except Exception as e:
             self.err(e, "Can not load Excel file")
 
-    def load_csv(self, url, dateindex=None,
-                 index_col=None, fill_col=None, num_col=None, **kwargs):
-        """
-        Loads csv data in the main dataframe
-        """
+    def load_csv(self, url, **kwargs):
+        """Loads csv data in the main dataframe
+
+                :param url: url of the csv file to load:
+                                        can be absolute if it starts with ``/``
+                                        or relative if it starts with ``./``
+                :type url: str
+                :param kwargs: keyword arguments to pass to Pandas ``read_csv`` function
+
+                :example: ds.load_csv("./myfile.csv")
+                """
         self.start("Loading csv...")
         try:
             if self.datapath is not None and url.startswith("/") is False:
@@ -136,11 +150,6 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
         except Exception as e:
             self.err(e, "Can not load csv file")
             return
-        ds2 = self.transform_(dateindex, index_col, fill_col, df=self.df)
-        if ds2 is None:
-            self.err("Can not load csv")
-            return
-        self = ds2
         self.end("Finished loading csv")
 
     def dateparser(self, dformat='%d/%m/%Y'):

@@ -9,6 +9,13 @@ Dataswim
 .. toctree::
    :maxdepth: 2
    :titlesonly:
+   :caption: Data io
+
+   data/io/load
+
+.. toctree::
+   :maxdepth: 2
+   :titlesonly:
    :caption: Database operations
 
    data/db
@@ -30,13 +37,6 @@ Dataswim
 
    data/view
    data/chart
-   
-.. toctree::
-   :maxdepth: 2
-   :titlesonly:
-   :caption: Export data
-
-   data/export
    
 .. toctree::
    :maxdepth: 2

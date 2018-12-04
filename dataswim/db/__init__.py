@@ -114,11 +114,11 @@ class Db(Messages, Info, Select, Insert, Relation, InfluxDb, Error):
         self.ok("Loaded data from django orm query")
         return df
 
-    def csv_to_db(self):
-        """
+    """def csv_to_db(self):
+        ""
         Batch transfer data from csv to database
-        """
-        pass
+        ""
+        pass"""
 
     def _check_db(self):
         """
