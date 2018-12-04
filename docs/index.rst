@@ -44,6 +44,13 @@ Dataswim
    :caption: Build reports
 
    data/reports
+
+.. toctree::
+   :maxdepth: 2
+   :titlesonly:
+   :caption: API
+
+   api_auto
    
 .. toctree::
    :maxdepth: 2

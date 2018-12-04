@@ -98,7 +98,7 @@ class Altair():
             style["align"] = "center"
         if "dy" not in style:
             style["dy"] = -5
-        if "dx" not in style:
+        if "dx" not in style and chart_type != "bar":
             style["dx"] = 8
         if "size" in style:
             del style["size"]

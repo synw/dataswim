@@ -219,7 +219,7 @@ class Clean():
 
     def date(self, *fields, precision="S", format=None):
         """
-        Convert column values to properly formated datetime
+        Convert column values to formated date
         """
         
         def formatdate(row):
@@ -243,13 +243,10 @@ class Clean():
             for f in fields:
                 try:
                     if format is None:
-                        self.df[f] = pd.to_datetime(
-                            pd.to_datetime(self.df[f]).apply(convert)
-                            )
+                        self.df[f] = pd.to_datetime(self.df[f]).apply(convert)
+                            
                     else:
-                        self.df[f] = pd.to_datetime(
-                            pd.to_datetime(self.df[f]).apply(formatdate)
-                            )
+                        self.df[f] = pd.to_datetime(self.df[f]).apply(formatdate)
                 except ValueError as e:
                     self.err(e, "Can not convert date")
                     return
