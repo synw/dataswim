@@ -40,7 +40,10 @@ To get the Altair charts in notebooks running this command is required:
 
 ## Documentation
 
-Read the [api documentation](http://dataswim.readthedocs.io/en/latest/index.html). 
+   ```
+   git clone https://github.com/synw/dataswim.git
+   firefox dataswim/docs/_build/html/index.html &
+   ```
 
 Some [Jupyter demo notebooks](https://github.com/synw/dataswim-notebooks) are available as example. 
 
