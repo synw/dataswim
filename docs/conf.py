@@ -1,6 +1,9 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#
+
+import sphinx_rtd_theme
+from recommonmark.parser import CommonMarkParser
+
 # Dataswim documentation build configuration file, created by
 # sphinx-quickstart on Sat Nov  4 11:56:33 2017.
 #
@@ -83,13 +86,11 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-import sphinx_rtd_theme
 
 html_theme = "sphinx_rtd_theme"
 
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
-from recommonmark.parser import CommonMarkParser
 
 source_parsers = {
     '.md': CommonMarkParser,
