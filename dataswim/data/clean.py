@@ -11,97 +11,104 @@ class Clean():
     Class to clean the data
     """
 
-    def drop_nan(self, field=None, method="all", **kwargs):
+    def drop_nan(self, col: str=None, method: str="all", **kwargs):
         """
-        Drop NaN values from the main dataframe
+        Drop rows with NaN values from the main dataframe
+
+        :param col: name of the column, defaults to None. Drops in all
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        columns if no value is provided
+        :type col: str, optional
+        :param method: ``how`` param for ``df.dropna``, defaults to "all"
+        :type method: str, optional
+        :param \*\*kwargs: params for ``df.dropna``
+        :type \*\*kwargs: optional
+
+        :example: ``ds.drop_nan("mycol")``
         """
         try:
-            if field is None:
+            if col is None:
                 self.df = self.df.dropna(how=method, **kwargs)
             else:
-                self.df = self.df[self.df[field].notnull()]
+                self.df = self.df[self.df[col].notnull()]
         except Exception as e:
-            self.error(e, "Error dropping nan values")
+            self.err(e, "Error dropping nan values")
 
-    def nan_empty(self, field):
+    def nan_empty(self, col: str):
         """
         Fill empty values with NaN values
+
+        :param col: name of the colum
+        :type col: str
+
+        :example: ``ds.nan_empty("mycol")``
         """
         try:
-            self.df[field] = self.df[field].replace('', nan)
-            self.ok("Filled empty values with nan in column " + field)
+            self.df[col] = self.df[col].replace('', nan)
+            self.ok("Filled empty values with nan in column " + col)
         except Exception as e:
             self.err(e, "Can not fill empty values with nan")
 
-    def zero_nan(self, *fields):
+    def zero_nan(self, *cols):
         """
         Converts zero values to nan values in selected columns
+
+        :param \*cols: names of the colums
+        :type \*cols: str, at least one
+
+        :example: ``ds.zero_nan("mycol1", "mycol2")``
         """
-        df = self._zero_nan(*fields)
+        if len(cols) == 0:
+            self.warning("Can not nan zero values if a column name "
+                         "is not provided")
+        df = self._zero_nan(*cols)
         if df is None:
             self.err("Can not fill zero values with nan")
             return
         self.df = df
 
-    def zero_nan_(self, *fields):
-        """
-        Returns a DataSwim instance with zero values to nan values in
-        selected columns
-        """
-        df = self._zero_nan(*fields)
-        if df is None:
-            self.err("Can not fill zero values with nan")
-            return
-        ds2 = self.clone_(quiet=True)
-        ds2.df = df
-        return ds2
-
-    def _zero_nan(self, *fields):
+    def _zero_nan(self, *cols):
         try:
             df = self.df.copy()
-            for field in fields:
-                if field not in df.columns:
-                    self.warning("Column " + field + " does not exist")
+            for col in cols:
+                if col not in df.columns:
+                    self.warning("Column " + col + " does not exist")
                     return
-                df = df.replace({field: {0: nan}})
-            if len(fields) > 1:
+                df = df.replace({col: {0: nan}})
+            if len(cols) > 1:
                 self.ok("Replaced 0 values by nan in columns",
-                        str(fields))
+                        str(cols))
             else:
                 self.ok("Replaced 0 values by nan in column",
-                        field)
+                        col)
             return df
         except Exception as e:
             self.err(e)
 
-    def fill_nan(self, val, *fields):
+    def fill_nan(self, val: str, *cols):
         """
         Fill NaN values with new values in the main dataframe
+
+        :param val: new value
+        :type val: str
+        :param \*cols: names of the colums
+        :type \*cols: str, at least one
+
+        :example: ``ds.fill_nan("new value", "mycol1", "mycol2")``
         """
-        df = self._fill_nan(val, *fields)
+        df = self._fill_nan(val, *cols)
         if df is not None:
             self.df = df
         else:
             self.err("Can not fill nan values")
 
-    def fill_nan_(self, val, *fields):
-        """
-        Returns a DataSwim instance with NaN values filled
-        """
-        df = self._fill_nan(val, *fields)
-        if df is not None:
-            return self._duplicate_(df=df)
-        else:
-            self.err("Can not fill nan values")
-
-    def _fill_nan(self, val, *fields):
-        fields = list(fields)
-        if len(fields) == 0:
-            fields = self.df.columns.values
+    def _fill_nan(self, val, *cols):
+        cols = list(cols)
+        if len(cols) == 0:
+            cols = self.df.columns.values
         df = None
         try:
             df = self.df.copy()
-            for el in fields:
+            for el in cols:
                 try:
                     df[el] = df[[el]].fillna(val)
                 except KeyError:
@@ -110,67 +117,56 @@ class Clean():
         except Exception as e:
             self.err(e, "Can not fill nan values")
             return
-        self.ok("Filled nan values in columns", ",".join(fields))
+        self.ok("Filled nan values in columns", ",".join(cols))
         return df
 
-    def replace(self, col, searchval, replaceval):
+    def fill_nulls(self, col: str):
         """
-        Replace a value in a column in the main dataframe
-        """
-        df = self._replace(col, searchval, replaceval)
-        if df is not None:
-            self.df = df
-        else:
-            self.err("Can not replace value in column")
+        Fill all null values with NaN values in a column.
+        Null values are ``None`` or en empty string
 
-    def replace_(self, col, searchval, replaceval):
-        """
-        Returns a Dataswim instance with replaced values in a column
-        """
-        df = self._replace(col, searchval, replaceval)
-        if df is not None:
-            return self._duplicate_(df)
-        else:
-            self.err("Can not replace value in column")
+        :param col: column name
+        :type col: str
 
-    def _replace(self, col, searchval, replaceval):
-        try:
-            df = self.df.copy()
-            df[col] = df[col].replace(searchval, replaceval)
-            return df
-        except Exception as e:
-            self.err(e, "Can not replace value in column")
-
-    def fill_nulls(self, field):
-        """
-        Fill all null values with NaN values
+        :example: ``ds.fill_nulls("mycol")``
         """
         n = [None, ""]
         try:
-            self.df[field] = self.df[field].replace(n, nan)
+            self.df[col] = self.df[col].replace(n, nan)
         except Exception as e:
             self.err(e)
 
-    def to_int(self, field):
+    def to_int(self, *cols, **kwargs):
         """
         Convert some column values to integers
+
+        :param \*cols: names of the colums
+        :type \*cols: str, at least one
+        :param \*\*kwargs: keyword arguments for ``pd.to_numeric``
+        :type \*\*kwargs: optional
+
+        :example: ``ds.to_int("mycol1", "mycol2", errors="coerce")``
         """
-
-        def convert(val):
-            return int(val)
-
         try:
-            self.df[field] = self.df[field].apply(convert)
+            for col in cols:
+                self.df[col] = pd.to_numeric(self.df[col], **kwargs)
         except Exception as e:
             self.err(e, "Can not convert column values to integer")
             return
         self.ok("Converted column values to integers")
 
-    def to_float(self, *cols):
+    def to_float(self, *cols, **kwargs):
         """
         Convert colums values to float
+
+        :param \*cols: names of the colums
+        :type \*cols: str, at least one
+        :param \*\*kwargs: keyword arguments for ``df.astype``
+        :type \*\*kwargs: optional
+
+        :example: ``ds.to_float("mycol1", "mycol2")``
         """
-        df = self.to_type("float64", *cols)
+        df = self.to_type("float64", *cols, **kwargs)
         if df is not None:
             self.df = df
         else:
@@ -178,25 +174,89 @@ class Clean():
             return
         self.ok("Converted column values to float")
 
-    def to_type(self, dtype, *cols):
+    def to_type(self, dtype: type, *cols, **kwargs):
         """
-        Convert colums values to a given type
+        Convert colums values to a given type in the 
+        main dataframe
+
+        :param dtype: a type to convert to: ex: ``str``
+        :type dtype: type
+        :param \*cols: names of the colums
+        :type \*cols: str, at least one
+        :param \*\*kwargs: keyword arguments for ``df.astype``
+        :type \*\*kwargs: optional
+
+        :example: ``ds.to_type(str, "mycol")``
         """
         try:
-            df = self.df.copy()
-            allcols = df.columns.values
+            allcols = self.df.columns.values
             for col in cols:
                 if col not in allcols:
                     self.err("Column " + col + " not found")
                     return
-                df[col] = df[col].astype(dtype)
-            return df
+                self.df[col] = df[col].astype(dtype, **kwargs)
         except Exception as e:
             self.err(e, "Can not convert to type")
 
-    def timestamps(self, col, **kwargs):
+    def fdate(self, *cols, precision: str="S", format: str=None):
         """
-        Add  a timestamps column from a date column
+        Convert column values to formated date string
+
+        :param \*cols: names of the colums
+        :type \*cols: str, at least one
+        :param precision: time precision: Y, M, D, H, Min S, defaults to "S"
+        :type precision: str, optional
+        :param format: python date format, defaults to None
+        :type format: str, optional
+
+        :example: ``ds.fdate("mycol1", "mycol2", precision)``
+        """
+
+        def formatdate(row):
+            return row.strftime(format)
+
+        def convert(row):
+            encoded = '%Y-%m-%d %H:%M:%S'
+            if precision == "Min":
+                encoded = '%Y-%m-%d %H:%M'
+            elif precision == "H":
+                encoded = '%Y-%m-%d %H'
+            elif precision == "D":
+                encoded = '%Y-%m-%d'
+            elif precision == "M":
+                encoded = '%Y-%m'
+            elif precision == "Y":
+                encoded = '%Y'
+            return row.strftime(encoded)
+
+        try:
+            for f in cols:
+                try:
+                    if format is None:
+                        self.df[f] = pd.to_datetime(self.df[f]).apply(convert)
+                    else:
+                        self.df[f] = pd.to_datetime(
+                            self.df[f]).apply(formatdate)
+                except ValueError as e:
+                    self.err(e, "Can not convert date")
+                    return
+        except KeyError:
+            self.warning("Can not find colums " + " ".join(cols))
+            return
+        except Exception as e:
+            self.err(e, "Can not process date col")
+
+    def timestamps(self, col: str, **kwargs):
+        """"
+        Add a timestamps column from a date column
+
+        :param col: name of the timestamps column to add
+        :type col: str
+        :param \*\*kwargs: keyword arguments for ``pd.to_datetime`` 
+                                                                                                                                                                                                                                                                           for date conversions
+        :type \*\*kwargs: optional
+
+        :example: ``ds.timestamps("mycol")``
         """
         try:
             name = "Timestamps"
@@ -217,114 +277,68 @@ class Clean():
         except Exception as e:
             self.err(e, "Can not convert to timestamps")
 
-    def date(self, *fields, precision="S", format=None):
-        """
-        Convert column values to formated date
-        """
-        
-        def formatdate(row):
-            return row.strftime(format)
-            
-        def convert(row):
-            encoded = '%Y-%m-%d %H:%M:%S'
-            if precision == "Min":
-                encoded = '%Y-%m-%d %H:%M'
-            elif precision == "H":
-                encoded = '%Y-%m-%d %H'
-            elif precision == "D":
-                encoded = '%Y-%m-%d'
-            elif precision == "M":
-                encoded = '%Y-%m'
-            elif precision == "Y":
-                encoded = '%Y'
-            return row.strftime(encoded)
-
-        try:
-            for f in fields:
-                try:
-                    if format is None:
-                        self.df[f] = pd.to_datetime(self.df[f]).apply(convert)
-                            
-                    else:
-                        self.df[f] = pd.to_datetime(self.df[f]).apply(formatdate)
-                except ValueError as e:
-                    self.err(e, "Can not convert date")
-                    return
-        except KeyError:
-            self.warning("Can not find colums " + " ".join(fields))
-            return
-        except Exception as e:
-            self.err(e, "Can not process date field")
-
-    def dateindex(self, datafield):
+    def dateindex(self, col: str):
         """
         Set a datetime index from a column
+
+        :param col: column name where to index the date from
+        :type col: str
+
+        :example: ``ds.dateindex("mycol")``
         """
-        df = self._dateindex(datafield)
+        df = self._dateindex(col)
         if df is None:
-            self.err("Can not index data")
+            self.err("Can not create date index")
             return
         self.df = df
+        self.ok("Added a datetime index from column", col)
 
-    def dateindex_(self, datafield):
-        """
-        Returns a DataSwim instance index from a column
-        """
-        df = self._dateindex(datafield)
-        if df is None:
-            self.err("Can not index data")
-            return
-        return self._duplicate_(df)
-
-    def _dateindex(self, datafield):
+    def _dateindex(self, col: str) -> pd.DataFrame:
         try:
-            index = pd.DatetimeIndex(self.df[datafield])
+            index = pd.DatetimeIndex(self.df[col])
             df = self.df.set_index(index)
+            return df
         except Exception as e:
-            self.err(e, "Can not index with column " + 
-                     colors.bold(datafield))
-            return
-        self.ok("Added a datetime index from column", datafield)
-        return df
+            self.err(e, "Can not index with column " +
+                     colors.bold(col))
 
-    def index(self, indexcol):
+    def index(self, col: str):
         """
         Set an index to the main dataframe
+
+        :param col: column name where to index from
+        :type col: str
+
+        :example: ``ds.index("mycol")``
         """
-        df = self._index(indexcol)
+        df = self._index(col)
         if df is None:
             self.err("Can not create index")
             return
         self.df = df
 
-    def index_(self, indexcol):
-        """
-        Returns a Dataswim instance with an index
-        """
-        df = self._index(indexcol)
-        if df is None:
-            self.err("Can not create index")
-            return
-        return self._duplicate_(df)
-
-    def _index(self, indexcol):
+    def _index(self, col: str) -> pd.DataFrame:
         try:
-            df = self.df.set_index(self.df[indexcol])
+            df = self.df.set_index(self.df[col])
         except Exception as e:
-            self.err(e, self._index, "Can not find column " + 
-                     colors.bold(indexcol) + " in data")
+            self.err(e, self._index, "Can not find column " +
+                     colors.bold(col) + " in data")
             return
-        self.ok("Added an index from column", indexcol)
+        self.ok("Added an index from column", col)
         return df
 
-    def strip(self, col):
+    def strip(self, col: str):
         """
         Remove leading and trailing white spaces in a column's values
-        """
 
+        :param col: name of the column
+        :type col: str
+
+        :example: ``ds.strip("mycol")``
+        """
         def remove_ws(row):
             val = str(row[col])
-            if " " in val:
+            if " " in val.startswith(" "):
                 row[col] = val.strip()
             return row
 
@@ -338,6 +352,8 @@ class Clean():
     def strip_cols(self):
         """
         Remove leading and trailing white spaces in columns names
+
+        :example: ``ds.strip_cols()``
         """
         cols = {}
         skipped = []
@@ -352,9 +368,17 @@ class Clean():
             self.info("Skipped columns", ','.join(
                 skipped), "while removing white spaces")
 
-    def roundvals(self, col, precision=2):
+    def roundvals(self, col: str, precision: int=2):
         """
-        Round floats in a column
+        Round floats in a column. Numbers are going to be
+        converted to floats if they are not already
+
+        :param col: column name
+        :type col: str
+        :param precision: float precision, defaults to 2
+        :param precision: int, optional
+
+        :example: ``ds.roundvals("mycol")``
         """
         try:
             self.df[col] = self.df[col].astype("float64")
@@ -363,6 +387,33 @@ class Clean():
             self.err(e, "Can not round column values")
             return
         self.ok("Rounded values in column " + col)
+
+    def replace(self, col: str, searchval: str, replaceval: str):
+        """
+        Replace a value in a column in the main dataframe
+
+        :param col: column name
+        :type col: str
+        :param searchval: value to replace
+        :type searchval: str
+        :param replaceval: new value
+        :type replaceval: str
+
+        :example: ``ds.replace("mycol", "value", "new_value")``
+        """
+        df = self._replace(col, searchval, replaceval)
+        if df is not None:
+            self.df = df
+        else:
+            self.err("Can not replace value in column")
+
+    def _replace(self, col, searchval, replaceval):
+        try:
+            df = self.df.copy()
+            df[col] = df[col].replace(searchval, replaceval)
+            return df
+        except Exception as e:
+            self.err(e, "Can not replace value in column")
 
     def format_date_(self, date):
         """

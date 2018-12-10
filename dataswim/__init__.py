@@ -1,18 +1,18 @@
 # @PydevCodeAnalysisIgnore
 import pandas as pd
 from numpy.core.numeric import nan
+from .messages import Message
+from .errors import Error
 from .db import Db
 from .charts import Plot
 from .maps import Map
 from .data import Df
 from .report import Report
-from .messages import Messages
-from .errors import Error
 
-version = "0.4.24"
+__version__ = "0.4.27"
 
 
-class Ds(Db, Df, Plot, Map, Report, Messages, Error):
+class Ds(Db, Df, Plot, Map, Report, Error, Message):
     """
     Main class
     """
@@ -21,8 +21,8 @@ class Ds(Db, Df, Plot, Map, Report, Messages, Error):
         """
         Initialize with an empty dataframe
         """
-        self.msg = Messages()
-        self.version = version
+        self.msg = Message()
+        self.version = __version__
         self.df = df
         self.db = db
         self.x = None

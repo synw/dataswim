@@ -4,7 +4,7 @@ from IPython.display import display, HTML
 from goerr.colors import colors
 
 
-class Messages():
+class Message():
     """
     A class to handle output
     """
@@ -22,7 +22,7 @@ class Messages():
         """
         label = colors.blue("INFO")
         self._msg(label, *msg)
-        
+
     def status(self, *msg):
         """
         Prints a status message
@@ -65,7 +65,7 @@ class Messages():
         """
         if self.start_time is None:
             self.err("No start time set: please use start() "
-                "before using this function")
+                     "before using this function")
         endtime = datetime.datetime.now()
         rd = dateutil.relativedelta.relativedelta(endtime, self.start_time)
         endmsg = self._endmsg(rd)

@@ -314,8 +314,9 @@ class Plot(Bokeh, Chartjs, Seaborn, Altair, Colors):
 		"""
 		Returns an arrow for a chart. Params: the text, xloc and yloc are
 		coordinates to position the arrow. Orientation is the way to display
-		the arrow: possible values are [<, ^, >, v]. Arrow style is the
-		graphic style of the arrow: possible values: [-, ->, -[, -|>, <->, <|-|>]
+		the arrow: possible values are ``[<, ^, >, v]``. Arrow style is the
+		graphic style of the arrow: 
+		possible values: ``[-, ->, -[, -|>, <->, <|-|>]``
 		"""
 		try:
 			arrow = hv.Arrow(

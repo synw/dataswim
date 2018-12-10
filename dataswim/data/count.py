@@ -75,7 +75,6 @@ class Count():
         """
         try:
             num = self.df[field].nunique()
-            return num
         except Exception as e:
             self.err(e, "Can not count unique values")
             return

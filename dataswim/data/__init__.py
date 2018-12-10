@@ -12,7 +12,8 @@ from .stats import Stats
 from .text import Text
 
 
-class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
+class Df(Select, View, Transform, Clean, Count,
+         Export, Search, Stats, Text):
     """
     Class for manipulating dataframes
     """
@@ -85,8 +86,17 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
         self.ok("Dataframe is restored")
 
     def load_json(self, path, **kwargs):
-        """
-        Load data in the main dataframe from json
+        """Load data in the main dataframe from json
+
+        :param filepath: url of the csv file to load,
+                                         can be absolute if it starts with ``/``
+                                         or relative if it starts with ``./``
+        :type filepath: str
+
+        :param kwargs: keyword arguments to pass to
+                                                   Pandas ``read_json`` function
+
+        :example: ``ds.load_json("./myfile.json")``
         """
         try:
             df = pd.read_json(path, **kwargs)
@@ -95,8 +105,14 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
             self.err(e, "Can not load json")
 
     def load_h5(self, filepath):
-        """
-        Load a Hdf5 file to the main dataframe
+        """Load a Hdf5 file to the main dataframe
+
+        :param filepath: url of the csv file to load,
+                                         can be absolute if it starts with ``/``
+                                         or relative if it starts with ``./``
+        :type filepath: str
+
+        :example: ``ds.load_h5("./myfile.hdf5")``
         """
         try:
             self.start("Loading Hdf5 data...")
@@ -109,13 +125,14 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
         """Set the main dataframe with the content of an Excel file
 
         :param filepath: url of the csv file to load,
-                         can be absolute if it starts with ``/``
-                         or relative if it starts with ``./``
+                        can be absolute if it starts with ``/``
+                        or relative if it starts with ``./``
         :type filepath: str
 
-        :param kwargs: keyword arguments to pass to Pandas ``read_excel`` function
+        :param kwargs: keyword arguments to pass to 
+                            Pandas ``read_excel`` function
 
-        :example: ds.load_excel("./myfile.xlsx")
+        :example: ``ds.load_excel("./myfile.xlsx")``
         """
         try:
             df = pd.read_excel(filepath, **kwargs)
@@ -129,14 +146,15 @@ class Df(Select, View, Transform, Clean, Count, Export, Search, Stats, Text):
     def load_csv(self, url, **kwargs):
         """Loads csv data in the main dataframe
 
-                :param url: url of the csv file to load:
-                                        can be absolute if it starts with ``/``
-                                        or relative if it starts with ``./``
-                :type url: str
-                :param kwargs: keyword arguments to pass to Pandas ``read_csv`` function
+        :param url: url of the csv file to load:
+                                can be absolute if it starts with ``/``
+                                or relative if it starts with ``./``
+        :type url: str
+        :param kwargs: keyword arguments to pass to Pandas
+                                    ``read_csv`` function
 
-                :example: ds.load_csv("./myfile.csv")
-                """
+        :example: ``ds.load_csv("./myfile.csv")``
+        """
         self.start("Loading csv...")
         try:
             if self.datapath is not None and url.startswith("/") is False:
