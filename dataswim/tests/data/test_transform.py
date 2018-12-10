@@ -2,7 +2,9 @@
 import pandas as pd
 from pandas.testing import assert_frame_equal
 from dataswim.tests.base import BaseDsTest
-from dataswim import ds
+from dataswim import Ds
+
+ds = Ds()
 
 ds.errs_traceback = False
 
@@ -171,8 +173,8 @@ class TestDsDataTransform(BaseDsTest):
         df1 = pd.DataFrame([[1], [2], [1], [2]], columns=["val"])
         ds.df = df1
         dsd = ds.split_("val")
-        d = {1: "<DataSwim object | 2 rows>", 2: "<DataSwim object | 2 rows>"}
-        self.assertDictEqual(str(dsd), d)
+        d = "{1: <DataSwim object | 2 rows>, 2: <DataSwim object | 2 rows>}"
+        self.assertEqual(str(dsd), d)
 
 
     def test_drop(self):

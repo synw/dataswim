@@ -1,6 +1,8 @@
 import pandas as pd
 from dataswim.tests.base import BaseDsTest
-from dataswim import ds
+from dataswim import Ds
+
+ds = Ds()
 
 ds.errs_traceback = False
 
@@ -43,9 +45,7 @@ class TestDsDataCount(BaseDsTest):
         self.assertErr("TypeError", ds.count_zero, "one")
 
     def test_count_unique(self):
-        ds.df = pd.DataFrame({"one": 0, "two": 2}, ["1", "2"])
-        msg = "Found 1 unique values in column one"
-        self.assertOk(msg, ds.count_unique, "one")
-        self.assertErr("KeyError", ds.count_unique, "wrong")
-        ds.df = None
-        self.assertErr("TypeError", ds.count_unique, "one")
+        ds.df = pd.DataFrame({"one": [0, 0, 1], "two": [2, 1, 1]})
+        msg = "Found 2 unique values in column one"
+        self.assertOk(msg, ds.count_unique_, "one")
+        self.assertErr("KeyError", ds.count_unique_, "wrong")

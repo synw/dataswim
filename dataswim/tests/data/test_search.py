@@ -2,7 +2,9 @@
 import pandas as pd
 from pandas.testing import assert_frame_equal
 from dataswim.tests.base import BaseDsTest
-from dataswim import ds
+from dataswim import Ds
+
+ds = Ds()
 
 ds.errs_traceback = False
 
@@ -38,4 +40,3 @@ class TestDsDataSearch(BaseDsTest):
         self.assertRaises(TypeError)
         ds.exact(0, "one")
         self.assertRaises(TypeError)
-

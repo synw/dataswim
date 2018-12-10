@@ -2,7 +2,9 @@
 import pandas as pd
 from pandas.testing import assert_frame_equal
 from dataswim.tests.base import BaseDsTest
-from dataswim import ds
+from dataswim import Ds
+
+ds = Ds()
 
 ds.errs_traceback = False
 

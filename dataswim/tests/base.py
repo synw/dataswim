@@ -5,7 +5,10 @@ from contextlib import redirect_stdout
 import pandas as pd
 from goerr.colors import colors
 from goerr.testing import assert_err
-from dataswim import ds
+from dataswim import Ds
+
+
+ds = Ds()
 
 
 class BaseDsTest(unittest.TestCase):

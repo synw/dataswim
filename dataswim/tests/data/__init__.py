@@ -8,9 +8,9 @@ from .test_stats import TestDsDataStats
 from .test_transform import TestDsDataTransform
 
 
-"""class TestDsData(TestDsDataInit, TestDsDataCount, TestDsDataClean,
+class TestDsData(TestDsDataInit, TestDsDataCount, TestDsDataClean,
                  TestDsDataSearch, TestDsDataSelect, TestDsDataText,
-                    TestDsDataStats):
-    pass"""
-class TestDsData(TestDsDataTransform):
+                 TestDsDataStats):
     pass
+# class TestDsData(TestDsDataTransform):
+#    pass
