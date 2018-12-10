@@ -20,7 +20,8 @@ Using conda:
    conda install pandas sqlalchemy seaborn
    conda install -c ioam holoviews bokeh
    conda install altair --channel conda-forge
-   pip install dataset pytablewriter goerr gencharts chartjspy
+   pip install --no-cache-dir dataset
+   pip install pytablewriter goerr gencharts chartjspy
    pip install dataswim --no-deps
    ```
 
