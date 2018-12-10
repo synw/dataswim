@@ -1,8 +1,3 @@
-.. Dataswim documentation master file, created by
-   sphinx-quickstart on Sat Nov  4 11:56:33 2017.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Dataswim
 ========
 
@@ -12,23 +7,31 @@ Dataswim
    :caption: Data io
 
    data/io/load
+   data/io/export
+   data/io/convert
+   data/io/db
 
 .. toctree::
    :maxdepth: 2
    :titlesonly:
-   :caption: Database operations
+   :caption: Clean data
 
-   data/db
+   data/clean/nulls
+   data/clean/dates
+   data/clean/convert_types
+   data/clean/index
+   data/clean/clean_values
 
 .. toctree::
    :maxdepth: 2
    :titlesonly:
-   :caption: Dataframe operations
+   :caption: Transform data
 
-   data/clean
-   data/transform
-   data/select
-   data/count
+   data/transform/columns
+   data/transform/values
+   data/transform/resample
+   data/transform/dataframe
+   data/transform/calculations
    
 .. toctree::
    :maxdepth: 2
@@ -48,15 +51,12 @@ Dataswim
 .. toctree::
    :maxdepth: 2
    :titlesonly:
-   :caption: API
-
-   api_auto
-   
-.. toctree::
-   :maxdepth: 2
-   :titlesonly:
-   :caption: Conventions
 
    data/conventions
 
+.. toctree::
+   :maxdepth: 2
+   :titlesonly:
+   :caption: API
 
+   api_auto

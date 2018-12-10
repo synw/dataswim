@@ -1,6 +1,8 @@
 Load data
 =========
 
+Load data from external sources into the main dataframe
+
 From files
 ----------
 
@@ -15,4 +17,4 @@ From files
 From a database
 ---------------
 
-.. automethod:: dataswim.db.Db.load
+See the database operations section
