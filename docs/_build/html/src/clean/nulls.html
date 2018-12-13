@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Nulls &mdash; Dataswim 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Dates" href="dates.html" />
+    <link rel="prev" title="Database operations" href="../io/db.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Dataswim
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Data io</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../io/load.html">Load data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io/export.html">Export data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io/convert.html">Convert data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io/db.html">Database operations</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Clean data</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Nulls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dates.html">Dates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="convert_types.html">Convert types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Create index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clean_values.html">Clean values</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Transform data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../transform/columns.html">Columns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transform/values.html">Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transform/resample.html">Resample timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transform/dataframe.html">Dataframe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transform/calculations.html">Calculations</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Visualize data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../view.html">View data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chart.html">Chart data</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Build reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reports.html">Reports</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../conventions.html">Conventions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api_auto.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Dataswim</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Nulls</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/src/clean/nulls.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nulls">
+<h1>Nulls<a class="headerlink" href="#nulls" title="Permalink to this headline">¶</a></h1>
+<dl class="method">
+<dt id="dataswim.data.clean.Clean.drop_nan">
+<code class="descclassname">Clean.</code><code class="descname">drop_nan</code><span class="sig-paren">(</span><em>col: str = None</em>, <em>method: str = 'all'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.data.clean.Clean.drop_nan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drop rows with NaN values from the main dataframe</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>col</strong> (<em>str</em><em>, </em><em>optional</em>) – name of the column, defaults to None. Drops in all
+columns if no value is provided</li>
+<li><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – <code class="docutils literal notranslate"><span class="pre">how</span></code> param for <code class="docutils literal notranslate"><span class="pre">df.dropna</span></code>, defaults to “all”</li>
+<li><strong>**kwargs</strong> (<em>optional</em>) – params for <code class="docutils literal notranslate"><span class="pre">df.dropna</span></code></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.drop_nan(&quot;mycol&quot;)</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dataswim.data.clean.Clean.nan_empty">
+<code class="descclassname">Clean.</code><code class="descname">nan_empty</code><span class="sig-paren">(</span><em>col: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.data.clean.Clean.nan_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill empty values with NaN values</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>col</strong> (<em>str</em>) – name of the colum</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.nan_empty(&quot;mycol&quot;)</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dataswim.data.clean.Clean.zero_nan">
+<code class="descclassname">Clean.</code><code class="descname">zero_nan</code><span class="sig-paren">(</span><em>*cols</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.data.clean.Clean.zero_nan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts zero values to nan values in selected columns</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*cols</strong> (<em>str</em><em>, </em><em>at least one</em>) – names of the colums</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.zero_nan(&quot;mycol1&quot;,</span> <span class="pre">&quot;mycol2&quot;)</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dataswim.data.clean.Clean.fill_nan">
+<code class="descclassname">Clean.</code><code class="descname">fill_nan</code><span class="sig-paren">(</span><em>val: str</em>, <em>*cols</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.data.clean.Clean.fill_nan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill NaN values with new values in the main dataframe</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>val</strong> (<em>str</em>) – new value</li>
+<li><strong>*cols</strong> (<em>str</em><em>, </em><em>at least one</em>) – names of the colums</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.fill_nan(&quot;new</span> <span class="pre">value&quot;,</span> <span class="pre">&quot;mycol1&quot;,</span> <span class="pre">&quot;mycol2&quot;)</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dataswim.data.clean.Clean.fill_nulls">
+<code class="descclassname">Clean.</code><code class="descname">fill_nulls</code><span class="sig-paren">(</span><em>col: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.data.clean.Clean.fill_nulls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill all null values with NaN values in a column.
+Null values are <code class="docutils literal notranslate"><span class="pre">None</span></code> or en empty string</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>col</strong> (<em>str</em>) – column name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.fill_nulls(&quot;mycol&quot;)</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dates.html" class="btn btn-neutral float-right" title="Dates" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../io/db.html" class="btn btn-neutral" title="Database operations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, synw.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>
