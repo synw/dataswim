@@ -134,8 +134,7 @@ class Columns():
         :example: ``ds.index_col("New col")``
         """
         try:
-            self.df[col] = df.index.values
-            return df
+            self.df[col] = self.df.index.values
         except Exception as e:
             self.err(e)
             return

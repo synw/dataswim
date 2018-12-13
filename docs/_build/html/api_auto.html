@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Conventions" href="data/conventions.html" /> 
+    <link rel="prev" title="Conventions" href="src/conventions.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -84,38 +84,37 @@
             
               <p class="caption"><span class="caption-text">Data io</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data/io/load.html">Load data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data/io/export.html">Export data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data/io/convert.html">Convert data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data/io/db.html">Database operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/io/load.html">Load data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/io/export.html">Export data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/io/convert.html">Convert data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/io/db.html">Database operations</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Clean data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data/clean/nulls.html">Nulls</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data/clean/dates.html">Dates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data/clean/convert_types.html">Convert types</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data/clean/index.html">Create index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data/clean/clean_values.html">Clean values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/clean/nulls.html">Nulls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/clean/dates.html">Dates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/clean/convert_types.html">Convert types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/clean/index.html">Create index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/clean/clean_values.html">Clean values</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Transform data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data/transform/columns.html">Columns</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data/transform/values.html">Values</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data/transform/resample.html">Resample timeseries</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data/transform/dataframe.html">Dataframe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data/transform/calculations.html">Calculations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/transform/columns.html">Columns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/transform/values.html">Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/transform/resample.html">Resample timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/transform/dataframe.html">Dataframe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/transform/calculations.html">Calculations</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Visualize data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data/view.html">View data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data/chart.html">Chart data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/chart.html">Chart data</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Build reports</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data/reports.html">Reports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/reports.html">Reports</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data/conventions.html">Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/conventions.html">Conventions</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
@@ -670,12 +669,6 @@ an iterable of the same length than the dataframe</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="dataswim.Ds.display">
-<code class="descname">display</code><span class="sig-paren">(</span><em>*fields</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.display" title="Permalink to this definition">¶</a></dt>
-<dd><p>Display some columns head</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="dataswim.Ds.distrib_">
 <code class="descname">distrib_</code><span class="sig-paren">(</span><em>label=None</em>, <em>style=None</em>, <em>opts=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.distrib_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a Seaborn distribution chart</p>
@@ -931,12 +924,6 @@ Null values are <code class="docutils literal notranslate"><span class="pre">Non
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<dl class="method">
-<dt id="dataswim.Ds.head">
-<code class="descname">head</code><span class="sig-paren">(</span><em>rows=5</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.head" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the main dataframe’s head</p>
 </dd></dl>
 
 <dl class="method">
@@ -1270,12 +1257,6 @@ Pandas <code class="docutils literal notranslate"><span class="pre">read_json</s
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<dl class="method">
-<dt id="dataswim.Ds.look">
-<code class="descname">look</code><span class="sig-paren">(</span><em>df=None</em>, <em>p=True</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.look" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns basic data info</p>
 </dd></dl>
 
 <dl class="method">
@@ -1742,8 +1723,31 @@ converted to floats if they are not already</p>
 
 <dl class="method">
 <dt id="dataswim.Ds.show">
-<code class="descname">show</code><span class="sig-paren">(</span><em>rows=5</em>, <em>dataframe=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.show" title="Permalink to this definition">¶</a></dt>
-<dd><p>Display info about a dataframe</p>
+<code class="descname">show</code><span class="sig-paren">(</span><em>rows=5</em>, <em>dataframe=None</em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#dataswim.Ds.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display info about the dataframe</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rows</strong> – number of rows to show, defaults to 5</li>
+<li><strong>rows</strong> – int, optional</li>
+<li><strong>dataframe</strong> – a pandas dataframe, defaults to None</li>
+<li><strong>dataframe</strong> – pd.DataFrame, optional</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a pandas dataframe</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">pd.DataFrame</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.show()</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -2467,7 +2471,7 @@ of unique values</p>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="data/conventions.html" class="btn btn-neutral" title="Conventions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="src/conventions.html" class="btn btn-neutral" title="Conventions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

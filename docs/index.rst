@@ -6,53 +6,53 @@ Dataswim
    :titlesonly:
    :caption: Data io
 
-   data/io/load
-   data/io/export
-   data/io/convert
-   data/io/db
+   src/io/load
+   src/io/export
+   src/io/convert
+   src/io/db
 
 .. toctree::
    :maxdepth: 2
    :titlesonly:
    :caption: Clean data
 
-   data/clean/nulls
-   data/clean/dates
-   data/clean/convert_types
-   data/clean/index
-   data/clean/clean_values
+   src/clean/nulls
+   src/clean/dates
+   src/clean/convert_types
+   src/clean/index
+   src/clean/clean_values
 
 .. toctree::
    :maxdepth: 2
    :titlesonly:
    :caption: Transform data
 
-   data/transform/columns
-   data/transform/values
-   data/transform/resample
-   data/transform/dataframe
-   data/transform/calculations
+   src/transform/columns
+   src/transform/values
+   src/transform/resample
+   src/transform/dataframe
+   src/transform/calculations
    
 .. toctree::
    :maxdepth: 2
    :titlesonly:
    :caption: Visualize data
 
-   data/view
-   data/chart
+   src/view/view
+   src/chart
    
 .. toctree::
    :maxdepth: 2
    :titlesonly:
    :caption: Build reports
 
-   data/reports
+   src/reports
 
 .. toctree::
    :maxdepth: 2
    :titlesonly:
 
-   data/conventions
+   src/conventions
 
 .. toctree::
    :maxdepth: 2

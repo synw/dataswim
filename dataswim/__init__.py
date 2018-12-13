@@ -51,6 +51,13 @@ class Ds(Db, Df, Plot, Map, Report, Error, Message):
         self.dsmap = None
         self.altair_encode = {}
 
+        if self._isnotebook() is True:
+            self.notebook = True
+            import holoviews as hv
+            hv.extension("bokeh")
+            import altair as alt
+            alt.renderers.enable('notebook')
+
     def __repr__(self):
         num = 0
         if self.df is not None:
@@ -67,5 +74,12 @@ class Ds(Db, Df, Plot, Map, Report, Error, Message):
             self.ok("A new instance was created")
         return ds2
 
-
-ds = Ds()
+    def _isnotebook(self):
+        try:
+            shell = get_ipython().__class__.__name__
+            if shell == 'ZMQInteractiveShell':
+                return True
+            else:
+                return False
+        except NameError:
+            return False

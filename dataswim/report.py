@@ -40,7 +40,7 @@ class Report():
                 html = self.get_html(chart_obj, slug)
             if html is None and seaborn_chart is None:
                 self.err(
-                    self.stack, "Can not stack: empty html reveived for " + 
+                    self.stack, "Can not stack: empty html reveived for " +
                     str(chart_obj), "-", slug)
                 return
             report = dict(slug=slug, html=html)
@@ -69,7 +69,7 @@ class Report():
         html = self._get_header(header)
         if html is None or html == "":
             self.err(self.to_file, "Can not get html header")
-        for report in self.reports:  
+        for report in self.reports:
             if "html" not in report:
                 self.err("No html for report " + report)
                 self.reports = self.report_engines = []
@@ -93,7 +93,8 @@ class Report():
         Writes the html report to one file per report
         """
         if len(self.reports) == 0:
-            self.warning("No charts to save. Use stack to add charts for saving")
+            self.warning(
+                "No charts to save. Use stack to add charts for saving")
             return
         if folderpath is None:
             if self.report_path is None and "seaborn" \
@@ -211,12 +212,12 @@ class Report():
         Default html header
         """
         html = """
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="utf-8">
-            <title>Report</title>
-        """
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<meta charset="utf-8">
+			<title>Report</title>
+		"""
         if "bokeh" in self.report_engines:
             html += self.bokeh_header_()
         if "altair" in self.report_engines:
@@ -224,9 +225,9 @@ class Report():
         if "chartjs" in self.report_engines:
             html += self.chartjs_header_()
         html += """
-        </head>
-        <body>
-        """
+		</head>
+		<body>
+		"""
         return html
 
     def _footer(self):
@@ -234,3 +235,22 @@ class Report():
         Default html footer
         """
         return "</body>\n</html>"
+
+    def title(self, txt):
+        """
+        Prints a title for pipelines
+        """
+        num = len(txt)
+        ticks = "=" * num
+        print(ticks)
+        print(txt)
+        print(ticks)
+
+    def subtitle(self, txt):
+        """
+        Prints a subtitle for pipelines
+        """
+        num = len(txt)
+        ticks = "-" * num
+        print(txt)
+        print(ticks)

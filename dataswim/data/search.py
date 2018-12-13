@@ -11,29 +11,22 @@ class Search():
         Set the main dataframe instance to rows that contains a string
         value in a column
         """
-        df = self._contains(column, value)
+        df = self.df[self.df[column].str.contains(value) == True]
         if df is None:
             self.err("Can not select contained data")
             return
         self.df = df
 
-    def contains_(self, column, value):
+    def ncontains(self, column, value):
         """
-        Returns a Dataswim instance with rows that contains a string
-        value in a column
+        Set the main dataframe instance to rows that do not
+        contains a string value in a column
         """
-        df = self._contains(column, value)
+        df = self.df[self.df[column].str.contains(value) == False]
         if df is None:
             self.err("Can not select contained data")
             return
-        return self._duplicate_(df)
-
-    def _contains(self, column, value):
-        try:
-            df = self.df[self.df[column].str.contains(value) == True]
-            return df
-        except Exception as e:
-            self.err(e, "Can not select contained data")
+        self.df = df
 
     def exact(self, column, *values):
         """

@@ -4,6 +4,7 @@ settings.py
 .project
 .pydevproject
 .settings
+.vscode
 
 __pycache__/
 *.py[cod]
