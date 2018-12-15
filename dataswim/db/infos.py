@@ -1,7 +1,8 @@
 from goerr.colors import colors
+from .base import DbBase
 
 
-class Info():
+class Info(DbBase):
     """
     A class to handle information requests from the database
     """

@@ -1,19 +1,14 @@
 from numpy.core.numeric import nan
+from .base import DbBase
 
 
-class Relation():
+class Relation(DbBase):
     """
     A class to handle database relations
     """
 
-    def __init__(self, db=None):
-        """
-        Initialize with an empty db
-        """
-        self.db = db
-
-    def relation(self, table, origin_field, search_field, destination_field=None,
-                 id_field="id"):
+    def relation(self, table, origin_field, search_field,
+                 destination_field=None, id_field="id"):
         """
         Add a column to the main dataframe from a relation foreign key 
         """

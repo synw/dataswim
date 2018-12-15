@@ -1,6 +1,7 @@
+from .base import DbBase
 
 
-class Insert():
+class Insert(DbBase):
     """
     A class to handle data ingestion by the database
     """

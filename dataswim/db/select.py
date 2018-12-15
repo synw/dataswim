@@ -1,7 +1,8 @@
 import pandas as pd
+from .base import DbBase
 
 
-class Select():
+class Select(DbBase):
     """
     A class to retrieve data from the database
     """
