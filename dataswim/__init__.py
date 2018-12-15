@@ -9,7 +9,7 @@ from .maps import Map
 from .data import Df
 from .report import Report
 
-__version__ = "0.4.27"
+__version__ = "0.4.25"
 
 
 class Ds(Db, Df, Plot, Map, Report, Error, Message):

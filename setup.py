@@ -1,12 +1,12 @@
 from setuptools import setup, find_packages
 
-version = "0.4.24"
+version = "0.4.25"
 
 setup(
     name='dataswim',
     packages=find_packages(),
     version=version,
-    description='Utilities to swim in a data lake',
+    description='Diving equipment for data lake',
     author='synw',
     author_email='synwe@yahoo.com',
     url='https://github.com/synw/dataswim',
