@@ -105,9 +105,13 @@
 <li class="toctree-l1"><a class="reference internal" href="src/transform/dataframe.html">Dataframe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="src/transform/calculations.html">Calculations</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Manipulate data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src/manipulate/view.html">View data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/manipulate/select.html">Select data</a></li>
+</ul>
 <p class="caption"><span class="caption-text">Visualize data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="src/view/view.html">View data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="src/chart.html">Chart data</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Build reports</span></p>
@@ -206,7 +210,6 @@
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
- | <a href="#V"><strong>V</strong></a>
  | <a href="#W"><strong>W</strong></a>
  | <a href="#Z"><strong>Z</strong></a>
  
@@ -274,9 +277,7 @@
 </li>
       <li><a href="api_auto.html#dataswim.Ds.color_">color_() (dataswim.Ds method)</a>
 </li>
-      <li><a href="api_auto.html#dataswim.Ds.cols">cols() (dataswim.Ds method)</a>
-</li>
-      <li><a href="src/view/view.html#dataswim.data.views.View.cols_">cols_() (dataswim.data.views.View method)</a>
+      <li><a href="src/manipulate/view.html#dataswim.data.views.View.cols_">cols_() (dataswim.data.views.View method)</a>
 
       <ul>
         <li><a href="api_auto.html#dataswim.Ds.cols_">(dataswim.Ds method)</a>
@@ -288,17 +289,15 @@
         <li><a href="api_auto.html#dataswim.Ds.concat">(dataswim.Ds method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="src/io/db.html#dataswim.db.Db.connect">connect() (dataswim.db.Db method)</a>
 
       <ul>
         <li><a href="api_auto.html#dataswim.Ds.connect">(dataswim.Ds method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_auto.html#dataswim.Ds.contains">contains() (dataswim.Ds method)</a>
-</li>
-      <li><a href="api_auto.html#dataswim.Ds.contains_">contains_() (dataswim.Ds method)</a>
 </li>
       <li><a href="src/transform/columns.html#dataswim.data.transform.columns.Columns.copycol">copycol() (dataswim.data.transform.columns.Columns method)</a>
 
@@ -318,6 +317,8 @@
 </li>
       <li><a href="api_auto.html#dataswim.Ds.count_zero">count_zero() (dataswim.Ds method)</a>
 </li>
+      <li><a href="api_auto.html#dataswim.Ds.creplace">creplace() (dataswim.Ds method)</a>
+</li>
       <li><a href="api_auto.html#dataswim.Ds.cvar_">cvar_() (dataswim.Ds method)</a>
 </li>
   </ul></td>
@@ -328,6 +329,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_auto.html#module-dataswim">dataswim (module)</a>
 </li>
+      <li><a href="src/clean/dates.html#dataswim.data.clean.Clean.date">date() (dataswim.data.clean.Clean method)</a>
+
+      <ul>
+        <li><a href="api_auto.html#dataswim.Ds.date">(dataswim.Ds method)</a>
+</li>
+      </ul></li>
       <li><a href="src/clean/index.html#dataswim.data.clean.Clean.dateindex">dateindex() (dataswim.data.clean.Clean method)</a>
 
       <ul>
@@ -346,10 +353,12 @@
 </li>
       <li><a href="api_auto.html#dataswim.Ds.density_">density_() (dataswim.Ds method)</a>
 </li>
-      <li><a href="api_auto.html#dataswim.Ds.describe">describe() (dataswim.Ds method)</a>
+      <li><a href="src/manipulate/view.html#dataswim.data.views.View.describe_">describe_() (dataswim.data.views.View method)</a>
+
+      <ul>
+        <li><a href="api_auto.html#dataswim.Ds.describe_">(dataswim.Ds method)</a>
 </li>
-      <li><a href="src/view/view.html#dataswim.data.views.View.describe_">describe_() (dataswim.data.views.View method)</a>
-</li>
+      </ul></li>
       <li><a href="src/io/db.html#dataswim.db.Db.dftable_">dftable_() (dataswim.db.Db method)</a>
 
       <ul>
@@ -362,14 +371,14 @@
         <li><a href="api_auto.html#dataswim.Ds.diffm">(dataswim.Ds method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="src/transform/calculations.html#dataswim.data.transform.calculations.Calculations.diffn">diffn() (dataswim.data.transform.calculations.Calculations method)</a>
 
       <ul>
         <li><a href="api_auto.html#dataswim.Ds.diffn">(dataswim.Ds method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="src/transform/calculations.html#dataswim.data.transform.calculations.Calculations.diffp">diffp() (dataswim.data.transform.calculations.Calculations method)</a>
 
       <ul>
@@ -678,10 +687,12 @@
         <li><a href="api_auto.html#dataswim.Ds.nan_empty">(dataswim.Ds method)</a>
 </li>
       </ul></li>
-      <li><a href="api_auto.html#dataswim.Ds.ndlayout_">ndlayout_() (dataswim.Ds method)</a>
+      <li><a href="api_auto.html#dataswim.Ds.ncontains">ncontains() (dataswim.Ds method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_auto.html#dataswim.Ds.ndlayout_">ndlayout_() (dataswim.Ds method)</a>
+</li>
       <li><a href="api_auto.html#dataswim.Ds.new_">new_() (dataswim.Ds method)</a>
 </li>
       <li><a href="api_auto.html#dataswim.Ds.nowrange">nowrange() (dataswim.Ds method)</a>
@@ -696,7 +707,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_auto.html#dataswim.Ds.ok">ok() (dataswim.Ds method)</a>
 </li>
-      <li><a href="src/view/view.html#dataswim.data.views.View.one">one() (dataswim.data.views.View method)</a>
+      <li><a href="src/manipulate/view.html#dataswim.data.views.View.one">one() (dataswim.data.views.View method)</a>
 
       <ul>
         <li><a href="api_auto.html#dataswim.Ds.one">(dataswim.Ds method)</a>
@@ -822,7 +833,7 @@
 </li>
       <li><a href="api_auto.html#dataswim.Ds.seaborn_bar_">seaborn_bar_() (dataswim.Ds method)</a>
 </li>
-      <li><a href="src/view/view.html#dataswim.data.views.View.show">show() (dataswim.data.views.View method)</a>
+      <li><a href="src/manipulate/view.html#dataswim.data.views.View.show">show() (dataswim.data.views.View method)</a>
 
       <ul>
         <li><a href="api_auto.html#dataswim.Ds.show">(dataswim.Ds method)</a>
@@ -902,7 +913,7 @@
         <li><a href="api_auto.html#dataswim.Ds.tables_">(dataswim.Ds method)</a>
 </li>
       </ul></li>
-      <li><a href="src/view/view.html#dataswim.data.views.View.tail">tail() (dataswim.data.views.View method)</a>
+      <li><a href="src/manipulate/view.html#dataswim.data.views.View.tail">tail() (dataswim.data.views.View method)</a>
 
       <ul>
         <li><a href="api_auto.html#dataswim.Ds.tail">(dataswim.Ds method)</a>
@@ -1034,7 +1045,7 @@
         <li><a href="api_auto.html#dataswim.Ds.trimsquants">(dataswim.Ds method)</a>
 </li>
       </ul></li>
-      <li><a href="src/view/view.html#dataswim.data.views.View.types_">types_() (dataswim.data.views.View method)</a>
+      <li><a href="src/manipulate/view.html#dataswim.data.views.View.types_">types_() (dataswim.data.views.View method)</a>
 
       <ul>
         <li><a href="api_auto.html#dataswim.Ds.types_">(dataswim.Ds method)</a>
@@ -1051,18 +1062,6 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_auto.html#dataswim.Ds.update_db">update_db() (dataswim.Ds method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="V">V</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_auto.html#dataswim.Ds.vals">vals() (dataswim.Ds method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_auto.html#dataswim.Ds.vals_">vals_() (dataswim.Ds method)</a>
 </li>
   </ul></td>
 </tr></table>

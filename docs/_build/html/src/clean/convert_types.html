@@ -108,7 +108,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Visualize data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../view.html">View data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../view/view.html">View data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chart.html">Chart data</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Build reports</span></p>
@@ -210,19 +210,19 @@
 
 <dl class="method">
 <dt id="dataswim.data.clean.Clean.to_float">
-<code class="descclassname">Clean.</code><code class="descname">to_float</code><span class="sig-paren">(</span><em>*cols</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.data.clean.Clean.to_float" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Clean.</code><code class="descname">to_float</code><span class="sig-paren">(</span><em>col: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.data.clean.Clean.to_float" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert colums values to float</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>*cols</strong> (<em>str</em><em>, </em><em>at least one</em>) – names of the colums</li>
+<li><strong>col</strong> (<em>str</em><em>, </em><em>at least one</em>) – name of the colum</li>
 <li><strong>**kwargs</strong> (<em>optional</em>) – keyword arguments for <code class="docutils literal notranslate"><span class="pre">df.astype</span></code></li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.to_float(&quot;mycol1&quot;,</span> <span class="pre">&quot;mycol2&quot;)</span></code></p>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.to_float(&quot;mycol1&quot;)</span></code></p>
 </td>
 </tr>
 </tbody>

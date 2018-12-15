@@ -108,7 +108,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Visualize data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../view.html">View data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../view/view.html">View data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chart.html">Chart data</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Build reports</span></p>
@@ -187,6 +187,27 @@
             
   <div class="section" id="dates">
 <h1>Dates<a class="headerlink" href="#dates" title="Permalink to this headline">¶</a></h1>
+<dl class="method">
+<dt id="dataswim.data.clean.Clean.date">
+<code class="descclassname">Clean.</code><code class="descname">date</code><span class="sig-paren">(</span><em>col: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.data.clean.Clean.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a column to date type</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>col</strong> (<em>str</em>) – column name</li>
+<li><strong>**kwargs</strong> (<em>optional</em>) – keyword arguments for <code class="docutils literal notranslate"><span class="pre">pd.to_datetime</span></code></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.date(&quot;mycol&quot;)</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="dataswim.data.clean.Clean.fdate">
 <code class="descclassname">Clean.</code><code class="descname">fdate</code><span class="sig-paren">(</span><em>*cols</em>, <em>precision: str = 'S'</em>, <em>format: str = None</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.data.clean.Clean.fdate" title="Permalink to this definition">¶</a></dt>

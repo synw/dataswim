@@ -32,13 +32,20 @@ Dataswim
    src/transform/resample
    src/transform/dataframe
    src/transform/calculations
+
+.. toctree::
+   :maxdepth: 2
+   :titlesonly:
+   :caption: Manipulate data
+
+   src/manipulate/view
+   src/manipulate/select
    
 .. toctree::
    :maxdepth: 2
    :titlesonly:
    :caption: Visualize data
 
-   src/view/view
    src/chart
    
 .. toctree::
