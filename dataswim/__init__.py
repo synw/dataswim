@@ -17,7 +17,7 @@ class Ds(Db, Df, Plot, Map, Report, Error, Message):
     Main class
     """
 
-    def __init__(self, df=None, db=None):
+    def __init__(self, df=None, db=None, nbload_libs=True):
         """
         Initialize with an empty dataframe
         """
@@ -51,7 +51,7 @@ class Ds(Db, Df, Plot, Map, Report, Error, Message):
         self.dsmap = None
         self.altair_encode = {}
 
-        if self._isnotebook() is True:
+        if self._isnotebook() is True and nbload_libs is True:
             self.notebook = True
             import holoviews as hv
             hv.extension("bokeh")
@@ -65,11 +65,12 @@ class Ds(Db, Df, Plot, Map, Report, Error, Message):
         msg = "<DataSwim object | " + str(num) + " rows>"
         return msg
 
-    def new_(self, df=pd.DataFrame(), db=None, quiet=False):
+    def new_(self, df=pd.DataFrame(), db=None, quiet=False,
+             nbload_libs=True):
         """
         Returns a new DataSwim instance from a dataframe
         """
-        ds2 = Ds(df, db)
+        ds2 = Ds(df, db, nbload_libs)
         if quiet is False:
             self.ok("A new instance was created")
         return ds2

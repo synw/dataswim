@@ -28,7 +28,7 @@ class Df(Select, View, Transform, Clean, Count,
                              " was provided: please provide a dataframe as argument")
                     return
                 df = self.df.copy()
-            ds2 = self.new_(df, db, True)
+            ds2 = self.new_(df, db, quiet=True, nbload_libs=False)
             ds2.db = self.db
             ds2.x = self.x
             ds2.y = self.y
