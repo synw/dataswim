@@ -46,44 +46,18 @@ class Db(Info, Insert, Relation, InfluxDb):
 
         :example: ``ds.load("mytable")``
         """
-		if self._check_db() is False:
+        if self._check_db() is False:
+            return
+        if table not in self.db.tables:
+            self.warning("The table " + name + " does not exists")
             return
         try:
             self.start("Loading data from table " + table)
-            self.df = self._load(table)
+            res = self.db[table].all()
+            self.df = pd.DataFrame(list(res))
             self.end("Data loaded from table " + table)
         except Exception as e:
             self.err(e, "Can not load table " + table)
-
-    def load_(self, table: str) -> "Ds":
-        """Returns a DataSwim instance from a table's data
-
-        :param table: table name
-        :type table: str
-        :return: a dataswim instance
-        :rtype: Ds
-
-        :example: ``ds2 = ds.load_("mytable")``
-        """
-		if self._check_db() is False:
-            return
-        try:
-            self.start("Loading data from table " + table)
-            df = self._load(table)
-            ds2 = self.clone_(df)
-            return ds2
-            self.end("Data loaded from table " + table)
-        except Exception as e:
-            self.err(e, "Can not load data from table " + table)
-
-    def _load(self, table: str):
-        self._check_db()
-        try:
-            res = self.db[table].all()
-            df = pd.DataFrame(list(res))
-            return df
-        except Exception as e:
-            self.err(e, "Can not fetch data from table " + table)
 
     def load_django(self, query: "django query"):
         """Load the main dataframe from a django orm query
@@ -120,29 +94,6 @@ class Db(Info, Insert, Relation, InfluxDb):
             return df
         except Exception as e:
             self.err(e)
-
-    def dftable_(self, name: str) -> pd.DataFrame:
-        """
-        Get a dataframe with all rows values for a table
-
-        :param name: name of the table
-        :type name: str
-        :return: a pandas dataframe
-        :rtype: pd.DataFrame
-
-        :example: ``df = ds.dftable_("mytable")``
-        """
-        if self._check_db() is False:
-            return
-        if name not in self.db.tables:
-            self.warning("The table " + name + " does not exists")
-            return
-        try:
-            res = self.db[name].all()
-            df = pd.DataFrame(list(res))
-            return df
-        except Exception as e:
-            self.err(e, "Error retrieving data in table")
 
     def _check_db(self) -> bool:
         if self.db is None:
