@@ -46,6 +46,8 @@ class Db(Info, Insert, Relation, InfluxDb):
 
         :example: ``ds.load("mytable")``
         """
+		if self._check_db() is False:
+            return
         try:
             self.start("Loading data from table " + table)
             self.df = self._load(table)
@@ -63,6 +65,8 @@ class Db(Info, Insert, Relation, InfluxDb):
 
         :example: ``ds2 = ds.load_("mytable")``
         """
+		if self._check_db() is False:
+            return
         try:
             self.start("Loading data from table " + table)
             df = self._load(table)
@@ -75,7 +79,8 @@ class Db(Info, Insert, Relation, InfluxDb):
     def _load(self, table: str):
         self._check_db()
         try:
-            df = self.getall(table)
+            res = self.db[table].all()
+            df = pd.DataFrame(list(res))
             return df
         except Exception as e:
             self.err(e, "Can not fetch data from table " + table)
