@@ -12,7 +12,7 @@ class Insert(DbBase):
         """
         self.db = db
 
-    def insert(self, table, records, create_cols=True, dtypes=None):
+    def insert(self, table, records, create_cols=False, dtypes=None):
         """
         Insert one or many records in the database from a dictionary or a list of dictionaries
         """
@@ -41,11 +41,26 @@ class Insert(DbBase):
             try:
                 func(records, types=dtypes)
             except Exception as e:
-                self.err(e, "Can not insert create columns and insert data")
+                self.err(e, "Can not insert data")
             return
         self.ok("Rows inserted in the database")
 
-    def update_db(self, table, keys=['id'], db_url=None):
+    def upsert(self, table: str, record: dict, create_cols: bool=False,
+               dtypes: list=None, pks=["id"], namefields=["id"]):
+        """
+        Upsert a record in a table
+        """
+        try:
+            self.db[table].upsert(record, pks, create_cols, dtypes)
+        except Exception as e:
+            self.err(e, "Can not upsert data")
+            return
+        names = ""
+        for el in namefields:
+            names += " " + record[el]
+        self.ok("Upserted record"+names)
+
+    def update_table(self, table, pks=['id']):
         """
         Update records in a database table from the main dataframe
         """
@@ -55,13 +70,13 @@ class Insert(DbBase):
             table = self.db[table]
         except Exception as e:
             self.err(e, "Can not find table " + table)
-        if self.db is None and db_url is None:
+        if self.db is None:
             msg = "Please connect a database before or provide a database url"
             self.err(msg)
             return
         recs = self.to_records_()
         for rec in recs:
-            table.insert_ignore(rec, keys, ensure=True)
+            table.insert_ignore(rec, pks, ensure=True)
         self.ok("Data updated in table", table)
 
     def to_db(self, table, dtypes=None):
