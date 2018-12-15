@@ -16,7 +16,8 @@ class Insert(DbBase):
         """
         Insert one or many records in the database from a dictionary or a list of dictionaries
         """
-        self._check_db()
+        if self._check_db() is False:
+            return
         try:
             table = self.db[table]
         except Exception as e:
@@ -48,6 +49,8 @@ class Insert(DbBase):
         """
         Update records in a database table from the main dataframe
         """
+        if self._check_db() is False:
+            return
         try:
             table = self.db[table]
         except Exception as e:
@@ -65,9 +68,11 @@ class Insert(DbBase):
         """
         Save the main dataframe to the database
         """
-        if self.db is None:
-            self.err("Please connect a database before inserting data")
+        if self._check_db() is False:
             return
+        if table not in self.db.tables:
+            self.db.create_table(table)
+            self.info("Created table ", table)
         self.start("Saving data to database table " + table + " ...")
         recs = self.to_records_()
         self.insert(table, recs, dtypes)

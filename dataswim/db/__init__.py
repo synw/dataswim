@@ -3,14 +3,13 @@ from numpy.core.numeric import nan
 import dataset
 from stuf import stuf
 import pandas as pd
-from .base import DbBase
 from .infos import Info
 from .relations import Relation
 from .insert import Insert
 from .influxdb import InfluxDb
 
 
-class Db(DbBase, Info, Insert, Relation, InfluxDb):
+class Db(Info, Insert, Relation, InfluxDb):
     """
     Class for manipulating databases
     """
