@@ -106,9 +106,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../transform/dataframe.html">Dataframe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../transform/calculations.html">Calculations</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Manipulate data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../manipulate/view.html">View data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manipulate/select.html">Select data</a></li>
+</ul>
 <p class="caption"><span class="caption-text">Visualize data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../view.html">View data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chart.html">Chart data</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Build reports</span></p>
@@ -226,26 +230,6 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="dataswim.db.Db.load_">
-<code class="descclassname">Db.</code><code class="descname">load_</code><span class="sig-paren">(</span><em>table: str</em><span class="sig-paren">)</span> &#x2192; Ds<a class="headerlink" href="#dataswim.db.Db.load_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a DataSwim instance from a table’s data</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>table</strong> (<em>str</em>) – table name</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a dataswim instance</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="../../api_auto.html#dataswim.Ds" title="dataswim.Ds">Ds</a></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds2</span> <span class="pre">=</span> <span class="pre">ds.load_(&quot;mytable&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
 <dt id="dataswim.db.Db.load_django">
 <code class="descclassname">Db.</code><code class="descname">load_django</code><span class="sig-paren">(</span><em>query: django query</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.db.Db.load_django" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the main dataframe from a django orm query</p>
@@ -328,29 +312,6 @@ and columns</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – name of the table</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">tables</span> <span class="pre">=</span> <span class="pre">ds.table(&quot;mytable&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-<div class="section" id="select">
-<h2>Select<a class="headerlink" href="#select" title="Permalink to this headline">¶</a></h2>
-<dl class="method">
-<dt id="dataswim.db.Db.dftable_">
-<code class="descclassname">Db.</code><code class="descname">dftable_</code><span class="sig-paren">(</span><em>name: str</em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#dataswim.db.Db.dftable_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a dataframe with all rows values for a table</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – name of the table</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a pandas dataframe</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pd.DataFrame</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">=</span> <span class="pre">ds.dftable_(&quot;mytable&quot;)</span></code></td>
 </tr>
 </tbody>
 </table>

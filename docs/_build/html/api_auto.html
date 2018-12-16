@@ -105,9 +105,13 @@
 <li class="toctree-l1"><a class="reference internal" href="src/transform/dataframe.html">Dataframe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="src/transform/calculations.html">Calculations</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Manipulate data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src/manipulate/view.html">View data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/manipulate/select.html">Select data</a></li>
+</ul>
 <p class="caption"><span class="caption-text">Visualize data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="src/view/view.html">View data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="src/chart.html">Chart data</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Build reports</span></p>
@@ -188,7 +192,7 @@
 <span id="api"></span><h1>API<a class="headerlink" href="#module-dataswim" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="dataswim.Ds">
-<em class="property">class </em><code class="descclassname">dataswim.</code><code class="descname">Ds</code><span class="sig-paren">(</span><em>df=None</em>, <em>db=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dataswim.</code><code class="descname">Ds</code><span class="sig-paren">(</span><em>df=None</em>, <em>db=None</em>, <em>nbload_libs=True</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dataswim.db.Db</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dataswim.data.Df</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dataswim.charts.Plot</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dataswim.maps.Map</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dataswim.report.Report</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dataswim.errors.Error</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dataswim.messages.Message</span></code></p>
 <p>Main class</p>
 <dl class="method">
@@ -248,18 +252,21 @@
 
 <dl class="method">
 <dt id="dataswim.Ds.apply">
-<code class="descname">apply</code><span class="sig-paren">(</span><em>function: function</em>, <em>*cols</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.apply" title="Permalink to this definition">¶</a></dt>
+<code class="descname">apply</code><span class="sig-paren">(</span><em>function: function</em>, <em>*cols</em>, <em>axis=1</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.apply" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply a function on columns values</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>function</strong> (<em>function</em>) – a function to apply to the columns</li>
 <li><strong>*cols</strong> (<em>name of columns</em>) – columns names</li>
+<li><strong>axis</strong> – index (0) or column (1), default is 1</li>
 <li><strong>**kwargs</strong> (<em>optional</em>) – arguments for <code class="docutils literal notranslate"><span class="pre">df.apply</span></code></li>
 </ul>
 </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
@@ -582,26 +589,6 @@ in percentage</p>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pd.DataFrame</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.describe()</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="dataswim.Ds.dftable_">
-<code class="descname">dftable_</code><span class="sig-paren">(</span><em>name: str</em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#dataswim.Ds.dftable_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a dataframe with all rows values for a table</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – name of the table</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a pandas dataframe</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pd.DataFrame</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">=</span> <span class="pre">ds.dftable_(&quot;mytable&quot;)</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -1076,7 +1063,7 @@ Null values are <code class="docutils literal notranslate"><span class="pre">Non
 
 <dl class="method">
 <dt id="dataswim.Ds.insert">
-<code class="descname">insert</code><span class="sig-paren">(</span><em>table</em>, <em>records</em>, <em>create_cols=True</em>, <em>dtypes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.insert" title="Permalink to this definition">¶</a></dt>
+<code class="descname">insert</code><span class="sig-paren">(</span><em>table</em>, <em>records</em>, <em>create_cols=False</em>, <em>dtypes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.insert" title="Permalink to this definition">¶</a></dt>
 <dd><p>Insert one or many records in the database from a dictionary or a list of dictionaries</p>
 </dd></dl>
 
@@ -1164,26 +1151,6 @@ to some columns</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>table</strong> (<em>str</em>) – table name</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.load(&quot;mytable&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="dataswim.Ds.load_">
-<code class="descname">load_</code><span class="sig-paren">(</span><em>table: str</em><span class="sig-paren">)</span> &#x2192; Ds<a class="headerlink" href="#dataswim.Ds.load_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a DataSwim instance from a table’s data</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>table</strong> (<em>str</em>) – table name</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a dataswim instance</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#dataswim.Ds" title="dataswim.Ds">Ds</a></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds2</span> <span class="pre">=</span> <span class="pre">ds.load_(&quot;mytable&quot;)</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -1457,7 +1424,7 @@ contains a string value in a column</p>
 
 <dl class="method">
 <dt id="dataswim.Ds.new_">
-<code class="descname">new_</code><span class="sig-paren">(</span><em>df=Empty DataFrame Columns: [] Index: []</em>, <em>db=None</em>, <em>quiet=False</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.new_" title="Permalink to this definition">¶</a></dt>
+<code class="descname">new_</code><span class="sig-paren">(</span><em>df=Empty DataFrame Columns: [] Index: []</em>, <em>db=None</em>, <em>quiet=False</em>, <em>nbload_libs=True</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.new_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a new DataSwim instance from a dataframe</p>
 </dd></dl>
 
@@ -2517,9 +2484,15 @@ main dataframe</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="dataswim.Ds.update_db">
-<code class="descname">update_db</code><span class="sig-paren">(</span><em>table, keys=['id'], db_url=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.update_db" title="Permalink to this definition">¶</a></dt>
+<dt id="dataswim.Ds.update_table">
+<code class="descname">update_table</code><span class="sig-paren">(</span><em>table, pks=['id']</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.update_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update records in a database table from the main dataframe</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dataswim.Ds.upsert">
+<code class="descname">upsert</code><span class="sig-paren">(</span><em>table: str, record: dict, create_cols: bool = False, dtypes: list = None, pks=['id'], namefields=['id']</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.upsert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upsert a record in a table</p>
 </dd></dl>
 
 <dl class="method">

@@ -106,9 +106,13 @@
 <li class="toctree-l1"><a class="reference internal" href="dataframe.html">Dataframe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calculations.html">Calculations</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Manipulate data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../manipulate/view.html">View data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manipulate/select.html">Select data</a></li>
+</ul>
 <p class="caption"><span class="caption-text">Visualize data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../view.html">View data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chart.html">Chart data</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Build reports</span></p>
@@ -225,17 +229,28 @@
 
 <dl class="method">
 <dt id="dataswim.data.transform.values.Values.apply">
-<code class="descclassname">Values.</code><code class="descname">apply</code><span class="sig-paren">(</span><em>function: function</em>, <em>*cols</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.data.transform.values.Values.apply" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Values.</code><code class="descname">apply</code><span class="sig-paren">(</span><em>function: function</em>, <em>*cols</em>, <em>axis=1</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.data.transform.values.Values.apply" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply a function on columns values</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>function</strong> (<em>function</em>) – a function to apply to the columns</li>
 <li><strong>*cols</strong> (<em>name of columns</em>) – columns names</li>
+<li><strong>axis</strong> – index (0) or column (1), default is 1</li>
 <li><strong>**kwargs</strong> (<em>optional</em>) – arguments for <code class="docutils literal notranslate"><span class="pre">df.apply</span></code></li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><div class="first last highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+        <span class="c1"># add a new column with a value</span>
+        <span class="n">row</span><span class="p">[</span><span class="s2">&quot;newcol&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;Col 1] + 1</span>
+        <span class="k">return</span> <span class="n">row</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</pre></div>
+</div>
 </td>
 </tr>
 </tbody>

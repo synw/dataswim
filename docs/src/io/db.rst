@@ -13,8 +13,6 @@ Load data
 
 .. automethod:: dataswim.db.Db.load
 
-.. automethod:: dataswim.db.Db.load_
-
 .. automethod:: dataswim.db.Db.load_django
 
 .. automethod:: dataswim.db.Db.load_django_
@@ -27,11 +25,6 @@ Infos
 .. automethod:: dataswim.db.Db.tables_
     
 .. automethod:: dataswim.db.Db.table
-
-Select
-------
-
-.. automethod:: dataswim.db.Db.dftable_
     
 Insert
 ------
