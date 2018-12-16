@@ -80,7 +80,7 @@ class Values():
         except Exception as e:
             self.err(e, "Can not reverse the dataframe")
 
-    def apply(self, function: "function", *cols, **kwargs):
+    def apply(self, function: "function", *cols, axis=1, **kwargs):
         """
         Apply a function on columns values
 
@@ -88,13 +88,24 @@ class Values():
         :type function: function
         :param \*cols: columns names
         :type \*cols: name of columns
+        :param axis: index (0) or column (1), default is 1
         :param \*\*kwargs: arguments for ``df.apply``
         :type \*\*kwargs: optional
+
+        :example:
+                        .. code-block:: python
+
+                                def f(row):
+                                        # add a new column with a value
+                                        row["newcol"] = row["Col 1] + 1
+                                        return row
+
+                                ds.apply(row)
 
         """
         try:
             if len(cols) == 0:
-                self.df = self.df.apply(function, **kwargs)
+                self.df = self.df.apply(function, axis=axis, **kwargs)
             else:
                 cols = list(cols)
                 self.df[cols] = self.df[cols].apply(function, **kwargs)
