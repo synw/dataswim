@@ -49,7 +49,7 @@ class Db(Info, Insert, Relation, InfluxDb):
         if self._check_db() is False:
             return
         if table not in self.db.tables:
-            self.warning("The table " + name + " does not exists")
+            self.warning("The table " + table + " does not exists")
             return
         try:
             self.start("Loading data from table " + table)
