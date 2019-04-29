@@ -1,11 +1,11 @@
 # @PydevCodeAnalysisIgnore
-from datetime import datetime
 import arrow
 import pandas as pd
 import numpy as np
+from errors import Error
 
 
-class Select():
+class Select(Error):
     """
     Class to select data
     """
@@ -61,47 +61,47 @@ class Select():
             self.err(e, "Can not weight unique data")
 
     """def ranged(self, end_date, start_date=None):
-        ""
-        Limit the data in a time range between two dates. The
-        dataframe must have a valid date index
-        ""
-        try:
-            if start_date is None:
-                start_date = self.df.index.get_values()[0]
-            self.df = self.df.loc[start_date: end_date]
-        except Exception as e:
-            self.err("Can not select range data", e)
+		""
+		Limit the data in a time range between two dates. The
+		dataframe must have a valid date index
+		""
+		try:
+			if start_date is None:
+				start_date = self.df.index.get_values()[0]
+			self.df = self.df.loc[start_date: end_date]
+		except Exception as e:
+			self.err("Can not select range data", e)
 
-    def rangeo(self, **kwargs):
-        ""
-        Limit the data in a time range between an end date and an offset.
-        The dataframe must have a valid date index. The offset must be
-        provided: ex: months=3. An end_date can be provided optionally. If
-        not provided the last index of the dataframe will be used as end date
-        ""
-        try:
-            if "end_date" not in kwargs:
-                end_date = self.df.index.get_values()[len(self.df.index)-1]
-            else:
-                end_date = kwargs["end_date"]
-            if "years" in kwargs:
-                start_date = end_date - pd.DateOffset(years=kwargs["years"])
-            if "months" in kwargs:
-                print("M", kwargs["months"])
-                start_date = end_date - pd.DateOffset(months=kwargs["months"])
-            if "days" in kwargs:
-                start_date = end_date - pd.DateOffset(days=kwargs["days"])
-            if "hours" in kwargs:
-                start_date = end_date - pd.DateOffset(hours=kwargs["hours"])
-            if "minutes" in kwargs:
-                start_date = end_date - \
-                    pd.DateOffset(minutes=kwargs["minutes"])
-            if "seconds" in kwargs:
-                start_date = end_date - \
-                    pd.DateOffset(seconds=kwargs["seconds"])
-            self.df = self.df.loc[start_date: end_date]
-        except Exception as e:
-            self.err("Can not select range data", e)"""
+	def rangeo(self, **kwargs):
+		""
+		Limit the data in a time range between an end date and an offset.
+		The dataframe must have a valid date index. The offset must be
+		provided: ex: months=3. An end_date can be provided optionally. If
+		not provided the last index of the dataframe will be used as end date
+		""
+		try:
+			if "end_date" not in kwargs:
+				end_date = self.df.index.get_values()[len(self.df.index)-1]
+			else:
+				end_date = kwargs["end_date"]
+			if "years" in kwargs:
+				start_date = end_date - pd.DateOffset(years=kwargs["years"])
+			if "months" in kwargs:
+				print("M", kwargs["months"])
+				start_date = end_date - pd.DateOffset(months=kwargs["months"])
+			if "days" in kwargs:
+				start_date = end_date - pd.DateOffset(days=kwargs["days"])
+			if "hours" in kwargs:
+				start_date = end_date - pd.DateOffset(hours=kwargs["hours"])
+			if "minutes" in kwargs:
+				start_date = end_date - \
+					pd.DateOffset(minutes=kwargs["minutes"])
+			if "seconds" in kwargs:
+				start_date = end_date - \
+					pd.DateOffset(seconds=kwargs["seconds"])
+			self.df = self.df.loc[start_date: end_date]
+		except Exception as e:
+			self.err("Can not select range data", e)"""
 
     def nowrange(self, col, timeframe):
         """
@@ -135,19 +135,19 @@ class Select():
             i = int(timeframe[0:(len(timeframe) - 1)])
             interval = int(np.negative(i))
             if unit == "S":
-                date = arrow.now().shift(seconds=interval)
+                date = arrow.utcnow().shift(seconds=interval)
             elif unit == "m":
-                date = arrow.now().shift(minutes=interval)
+                date = arrow.utcnow().shift(minutes=interval)
             elif unit == "H":
-                date = arrow.now().shift(hours=interval)
+                date = arrow.utcnow().shift(hours=interval)
             elif unit == "D":
-                date = arrow.now().shift(days=interval)
+                date = arrow.utcnow().shift(days=interval)
             elif unit == "W":
-                date = arrow.now().shift(weeks=interval)
+                date = arrow.utcnow().shift(weeks=interval)
             elif unit == "M":
-                date = arrow.now().shift(months=interval)
+                date = arrow.utcnow().shift(months=interval)
             elif unit == "Y":
-                date = arrow.now().shift(years=interval)
+                date = arrow.utcnow().shift(years=interval)
             else:
                 self.err("Wrong unit " + unit)
                 return

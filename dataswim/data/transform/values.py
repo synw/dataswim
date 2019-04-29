@@ -1,4 +1,8 @@
-class Values():
+import pandas as pd
+from errors import Error
+
+
+class Values(Error):
     """
     A class to transform the dataframe's values
     """
@@ -25,16 +29,16 @@ class Values():
         """
         Drops some rows from the main dataframe
 
-        :param \*rows: rows names
-        :type \*rows: list of ints
+        :param rows: rows names
+        :type rows: list of ints
 
         :example: ``ds.drop_rows([0, 2])``
         """
         try:
             self.df = rows = list(rows)
-            df = self.df.drop(rows)
+            self.df.drop(rows)
         except Exception as e:
-            self.err(e, self.drop_rows, "Can not drop rows")
+            self.err(e, self.dropr, "Can not drop rows")
 
     def append(self, vals: list, index=None):
         """
@@ -86,11 +90,11 @@ class Values():
 
         :param function: a function to apply to the columns
         :type function: function
-        :param \*cols: columns names
-        :type \*cols: name of columns
+        :param cols: columns names
+        :type cols: name of columns
         :param axis: index (0) or column (1), default is 1
-        :param \*\*kwargs: arguments for ``df.apply``
-        :type \*\*kwargs: optional
+        :param kwargs: arguments for ``df.apply``
+        :type kwargs: optional
 
         :example:
                         .. code-block:: python
@@ -100,7 +104,7 @@ class Values():
                                         row["newcol"] = row["Col 1] + 1
                                         return row
 
-                                ds.apply(row)
+                                ds.apply(f)
 
         """
         try:
@@ -119,10 +123,10 @@ class Values():
         try:
             df = self._pivot(index, **kwargs)
             return pd.pivot_table(self.df, index=kwargs["index"],  **kwargs)
-            if df is None:
+            """if df is None:
                 self.err("Can not pivot table")
                 return
-            self.df = df
+            self.df = df"""
         except Exception as e:
             self.err(e, "Can not pivot dataframe")
 

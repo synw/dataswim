@@ -1,4 +1,8 @@
-class Columns():
+from errors import Error
+from messages import Message
+
+
+class Columns(Error, Message):
     """
     Class to transform the dataframe's columns
     """
@@ -39,11 +43,11 @@ class Columns():
 
     def keep_(self, *cols) -> "Ds":
         """
-        Returns a dataswim instance with a dataframe limited 
+        Returns a dataswim instance with a dataframe limited
         to some columns
 
-        :param \*cols: names of the columns
-        :type \*cols: str 
+        :param cols: names of the columns
+        :type cols: str
         :return: a dataswim instance
         :rtype: Ds
 
@@ -61,8 +65,8 @@ class Columns():
         """
         Limit the dataframe to some columns
 
-        :param \*cols: names of the columns
-        :type \*cols: str 
+        :param cols: names of the columns
+        :type cols: str
 
         :example: ``ds.keep("Col 1", "Col 2")``
         """
@@ -77,8 +81,8 @@ class Columns():
         """
         Drops columns from the main dataframe
 
-        :param \*cols: names of the columns
-        :type \*cols: str 
+        :param cols: names of the columns
+        :type cols: str
 
         :example: ``ds.drop("Col 1", "Col 2")``
         """

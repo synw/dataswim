@@ -1,19 +1,20 @@
 import pandas as pd
+from errors import Error
 
 
-class Dataframe():
+class Dataframe(Error):
     """
     Class to transform the dataframe
     """
 
     def concat(self, *dss, **kwargs):
         """
-        Concatenate dataswim instances from and 
-                                        set it to the main dataframe
+        Concatenate dataswim instances from and
+                set it to the main dataframe
 
-        :param \*dss: dataswim instances to concatenate
-        :type \*dss: Ds
-        :param \*\*kwargs: keyword arguments for ``pd.concat`` 
+        :param dss: dataswim instances to concatenate
+        :type dss: Ds
+        :param kwargs: keyword arguments for ``pd.concat``
 
 
         """
@@ -57,7 +58,7 @@ class Dataframe():
         :type on: str
         :param how: param for ``pd.merge``, defaults to "outer"
         :type how: str, optional
-        :param \*\*kwargs: keyword arguments for ``pd.merge``
+        :param kwargs: keyword arguments for ``pd.merge``
         """
         try:
             df = pd.merge(self.df, df, on=on, how=how, **kwargs)
