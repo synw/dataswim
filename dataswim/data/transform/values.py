@@ -1,8 +1,10 @@
 import pandas as pd
-from errors import Error
+from ...errors import Error
+from ...messages import Message
+from copy import Copy
 
 
-class Values(Error):
+class Values(Error, Message, Copy):
     """
     A class to transform the dataframe's values
     """
@@ -121,7 +123,6 @@ class Values(Error):
         Pivots a dataframe
         """
         try:
-            df = self._pivot(index, **kwargs)
             return pd.pivot_table(self.df, index=kwargs["index"],  **kwargs)
             """if df is None:
                 self.err("Can not pivot table")

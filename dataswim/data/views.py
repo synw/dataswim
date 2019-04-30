@@ -1,8 +1,10 @@
 import pandas as pd
 from goerr.colors import colors
+from copy import Copy
+from ..errors import Error
 
 
-class View():
+class View(Error, Copy):
     """
     Class to view the data
     """

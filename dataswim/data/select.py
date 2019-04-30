@@ -2,7 +2,7 @@
 import arrow
 import pandas as pd
 import numpy as np
-from errors import Error
+from ..errors import Error
 
 
 class Select(Error):

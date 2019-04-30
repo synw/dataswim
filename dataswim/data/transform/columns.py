@@ -1,5 +1,5 @@
-from errors import Error
-from messages import Message
+from ...errors import Error
+from ...messages import Message
 
 
 class Columns(Error, Message):
