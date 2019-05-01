@@ -1,89 +1,211 @@
 
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Database operations &mdash; Dataswim 0.1 documentation</title>
-  
 
-  
-  
-  
-  
-
-  
-
-  
-  
-    
-
-  
-
-  
-    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Database operations &#8212; Dataswim 0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Nulls" href="../clean/nulls.html" />
-    <link rel="prev" title="Convert data" href="convert.html" /> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
-
-</head>
-
-<body class="wy-body-for-nav">
-
+    <link rel="prev" title="Convert data" href="convert.html" />
    
-  <div class="wy-grid-for-nav">
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
           
 
-          
-            <a href="../../index.html" class="icon icon-home"> Dataswim
-          
-
-          
-          </a>
-
-          
+          <div class="body" role="main">
             
-            
-              <div class="version">
-                0.1
-              </div>
-            
-          
+  <div class="section" id="database-operations">
+<h1>Database operations<a class="headerlink" href="#database-operations" title="Permalink to this headline">¶</a></h1>
+<p>All operations available for databases. Supported databases: all that SqlAlchemy support</p>
+<div class="section" id="connect">
+<h2>Connect<a class="headerlink" href="#connect" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="dataswim.db.Db.connect">
+<code class="descclassname">Db.</code><code class="descname">connect</code><span class="sig-paren">(</span><em>url: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.db.Db.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect to the database and set it as main database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>url</strong> (<em>str</em>) – path to the database, uses the Sqlalchemy format</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.connect(&quot;sqlite:///mydb.slqite&quot;)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+</div>
+<div class="section" id="load-data">
+<h2>Load data<a class="headerlink" href="#load-data" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="dataswim.db.Db.load">
+<code class="descclassname">Db.</code><code class="descname">load</code><span class="sig-paren">(</span><em>table: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.db.Db.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the main dataframe from a table’s data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>table</strong> (<em>str</em>) – table name</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.load(&quot;mytable&quot;)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dataswim.db.Db.load_django">
+<code class="descclassname">Db.</code><code class="descname">load_django</code><span class="sig-paren">(</span><em>query: django query</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.db.Db.load_django" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the main dataframe from a django orm query</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>query</strong> (<em>django query</em>) – django query from a model</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.load_django(Mymodel.objects.all())</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dataswim.db.Db.load_django_">
+<code class="descclassname">Db.</code><code class="descname">load_django_</code><span class="sig-paren">(</span><em>query: django query</em><span class="sig-paren">)</span> &#x2192; Ds<a class="headerlink" href="#dataswim.db.Db.load_django_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a DataSwim instance from a django orm query</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>query</strong> (<em>django query</em>) – django query from a model</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dataswim instance with data from a django query</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../api_auto.html#dataswim.Ds" title="dataswim.Ds">Ds</a></p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds2</span> <span class="pre">=</span> <span class="pre">ds.load_django_(Mymodel.objects.all())</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="infos">
+<h2>Infos<a class="headerlink" href="#infos" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="dataswim.db.Db.tables">
+<code class="descclassname">Db.</code><code class="descname">tables</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.db.Db.tables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the existing tables in a database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">ds.tables()</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dataswim.db.Db.tables_">
+<code class="descclassname">Db.</code><code class="descname">tables_</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#dataswim.db.Db.tables_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the existing tables in a database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of the table names</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">tables</span> <span class="pre">=</span> <span class="pre">ds.tables_()</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="dataswim.db.Db.table">
+<code class="descclassname">Db.</code><code class="descname">table</code><span class="sig-paren">(</span><em>name: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.db.Db.table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display info about a table: number of rows
+and columns</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – name of the table</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">tables</span> <span class="pre">=</span> <span class="pre">ds.table(&quot;mytable&quot;)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="insert">
+<h2>Insert<a class="headerlink" href="#insert" title="Permalink to this headline">¶</a></h2>
+<p><strong>to_db</strong> (<code class="docutils literal notranslate"><span class="pre">table</span></code>, <code class="docutils literal notranslate"><span class="pre">db_url=None</span></code>)</p>
+<blockquote>
+<div><p>Save the main dataframe to the database</p>
+</div></blockquote>
+<p><strong>update_db</strong> (<code class="docutils literal notranslate"><span class="pre">table</span></code>, <code class="docutils literal notranslate"><span class="pre">keys=['id']</span></code>, <code class="docutils literal notranslate"><span class="pre">db_url=None</span></code>)</p>
+<blockquote>
+<div><p>Update records in a database table from the main dataframe</p>
+</div></blockquote>
+<p><strong>insert</strong> (<code class="docutils literal notranslate"><span class="pre">table</span></code>, <code class="docutils literal notranslate"><span class="pre">records</span></code>, <code class="docutils literal notranslate"><span class="pre">create_cols=True</span></code>)</p>
+<blockquote>
+<div><p>Insert one or many records in the database from a dictionary or a list of dictionaries</p>
+</div></blockquote>
+</div>
+<div class="section" id="relations">
+<h2>Relations<a class="headerlink" href="#relations" title="Permalink to this headline">¶</a></h2>
+<p><strong>relation</strong> (<code class="docutils literal notranslate"><span class="pre">search_ds</span></code>, <code class="docutils literal notranslate"><span class="pre">origin_field</span></code>, <code class="docutils literal notranslate"><span class="pre">search_field</span></code>, <code class="docutils literal notranslate"><span class="pre">destination_field=None</span></code>, <code class="docutils literal notranslate"><span class="pre">id_field=&quot;id&quot;</span></code>):</p>
+<blockquote>
+<div><p>Add a column to the main dataframe from a relation foreign key</p>
+</div></blockquote>
+<p><strong>relation_</strong> (<code class="docutils literal notranslate"><span class="pre">search_ds</span></code>, <code class="docutils literal notranslate"><span class="pre">origin_field</span></code>, <code class="docutils literal notranslate"><span class="pre">search_field</span></code>, <code class="docutils literal notranslate"><span class="pre">destination_field=None</span></code>, <code class="docutils literal notranslate"><span class="pre">id_field=&quot;id&quot;</span></code>):</p>
+<blockquote>
+<div><p>Returns a DataSwim instance with a column filled from a relation foreign key</p>
+</div></blockquote>
+</div>
+<div class="section" id="influxdb">
+<h2>InfluxDb<a class="headerlink" href="#influxdb" title="Permalink to this headline">¶</a></h2>
+<p><strong>influx_init</strong> (<code class="docutils literal notranslate"><span class="pre">url</span></code>, <code class="docutils literal notranslate"><span class="pre">port</span></code>, <code class="docutils literal notranslate"><span class="pre">user</span></code>, <code class="docutils literal notranslate"><span class="pre">pwd</span></code>, <code class="docutils literal notranslate"><span class="pre">db</span></code>)</p>
+<blockquote>
+<div><p>Initialize an Influxdb database client</p>
+</div></blockquote>
+<p><strong>influx_to_csv</strong> (<code class="docutils literal notranslate"><span class="pre">measurement</span></code>, <code class="docutils literal notranslate"><span class="pre">batch_size=5000</span></code>)</p>
+<blockquote>
+<div><p>Batch export data from an Influxdb measurement to csv</p>
+</div></blockquote>
+</div>
 </div>
 
+
+          </div>
           
         </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Dataswim</a></h1>
 
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Data io</span></p>
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Data io</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="load.html">Load data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="export.html">Export data</a></li>
@@ -127,297 +249,43 @@
 <li class="toctree-l1"><a class="reference internal" href="../../api_auto.html">API</a></li>
 </ul>
 
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">Dataswim</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
-        
-      <li>Database operations</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="../../_sources/src/io/db.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="convert.html" title="previous chapter">Convert data</a></li>
+      <li>Next: <a href="../clean/nulls.html" title="next chapter">Nulls</a></li>
+  </ul></li>
+</ul>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-            
-  <div class="section" id="database-operations">
-<h1>Database operations<a class="headerlink" href="#database-operations" title="Permalink to this headline">¶</a></h1>
-<p>All operations available for databases. Supported databases: all that SqlAlchemy support</p>
-<div class="section" id="connect">
-<h2>Connect<a class="headerlink" href="#connect" title="Permalink to this headline">¶</a></h2>
-<dl class="method">
-<dt id="dataswim.db.Db.connect">
-<code class="descclassname">Db.</code><code class="descname">connect</code><span class="sig-paren">(</span><em>url: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.db.Db.connect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Connect to the database and set it as main database</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>url</strong> (<em>str</em>) – path to the database, uses the Sqlalchemy format</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.connect(&quot;sqlite:///mydb.slqite&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-<div class="section" id="load-data">
-<h2>Load data<a class="headerlink" href="#load-data" title="Permalink to this headline">¶</a></h2>
-<dl class="method">
-<dt id="dataswim.db.Db.load">
-<code class="descclassname">Db.</code><code class="descname">load</code><span class="sig-paren">(</span><em>table: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.db.Db.load" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the main dataframe from a table’s data</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>table</strong> (<em>str</em>) – table name</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.load(&quot;mytable&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="dataswim.db.Db.load_django">
-<code class="descclassname">Db.</code><code class="descname">load_django</code><span class="sig-paren">(</span><em>query: django query</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.db.Db.load_django" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load the main dataframe from a django orm query</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> (<em>django query</em>) – django query from a model</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.load_django(Mymodel.objects.all())</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="dataswim.db.Db.load_django_">
-<code class="descclassname">Db.</code><code class="descname">load_django_</code><span class="sig-paren">(</span><em>query: django query</em><span class="sig-paren">)</span> &#x2192; Ds<a class="headerlink" href="#dataswim.db.Db.load_django_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a DataSwim instance from a django orm query</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> (<em>django query</em>) – django query from a model</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a dataswim instance with data from a django query</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="../../api_auto.html#dataswim.Ds" title="dataswim.Ds">Ds</a></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds2</span> <span class="pre">=</span> <span class="pre">ds.load_django_(Mymodel.objects.all())</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-<div class="section" id="infos">
-<h2>Infos<a class="headerlink" href="#infos" title="Permalink to this headline">¶</a></h2>
-<dl class="method">
-<dt id="dataswim.db.Db.tables">
-<code class="descclassname">Db.</code><code class="descname">tables</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.db.Db.tables" title="Permalink to this definition">¶</a></dt>
-<dd><p>Print the existing tables in a database</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.tables()</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="dataswim.db.Db.tables_">
-<code class="descclassname">Db.</code><code class="descname">tables_</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#dataswim.db.Db.tables_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list of the existing tables in a database</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of the table names</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">tables</span> <span class="pre">=</span> <span class="pre">ds.tables_()</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="dataswim.db.Db.table">
-<code class="descclassname">Db.</code><code class="descname">table</code><span class="sig-paren">(</span><em>name: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.db.Db.table" title="Permalink to this definition">¶</a></dt>
-<dd><p>Display info about a table: number of rows
-and columns</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – name of the table</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">tables</span> <span class="pre">=</span> <span class="pre">ds.table(&quot;mytable&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-<div class="section" id="insert">
-<h2>Insert<a class="headerlink" href="#insert" title="Permalink to this headline">¶</a></h2>
-<p><strong>to_db</strong> (<code class="docutils literal notranslate"><span class="pre">table</span></code>, <code class="docutils literal notranslate"><span class="pre">db_url=None</span></code>)</p>
-<blockquote>
-<div>Save the main dataframe to the database</div></blockquote>
-<p><strong>update_db</strong> (<code class="docutils literal notranslate"><span class="pre">table</span></code>, <code class="docutils literal notranslate"><span class="pre">keys=['id']</span></code>, <code class="docutils literal notranslate"><span class="pre">db_url=None</span></code>)</p>
-<blockquote>
-<div>Update records in a database table from the main dataframe</div></blockquote>
-<p><strong>insert</strong> (<code class="docutils literal notranslate"><span class="pre">table</span></code>, <code class="docutils literal notranslate"><span class="pre">records</span></code>, <code class="docutils literal notranslate"><span class="pre">create_cols=True</span></code>)</p>
-<blockquote>
-<div>Insert one or many records in the database from a dictionary or a list of dictionaries</div></blockquote>
-</div>
-<div class="section" id="relations">
-<h2>Relations<a class="headerlink" href="#relations" title="Permalink to this headline">¶</a></h2>
-<p><strong>relation</strong> (<code class="docutils literal notranslate"><span class="pre">search_ds</span></code>, <code class="docutils literal notranslate"><span class="pre">origin_field</span></code>, <code class="docutils literal notranslate"><span class="pre">search_field</span></code>, <code class="docutils literal notranslate"><span class="pre">destination_field=None</span></code>, <code class="docutils literal notranslate"><span class="pre">id_field=&quot;id&quot;</span></code>):</p>
-<blockquote>
-<div>Add a column to the main dataframe from a relation foreign key</div></blockquote>
-<p><strong>relation_</strong> (<code class="docutils literal notranslate"><span class="pre">search_ds</span></code>, <code class="docutils literal notranslate"><span class="pre">origin_field</span></code>, <code class="docutils literal notranslate"><span class="pre">search_field</span></code>, <code class="docutils literal notranslate"><span class="pre">destination_field=None</span></code>, <code class="docutils literal notranslate"><span class="pre">id_field=&quot;id&quot;</span></code>):</p>
-<blockquote>
-<div>Returns a DataSwim instance with a column filled from a relation foreign key</div></blockquote>
-</div>
-<div class="section" id="influxdb">
-<h2>InfluxDb<a class="headerlink" href="#influxdb" title="Permalink to this headline">¶</a></h2>
-<p><strong>influx_init</strong> (<code class="docutils literal notranslate"><span class="pre">url</span></code>, <code class="docutils literal notranslate"><span class="pre">port</span></code>, <code class="docutils literal notranslate"><span class="pre">user</span></code>, <code class="docutils literal notranslate"><span class="pre">pwd</span></code>, <code class="docutils literal notranslate"><span class="pre">db</span></code>)</p>
-<blockquote>
-<div>Initialize an Influxdb database client</div></blockquote>
-<p><strong>influx_to_csv</strong> (<code class="docutils literal notranslate"><span class="pre">measurement</span></code>, <code class="docutils literal notranslate"><span class="pre">batch_size=5000</span></code>)</p>
-<blockquote>
-<div>Batch export data from an Influxdb measurement to csv</div></blockquote>
-</div>
-</div>
-
-
-           </div>
-           
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../clean/nulls.html" class="btn btn-neutral float-right" title="Nulls" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="convert.html" class="btn btn-neutral" title="Convert data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
     </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2017, synw.
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, synw.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="../../_sources/src/io/db.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
 
-    </section>
+    
 
-  </div>
-  
-
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../',
-            VERSION:'0.1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
-
-  <script type="text/javascript">
-      jQuery(function () {
-          
-          SphinxRtdTheme.Navigation.enableSticky();
-          
-      });
-  </script> 
-
-</body>
+    
+  </body>
 </html>

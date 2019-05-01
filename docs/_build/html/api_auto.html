@@ -1,192 +1,35 @@
 
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>API &mdash; Dataswim 0.1 documentation</title>
-  
 
-  
-  
-  
-  
-
-  
-
-  
-  
-    
-
-  
-
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>API &#8212; Dataswim 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Conventions" href="src/conventions.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
-</head>
-
-<body class="wy-body-for-nav">
-
+    <link rel="prev" title="Conventions" href="src/conventions.html" />
    
-  <div class="wy-grid-for-nav">
-
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
-          
-
-          
-            <a href="index.html" class="icon icon-home"> Dataswim
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.1
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Data io</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="src/io/load.html">Load data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/io/export.html">Export data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/io/convert.html">Convert data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/io/db.html">Database operations</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Clean data</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="src/clean/nulls.html">Nulls</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/clean/dates.html">Dates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/clean/convert_types.html">Convert types</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/clean/index.html">Create index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/clean/clean_values.html">Clean values</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Transform data</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="src/transform/columns.html">Columns</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/transform/values.html">Values</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/transform/resample.html">Resample timeseries</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/transform/dataframe.html">Dataframe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/transform/calculations.html">Calculations</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Manipulate data</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="src/manipulate/view.html">View data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/manipulate/select.html">Select data</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Visualize data</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="src/chart.html">Chart data</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Build reports</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="src/reports.html">Reports</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="src/conventions.html">Conventions</a></li>
-</ul>
-<p class="caption"><span class="caption-text">API</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">API</a></li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Dataswim</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li>API</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="_sources/api_auto.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
             
   <div class="section" id="module-dataswim">
 <span id="api"></span><h1>API<a class="headerlink" href="#module-dataswim" title="Permalink to this headline">¶</a></h1>
@@ -199,21 +42,17 @@
 <dt id="dataswim.Ds.add">
 <code class="descname">add</code><span class="sig-paren">(</span><em>col: str</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a column with default values</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<em>str</em>) – column name</li>
-<li><strong>value</strong> (<em>any</em>) – column value</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em>) – column name</p></li>
+<li><p><strong>value</strong> (<em>any</em>) – column value</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.add(&quot;Col</span> <span class="pre">4&quot;,</span> <span class="pre">0)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.add(&quot;Col</span> <span class="pre">4&quot;,</span> <span class="pre">0)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -229,47 +68,53 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="dataswim.Ds.amap">
+<code class="descname">amap</code><span class="sig-paren">(</span><em>lat</em>, <em>long</em>, <em>zoom=13</em>, <em>tiles='map'</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.amap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets a map</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="dataswim.Ds.append">
 <code class="descname">append</code><span class="sig-paren">(</span><em>vals: list</em>, <em>index=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.append" title="Permalink to this definition">¶</a></dt>
 <dd><p>Append a row to the main dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>vals</strong> (<em>list</em>) – list of the row values to add</li>
-<li><strong>index</strong> – index key, defaults to None</li>
-<li><strong>index</strong> – any, optional</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vals</strong> (<em>list</em>) – list of the row values to add</p></li>
+<li><p><strong>index</strong> – index key, defaults to None</p></li>
+<li><p><strong>index</strong> – any, optional</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.append([0,</span> <span class="pre">2,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4])</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.append([0,</span> <span class="pre">2,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4])</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.apply">
 <code class="descname">apply</code><span class="sig-paren">(</span><em>function: function</em>, <em>*cols</em>, <em>axis=1</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.apply" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply a function on columns values</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>function</strong> (<em>function</em>) – a function to apply to the columns</li>
-<li><strong>*cols</strong> (<em>name of columns</em>) – columns names</li>
-<li><strong>axis</strong> – index (0) or column (1), default is 1</li>
-<li><strong>**kwargs</strong> (<em>optional</em>) – arguments for <code class="docutils literal notranslate"><span class="pre">df.apply</span></code></li>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>function</strong> (<em>function</em>) – a function to apply to the columns</p></li>
+<li><p><strong>cols</strong> (<em>name of columns</em>) – columns names</p></li>
+<li><p><strong>axis</strong> – index (0) or column (1), default is 1</p></li>
+<li><p><strong>kwargs</strong> (<em>optional</em>) – arguments for <code class="docutils literal notranslate"><span class="pre">df.apply</span></code></p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+        <span class="c1"># add a new column with a value</span>
+        <span class="n">row</span><span class="p">[</span><span class="s2">&quot;newcol&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;Col 1] + 1</span>
+        <span class="k">return</span> <span class="n">row</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -358,55 +203,48 @@ possible values: <code class="docutils literal notranslate"><span class="pre">[-
 <dt id="dataswim.Ds.cols_">
 <code class="descname">cols_</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#dataswim.Ds.cols_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a dataframe with columns info</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a pandas dataframe</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pd.DataFrame</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.cols_()</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a pandas dataframe</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">ds.cols_()</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.concat">
 <code class="descname">concat</code><span class="sig-paren">(</span><em>*dss</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.concat" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Concatenate dataswim instances from and </dt>
-<dd>set it to the main dataframe</dd>
+<dd><dl class="simple">
+<dt>Concatenate dataswim instances from and</dt><dd><p>set it to the main dataframe</p>
+</dd>
 </dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>*dss</strong> (<a class="reference internal" href="#dataswim.Ds" title="dataswim.Ds"><em>Ds</em></a>) – dataswim instances to concatenate</li>
-<li><strong>**kwargs</strong> – keyword arguments for <code class="docutils literal notranslate"><span class="pre">pd.concat</span></code></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<a class="reference internal" href="#dataswim.Ds" title="dataswim.Ds"><em>Ds</em></a>) – dataswim instances to concatenate</p></li>
+<li><p><strong>kwargs</strong> – keyword arguments for <code class="docutils literal notranslate"><span class="pre">pd.concat</span></code></p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.connect">
 <code class="descname">connect</code><span class="sig-paren">(</span><em>url: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.connect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Connect to the database and set it as main database</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>url</strong> (<em>str</em>) – path to the database, uses the Sqlalchemy format</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.connect(&quot;sqlite:///mydb.slqite&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>url</strong> (<em>str</em>) – path to the database, uses the Sqlalchemy format</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.connect(&quot;sqlite:///mydb.slqite&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -420,21 +258,17 @@ value in a column</p>
 <dt id="dataswim.Ds.copycol">
 <code class="descname">copycol</code><span class="sig-paren">(</span><em>origin_col: str</em>, <em>dest_col: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.copycol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copy a columns values in another column</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>origin_col</strong> (<em>str</em>) – name of the column to copy</li>
-<li><strong>dest_col</strong> (<em>str</em>) – name of the new column</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>origin_col</strong> (<em>str</em>) – name of the column to copy</p></li>
+<li><p><strong>dest_col</strong> (<em>str</em>) – name of the new column</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.copy(&quot;col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;New</span> <span class="pre">col&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.copy(&quot;col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;New</span> <span class="pre">col&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -478,22 +312,18 @@ value in a column</p>
 <code class="descname">creplace</code><span class="sig-paren">(</span><em>col: str</em>, <em>searchval: str</em>, <em>replaceval: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.creplace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replace a value in a column in the main dataframe
 if the value is contained</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<em>str</em>) – column name</li>
-<li><strong>searchval</strong> (<em>str</em>) – value to replace</li>
-<li><strong>replaceval</strong> (<em>str</em>) – new value</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em>) – column name</p></li>
+<li><p><strong>searchval</strong> (<em>str</em>) – value to replace</p></li>
+<li><p><strong>replaceval</strong> (<em>str</em>) – new value</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.creplace(&quot;mycol&quot;,</span> <span class="pre">&quot;value&quot;,</span> <span class="pre">&quot;new_value&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.creplace(&quot;mycol&quot;,</span> <span class="pre">&quot;value&quot;,</span> <span class="pre">&quot;new_value&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -507,37 +337,31 @@ in percentage</p>
 <dt id="dataswim.Ds.date">
 <code class="descname">date</code><span class="sig-paren">(</span><em>col: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.date" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a column to date type</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<em>str</em>) – column name</li>
-<li><strong>**kwargs</strong> (<em>optional</em>) – keyword arguments for <code class="docutils literal notranslate"><span class="pre">pd.to_datetime</span></code></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em>) – column name</p></li>
+<li><p><strong>**kwargs</strong> (<em>optional</em>) – keyword arguments for <code class="docutils literal notranslate"><span class="pre">pd.to_datetime</span></code></p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.date(&quot;mycol&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.date(&quot;mycol&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.dateindex">
 <code class="descname">dateindex</code><span class="sig-paren">(</span><em>col: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.dateindex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set a datetime index from a column</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>col</strong> (<em>str</em>) – column name where to index the date from</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.dateindex(&quot;mycol&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>col</strong> (<em>str</em>) – column name where to index the date from</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.dateindex(&quot;mycol&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -580,18 +404,17 @@ in percentage</p>
 <dt id="dataswim.Ds.describe_">
 <code class="descname">describe_</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.describe_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a description of the data</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a pandas dataframe</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pd.DataFrame</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.describe()</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a pandas dataframe</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">ds.describe()</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -599,24 +422,20 @@ in percentage</p>
 <code class="descname">diffm</code><span class="sig-paren">(</span><em>diffcol: str</em>, <em>name: str = 'Diff'</em>, <em>default=nan</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.diffm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a diff column to the main dataframe: calculate the
 diff from the column mean</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>diffcol</strong> (<em>str</em>) – column to diff from</li>
-<li><strong>name</strong> – diff column name, defaults to “Diff”</li>
-<li><strong>name</strong> – str, optional</li>
-<li><strong>default</strong> – column default value, defaults to nan</li>
-<li><strong>default</strong> – optional</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diffcol</strong> (<em>str</em>) – column to diff from</p></li>
+<li><p><strong>name</strong> – diff column name, defaults to “Diff”</p></li>
+<li><p><strong>name</strong> – str, optional</p></li>
+<li><p><strong>default</strong> – column default value, defaults to nan</p></li>
+<li><p><strong>default</strong> – optional</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.diffm(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;New</span> <span class="pre">col&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.diffm(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;New</span> <span class="pre">col&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -624,21 +443,17 @@ diff from the column mean</p>
 <code class="descname">diffn</code><span class="sig-paren">(</span><em>diffcol: str</em>, <em>name: str = 'Diff'</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.diffn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a diff column to the main dataframe: calculate the diff
 from the next value</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>diffcol</strong> (<em>str</em>) – column to diff from</li>
-<li><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – diff column name, defaults to “Diff”</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diffcol</strong> (<em>str</em>) – column to diff from</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – diff column name, defaults to “Diff”</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.diffn(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;New</span> <span class="pre">col&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.diffn(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;New</span> <span class="pre">col&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -646,21 +461,17 @@ from the next value</p>
 <code class="descname">diffp</code><span class="sig-paren">(</span><em>diffcol: str</em>, <em>name: str = 'Diff'</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.diffp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a diff column to the main dataframe: calculate the diff
 from the previous value</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>diffcol</strong> (<em>str</em>) – column to diff from</li>
-<li><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – diff column name, defaults to “Diff”</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diffcol</strong> (<em>str</em>) – column to diff from</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – diff column name, defaults to “Diff”</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.diffp(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;New</span> <span class="pre">col&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.diffp(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;New</span> <span class="pre">col&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -668,23 +479,19 @@ from the previous value</p>
 <code class="descname">diffs</code><span class="sig-paren">(</span><em>col: str</em>, <em>serie: iterable</em>, <em>name: str = 'Diff'</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.diffs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a diff column from a serie. The serie is an iterable
 of the same length than the dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<em>str</em>) – column to diff</li>
-<li><strong>serie</strong> (<em>iterable</em>) – serie to diff from</li>
-<li><strong>name</strong> – name of the diff col, defaults to “Diff”</li>
-<li><strong>name</strong> – str, optional</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em>) – column to diff</p></li>
+<li><p><strong>serie</strong> (<em>iterable</em>) – serie to diff from</p></li>
+<li><p><strong>name</strong> – name of the diff col, defaults to “Diff”</p></li>
+<li><p><strong>name</strong> – str, optional</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.diffs(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">[1,</span> <span class="pre">1,</span> <span class="pre">4],</span> <span class="pre">&quot;New</span> <span class="pre">col&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.diffs(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">[1,</span> <span class="pre">1,</span> <span class="pre">4],</span> <span class="pre">&quot;New</span> <span class="pre">col&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -692,23 +499,19 @@ of the same length than the dataframe</p>
 <code class="descname">diffsp</code><span class="sig-paren">(</span><em>col: str</em>, <em>serie: iterable</em>, <em>name: str = 'Diff'</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.diffsp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a diff column in percentage from a serie. The serie is 
 an iterable of the same length than the dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<em>str</em>) – column to diff</li>
-<li><strong>serie</strong> (<em>iterable</em>) – serie to diff from</li>
-<li><strong>name</strong> – name of the diff col, defaults to “Diff”</li>
-<li><strong>name</strong> – str, optional</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em>) – column to diff</p></li>
+<li><p><strong>serie</strong> (<em>iterable</em>) – serie to diff from</p></li>
+<li><p><strong>name</strong> – name of the diff col, defaults to “Diff”</p></li>
+<li><p><strong>name</strong> – str, optional</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.diffp(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">[1,</span> <span class="pre">1,</span> <span class="pre">4],</span> <span class="pre">&quot;New</span> <span class="pre">col&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.diffp(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">[1,</span> <span class="pre">1,</span> <span class="pre">4],</span> <span class="pre">&quot;New</span> <span class="pre">col&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -727,55 +530,47 @@ an iterable of the same length than the dataframe</p>
 <dt id="dataswim.Ds.drop">
 <code class="descname">drop</code><span class="sig-paren">(</span><em>*cols</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.drop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Drops columns from the main dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*cols</strong> (<em>str</em>) – names of the columns</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.drop(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;Col</span> <span class="pre">2&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cols</strong> (<em>str</em>) – names of the columns</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.drop(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;Col</span> <span class="pre">2&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.drop_nan">
 <code class="descname">drop_nan</code><span class="sig-paren">(</span><em>col: str = None</em>, <em>method: str = 'all'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.drop_nan" title="Permalink to this definition">¶</a></dt>
 <dd><p>Drop rows with NaN values from the main dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<em>str</em><em>, </em><em>optional</em>) – name of the column, defaults to None. Drops in 
-all columns if no value is provided</li>
-<li><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – <code class="docutils literal notranslate"><span class="pre">how</span></code> param for <code class="docutils literal notranslate"><span class="pre">df.dropna</span></code>, defaults to “all”</li>
-<li><strong>**kwargs</strong> (<em>optional</em>) – params for <code class="docutils literal notranslate"><span class="pre">df.dropna</span></code></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em><em>, </em><em>optional</em>) – name of the column, defaults to None. Drops in 
+all columns if no value is provided</p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – <code class="docutils literal notranslate"><span class="pre">how</span></code> param for <code class="docutils literal notranslate"><span class="pre">df.dropna</span></code>, defaults to “all”</p></li>
+<li><p><strong>**kwargs</strong> (<em>optional</em>) – params for <code class="docutils literal notranslate"><span class="pre">df.dropna</span></code></p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.drop_nan(&quot;mycol&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.drop_nan(&quot;mycol&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.dropr">
 <code class="descname">dropr</code><span class="sig-paren">(</span><em>*rows</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.dropr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Drops some rows from the main dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*rows</strong> (<em>list of ints</em>) – rows names</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.drop_rows([0,</span> <span class="pre">2])</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>rows</strong> (<em>list of ints</em>) – rows names</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.drop_rows([0,</span> <span class="pre">2])</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -814,64 +609,52 @@ value in a column</p>
 <dt id="dataswim.Ds.exclude">
 <code class="descname">exclude</code><span class="sig-paren">(</span><em>col: str</em>, <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.exclude" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete rows based on value</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<em>str</em>) – column name</li>
-<li><strong>val</strong> (<em>any</em>) – value to delete</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em>) – column name</p></li>
+<li><p><strong>val</strong> (<em>any</em>) – value to delete</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.exclude(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;value&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.exclude(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;value&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.fdate">
 <code class="descname">fdate</code><span class="sig-paren">(</span><em>*cols</em>, <em>precision: str = 'S'</em>, <em>format: str = None</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.fdate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert column values to formated date string</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>*cols</strong> (<em>str</em><em>, </em><em>at least one</em>) – names of the colums</li>
-<li><strong>precision</strong> (<em>str</em><em>, </em><em>optional</em>) – time precision: Y, M, D, H, Min S, defaults to “S”</li>
-<li><strong>format</strong> (<em>str</em><em>, </em><em>optional</em>) – python date format, defaults to None</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*cols</strong> (<em>str</em><em>, </em><em>at least one</em>) – names of the colums</p></li>
+<li><p><strong>precision</strong> (<em>str</em><em>, </em><em>optional</em>) – time precision: Y, M, D, H, Min S, defaults to “S”</p></li>
+<li><p><strong>format</strong> (<em>str</em><em>, </em><em>optional</em>) – python date format, defaults to None</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.fdate(&quot;mycol1&quot;,</span> <span class="pre">&quot;mycol2&quot;,</span> <span class="pre">precision)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.fdate(&quot;mycol1&quot;,</span> <span class="pre">&quot;mycol2&quot;,</span> <span class="pre">precision)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.fill_nan">
 <code class="descname">fill_nan</code><span class="sig-paren">(</span><em>val: str</em>, <em>*cols</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.fill_nan" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fill NaN values with new values in the main dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>val</strong> (<em>str</em>) – new value</li>
-<li><strong>*cols</strong> (<em>str</em><em>, </em><em>at least one</em>) – names of the colums</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>val</strong> (<em>str</em>) – new value</p></li>
+<li><p><strong>*cols</strong> (<em>str</em><em>, </em><em>at least one</em>) – names of the colums</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.fill_nan(&quot;new</span> <span class="pre">value&quot;,</span> <span class="pre">&quot;mycol1&quot;,</span> <span class="pre">&quot;mycol2&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.fill_nan(&quot;new</span> <span class="pre">value&quot;,</span> <span class="pre">&quot;mycol1&quot;,</span> <span class="pre">&quot;mycol2&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -879,16 +662,14 @@ value in a column</p>
 <code class="descname">fill_nulls</code><span class="sig-paren">(</span><em>col: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.fill_nulls" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fill all null values with NaN values in a column.
 Null values are <code class="docutils literal notranslate"><span class="pre">None</span></code> or en empty string</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>col</strong> (<em>str</em>) – column name</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.fill_nulls(&quot;mycol&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>col</strong> (<em>str</em>) – column name</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.fill_nulls(&quot;mycol&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -916,57 +697,55 @@ Null values are <code class="docutils literal notranslate"><span class="pre">Non
 </dd></dl>
 
 <dl class="method">
+<dt id="dataswim.Ds.getall_">
+<code class="descname">getall_</code><span class="sig-paren">(</span><em>table</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.getall_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all rows values for a table</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="dataswim.Ds.gmean_">
 <code class="descname">gmean_</code><span class="sig-paren">(</span><em>col: str</em>, <em>index_col: bool = True</em><span class="sig-paren">)</span> &#x2192; Ds<a class="headerlink" href="#dataswim.Ds.gmean_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Group by and mean column</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<em>str</em>) – column to group</li>
-<li><strong>index_col</strong> (<em>bool</em>) – </li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em>) – column to group</p></li>
+<li><p><strong>index_col</strong> (<em>bool</em>) – </p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a dataswim instance</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="#dataswim.Ds" title="dataswim.Ds">Ds</a></p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds2</span> <span class="pre">=</span> <span class="pre">ds.gmean(&quot;Col</span> <span class="pre">1&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dataswim instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#dataswim.Ds" title="dataswim.Ds">Ds</a></p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds2</span> <span class="pre">=</span> <span class="pre">ds.gmean(&quot;Col</span> <span class="pre">1&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.gsum_">
 <code class="descname">gsum_</code><span class="sig-paren">(</span><em>col: str</em>, <em>index_col: bool = True</em><span class="sig-paren">)</span> &#x2192; Ds<a class="headerlink" href="#dataswim.Ds.gsum_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Group by and sum column</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<em>str</em>) – column to group</li>
-<li><strong>index_col</strong> (<em>bool</em>) – </li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em>) – column to group</p></li>
+<li><p><strong>index_col</strong> (<em>bool</em>) – </p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a dataswim instance</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="#dataswim.Ds" title="dataswim.Ds">Ds</a></p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds2</span> <span class="pre">=</span> <span class="pre">ds.gsum(&quot;Col</span> <span class="pre">1&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dataswim instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#dataswim.Ds" title="dataswim.Ds">Ds</a></p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds2</span> <span class="pre">=</span> <span class="pre">ds.gsum(&quot;Col</span> <span class="pre">1&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1003,32 +782,28 @@ Null values are <code class="docutils literal notranslate"><span class="pre">Non
 <dt id="dataswim.Ds.index">
 <code class="descname">index</code><span class="sig-paren">(</span><em>col: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.index" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set an index to the main dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>col</strong> (<em>str</em>) – column name where to index from</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.index(&quot;mycol&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>col</strong> (<em>str</em>) – column name where to index from</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.index(&quot;mycol&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.indexcol">
 <code class="descname">indexcol</code><span class="sig-paren">(</span><em>col: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.indexcol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a column from the index</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>col</strong> (<em>str</em>) – name of the new column</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.index_col(&quot;New</span> <span class="pre">col&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>col</strong> (<em>str</em>) – name of the new column</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.index_col(&quot;New</span> <span class="pre">col&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1071,37 +846,35 @@ Null values are <code class="docutils literal notranslate"><span class="pre">Non
 <dt id="dataswim.Ds.keep">
 <code class="descname">keep</code><span class="sig-paren">(</span><em>*cols</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.keep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Limit the dataframe to some columns</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*cols</strong> (<em>str</em>) – names of the columns</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.keep(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;Col</span> <span class="pre">2&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cols</strong> (<em>str</em>) – names of the columns</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.keep(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;Col</span> <span class="pre">2&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.keep_">
 <code class="descname">keep_</code><span class="sig-paren">(</span><em>*cols</em><span class="sig-paren">)</span> &#x2192; Ds<a class="headerlink" href="#dataswim.Ds.keep_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a dataswim instance with a dataframe limited 
+<dd><p>Returns a dataswim instance with a dataframe limited
 to some columns</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*cols</strong> (<em>str</em>) – names of the columns</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a dataswim instance</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#dataswim.Ds" title="dataswim.Ds">Ds</a></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds2</span> <span class="pre">=</span> <span class="pre">ds.keep_(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;Col</span> <span class="pre">2&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cols</strong> (<em>str</em>) – names of the columns</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dataswim instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#dataswim.Ds" title="dataswim.Ds">Ds</a></p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds2</span> <span class="pre">=</span> <span class="pre">ds.keep_(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;Col</span> <span class="pre">2&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1144,142 +917,124 @@ to some columns</p>
 <dt id="dataswim.Ds.load">
 <code class="descname">load</code><span class="sig-paren">(</span><em>table: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the main dataframe from a table’s data</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>table</strong> (<em>str</em>) – table name</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.load(&quot;mytable&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>table</strong> (<em>str</em>) – table name</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.load(&quot;mytable&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.load_csv">
 <code class="descname">load_csv</code><span class="sig-paren">(</span><em>url</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.load_csv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads csv data in the main dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>url</strong> (<em>str</em>) – url of the csv file to load:
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>str</em>) – url of the csv file to load:
 can be absolute if it starts with <code class="docutils literal notranslate"><span class="pre">/</span></code>
-or relative if it starts with <code class="docutils literal notranslate"><span class="pre">./</span></code></li>
-<li><strong>kwargs</strong> – keyword arguments to pass to Pandas
-<code class="docutils literal notranslate"><span class="pre">read_csv</span></code> function</li>
+or relative if it starts with <code class="docutils literal notranslate"><span class="pre">./</span></code></p></li>
+<li><p><strong>kwargs</strong> – keyword arguments to pass to Pandas
+<code class="docutils literal notranslate"><span class="pre">read_csv</span></code> function</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.load_csv(&quot;./myfile.csv&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.load_csv(&quot;./myfile.csv&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.load_django">
 <code class="descname">load_django</code><span class="sig-paren">(</span><em>query: django query</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.load_django" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the main dataframe from a django orm query</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> (<em>django query</em>) – django query from a model</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.load_django(Mymodel.objects.all())</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>query</strong> (<em>django query</em>) – django query from a model</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.load_django(Mymodel.objects.all())</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.load_django_">
 <code class="descname">load_django_</code><span class="sig-paren">(</span><em>query: django query</em><span class="sig-paren">)</span> &#x2192; Ds<a class="headerlink" href="#dataswim.Ds.load_django_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a DataSwim instance from a django orm query</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> (<em>django query</em>) – django query from a model</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a dataswim instance with data from a django query</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#dataswim.Ds" title="dataswim.Ds">Ds</a></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds2</span> <span class="pre">=</span> <span class="pre">ds.load_django_(Mymodel.objects.all())</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>query</strong> (<em>django query</em>) – django query from a model</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dataswim instance with data from a django query</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#dataswim.Ds" title="dataswim.Ds">Ds</a></p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds2</span> <span class="pre">=</span> <span class="pre">ds.load_django_(Mymodel.objects.all())</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.load_excel">
 <code class="descname">load_excel</code><span class="sig-paren">(</span><em>filepath</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.load_excel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the main dataframe with the content of an Excel file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filepath</strong> (<em>str</em>) – url of the csv file to load,
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filepath</strong> (<em>str</em>) – url of the csv file to load,
 can be absolute if it starts with <code class="docutils literal notranslate"><span class="pre">/</span></code>
-or relative if it starts with <code class="docutils literal notranslate"><span class="pre">./</span></code></li>
-<li><strong>kwargs</strong> – keyword arguments to pass to 
-Pandas <code class="docutils literal notranslate"><span class="pre">read_excel</span></code> function</li>
+or relative if it starts with <code class="docutils literal notranslate"><span class="pre">./</span></code></p></li>
+<li><p><strong>kwargs</strong> – keyword arguments to pass to 
+Pandas <code class="docutils literal notranslate"><span class="pre">read_excel</span></code> function</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.load_excel(&quot;./myfile.xlsx&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.load_excel(&quot;./myfile.xlsx&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.load_h5">
 <code class="descname">load_h5</code><span class="sig-paren">(</span><em>filepath</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.load_h5" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a Hdf5 file to the main dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepath</strong> (<em>str</em>) – url of the csv file to load,
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<em>str</em>) – url of the csv file to load,
 can be absolute if it starts with <code class="docutils literal notranslate"><span class="pre">/</span></code>
-or relative if it starts with <code class="docutils literal notranslate"><span class="pre">./</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.load_h5(&quot;./myfile.hdf5&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+or relative if it starts with <code class="docutils literal notranslate"><span class="pre">./</span></code></p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.load_h5(&quot;./myfile.hdf5&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.load_json">
 <code class="descname">load_json</code><span class="sig-paren">(</span><em>path</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.load_json" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load data in the main dataframe from json</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filepath</strong> (<em>str</em>) – url of the csv file to load,
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filepath</strong> (<em>str</em>) – url of the csv file to load,
 can be absolute if it starts with <code class="docutils literal notranslate"><span class="pre">/</span></code>
-or relative if it starts with <code class="docutils literal notranslate"><span class="pre">./</span></code></li>
-<li><strong>kwargs</strong> – keyword arguments to pass to
-Pandas <code class="docutils literal notranslate"><span class="pre">read_json</span></code> function</li>
+or relative if it starts with <code class="docutils literal notranslate"><span class="pre">./</span></code></p></li>
+<li><p><strong>kwargs</strong> – keyword arguments to pass to
+Pandas <code class="docutils literal notranslate"><span class="pre">read_json</span></code> function</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.load_json(&quot;./myfile.json&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.load_json(&quot;./myfile.json&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1293,12 +1048,6 @@ the model’s linear regression for a column</p>
 <dt id="dataswim.Ds.lreg_">
 <code class="descname">lreg_</code><span class="sig-paren">(</span><em>label=None</em>, <em>style=None</em>, <em>opts=None</em>, <em>options={}</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.lreg_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a linear regression chart</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="dataswim.Ds.map">
-<code class="descname">map</code><span class="sig-paren">(</span><em>lat</em>, <em>long</em>, <em>zoom=13</em>, <em>tiles='map'</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.map" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets a map</p>
 </dd></dl>
 
 <dl class="method">
@@ -1334,20 +1083,16 @@ to mean the data</p>
 <code class="descname">merge</code><span class="sig-paren">(</span><em>df: pandas.core.frame.DataFrame</em>, <em>on: str</em>, <em>how: str = 'outer'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.merge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the main dataframe from the current dataframe and the passed
 dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>df</strong> (<em>pd.DataFrame</em>) – the pandas dataframe to merge</li>
-<li><strong>on</strong> (<em>str</em>) – param for <code class="docutils literal notranslate"><span class="pre">pd.merge</span></code></li>
-<li><strong>how</strong> (<em>str</em><em>, </em><em>optional</em>) – param for <code class="docutils literal notranslate"><span class="pre">pd.merge</span></code>, defaults to “outer”</li>
-<li><strong>**kwargs</strong> – keyword arguments for <code class="docutils literal notranslate"><span class="pre">pd.merge</span></code></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – the pandas dataframe to merge</p></li>
+<li><p><strong>on</strong> (<em>str</em>) – param for <code class="docutils literal notranslate"><span class="pre">pd.merge</span></code></p></li>
+<li><p><strong>how</strong> (<em>str</em><em>, </em><em>optional</em>) – param for <code class="docutils literal notranslate"><span class="pre">pd.merge</span></code>, defaults to “outer”</p></li>
+<li><p><strong>kwargs</strong> – keyword arguments for <code class="docutils literal notranslate"><span class="pre">pd.merge</span></code></p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1397,16 +1142,14 @@ to mean the data</p>
 <dt id="dataswim.Ds.nan_empty">
 <code class="descname">nan_empty</code><span class="sig-paren">(</span><em>col: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.nan_empty" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fill empty values with NaN values</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>col</strong> (<em>str</em>) – name of the colum</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.nan_empty(&quot;mycol&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>col</strong> (<em>str</em>) – name of the colum</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.nan_empty(&quot;mycol&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1455,18 +1198,17 @@ H, D, W, M, Y</p>
 <code class="descname">one</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.one" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shows one row of the dataframe and the field 
 names wiht count</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a pandas dataframe</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pd.DataFrame</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.one()</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a pandas dataframe</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">ds.one()</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1533,22 +1275,18 @@ names wiht count</p>
 <dt id="dataswim.Ds.ratio">
 <code class="descname">ratio</code><span class="sig-paren">(</span><em>col: str</em>, <em>ratio_col: str = 'Ratio'</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.ratio" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a column whith the percentages ratio from a column</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<em>str</em>) – column to calculate ratio from</li>
-<li><strong>ratio_col</strong> – new ratio column name, defaults to “Ratio”</li>
-<li><strong>ratio_col</strong> – str, optional</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em>) – column to calculate ratio from</p></li>
+<li><p><strong>ratio_col</strong> – new ratio column name, defaults to “Ratio”</p></li>
+<li><p><strong>ratio_col</strong> – str, optional</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds2</span> <span class="pre">=</span> <span class="pre">ds.ratio(&quot;Col</span> <span class="pre">1&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds2</span> <span class="pre">=</span> <span class="pre">ds.ratio(&quot;Col</span> <span class="pre">1&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1573,43 +1311,35 @@ names wiht count</p>
 <dt id="dataswim.Ds.rename">
 <code class="descname">rename</code><span class="sig-paren">(</span><em>source_col: str</em>, <em>dest_col: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.rename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renames a column in the main dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>source_col</strong> (<em>str</em>) – name of the column to rename</li>
-<li><strong>dest_col</strong> (<em>str</em>) – new name of the column</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_col</strong> (<em>str</em>) – name of the column to rename</p></li>
+<li><p><strong>dest_col</strong> (<em>str</em>) – new name of the column</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.rename(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;New</span> <span class="pre">col&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.rename(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">&quot;New</span> <span class="pre">col&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.replace">
 <code class="descname">replace</code><span class="sig-paren">(</span><em>col: str</em>, <em>searchval: str</em>, <em>replaceval: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.replace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replace a value in a column in the main dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<em>str</em>) – column name</li>
-<li><strong>searchval</strong> (<em>str</em>) – value to replace</li>
-<li><strong>replaceval</strong> (<em>str</em>) – new value</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em>) – column name</p></li>
+<li><p><strong>searchval</strong> (<em>str</em>) – value to replace</p></li>
+<li><p><strong>replaceval</strong> (<em>str</em>) – new value</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.replace(&quot;mycol&quot;,</span> <span class="pre">&quot;value&quot;,</span> <span class="pre">&quot;new_value&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.replace(&quot;mycol&quot;,</span> <span class="pre">&quot;value&quot;,</span> <span class="pre">&quot;new_value&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1628,38 +1358,31 @@ names wiht count</p>
 <dt id="dataswim.Ds.reverse">
 <code class="descname">reverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.reverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reverses the main dataframe order</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.reverse()</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">ds.reverse()</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.rmean">
 <code class="descname">rmean</code><span class="sig-paren">(</span><em>time_period: str</em>, <em>num_col: str = 'Number'</em>, <em>dateindex: str = None</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.rmean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resample and add a mean column the main dataframe to a time period</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>time_period</strong> – unit + period: periods are Y, M, D, H, Min, S</li>
-<li><strong>time_period</strong> – str</li>
-<li><strong>num_col</strong> – number of the new column, defaults to “Number”</li>
-<li><strong>num_col</strong> – str, optional</li>
-<li><strong>dateindex</strong> – column name to use as date index, defaults to None</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time_period</strong> – unit + period: periods are Y, M, D, H, Min, S</p></li>
+<li><p><strong>time_period</strong> – str</p></li>
+<li><p><strong>num_col</strong> – number of the new column, defaults to “Number”</p></li>
+<li><p><strong>num_col</strong> – str, optional</p></li>
+<li><p><strong>dateindex</strong> – column name to use as date index, defaults to None</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.rmean(&quot;1Min&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.rmean(&quot;1Min&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1679,22 +1402,18 @@ names wiht count</p>
 <code class="descname">roundvals</code><span class="sig-paren">(</span><em>col: str</em>, <em>precision: int = 2</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.roundvals" title="Permalink to this definition">¶</a></dt>
 <dd><p>Round floats in a column. Numbers are going to be
 converted to floats if they are not already</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<em>str</em>) – column name</li>
-<li><strong>precision</strong> – float precision, defaults to 2</li>
-<li><strong>precision</strong> – int, optional</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em>) – column name</p></li>
+<li><p><strong>precision</strong> – float precision, defaults to 2</p></li>
+<li><p><strong>precision</strong> – int, optional</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.roundvals(&quot;mycol&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.roundvals(&quot;mycol&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1713,25 +1432,21 @@ converted to floats if they are not already</p>
 <dt id="dataswim.Ds.rsum">
 <code class="descname">rsum</code><span class="sig-paren">(</span><em>time_period: str</em>, <em>num_col: str = 'Number'</em>, <em>dateindex: str = None</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.rsum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resample and add a sum the main dataframe to a time period</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>time_period</strong> – unit + period: periods are Y, M, D, H, Min, S</li>
-<li><strong>time_period</strong> – str</li>
-<li><strong>num_col</strong> – number of the new column, defaults to “Number”</li>
-<li><strong>num_col</strong> – str, optional</li>
-<li><strong>dateindex</strong> – column name to use as date index, defaults to None</li>
-<li><strong>dateindex</strong> – str, optional</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time_period</strong> – unit + period: periods are Y, M, D, H, Min, S</p></li>
+<li><p><strong>time_period</strong> – str</p></li>
+<li><p><strong>num_col</strong> – number of the new column, defaults to “Number”</p></li>
+<li><p><strong>num_col</strong> – str, optional</p></li>
+<li><p><strong>dateindex</strong> – column name to use as date index, defaults to None</p></li>
+<li><p><strong>dateindex</strong> – str, optional</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.rsum(&quot;1D&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.rsum(&quot;1D&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1768,29 +1483,25 @@ converted to floats if they are not already</p>
 <dt id="dataswim.Ds.show">
 <code class="descname">show</code><span class="sig-paren">(</span><em>rows: int = 5</em>, <em>dataframe: pandas.core.frame.DataFrame = None</em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#dataswim.Ds.show" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display info about the dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>rows</strong> – number of rows to show, defaults to 5</li>
-<li><strong>rows</strong> – int, optional</li>
-<li><strong>dataframe</strong> – a pandas dataframe, defaults to None</li>
-<li><strong>dataframe</strong> – pd.DataFrame, optional</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rows</strong> – number of rows to show, defaults to 5</p></li>
+<li><p><strong>rows</strong> – int, optional</p></li>
+<li><p><strong>dataframe</strong> – a pandas dataframe, defaults to None</p></li>
+<li><p><strong>dataframe</strong> – pd.DataFrame, optional</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a pandas dataframe</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">pd.DataFrame</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.show()</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a pandas dataframe</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.show()</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1809,16 +1520,14 @@ converted to floats if they are not already</p>
 <dt id="dataswim.Ds.sort">
 <code class="descname">sort</code><span class="sig-paren">(</span><em>col: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.sort" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sorts the main dataframe according to the given column</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>col</strong> (<em>str</em>) – column name</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.sort(&quot;Col</span> <span class="pre">1&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>col</strong> (<em>str</em>) – column name</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.sort(&quot;Col</span> <span class="pre">1&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1826,18 +1535,17 @@ converted to floats if they are not already</p>
 <code class="descname">split_</code><span class="sig-paren">(</span><em>col: str) -&gt; list(Ds</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.split_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split the main dataframe according to a column’s unique values and
 return a dict of dataswim instances</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of dataswim instances</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list(<a class="reference internal" href="#dataswim.Ds" title="dataswim.Ds">Ds</a>)</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">=</span> <span class="pre">ds.slit_(&quot;Col</span> <span class="pre">1&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of dataswim instances</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list(<a class="reference internal" href="#dataswim.Ds" title="dataswim.Ds">Ds</a>)</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">dss</span> <span class="pre">=</span> <span class="pre">ds.slit_(&quot;Col</span> <span class="pre">1&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1868,30 +1576,25 @@ return a dict of dataswim instances</p>
 <dt id="dataswim.Ds.strip">
 <code class="descname">strip</code><span class="sig-paren">(</span><em>col: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.strip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove leading and trailing white spaces in a column’s values</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>col</strong> (<em>str</em>) – name of the column</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.strip(&quot;mycol&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>col</strong> (<em>str</em>) – name of the column</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.strip(&quot;mycol&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.strip_cols">
 <code class="descname">strip_cols</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.strip_cols" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove leading and trailing white spaces in columns names</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.strip_cols()</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">ds.strip_cols()</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1934,20 +1637,20 @@ at the first row if only one argument is provided</p>
 <dt id="dataswim.Ds.sum_">
 <code class="descname">sum_</code><span class="sig-paren">(</span><em>col: str</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#dataswim.Ds.sum_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the sum of all values in a column</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>col</strong> (<em>str</em>) – column name</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">sum of all the column values</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">float</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">sum</span> <span class="pre">=</span> <span class="pre">ds.sum_(&quot;Col</span> <span class="pre">1&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>col</strong> (<em>str</em>) – column name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>sum of all the column values</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">sum</span> <span class="pre">=</span> <span class="pre">ds.sum_(&quot;Col</span> <span class="pre">1&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1955,75 +1658,65 @@ at the first row if only one argument is provided</p>
 <code class="descname">table</code><span class="sig-paren">(</span><em>name: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display info about a table: number of rows
 and columns</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – name of the table</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">tables</span> <span class="pre">=</span> <span class="pre">ds.table(&quot;mytable&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – name of the table</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">tables</span> <span class="pre">=</span> <span class="pre">ds.table(&quot;mytable&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.tables">
 <code class="descname">tables</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.tables" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the existing tables in a database</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.tables()</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">ds.tables()</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.tables_">
 <code class="descname">tables_</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#dataswim.Ds.tables_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of the existing tables in a database</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of the table names</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">tables</span> <span class="pre">=</span> <span class="pre">ds.tables_()</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of the table names</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">tables</span> <span class="pre">=</span> <span class="pre">ds.tables_()</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.tail">
 <code class="descname">tail</code><span class="sig-paren">(</span><em>rows: int = 5</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.tail" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the main dataframe’s tail</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>rows</strong> – number of rows to print, defaults to 5</li>
-<li><strong>rows</strong> – int, optional</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rows</strong> – number of rows to print, defaults to 5</p></li>
+<li><p><strong>rows</strong> – int, optional</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a pandas dataframe</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">pd.DataFrame</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.tail()</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a pandas dataframe</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.tail()</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -2043,22 +1736,18 @@ and columns</p>
 <code class="descname">timestamps</code><span class="sig-paren">(</span><em>col: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.timestamps" title="Permalink to this definition">¶</a></dt>
 <dd><p>”
 Add a timestamps column from a date column</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<em>str</em>) – name of the timestamps column to add</li>
-<li><strong>**kwargs</strong> (<em>optional</em>) – keyword arguments for <code class="docutils literal notranslate"><span class="pre">pd.to_datetime</span></code> 
-for date conversions</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em>) – name of the timestamps column to add</p></li>
+<li><p><strong>**kwargs</strong> (<em>optional</em>) – keyword arguments for <code class="docutils literal notranslate"><span class="pre">pd.to_datetime</span></code> 
+for date conversions</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.timestamps(&quot;mycol&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.timestamps(&quot;mycol&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -2083,23 +1772,19 @@ for date conversions</li>
 <dt id="dataswim.Ds.to_csv">
 <code class="descname">to_csv</code><span class="sig-paren">(</span><em>filepath: str</em>, <em>index: bool = False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.to_csv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write the main dataframe to a csv file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filepath</strong> (<em>str</em>) – path of the file to save</li>
-<li><strong>index</strong> – [description], defaults to False</li>
-<li><strong>index</strong> – bool, optional</li>
-<li><strong>*args</strong> – arguments to pass to <code class="docutils literal notranslate"><span class="pre">pd.to_csv</span></code></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filepath</strong> (<em>str</em>) – path of the file to save</p></li>
+<li><p><strong>index</strong> – [description], defaults to False</p></li>
+<li><p><strong>index</strong> – bool, optional</p></li>
+<li><p><strong>*args</strong> – arguments to pass to <code class="docutils literal notranslate"><span class="pre">pd.to_csv</span></code></p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.to_csv_(&quot;myfile.csv&quot;,</span> <span class="pre">header=false)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.to_csv_(&quot;myfile.csv&quot;,</span> <span class="pre">header=false)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -2112,21 +1797,17 @@ for date conversions</li>
 <dt id="dataswim.Ds.to_excel">
 <code class="descname">to_excel</code><span class="sig-paren">(</span><em>filepath: str</em>, <em>title: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.to_excel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write the main dataframe to an Excell file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filepath</strong> (<em>str</em>) – path of the Excel file to write</li>
-<li><strong>title</strong> (<em>str</em>) – Title of the stylesheet</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filepath</strong> (<em>str</em>) – path of the Excel file to write</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – Title of the stylesheet</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.to_excel_(&quot;./myfile.xlsx&quot;,</span> <span class="pre">&quot;My</span> <span class="pre">data&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.to_excel_(&quot;./myfile.xlsx&quot;,</span> <span class="pre">&quot;My</span> <span class="pre">data&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -2145,229 +1826,202 @@ for date conversions</li>
 <dt id="dataswim.Ds.to_float">
 <code class="descname">to_float</code><span class="sig-paren">(</span><em>col: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.to_float" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert colums values to float</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<em>str</em><em>, </em><em>at least one</em>) – name of the colum</li>
-<li><strong>**kwargs</strong> (<em>optional</em>) – keyword arguments for <code class="docutils literal notranslate"><span class="pre">df.astype</span></code></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em><em>, </em><em>at least one</em>) – name of the colum</p></li>
+<li><p><strong>**kwargs</strong> (<em>optional</em>) – keyword arguments for <code class="docutils literal notranslate"><span class="pre">df.astype</span></code></p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.to_float(&quot;mycol1&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.to_float(&quot;mycol1&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.to_hdf5">
 <code class="descname">to_hdf5</code><span class="sig-paren">(</span><em>filepath: str</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.to_hdf5" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write the main dataframe to Hdf5 file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepath</strong> (<em>str</em>) – path where to save the file</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.to_hdf5_(&quot;./myfile.hdf5&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<em>str</em>) – path where to save the file</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.to_hdf5_(&quot;./myfile.hdf5&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.to_html_">
 <code class="descname">to_html_</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#dataswim.Ds.to_html_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert the main dataframe to html</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">html data</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.to_html_()</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>html data</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">ds.to_html_()</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.to_int">
 <code class="descname">to_int</code><span class="sig-paren">(</span><em>*cols</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.to_int" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert some column values to integers</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>*cols</strong> (<em>str</em><em>, </em><em>at least one</em>) – names of the colums</li>
-<li><strong>**kwargs</strong> (<em>optional</em>) – keyword arguments for <code class="docutils literal notranslate"><span class="pre">pd.to_numeric</span></code></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*cols</strong> (<em>str</em><em>, </em><em>at least one</em>) – names of the colums</p></li>
+<li><p><strong>**kwargs</strong> (<em>optional</em>) – keyword arguments for <code class="docutils literal notranslate"><span class="pre">pd.to_numeric</span></code></p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.to_int(&quot;mycol1&quot;,</span> <span class="pre">&quot;mycol2&quot;,</span> <span class="pre">errors=&quot;coerce&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.to_int(&quot;mycol1&quot;,</span> <span class="pre">&quot;mycol2&quot;,</span> <span class="pre">errors=&quot;coerce&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.to_javascript_">
 <code class="descname">to_javascript_</code><span class="sig-paren">(</span><em>table_name: str = 'data'</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#dataswim.Ds.to_javascript_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert the main dataframe to javascript code</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>table_name</strong> – javascript variable name, defaults to “data”</li>
-<li><strong>table_name</strong> – str, optional</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_name</strong> – javascript variable name, defaults to “data”</p></li>
+<li><p><strong>table_name</strong> – str, optional</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a javascript constant with the data</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">str</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.to_javastript_(&quot;myconst&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a javascript constant with the data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.to_javastript_(&quot;myconst&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.to_json_">
 <code class="descname">to_json_</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#dataswim.Ds.to_json_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert the main dataframe to json</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">json data</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.to_json_()</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>json data</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">ds.to_json_()</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.to_markdown_">
 <code class="descname">to_markdown_</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#dataswim.Ds.to_markdown_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert the main dataframe to markdown</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">markdown data</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.to_markdown_()</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>markdown data</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">ds.to_markdown_()</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.to_numpy_">
-<code class="descname">to_numpy_</code><span class="sig-paren">(</span><em>table_name: str = 'data'</em><span class="sig-paren">)</span> &#x2192; &lt;built-in function array&gt;<a class="headerlink" href="#dataswim.Ds.to_numpy_" title="Permalink to this definition">¶</a></dt>
+<code class="descname">to_numpy_</code><span class="sig-paren">(</span><em>table_name: str = 'data'</em><span class="sig-paren">)</span> &#x2192; numpy.core.multiarray.array<a class="headerlink" href="#dataswim.Ds.to_numpy_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert the main dataframe to a numpy array</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>table_name</strong> – name of the python variable, defaults to “data”</li>
-<li><strong>table_name</strong> – str, optional</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_name</strong> – name of the python variable, defaults to “data”</p></li>
+<li><p><strong>table_name</strong> – str, optional</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a numpy array</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">np.array</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.to_numpy_(&quot;myvar&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a numpy array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.to_numpy_(&quot;myvar&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.to_python_">
 <code class="descname">to_python_</code><span class="sig-paren">(</span><em>table_name: str = 'data'</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#dataswim.Ds.to_python_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert the main dataframe to python a python list</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>table_name</strong> – python variable name, defaults to “data”</li>
-<li><strong>table_name</strong> – str, optional</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_name</strong> – python variable name, defaults to “data”</p></li>
+<li><p><strong>table_name</strong> – str, optional</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a python list of lists with the data</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">str</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.to_python_(&quot;myvar&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a python list of lists with the data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.to_python_(&quot;myvar&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.to_records_">
 <code class="descname">to_records_</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#dataswim.Ds.to_records_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of dictionary records from the main dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a python dictionnary with the data</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.to_records_()</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a python dictionnary with the data</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">ds.to_records_()</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.to_rst_">
 <code class="descname">to_rst_</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#dataswim.Ds.to_rst_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert the main dataframe to restructured text</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">rst data</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.to_rst_()</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>rst data</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">ds.to_rst_()</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -2375,106 +2029,90 @@ for date conversions</li>
 <code class="descname">to_type</code><span class="sig-paren">(</span><em>dtype: type</em>, <em>*cols</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.to_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert colums values to a given type in the 
 main dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>dtype</strong> (<em>type</em>) – a type to convert to: ex: <code class="docutils literal notranslate"><span class="pre">str</span></code></li>
-<li><strong>*cols</strong> (<em>str</em><em>, </em><em>at least one</em>) – names of the colums</li>
-<li><strong>**kwargs</strong> (<em>optional</em>) – keyword arguments for <code class="docutils literal notranslate"><span class="pre">df.astype</span></code></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dtype</strong> (<em>type</em>) – a type to convert to: ex: <code class="docutils literal notranslate"><span class="pre">str</span></code></p></li>
+<li><p><strong>*cols</strong> (<em>str</em><em>, </em><em>at least one</em>) – names of the colums</p></li>
+<li><p><strong>**kwargs</strong> (<em>optional</em>) – keyword arguments for <code class="docutils literal notranslate"><span class="pre">df.astype</span></code></p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.to_type(str,</span> <span class="pre">&quot;mycol&quot;)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.to_type(str,</span> <span class="pre">&quot;mycol&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.trimiquants">
 <code class="descname">trimiquants</code><span class="sig-paren">(</span><em>col: str</em>, <em>inf: float</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.trimiquants" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove superior and inferior quantiles from the dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<em>str</em>) – column name</li>
-<li><strong>inf</strong> (<em>float</em>) – inferior quantile</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em>) – column name</p></li>
+<li><p><strong>inf</strong> (<em>float</em>) – inferior quantile</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.trimiquants(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">0.05)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.trimiquants(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">0.05)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.trimquants">
 <code class="descname">trimquants</code><span class="sig-paren">(</span><em>col: str</em>, <em>inf: float</em>, <em>sup: float</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.trimquants" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove superior and inferior quantiles from the dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<em>str</em>) – column name</li>
-<li><strong>inf</strong> (<em>float</em>) – inferior quantile</li>
-<li><strong>sup</strong> (<em>float</em>) – superior quantile</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em>) – column name</p></li>
+<li><p><strong>inf</strong> (<em>float</em>) – inferior quantile</p></li>
+<li><p><strong>sup</strong> (<em>float</em>) – superior quantile</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.trimquants(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">0.01,</span> <span class="pre">0.99)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.trimquants(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">0.01,</span> <span class="pre">0.99)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.trimsquants">
 <code class="descname">trimsquants</code><span class="sig-paren">(</span><em>col: str</em>, <em>sup: float</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.trimsquants" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove superior quantiles from the dataframe</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>col</strong> (<em>str</em>) – column name</li>
-<li><strong>sup</strong> (<em>float</em>) – superior quantile</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em>) – column name</p></li>
+<li><p><strong>sup</strong> (<em>float</em>) – superior quantile</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><p class="first last"><code class="docutils literal notranslate"><span class="pre">ds.trimsquants(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">0.99)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.trimsquants(&quot;Col</span> <span class="pre">1&quot;,</span> <span class="pre">0.99)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="dataswim.Ds.types_">
 <code class="descname">types_</code><span class="sig-paren">(</span><em>col: str</em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#dataswim.Ds.types_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display types of values in a column</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>col</strong> (<em>str</em>) – column name</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a pandas dataframe</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pd.DataFrame</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.types_(&quot;Col</span> <span class="pre">1&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>col</strong> (<em>str</em>) – column name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a pandas dataframe</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.types_(&quot;Col</span> <span class="pre">1&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -2518,16 +2156,14 @@ of unique values</p>
 <dt id="dataswim.Ds.zero_nan">
 <code class="descname">zero_nan</code><span class="sig-paren">(</span><em>*cols</em><span class="sig-paren">)</span><a class="headerlink" href="#dataswim.Ds.zero_nan" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts zero values to nan values in selected columns</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*cols</strong> (<em>str</em><em>, </em><em>at least one</em>) – names of the colums</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">ds.zero_nan(&quot;mycol1&quot;,</span> <span class="pre">&quot;mycol2&quot;)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*cols</strong> (<em>str</em><em>, </em><em>at least one</em>) – names of the colums</p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ds.zero_nan(&quot;mycol1&quot;,</span> <span class="pre">&quot;mycol2&quot;)</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -2535,71 +2171,102 @@ of unique values</p>
 </div>
 
 
-           </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-      
-        <a href="src/conventions.html" class="btn btn-neutral" title="Conventions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2017, synw.
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
+          
         </div>
       </div>
-
-    </section>
-
-  </div>
-  
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Dataswim</a></h1>
 
 
-  
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
 
-  
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
 
-  <script type="text/javascript">
-      jQuery(function () {
-          
-          SphinxRtdTheme.Navigation.enableSticky();
-          
-      });
-  </script> 
 
-</body>
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Data io</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src/io/load.html">Load data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/io/export.html">Export data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/io/convert.html">Convert data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/io/db.html">Database operations</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Clean data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src/clean/nulls.html">Nulls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/clean/dates.html">Dates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/clean/convert_types.html">Convert types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/clean/index.html">Create index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/clean/clean_values.html">Clean values</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Transform data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src/transform/columns.html">Columns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/transform/values.html">Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/transform/resample.html">Resample timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/transform/dataframe.html">Dataframe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/transform/calculations.html">Calculations</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manipulate data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src/manipulate/view.html">View data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/manipulate/select.html">Select data</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Visualize data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src/chart.html">Chart data</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Build reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src/reports.html">Reports</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src/conventions.html">Conventions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="src/conventions.html" title="previous chapter">Conventions</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, synw.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/api_auto.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
 </html>
