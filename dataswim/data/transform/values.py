@@ -1,10 +1,8 @@
 import pandas as pd
-from ...errors import Error
-from ...messages import Message
-from copy import Copy
+from ..copy import Copy
 
 
-class Values(Error, Message, Copy):
+class Values(Copy):
     """
     A class to transform the dataframe's values
     """

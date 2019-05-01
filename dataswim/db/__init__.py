@@ -6,10 +6,11 @@ import pandas as pd
 from .infos import Info
 from .relations import Relation
 from .insert import Insert
+from .select import Select
 from .influxdb import InfluxDb
 
 
-class Db(Info, Insert, Relation, InfluxDb):
+class Db(Info, Insert, Relation, Select, InfluxDb):
     """
     Class for manipulating databases
     """

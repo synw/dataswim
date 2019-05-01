@@ -13,7 +13,7 @@ class Select(DbBase):
         """
         self.db = db
 
-    def getall(self, table):
+    def getall_(self, table):
         """
         Get all rows values for a table
         """

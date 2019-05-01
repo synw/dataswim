@@ -49,7 +49,6 @@ class Map():
         """
         try:
             self.dsmap = self._marker(lat, long, text, self.dsmap, color, icon)
-            return self.dsmap
         except Exception as e:
             self.err(e, self.marker, "Can not get marker")
 
@@ -91,7 +90,7 @@ class Map():
         except Exception as e:
             self.err(e, self.map_, "Can not get map")
 
-    def map(self, lat, long, zoom=13, tiles="map"):
+    def amap(self, lat, long, zoom=13, tiles="map"):
         """
         Sets a map
         """

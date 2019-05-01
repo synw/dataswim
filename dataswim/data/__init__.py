@@ -15,7 +15,7 @@ from ..errors import Error
 from ..messages import Message
 
 
-class Df(Error, Message, Select, View, Transform, Clean, Count,
+class Df(Select, View, Transform, Clean, Count,
          Export, Search, Stats, Text, Copy):
     """
     Class for manipulating dataframes

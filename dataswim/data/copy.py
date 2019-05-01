@@ -3,6 +3,7 @@ from ..messages import Message
 
 
 class Copy(Error, Message):
+	
     def _duplicate_(self, df=None, db=None, quiet=True):
         try:
             if db is None:

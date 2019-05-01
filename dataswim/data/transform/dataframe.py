@@ -1,9 +1,8 @@
 import pandas as pd
-from ...errors import Error
-from copy import Copy
+from ..copy import Copy
 
 
-class Dataframe(Error, Copy):
+class Dataframe(Copy):
     """
     Class to transform the dataframe
     """
