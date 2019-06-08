@@ -26,6 +26,25 @@ class Dataframe(Copy):
         except Exception as e:
             self.err(e, "Can not concatenate data")
 
+    def concat_(self, *dss, **kwargs):
+        """
+        Concatenate dataswim instances and
+                return a new Ds instance
+
+        :param dss: dataswim instances to concatenate
+        :type dss: Ds
+        :param kwargs: keyword arguments for ``pd.concat``
+        :rtype: Ds
+
+        """
+        try:
+            df = pd.DataFrame()
+            for dsx in dss:
+                df = pd.concat([df, dsx.df], **kwargs)
+            return self.new_(df=df)
+        except Exception as e:
+            self.err(e, "Can not concatenate data")
+
     def split_(self, col: str) -> "list(Ds)":
         """
         Split the main dataframe according to a column's unique values and

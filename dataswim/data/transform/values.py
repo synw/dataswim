@@ -52,7 +52,8 @@ class Values(Copy):
         :example: ``ds.append([0, 2, 2, 3, 4])``
         """
         try:
-            self.df = self.df.loc[len(self.df.index)] = vals
+            # self.df.append(vals)
+            self.df.append(pd.DataFrame(columns=self.df.columns, data=[vals]))
         except Exception as e:
             self.err(e, self.append, "Can not append row")
             return
