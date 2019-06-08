@@ -16,7 +16,7 @@ A simple api to explore, clean, transform and visualize data. This api is:
 
 Using conda:
 
-   ```
+   ```bash
    conda install pandas sqlalchemy seaborn
    conda install -c ioam holoviews bokeh
    conda install altair --channel conda-forge
@@ -27,23 +27,20 @@ Using conda:
 
 Using pip:
 
-   ```
+   ```bash
    pip install --no-cache-dir dataset
    pip install dataswim
    ```
 
 To get the Altair charts in notebooks running this command is required:
 
-   ```
+   ```bash
    jupyter nbextension enable vega --py --sys-prefix
    ```
 
 ## Documentation
 
-   ```
-   git clone https://github.com/synw/dataswim.git
-   firefox dataswim/docs/_build/html/index.html &
-   ```
+The [documentation](https://dataswim.readthedocs.io/en/latest/index.html) is available online
 
 Some [Jupyter demo notebooks](https://github.com/synw/dataswim-notebooks) are available as example. 
 
@@ -72,12 +69,12 @@ To handle databases:
 
 ## Supported databases
 
-- Postgresql, Sqlite and all those that Sql Alchemy supports
-- Influxdb
+- Postgresql
+- Sqlite
+- All those that Sql Alchemy supports
 
 ## Reporting
 
 To generate static html reports use [dsreports](https://github.com/synw/dsreports)
 
 To distribute reports with a http server use [django-chartflo](https://github.com/synw/django-chartflo)
-
