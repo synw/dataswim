@@ -4,10 +4,6 @@ python:
   - 3.6
   - 3.7
 
-env:
- global:
-    - PYTHONPATH="/home/travis/build/synw/dataswim"
-
 install:
   - pip install -r requirements.txt
   - pip install coveralls
