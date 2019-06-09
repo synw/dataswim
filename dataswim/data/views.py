@@ -130,7 +130,7 @@ class View(Copy):
         for col in cols:
             local_types = []
             for i, val in self.df[col].iteritems():
-                #print(i, val, type(val))
+                # print(i, val, type(val))
                 t = type(val).__name__
                 if t not in local_types:
                     local_types.append(t)

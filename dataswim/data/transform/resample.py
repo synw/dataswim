@@ -50,7 +50,7 @@ class Resample():
         try:
             ds2 = self._duplicate_()
             if dateindex is not None:
-                ds2 = self.dateindex_(dateindex)
+                ds2.dateindex(dateindex)
                 if ds2 is None:
                     self.err("Can not process date index")
                     return
