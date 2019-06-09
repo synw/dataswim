@@ -41,7 +41,7 @@ class Dataframe(Copy):
             df = pd.DataFrame()
             for dsx in dss:
                 df = pd.concat([df, dsx.df], **kwargs)
-            return self.new_(df=df)
+            return self.new_(df=df, quiet=True)
         except Exception as e:
             self.err(e, "Can not concatenate data")
 
