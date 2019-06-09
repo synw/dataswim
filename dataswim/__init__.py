@@ -55,8 +55,11 @@ class Ds(Db, Df, Plot, Map, Report, Error, Message):
             self.notebook = True
             import holoviews as hv
             hv.extension("bokeh")
-            import altair as alt
-            alt.renderers.enable('notebook')
+            try:
+                import altair as alt
+                alt.renderers.enable('notebook')
+            except Exception:
+                pass
 
     def __repr__(self):
         num = 0
