@@ -28,6 +28,7 @@ setup(
         'holoviews',
         'bokeh',
         'altair',
+        'vega',
         'gencharts',
         'influxdb',
         'chartjspy',
