@@ -5,7 +5,6 @@ from dataswim.tests.base import BaseDsTest
 from dataswim import Ds
 
 ds = Ds()
-
 ds.errs_traceback = False
 
 
@@ -23,7 +22,7 @@ class TestDsDataText(BaseDsTest):
         data = ds.flat_("one")
         self.assertRaises(TypeError)
 
-    def test_mfw(self):
+    """def test_mfw(self):
         df1 = pd.DataFrame([["one", "one"], ["two", "two"], ["one", "three"]],
                            columns=["one", "two"])
         ds.df = df1
@@ -33,4 +32,4 @@ class TestDsDataText(BaseDsTest):
         assert_frame_equal(ds2.df, df2)
         ds.df = None
         ds.mfw_("one")
-        self.assertRaises(TypeError)
+        self.assertRaises(TypeError)"""
