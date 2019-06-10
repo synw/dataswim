@@ -1,4 +1,4 @@
-# @PydevCodeAnalysisIgnore
+import datetime
 import arrow
 import numpy as np
 import pandas as pd
@@ -351,13 +351,11 @@ class Clean(Error, Message):
         :example: ``ds.strip("mycol")``
         """
         def remove_ws(row):
-            val = str(row[col])
-            if " " in val.startswith(" "):
-                row[col] = val.strip()
+            row = str(row).strip()
             return row
 
         try:
-            self.df.apply(remove_ws)
+            self.df[col] = self.df[col].apply(remove_ws)
         except Exception as e:
             self.err(e, "Can not remove white space in column")
             return
@@ -420,28 +418,12 @@ class Clean(Error, Message):
         except Exception as e:
             self.err(e, "Can not replace value in column")
 
-    def creplace(self, col: str, searchval: str, replaceval: str):
-        """
-        Replace a value in a column in the main dataframe
-        if the value is contained
+    def format_date_(self, date: datetime.datetime) -> str:
+        """Format a date string
 
-        :param col: column name
-        :type col: str
-        :param searchval: value to replace
-        :type searchval: str
-        :param replaceval: new value
-        :type replaceval: str
-
-        :example: ``ds.creplace("mycol", "value", "new_value")``
-        """
-        try:
-            self.df[col] = self.df[col].str.replace(searchval,
-                                                    replaceval)
-        except Exception as e:
-            self.err("Can not replace value in column")
-
-    def format_date_(self, date):
-        """
-        Formats a date
+        :param date: the input date
+        :type date: datetime.datetime
+        :return: output date string
+        :rtype: str
         """
         return date.strftime('%Y-%m-%d %H:%M:%S')

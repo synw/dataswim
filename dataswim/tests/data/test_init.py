@@ -66,3 +66,8 @@ class TestDsDataInit(BaseDsTest):
         ds.backup_df = None
         ds.restore()
         self.assertRaises(AttributeError)
+
+    def test_copy(self):
+        ds.df = self.df
+        ds2 = ds.clone_(quiet=True)
+        assert_frame_equal(ds.df, ds2.df)

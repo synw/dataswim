@@ -40,8 +40,12 @@ class Copy(Error, Message):
         return ds2
 
     def clone_(self, quiet=False):
-        """
-        Clone the DataSwim instance
+        """Clone the DataSwim instance
+
+        :param quiet: print a message, defaults to False
+        :type quiet: bool, optional
+        :return: a dataswim instance
+        :rtype: Ds
         """
         ds2 = self._duplicate_(quiet=True)
         if ds2 is None:

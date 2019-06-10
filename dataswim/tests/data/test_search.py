@@ -5,7 +5,6 @@ from dataswim.tests.base import BaseDsTest
 from dataswim import Ds
 
 ds = Ds()
-
 ds.errs_traceback = False
 
 
@@ -21,9 +20,7 @@ class TestDsDataSearch(BaseDsTest):
         ds2 = ds.contains_(0, "one")
         assert_frame_equal(ds2.df, df2)
         ds.df = None
-        res = ds.contains_(0, "one")
-        self.assertRaises(TypeError)
-        ds.contains(0, "one")
+        ds.contains_(0, "one")
         self.assertRaises(TypeError)"""
 
     def test_exact(self):

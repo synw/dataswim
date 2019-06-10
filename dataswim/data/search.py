@@ -1,7 +1,7 @@
-from goerr.colors import colors
+from ..errors import Error
 
 
-class Search():
+class Search(Error):
     """
     Class to handle searches in the dataframe
     """
@@ -11,18 +11,18 @@ class Search():
         Set the main dataframe instance to rows that contains a string
         value in a column
         """
-        df = self.df[self.df[column].str.contains(value) == True]
-        if df is None:
+        serie = self.df[self.df[column].str.contains(value) is True]
+        if serie is None:
             self.err("Can not select contained data")
             return
-        self.df = df
+        self.df[column] = serie
 
     def ncontains(self, column, value):
         """
         Set the main dataframe instance to rows that do not
         contains a string value in a column
         """
-        df = self.df[self.df[column].str.contains(value) == False]
+        df = self.df[self.df[column].str.contains(value) is False]
         if df is None:
             self.err("Can not select contained data")
             return

@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
 from pandas.testing import assert_series_equal
-from sklearn import linear_model
 from dataswim.tests.base import BaseDsTest
 from dataswim import Ds
 
 ds = Ds()
-
 ds.errs_traceback = False
 
 

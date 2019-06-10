@@ -41,6 +41,9 @@ class TestDsDataClean(BaseDsTest):
         ds.df = df1
         msg = "Column wrong does not exist"
         self.assertWarning(msg, ds.zero_nan, "wrong", "two")
+        msg = "Can not nan zero values if a column name "\
+            "is not provided"
+        self.assertWarning(msg, ds.zero_nan)
         self.assertErr(None, ds.zero_nan, "wrong", "wrong")
 
     def test_fill_nan(self):
@@ -61,7 +64,7 @@ class TestDsDataClean(BaseDsTest):
         self.assertWarning(msg, ds.fill_nan, "val", "wrong")
         self.assertErr(None, ds.fill_nan, "val", "wrong")
 
-    """def test_replace(self):
+    def test_replace(self):
         df1 = pd.DataFrame({"one": ["one", "two"], "two":
                             ["two", "two"]}, ["1", "2"])
         ds.df = df1
@@ -70,7 +73,7 @@ class TestDsDataClean(BaseDsTest):
                             ["two", "two"]}, ["1", "2"])
         assert_frame_equal(ds.df, df2)
         ds.df = None
-        self.assertErr("AttributeError", ds.replace, "one", "two", "three")"""
+        self.assertErr("TypeError", ds.replace, "one", "two", "three")
 
     def test_to_int(self):
         df1 = pd.DataFrame({"one": ["one", "two"], "two":
@@ -84,16 +87,16 @@ class TestDsDataClean(BaseDsTest):
                               ["wrong", 2.0]}, ["1", "2"])
         self.assertErr("ValueError", ds.to_int, "two")
 
-    """def test_to_float(self):
+    def test_to_float(self):
         df1 = pd.DataFrame({"one": ["one", "two"], "two":
                             [1, 2]}, ["1", "2"])
         ds.df = df1
         ds.to_float("two")
         self.assertEqual(list(ds.df["two"]), [1.0, 2.0])
         ds.df = None
-        self.assertErr("AttributeError", ds.to_float, "one")
+        self.assertErr("TypeError", ds.to_float, "one")
         ds.df = pd.DataFrame({"one": ["one", "two"], "two": ["wrong", 2]})
-        self.assertErr("ValueError", ds.to_float, "two")"""
+        self.assertErr("ValueError", ds.to_float, "two")
 
     def test_to_type(self):
         df1 = pd.DataFrame({"one": ["one", "two"], "two": [1, 2]})
@@ -151,7 +154,7 @@ class TestDsDataClean(BaseDsTest):
         ds.index("one")
         self.assertRaises(TypeError)
 
-    """def test_strip(self):
+    def test_strip(self):
         df = pd.DataFrame({"one": [" 2 ", "1 ", "0 "],
                            "two": [2, 1, 1]})
         ds.df = df
@@ -164,7 +167,7 @@ class TestDsDataClean(BaseDsTest):
         self.assertRaises(TypeError)
         ds.df = "wrong"
         ds.index("one")
-        self.assertRaises(AttributeError)"""
+        self.assertRaises(AttributeError)
 
     def test_strip_cols(self):
         df1 = pd.DataFrame([[1, 3], [2, 4]],
@@ -194,6 +197,14 @@ class TestDsDataClean(BaseDsTest):
         date = datetime.datetime(2011, 1, 3, 0, 0)
         d2 = ds.format_date_(date)
         self.assertEqual(d2, '2011-01-03 00:00:00')
+
+    def test_date(self):
+        df = pd.DataFrame({"one": ["one", "two"], "two":
+                           ["2002/12/01", "2003/12/02"]}, [1, 2])
+        ds.df = df
+        ds.date("two")
+        self.assertEqual(ds.df.two.dtype, "datetime64[ns]")
+        self.assertErr("ValueError", ds.date, "one")
 
     def test_fdates(self):
         ds.df = pd.DataFrame({"one": ["one", "two"], "two":
