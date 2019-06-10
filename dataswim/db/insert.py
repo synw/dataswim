@@ -14,7 +14,8 @@ class Insert(DbBase):
 
     def insert(self, table, records, create_cols=False, dtypes=None):
         """
-        Insert one or many records in the database from a dictionary or a list of dictionaries
+        Insert one or many records in the database from a dictionary or a list 
+                of dictionaries
         """
         if self._check_db() is False:
             return

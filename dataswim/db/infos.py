@@ -12,7 +12,7 @@ class Info(DbBase):
 
         :example: ``ds.tables()``
         """
-        if self._check_db() == False:
+        if self._check_db() is False:
             return
         try:
             pmodels = self._tables()
@@ -36,7 +36,7 @@ class Info(DbBase):
 
         :example: ``tables = ds.tables_()``
         """
-        if self._check_db() == False:
+        if self._check_db() is False:
             return
         try:
             return self._tables()
@@ -44,7 +44,7 @@ class Info(DbBase):
             self.err(e, "Can not print tables")
 
     def _tables(self):
-        if self._check_db() == False:
+        if self._check_db() is False:
             return
         pmodels = self.db.tables
         if pmodels is None:
@@ -63,10 +63,10 @@ class Info(DbBase):
 
         :example: ``tables = ds.table("mytable")``
         """
-        if self._check_db() == False:
+        if self._check_db() is False:
             return
         try:
-            res = self.getall(name)
+            res = self.getall_(name)
         except Exception as e:
             self.err(e, self.table, "Can not get records from database")
             return

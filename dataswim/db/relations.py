@@ -53,10 +53,11 @@ class Relation(DbBase):
         def set_rel(row):
             try:
                 origin_val = row[origin_field]
-                end_val = search_ds.df.loc[search_ds.df[id_field]
-                                           == origin_val][search_field].values[0]
+                end_val = search_ds.df.loc[
+                    search_ds.df[id_field] ==
+                    origin_val][search_field].values[0]
                 return end_val
-            except:
+            except Exception:
                 return nan
 
         try:

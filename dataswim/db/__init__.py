@@ -1,5 +1,3 @@
-# @PydevCodeAnalysisIgnore
-from numpy.core.numeric import nan
 import dataset
 from stuf import stuf
 import pandas as pd
@@ -7,19 +5,16 @@ from .infos import Info
 from .relations import Relation
 from .insert import Insert
 from .select import Select
+from .query import Query
 from .influxdb import InfluxDb
+from ..errors import Error
+from ..messages import Message
 
 
-class Db(Info, Insert, Relation, Select, InfluxDb):
+class Db(Info, Insert, Relation, Select, Query, InfluxDb, Error, Message):
     """
     Class for manipulating databases
     """
-
-    def __init__(self):
-        """
-        Initialize with an empty database
-        """
-        self.db = db
 
     def connect(self, url: str):
         """Connect to the database and set it as main database
