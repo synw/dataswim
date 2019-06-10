@@ -34,10 +34,10 @@ Using pip:
    pip install dataswim
    ```
 
-To get the Altair charts in notebooks running this command is required:
+To get the Altair charts in notebooks running install Vega:
 
    ```bash
-   jupyter nbextension enable vega --py --sys-prefix
+   pip install vega
    ```
 
 ## Documentation
