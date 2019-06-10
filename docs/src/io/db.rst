@@ -29,21 +29,21 @@ Infos
 Insert
 ------
 
-.. automethod:: dataswim.db.Db.insert.to_db
+.. automethod:: dataswim.db.insert.Insert.to_db
 
-.. automethod:: dataswim.db.Db.insert.update_db
+.. automethod:: dataswim.db.insert.Insert.update_table
 
-.. automethod:: dataswim.db.Db.insert.insert
+.. automethod:: dataswim.db.insert.Insert.insert
 
-.. automethod:: dataswim.db.Db.insert.upsert
+.. automethod:: dataswim.db.insert.Insert.upsert
 
 
 Relations
 ---------
 
-.. automethod:: dataswim.db.Db.relation.relation
+.. automethod:: dataswim.db.relations.Relation.relation
 
-.. automethod:: dataswim.db.Db.relation.relation_
+.. automethod:: dataswim.db.relations.Relation.relation_
     
 
 InfluxDb
