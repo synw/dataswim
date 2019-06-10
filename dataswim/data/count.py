@@ -7,9 +7,11 @@ class Count():
     Class to count data
     """
 
-    def count_nulls(self, field):
-        """
-        Count the number of null values in a column
+    def count_nulls(self, field: str):
+        """Count the number of null values in a column
+
+        :param field: the column to count from
+        :type field: str
         """
         try:
             n = self.df[field].isnull().sum()
@@ -22,8 +24,7 @@ class Count():
         self.ok("Found", n, "nulls in column", field)
 
     def count(self):
-        """
-        Counts the number of rows of the main dataframe
+        """Counts the number of rows of the main dataframe
         """
         try:
             num = len(self.df.index)
@@ -32,9 +33,11 @@ class Count():
             return
         self.ok("Found", num, "rows in the dataframe")
 
-    def count_(self):
-        """
-        Returns the number of rows of the main dataframe
+    def count_(self) -> int:
+        """Returns the number of rows of the main dataframe
+
+        :return: number of rows
+        :rtype: int
         """
         try:
             num = len(self.df.index)
@@ -43,9 +46,11 @@ class Count():
             return
         return num
 
-    def count_empty(self, field):
-        """
-        List of empty row indices
+    def count_empty(self, field: str):
+        """List of empty row indices
+
+        :param field: column to count from
+        :type field: str
         """
         try:
             df2 = self.df[[field]]
@@ -56,9 +61,11 @@ class Count():
             return
         self.ok("Found", num, "empty rows in column " + field)
 
-    def count_zero(self, field):
-        """
-        List of row with 0 values
+    def count_zero(self, field: str):
+        """List of row with 0 values
+
+        :param field: column to count from
+        :type field: str
         """
         try:
             df2 = self.df[[field]]
@@ -69,9 +76,13 @@ class Count():
             return
         self.ok("Found", num, "zero values in column", field)
 
-    def count_unique_(self, field):
-        """
-        Return the number of unique values in a column
+    def count_unique_(self, field: str) -> int:
+        """Return the number of unique values in a column
+
+        :param field: column to count from
+        :type field: str
+        :return: number of unique values
+        :rtype: int
         """
         try:
             num = self.df[field].nunique()

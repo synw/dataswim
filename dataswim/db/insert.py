@@ -1,7 +1,11 @@
 from .base import DbBase
+from typing import List
+from sqlalchemy.types import SchemaType
+from ..errors import Error
+from ..messages import Message
 
 
-class Insert(DbBase):
+class Insert(DbBase, Error, Message):
     """
     A class to handle data ingestion by the database
     """
@@ -12,10 +16,22 @@ class Insert(DbBase):
         """
         self.db = db
 
-    def insert(self, table, records, create_cols=False, dtypes=None):
-        """
-        Insert one or many records in the database from a dictionary or a list 
-                of dictionaries
+    def insert(self, table: str, records: dict, create_cols: bool=False,
+               dtypes: List[SchemaType]=None):
+        """Insert one or many records in the database from a dictionary
+         or a list of dictionaries
+
+        :param table: the table to insert into
+        :type table: str
+        :param records: a dictionnary or list of dictionnaries
+         of the data to insert
+        :type records: dict
+        :param create_cols: create the columns if they don't exist, defaults
+         to False
+        :type create_cols: bool, optional
+        :param dtypes: list of SqlAlchemy table types, defaults to None. The
+         types are infered if not provided
+        :type dtypes: SchemaType, optional
         """
         if self._check_db() is False:
             return
@@ -47,23 +63,39 @@ class Insert(DbBase):
         self.ok("Rows inserted in the database")
 
     def upsert(self, table: str, record: dict, create_cols: bool=False,
-               dtypes: list=None, pks=["id"], namefields=["id"]):
+               dtypes: List[SchemaType]=None, pks: List[str]=["id"]):
+        """Upsert a record in a table
+
+        :param table: the table to upsert into
+        :type table: str
+        :param record: dictionary with the data to upsert
+        :type record: dict
+        :param create_cols: create the columns if it doesn't exist,
+         defaults to False
+        :type create_cols: bool, optional
+        :param dtypes: list of SqlAlchemy column types, defaults to None
+        :type dtypes: List[SchemaType], optional
+        :param pks: if rows with matching pks exist they will be updated,
+         otherwise a new row is inserted in the table, defaults to ["id"]
+        :type pks: List[str], optional
         """
-        Upsert a record in a table
-        """
+        if self._check_db() is False:
+            return
         try:
             self.db[table].upsert(record, pks, create_cols, dtypes)
         except Exception as e:
             self.err(e, "Can not upsert data")
             return
-        names = ""
-        for el in namefields:
-            names += " " + record[el]
-        self.ok("Upserted record"+names)
+        self.ok("Upserted record")
 
-    def update_table(self, table, pks=['id']):
-        """
-        Update records in a database table from the main dataframe
+    def update_table(self, table: str, pks: List[str]=['id']):
+        """Update records in a database table from the main dataframe
+
+        :param table: table to update
+        :type table: str
+        :param pks: if rows with matching pks exist they will be updated,
+         otherwise a new row is inserted in the table, defaults to ["id"]
+        :type pks: List[str], optional
         """
         if self._check_db() is False:
             return
@@ -80,9 +112,14 @@ class Insert(DbBase):
             table.insert_ignore(rec, pks, ensure=True)
         self.ok("Data updated in table", table)
 
-    def to_db(self, table, dtypes=None):
-        """
-        Save the main dataframe to the database
+    def to_db(self, table: str, dtypes: List[SchemaType]=None):
+        """Save the main dataframe to the database
+
+        :param table: the table to create
+        :type table: str
+        :param dtypes: SqlAlchemy columns type, defaults to None,
+         will be infered if not provided
+        :type dtypes: List[SchemaType], optional
         """
         if self._check_db() is False:
             return
