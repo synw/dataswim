@@ -1,5 +1,5 @@
-Count data
-==========
+Count
+=====
 
 .. automethod:: dataswim.data.count.Count.count
 

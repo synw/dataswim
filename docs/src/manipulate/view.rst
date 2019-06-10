@@ -1,5 +1,5 @@
-View data
-=========
+View
+====
 
 .. automethod:: dataswim.data.views.View.show
 

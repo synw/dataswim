@@ -41,6 +41,8 @@ Dataswim
    src/manipulate/view
    src/manipulate/select
    src/manipulate/count
+   src/manipulate/search
+   src/manipulate/utils
    
 .. toctree::
    :maxdepth: 2
