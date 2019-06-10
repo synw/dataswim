@@ -1,4 +1,5 @@
 import folium
+from folium.plugins import MarkerCluster
 from folium.features import DivIcon
 
 
@@ -98,6 +99,22 @@ class Map():
             self.dsmap = self._map(lat, long, zoom, tiles)
         except Exception as e:
             self.err(e, self.map, "Can not get map")
+
+    def mcluster(self, lat_col: str, lon_col: str):
+        """
+        Add a markers cluster to the map
+        """
+        try:
+            mc = MarkerCluster()
+            rows = []
+            for _, v in self.df.iterrows():
+                tup = (v[lat_col], v[lon_col])
+                rows.append(tup)
+            for el in rows:
+                mc.add_child(folium.Marker([el[0], el[1]]))
+            self.dsmap.add_child(mc)
+        except Exception as e:
+            self.err(e, "Can not add marker cluster")
 
     def _map(self, lat, long, zoom, tiles):
         """
