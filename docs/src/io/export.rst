@@ -1,7 +1,8 @@
 Export data
 ===========
 
-Export the main dataframe to a file
+To files
+--------
 
 .. automethod:: dataswim.data.export.Export.to_csv
 

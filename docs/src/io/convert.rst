@@ -3,8 +3,8 @@ Convert data
 
 Convert the main dataframe to various formats
 
-To web
-------
+To web formats
+--------------
 
 .. automethod:: dataswim.data.export.Export.to_html_
 
@@ -12,18 +12,18 @@ To web
 
 .. automethod:: dataswim.data.export.Export.to_javascript_
 
-To text
--------
+To data formats
+---------------
 
 .. automethod:: dataswim.data.export.Export.to_markdown_
 
 .. automethod:: dataswim.data.export.Export.to_rst_
 
+.. automethod:: dataswim.data.export.Export.to_records_
+
+.. automethod:: dataswim.data.export.Export.to_numpy_
+
 To python code
 --------------
 
 .. automethod:: dataswim.data.export.Export.to_python_
-
-.. automethod:: dataswim.data.export.Export.to_records_
-
-.. automethod:: dataswim.data.export.Export.to_numpy_
