@@ -1,4 +1,4 @@
-# @PydevCodeAnalysisIgnore
+import datetime
 import arrow
 import pandas as pd
 import numpy as np
@@ -10,9 +10,11 @@ class Select(Error):
     Class to select data
     """
 
-    def first_(self):
-        """
-        Select the first row
+    def first_(self) -> pd.Series:
+        """Select the first row
+
+        :return: the first row as a serie
+        :rtype: pd.Series
         """
         try:
             val = self.df.iloc[0]
@@ -20,27 +22,35 @@ class Select(Error):
         except Exception as e:
             self.err(e, "Can not select first row")
 
-    def limit(self, r=5):
-        """
-        Limit selection to a range in the main dataframe
+    def limit(self, r: int=5):
+        """Limit selection to a range in the main dataframe
+
+        :param r: number of rows to keep, defaults to 5
+        :type r: int, optional
         """
         try:
             self.df = self.df[:r]
         except Exception as e:
             self.err(e, "Can not limit data")
 
-    def limit_(self, r=5):
-        """
-        Returns a DataSwim instance with limited selection
+    def limit_(self, r: int=5) -> "Ds":
+        """Returns a DataSwim instance with limited selection
+
+        :return: a Ds instance
+        :rtype: Ds
         """
         try:
             return self._duplicate_(self.df[:r])
         except Exception as e:
             self.err(e, "Can not limit data")
 
-    def unique_(self, col):
-        """
-        Returns unique values in a column
+    def unique_(self, col: str) -> list:
+        """Returns unique values in a column
+
+        :param col: the column to select from
+        :type col: str
+        :return: a list of unique values in the column
+        :rtype: list
         """
         try:
             df = self.df.drop_duplicates(subset=[col], inplace=False)
@@ -103,11 +113,15 @@ class Select(Error):
         except Exception as e:
             self.err("Can not select range data", e)"""
 
-    def nowrange(self, col, timeframe):
-        """
-        Set the main dataframe with rows within a date range from now
-        ex: ds.nowrange("Date", "3D") for a 3 days range. Units are: S,
-        H, D, W, M, Y
+    def nowrange(self, col: str, timeframe: str):
+        """Set the main dataframe with rows within a date range from now
+
+        :param col: the column to use for range
+        :type col: str
+        :param timeframe: units are: S, H, D, W, M, Y
+        :type timeframe: str
+
+        example: ``ds.nowrange("Date", "3D")``
         """
         df = self._nowrange(col, timeframe)
         if df is None:
@@ -115,11 +129,17 @@ class Select(Error):
             return
         self.df = df
 
-    def nowrange_(self, col, timeframe):
-        """
-        Returns a Dataswim instance with rows within a date range from now
-        ex: ds.nowrange("Date", "3D") for a 3 days range. Units are: S,
-        H, D, W, M, Y
+    def nowrange_(self, col: str, timeframe: str) -> "Ds":
+        """Returns a Dataswim instance with rows within a date range from now
+
+        :param col: the column to use for range
+        :type col: str
+        :param timeframe: units are: S, H, D, W, M, Y
+        :type timeframe: str
+        :return: [description]
+        :rtype: [type]
+
+        example: ``ds2 = ds.nowrange_("Date", "3D")``
         """
         df = self._nowrange(col, timeframe)
         if df is None:
@@ -157,18 +177,34 @@ class Select(Error):
         except Exception as e:
             self.err(e, "Can not select range data from now")
 
-    def daterange(self, datecol, date_start, op, **args):
-        """
-        Returns rows in a date range
+    def daterange(self, datecol: str, date_start: datetime.datetime, op: str,
+                  **args):
+        """Set the main dataframe rows in a date range
+
+        :param datecol: the column to use for range
+        :type datecol: str
+        :param date_start: the date to start from
+        :type date_start: datetime.datetime
+        :param op: + or -
+        :type op: str
         """
         df = self._daterange(datecol, date_start, op, **args)
         if df is None:
             self.err("Can not select date range data")
         self.df = df
 
-    def daterange_(self, datecol, date_start, op, **args):
-        """
-        Returns a DataSwim instance with rows in a date range
+    def daterange_(self, datecol: str, date_start: datetime.datetime, op: str,
+                   **args) -> "Ds":
+        """Returns a DataSwim instance with rows in a date range
+
+        :param datecol: the column to use for range
+        :type datecol: str
+        :param date_start: the date to start from
+        :type date_start: datetime.datetime
+        :param op: + or -
+        :type op: str
+        :return: a dataswim instance
+        :rtype: Ds
         """
         df = self._daterange(datecol, date_start, op, **args)
         if df is None:
@@ -193,8 +229,7 @@ class Select(Error):
             self.err(e, self._daterange, "Can not select date range data")
 
     def subset(self, *args):
-        """
-        Set the main dataframe to a subset based in positions
+        """Set the main dataframe to a subset based in positions
         Select a subset of the main dataframe based on position:
         ex: ds.subset(0,10) or ds.subset(10) is equivalent: it starts
         at the first row if only one argument is provided
@@ -206,8 +241,7 @@ class Select(Error):
         self.df = df
 
     def subset_(self, *args):
-        """
-        Returns a Dataswim instance with a subset data based in positions
+        """Returns a Dataswim instance with a subset data based in positions
         Select a subset of the main dataframe based on position:
         ex: ds.subset(0,10) or ds.subset(10) is equivalent: it starts
         at the first row if only one argument is provided
