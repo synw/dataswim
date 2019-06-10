@@ -29,29 +29,21 @@ Infos
 Insert
 ------
 
-**to_db** (``table``, ``db_url=None``)
+.. automethod:: dataswim.db.Db.insert.to_db
 
-    Save the main dataframe to the database
-    
-**update_db** (``table``, ``keys=['id']``, ``db_url=None``)
+.. automethod:: dataswim.db.Db.insert.update_db
 
-    Update records in a database table from the main dataframe
-    
-**insert** (``table``, ``records``, ``create_cols=True``)
+.. automethod:: dataswim.db.Db.insert.insert
 
-    Insert one or many records in the database from a dictionary or a list of dictionaries
+.. automethod:: dataswim.db.Db.insert.upsert
 
 
 Relations
 ---------
 
-**relation** (``search_ds``, ``origin_field``, ``search_field``, ``destination_field=None``, ``id_field="id"``):
+.. automethod:: dataswim.db.Db.relation.relation
 
-    Add a column to the main dataframe from a relation foreign key 
-
-**relation_** (``search_ds``, ``origin_field``, ``search_field``, ``destination_field=None``, ``id_field="id"``):
-
-    Returns a DataSwim instance with a column filled from a relation foreign key
+.. automethod:: dataswim.db.Db.relation.relation_
     
 
 InfluxDb
