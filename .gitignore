@@ -5,7 +5,6 @@ settings.py
 .pydevproject
 .settings
 .vscode
-docs/source
 doctrees
 
 __pycache__/
