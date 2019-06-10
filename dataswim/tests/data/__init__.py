@@ -10,7 +10,5 @@ from .test_transform import TestDsDataTransform
 
 class TestDsData(TestDsDataInit, TestDsDataCount, TestDsDataClean,
                  TestDsDataSearch, TestDsDataSelect, TestDsDataText,
-                 TestDsDataStats):
+                 TestDsDataStats, TestDsDataTransform):
     pass
-# class TestDsData(TestDsDataTransform):
-#    pass

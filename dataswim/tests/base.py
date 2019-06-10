@@ -9,6 +9,7 @@ from dataswim import Ds
 
 
 ds = Ds()
+ds.errs_traceback = False
 
 
 class BaseDsTest(unittest.TestCase):

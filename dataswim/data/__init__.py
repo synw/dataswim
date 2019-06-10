@@ -11,8 +11,6 @@ from .search import Search
 from .stats import Stats
 from .text import Text
 from .copy import Copy
-from ..errors import Error
-from ..messages import Message
 
 
 class Df(Select, View, Transform, Clean, Count,
@@ -46,12 +44,12 @@ class Df(Select, View, Transform, Clean, Count,
         """Load data in the main dataframe from json
 
         :param filepath: url of the csv file to load,
-                                         can be absolute if it starts with ``/``
-                                         or relative if it starts with ``./``
+                        can be absolute if it starts with ``/``
+                        or relative if it starts with ``./``
         :type filepath: str
 
         :param kwargs: keyword arguments to pass to
-                                                   Pandas ``read_json`` function
+                        Pandas ``read_json`` function
 
         :example: ``ds.load_json("./myfile.json")``
         """
@@ -65,8 +63,8 @@ class Df(Select, View, Transform, Clean, Count,
         """Load a Hdf5 file to the main dataframe
 
         :param filepath: url of the csv file to load,
-                                         can be absolute if it starts with ``/``
-                                         or relative if it starts with ``./``
+                        can be absolute if it starts with ``/``
+                        or relative if it starts with ``./``
         :type filepath: str
 
         :example: ``ds.load_h5("./myfile.hdf5")``

@@ -53,6 +53,6 @@ class Text():
             df = pd.DataFrame(Counter(words).most_common(limit),
                               columns=['Word', 'Frequency']).set_index('Word')
         except Exception as e:
-            self.err(e, "Can not finc most frequent words")
+            self.err(e, "Can not find most frequent words")
             return
         return df

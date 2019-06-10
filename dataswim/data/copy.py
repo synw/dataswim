@@ -3,7 +3,7 @@ from ..messages import Message
 
 
 class Copy(Error, Message):
-	
+
     def _duplicate_(self, df=None, db=None, quiet=True):
         try:
             if db is None:
@@ -11,7 +11,8 @@ class Copy(Error, Message):
             if df is None:
                 if self.df is None:
                     self.err("The main dataframe is empty and no dataframe"
-                             " was provided: please provide a dataframe as argument")
+                             " was provided: please provide a "
+                             "dataframe as argument")
                     return
                 df = self.df.copy()
             ds2 = self.new_(df, db, quiet=True, nbload_libs=False)

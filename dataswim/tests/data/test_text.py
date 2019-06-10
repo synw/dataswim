@@ -32,5 +32,5 @@ class TestDsDataText(BaseDsTest):
                            columns=["Frequency", "Word"]).set_index('Word')
         assert_frame_equal(ds2.df, df2)
         ds.df = None
-        _ = ds.mfw_("one")
+        ds.mfw_("one")
         self.assertRaises(TypeError)
