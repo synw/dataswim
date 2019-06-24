@@ -66,6 +66,9 @@ class Ds(Db, Df, Plot, Map, Report, Error, Message):
         if self.df is not None:
             num = len(self.df.index)
         msg = "<DataSwim object | " + str(num) + " rows>"
+        if self.notebook is True:
+            self.show()
+            return str(self.df.head(5))
         return msg
 
     def new_(self, df=pd.DataFrame(), db=None, quiet=False,
