@@ -281,7 +281,7 @@ class Clean(Error, Message):
 
         :param col: column name
         :type col: str
-        :param \*\*kwargs: keyword arguments for ``pd.to_datetime`` 
+        :param \*\*kwargs: keyword arguments for ``pd.to_datetime``
         :type \*\*kwargs: optional
 
         :example: ``ds.date("mycol")``

@@ -35,8 +35,8 @@ class Values(Copy):
         :example: ``ds.drop_rows([0, 2])``
         """
         try:
-            self.df = rows = list(rows)
-            self.df.drop(rows)
+            rows = list(rows)
+            self.df = self.df.drop(rows)
         except Exception as e:
             self.err(e, self.dropr, "Can not drop rows")
 
@@ -54,7 +54,8 @@ class Values(Copy):
         try:
             if index is not None:
                 self.df = self.df.append(pd.DataFrame(columns=self.df.columns,
-                                                      data=[vals], index=[index]))
+                                                      data=[vals], 
+                                                      index=[index]))
             else:
                 self.df = self.df.append(pd.DataFrame(columns=self.df.columns,
                                                       data=[vals]))
@@ -73,7 +74,7 @@ class Values(Copy):
         :example: ``ds.sort("Col 1")``
         """
         try:
-            self.df = self.df.copy().sort_values(col)
+            self.df = self.df.sort_values(col)
         except Exception as e:
             self.err(e, "Can not sort the dataframe from column " +
                      str(col))
