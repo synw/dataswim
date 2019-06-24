@@ -9,9 +9,11 @@ from .query import Query
 from .influxdb import InfluxDb
 from ..errors import Error
 from ..messages import Message
+from .sqlite import SqliteDb
 
 
-class Db(Info, Insert, Relation, Select, Query, InfluxDb, Error, Message):
+class Db(Info, Insert, Relation, Select, Query, InfluxDb, SqliteDb, Error,
+         Message):
     """
     Class for manipulating databases
     """
@@ -33,6 +35,20 @@ class Db(Info, Insert, Relation, Select, Query, InfluxDb, Error, Message):
             self.err("Database " + url + " not found")
             return
         self.ok("Db", self.db.url, "connected")
+
+    def loads(self, table: str, show_rows: int=5):
+        """Set the main dataframe from a table's data and show the data
+
+        :param table: table name
+        :type table: str
+        :param show_rows: number of rows to show, default 5
+        :type show_rows: int
+
+        :example: ``ds.loads("mytable")``
+        """
+        self.load(table)
+        self.show()
+        return self.df.head(show_rows)
 
     def load(self, table: str):
         """Set the main dataframe from a table's data
