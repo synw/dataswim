@@ -12,7 +12,8 @@ class Chartjs():
         Get a radar chart
         """
         try:
-            return self._get_chart("radar", style=style, opts=opts, label=label, options=options)
+            return self._get_chart("radar", style=style, opts=opts,
+                                   label=label, options=options)
         except Exception as e:
             self.err(e, self.radar_, "Can not draw radar chart")
 
@@ -56,6 +57,7 @@ class Chartjs():
         Returns html script tags for Chartjs
         """
         header = """
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
-		"""
+        <script type="text/javascript" src="
+        https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+        """
         return header

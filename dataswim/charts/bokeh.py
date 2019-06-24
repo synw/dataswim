@@ -48,9 +48,12 @@ class Bokeh():
         Returns html script tags for Bokeh
         """
         header = """
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bokeh/0.12.11/bokeh.css" />
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/0.12.11/bokeh.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/0.12.11/bokeh.min.js.map"></script>
+        <link rel="stylesheet" href="
+        https://cdnjs.cloudflare.com/ajax/libs/bokeh/0.12.11/bokeh.css" />
+        <script type="text/javascript" src="
+        https://cdnjs.cloudflare.com/ajax/libs/bokeh/0.12.11/bokeh.min.js"></script>
+        <script type="text/javascript" src="
+        https://cdnjs.cloudflare.com/ajax/libs/bokeh/0.12.11/bokeh.min.js.map"></script>
         <script type="text/javascript">
             Bokeh.set_log_level("info");
         </script>
@@ -118,7 +121,8 @@ class Bokeh():
             if chart_type == "point":
                 c = ds2.point_(opts=self.chart_opts, style=self.chart_style)
             elif chart_type == "line_point":
-                c = ds2.line_point_(opts=self.chart_opts, style=self.chart_style)
+                c = ds2.line_point_(opts=self.chart_opts,
+                                    style=self.chart_style)
             else:
                 c = ds2.line_(opts=self.chart_opts, style=self.chart_style)
             ds2.color(color)
@@ -174,10 +178,11 @@ class Bokeh():
             elif chart_type == "lreg":
                 chart = self._lreg_bokeh(**args)
             elif chart_type == "sline":
-                window_size, y_label = options["window_size"], options["y_label"]
+                window_size, y_label = options["window_size"],
+                options["y_label"]
                 chart = self._sline_bokeh(window_size, y_label)
             if chart is None:
-                self.err("Chart type " + chart_type + 
+                self.err("Chart type " + chart_type +
                          " unknown", self._get_bokeh_chart)
                 return
             endchart = chart(plot=opts, style=style)
