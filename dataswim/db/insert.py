@@ -88,7 +88,8 @@ class Insert(DbBase, Error, Message):
             return
         self.ok("Upserted record")
 
-    def update_table(self, table: str, pks: List[str]=['id']):
+    def update_table(self, table: str, pks: List[str]=['id'],
+                     mirror: bool =True):
         """Update records in a database table from the main dataframe
 
         :param table: table to update
@@ -96,20 +97,32 @@ class Insert(DbBase, Error, Message):
         :param pks: if rows with matching pks exist they will be updated,
          otherwise a new row is inserted in the table, defaults to ["id"]
         :type pks: List[str], optional
+                :param mirror: delete the rows not in the new datataset
+        :type mirror: bool
         """
         if self._check_db() is False:
             return
         try:
-            table = self.db[table]
+            self.db[table]
         except Exception as e:
             self.err(e, "Can not find table " + table)
-        if self.db is None:
-            msg = "Please connect a database before or provide a database url"
-            self.err(msg)
             return
         recs = self.to_records_()
-        for rec in recs:
-            table.insert_ignore(rec, pks, ensure=True)
+        try:
+            self.db.begin()
+            # cleanup ol records
+            if mirror is True:
+                self.db[table].delete()
+            # upsert new data
+            for rec in recs:
+                self.db[table].insert_ignore(rec, pks, ensure=True)
+            # self.db[table].insert_many(recs)
+            self.db.commit()
+            self.ok("Table upgraded")
+        except Exception as e:
+            self.db.rollback()
+            self.err(e, "Can not commit upgrade table to db")
+            return
         self.ok("Data updated in table", table)
 
     def to_db(self, table: str, dtypes: List[SchemaType]=None):
@@ -130,3 +143,15 @@ class Insert(DbBase, Error, Message):
         recs = self.to_records_()
         self.insert(table, recs, dtypes)
         self.end("Data inserted in table", table)
+
+    """def randomize(self, col: str, values: List):
+
+        if self._check_db() is False:
+            return
+        try:
+            for _, v in self.df.iterrows():
+                self.df[v][col] = random.choice(values)
+        except Exception as e:
+            self.err(e, "Can not randomize column")
+        self.ok("Column randomized")
+        return"""
