@@ -14,7 +14,7 @@ A simple api to explore, clean, transform and visualize data. This api is:
 - **Clean and transform data**: select, filter, normalize and reshape data
 - **Visualize data**: many kind of charts and maps for geo data
 
-## Install 
+## Install
 
 Using conda:
 
@@ -37,6 +37,8 @@ Using pip:
 To get the Altair charts in notebooks running install Vega:
 
    ```bash
+   conda install -c conda-forge vega
+   # or
    pip install vega
    ```
 
