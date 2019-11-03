@@ -1,9 +1,10 @@
 import numpy
 import pytablewriter
 import deepdish as dd
+from ..base import DsBase
 
 
-class Export():
+class Export(DsBase):
     """
     Class to handle data exportation
     """
@@ -38,7 +39,7 @@ class Export():
         except Exception as e:
             self.err(e, "Can not convert data to json")
 
-    def to_javascript_(self, table_name: str="data") -> str:
+    def to_javascript_(self, table_name: str = "data") -> str:
         """Convert the main dataframe to javascript code
 
         :param table_name: javascript variable name, defaults to "data"
@@ -85,7 +86,7 @@ class Export():
         except Exception as e:
             self.err(e, "Can not convert data to restructured text")
 
-    def to_python_(self, table_name: str="data") -> list:
+    def to_python_(self, table_name: str = "data") -> list:
         """Convert the main dataframe to python a python list
 
         :param table_name: python variable name, defaults to "data"
@@ -102,7 +103,7 @@ class Export():
         except Exception as e:
             self.err(e, "Can not convert data to python list")
 
-    def to_numpy_(self, table_name: str="data") -> numpy.array:
+    def to_numpy_(self, table_name: str = "data") -> numpy.array:
         """Convert the main dataframe to a numpy array
 
         :param table_name: name of the python variable, defaults to "data"
@@ -133,7 +134,7 @@ class Export():
         except Exception as e:
             self.err(e, "Can not convert data to records")
 
-    def to_csv(self, filepath: str, index: bool=False, **kwargs):
+    def to_csv(self, filepath: str, index: bool = False, **kwargs):
         """Write the main dataframe to a csv file
 
         :param filepath: path of the file to save

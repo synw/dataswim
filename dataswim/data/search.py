@@ -1,7 +1,7 @@
-from ..errors import Error
+from ..base import DsBase
 
 
-class Search(Error):
+class Search(DsBase):
     """
     Class to handle searches in the dataframe
     """

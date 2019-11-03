@@ -5,10 +5,10 @@ import pandas as pd
 from numpy.core.numeric import nan
 from goerr.colors import colors
 from ..errors import Error
-from ..messages import Message
+from ..base import DsBase
 
 
-class Clean(Error, Message):
+class Clean(DsBase):
     """
     Class to clean the data
     """

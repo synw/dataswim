@@ -1,8 +1,8 @@
 import pandas as pd
-from ..copy import Copy
+from ...base import DsBase
 
 
-class Values(Copy):
+class Values(DsBase):
     """
     A class to transform the dataframe's values
     """
@@ -54,7 +54,7 @@ class Values(Copy):
         try:
             if index is not None:
                 self.df = self.df.append(pd.DataFrame(columns=self.df.columns,
-                                                      data=[vals], 
+                                                      data=[vals],
                                                       index=[index]))
             else:
                 self.df = self.df.append(pd.DataFrame(columns=self.df.columns,

@@ -1,5 +1,3 @@
-# @PydevCodeAnalysisIgnore
-import pandas as pd
 from numpy.core.numeric import nan
 from .messages import Message
 from .errors import Error
@@ -8,11 +6,12 @@ from .charts import Plot
 from .maps import Map
 from .data import Df
 from .report import Report
+from .base import DsBase
 
-__version__ = "0.5.0"
+__version__ = "0.6.0"
 
 
-class Ds(Db, Df, Plot, Map, Report, Error, Message):
+class Ds(Db, Df, Plot, Map, Report, DsBase):
     """
     Main class
     """
@@ -36,8 +35,8 @@ class Ds(Db, Df, Plot, Map, Report, Error, Message):
         self.autoprint = False
         self.errors_handling = "exceptions"
         self.notebook = False
-        self.header = self._header
-        self.footer = self._footer
+        #self.header = self._header
+        #self.footer = self._footer
         self.reports = []
         self.report_engines = []
         self.start_time = None
@@ -46,7 +45,7 @@ class Ds(Db, Df, Plot, Map, Report, Error, Message):
         self.report_path = None
         self.static_path = None
         self.quiet = False
-        self.nan = nan
+        #self.nan = nan
         self.color_index = 0
         self.dsmap = None
         self.altair_encode = {}
@@ -67,19 +66,9 @@ class Ds(Db, Df, Plot, Map, Report, Error, Message):
             num = len(self.df.index)
         msg = "<DataSwim object | " + str(num) + " rows>"
         if self.notebook is True:
-            self.show()
+            self.df.head()
             return str(self.df.head(5))
         return msg
-
-    def new_(self, df=pd.DataFrame(), db=None, quiet=False,
-             nbload_libs=True):
-        """
-        Returns a new DataSwim instance from a dataframe
-        """
-        ds2 = Ds(df, db, nbload_libs)
-        if quiet is False:
-            self.ok("A new instance was created")
-        return ds2
 
     def _isnotebook(self):
         try:

@@ -1,8 +1,9 @@
 import sqlite3
 from sqlite3 import Error as SqlErr
+from ...base import DsBase
 
 
-class SqliteDb():
+class SqliteDb(DsBase):
 
     _conn = None
     _cursor = None

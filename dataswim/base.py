@@ -1,8 +1,41 @@
-from ..errors import Error
-from ..messages import Message
+import copy
+import pandas as pd
+from .errors import Error
+from .messages import Message
+
+__version__ = "0.6.0"
 
 
-class Copy(Error, Message):
+class DsBase(Error, Message):
+    msg: str = None
+    version: str = __version__
+    df: pd.DataFrame = None
+    db = None
+    x = None
+    y = None
+    chart_obj = None
+    chart_opts: dict = dict(width=880)
+    chart_style = {}
+    engine: str = "bokeh"
+    label = None
+    backup_df: pd.DataFrame = None
+    autoprint: bool = False
+    errors_handling: str = "exceptions"
+    notebook: bool = False
+    header = None
+    footer = None
+    reports = []
+    report_engines = []
+    start_time = None
+    influx_cli = None
+    datapath = None
+    report_path = None
+    static_path = None
+    quiet = False
+    nan: float = None
+    color_index: int = 0
+    dsmap = None
+    altair_encode = {}
 
     def _duplicate_(self, df=None, db=None, quiet=True):
         try:
@@ -15,7 +48,9 @@ class Copy(Error, Message):
                              "dataframe as argument")
                     return
                 df = self.df.copy()
-            ds2 = self.new_(df, db, quiet=True, nbload_libs=False)
+            ds2 = copy.copy(self)
+            ds2.df = df
+            ds2.db = db
             ds2.db = self.db
             ds2.x = self.x
             ds2.y = self.y

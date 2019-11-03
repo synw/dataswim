@@ -1,11 +1,12 @@
 import folium
 from folium.plugins import MarkerCluster
 from folium.features import DivIcon
-from scipy.spatial import ConvexHull
-from ..errors import Error
+#import scipy.spatial as spatial
+#from scipy.spatial import ConvexHull
+from ..base import DsBase
 
 
-class Map(Error):
+class Map(DsBase):
 
     def __init__(self):
         """
@@ -13,25 +14,25 @@ class Map(Error):
         """
         self.dsmap = None
 
-    def polygon(self, list_of_points, layer_name="Polygons", line_color="lightblue",
-                fill_color="royalblue", weight=5):
-        """
+    """def polygon(self, list_of_points, layer_name="Polygons", line_color="lightblue",
+                fill_color="royalblue", weight=5, text=""):
+        ""
         Draw a polygon on the map
-        """
+        ""
         if len(list_of_points) < 3:
             self.err(self.polygon,
                      "The list of points must contain at least 3 entries")
             return
         try:
             form = [list_of_points[i]
-                    for i in ConvexHull(list_of_points).vertices]
+                    for i in spatial.ConvexHull(list_of_points).vertices]
             fg = folium.FeatureGroup(name=layer_name)
             fg.add_child(folium.vector_layers.Polygon(
                 locations=form, color=line_color, fill_color=fill_color,
-                weight=weight))
+                weight=weight, popup=(folium.Popup(text))))
             self.dsmap.add_child(fg)
         except Exception as e:
-            self.err(e, self.polygon, "Can not draw polygon on map")
+            self.err(e, self.polygon, "Can not draw polygon on map")"""
 
     def tmarker(self, lat, long, text, color=None, icon=None, style=None):
         """

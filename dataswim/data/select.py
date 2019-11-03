@@ -2,10 +2,10 @@ import datetime
 import arrow
 import pandas as pd
 import numpy as np
-from ..errors import Error
+from ..base import DsBase
 
 
-class Select(Error):
+class Select(DsBase):
     """
     Class to select data
     """
@@ -22,7 +22,7 @@ class Select(Error):
         except Exception as e:
             self.err(e, "Can not select first row")
 
-    def limit(self, r: int=5):
+    def limit(self, r: int = 5):
         """Limit selection to a range in the main dataframe
 
         :param r: number of rows to keep, defaults to 5
@@ -33,7 +33,7 @@ class Select(Error):
         except Exception as e:
             self.err(e, "Can not limit data")
 
-    def limit_(self, r: int=5) -> "Ds":
+    def limit_(self, r: int = 5) -> "Ds":
         """Returns a DataSwim instance with limited selection
 
         :return: a Ds instance

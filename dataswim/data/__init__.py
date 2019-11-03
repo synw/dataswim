@@ -10,11 +10,10 @@ from .export import Export
 from .search import Search
 from .stats import Stats
 from .text import Text
-from .copy import Copy
 
 
 class Df(Select, View, Transform, Clean, Count,
-         Export, Search, Stats, Text, Copy):
+         Export, Search, Stats, Text):
     """
     Class for manipulating dataframes
     """

@@ -1,13 +1,14 @@
 import pandas as pd
 from numpy import nan
+from ...base import DsBase
 
 
-class Calculations():
+class Calculations(DsBase):
     """
     Class to make calculations on the data
     """
 
-    def diffn(self, diffcol: str, name: str="Diff"):
+    def diffn(self, diffcol: str, name: str = "Diff"):
         """
         Add a diff column to the main dataframe: calculate the diff
         from the next value
@@ -32,13 +33,13 @@ class Calculations():
                 val = nextv - current
                 vals.append(round(val, 1))
                 i += 1
-            self.add("Diff", vals)
+            self.df["Diff"] = vals
         except Exception as e:
-            self.err(e, self._append, "Can not diff column")
+            self.err(e, self.diffn, "Can not diff column")
             return
         self.ok("Diff column " + name + " added to the dataframe")
 
-    def diffp(self, diffcol: str, name: str="Diff"):
+    def diffp(self, diffcol: str, name: str = "Diff"):
         """
         Add a diff column to the main dataframe: calculate the diff
         from the previous value
@@ -65,13 +66,13 @@ class Calculations():
                     vals.append(new)
                 i = 1
             self.df = df
-            self.add(name, vals)
+            self.df[name] = vals
         except Exception as e:
-            self.err(e, self._append, "Can not diff column")
+            self.err(e, self.diffp, "Can not diff column")
             return
         self.ok("Diff column " + name + " added to the dataframe")
 
-    def diffm(self, diffcol: str, name: str="Diff", default=nan):
+    def diffm(self, diffcol: str, name: str = "Diff", default=nan):
         """
         Add a diff column to the main dataframe: calculate the
         diff from the column mean
@@ -97,13 +98,13 @@ class Calculations():
                 else:
                     vals.append(default)
             self.df = df
-            self.add(name, vals)
+            self.df[name] = vals
         except Exception as e:
-            self.err(e, self._append, "Can not diff column")
+            self.err(e, self.diffm, "Can not diff column")
             return
         self.ok("Diff column " + name + " added to the dataframe")
 
-    def diffs(self, col: str, serie: "iterable", name: str="Diff"):
+    def diffs(self, col: str, serie: "iterable", name: str = "Diff"):
         """
         Add a diff column from a serie. The serie is an iterable
         of the same length than the dataframe
@@ -124,9 +125,9 @@ class Calculations():
                 d.append(v)
             self.df[name] = d
         except Exception as e:
-            self.err(e, self._append, "Can not diff column from serie")
+            self.err(e, self.diffs, "Can not diff column from serie")
 
-    def diffsp(self, col: str, serie: "iterable", name: str="Diff"):
+    def diffsp(self, col: str, serie: "iterable", name: str = "Diff"):
         """
         Add a diff column in percentage from a serie. The serie is 
         an iterable of the same length than the dataframe
@@ -147,9 +148,9 @@ class Calculations():
                 d.append(v)
             self.df[name] = d
         except Exception as e:
-            self.err(e, self._append, "Can not diff column from serie")
+            self.err(e, self.diffsp, "Can not diff column from serie")
 
-    def gmean_(self, col: str, index_col: bool=True) -> "Ds":
+    def gmean_(self, col: str, index_col: bool = True) -> "Ds":
         """
         Group by and mean column
 
@@ -171,7 +172,7 @@ class Calculations():
         except Exception as e:
             self.err(e, self.gmean_, "Can not meansum column")
 
-    def gsum_(self, col: str, index_col: bool=True) -> "Ds":
+    def gsum_(self, col: str, index_col: bool = True) -> "Ds":
         """
         Group by and sum column
 
@@ -193,7 +194,7 @@ class Calculations():
         except Exception as e:
             self.err(e, self.gsum_, "Can not groupsum column")
 
-    def ratio(self, col: str, ratio_col: str="Ratio"):
+    def ratio(self, col: str, ratio_col: str = "Ratio"):
         """
         Add a column whith the percentages ratio from a column
 

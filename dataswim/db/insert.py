@@ -1,11 +1,11 @@
 from .base import DbBase
 from typing import List
 from sqlalchemy.types import SchemaType
-from ..errors import Error
-from ..messages import Message
+from ..base import DsBase
+from ..data.export import Export
 
 
-class Insert(DbBase, Error, Message):
+class Insert(Export, DbBase, DsBase):
     """
     A class to handle data ingestion by the database
     """
@@ -16,8 +16,8 @@ class Insert(DbBase, Error, Message):
         """
         self.db = db
 
-    def insert(self, table: str, records: dict, create_cols: bool=False,
-               dtypes: List[SchemaType]=None):
+    def insert(self, table: str, records: dict, create_cols: bool = False,
+               dtypes: List[SchemaType] = None):
         """Insert one or many records in the database from a dictionary
          or a list of dictionaries
 
@@ -62,8 +62,8 @@ class Insert(DbBase, Error, Message):
             return
         self.ok("Rows inserted in the database")
 
-    def upsert(self, table: str, record: dict, create_cols: bool=False,
-               dtypes: List[SchemaType]=None, pks: List[str]=["id"]):
+    def upsert(self, table: str, record: dict, create_cols: bool = False,
+               dtypes: List[SchemaType] = None, pks: List[str] = ["id"]):
         """Upsert a record in a table
 
         :param table: the table to upsert into
@@ -88,8 +88,8 @@ class Insert(DbBase, Error, Message):
             return
         self.ok("Upserted record")
 
-    def update_table(self, table: str, pks: List[str]=['id'],
-                     mirror: bool =True):
+    def update_table(self, table: str, pks: List[str] = ['id'],
+                     mirror: bool = True):
         """Update records in a database table from the main dataframe
 
         :param table: table to update
@@ -125,7 +125,7 @@ class Insert(DbBase, Error, Message):
             return
         self.ok("Data updated in table", table)
 
-    def to_db(self, table: str, dtypes: List[SchemaType]=None):
+    def to_db(self, table: str, dtypes: List[SchemaType] = None):
         """Save the main dataframe to the database
 
         :param table: the table to create

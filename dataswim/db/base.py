@@ -1,6 +1,7 @@
+from ..base import DsBase
 
 
-class DbBase():
+class DbBase(DsBase):
     """
     A base class for database management
     """

@@ -1,15 +1,15 @@
 import pandas as pd
 from goerr.colors import colors
-from .copy import Copy
+from ..base import DsBase
 
 
-class View(Copy):
+class View(DsBase):
     """
     Class to view the data
     """
 
-    def show(self, rows: int=5,
-             dataframe: pd.DataFrame=None) -> pd.DataFrame:
+    def show(self, rows: int = 5,
+             dataframe: pd.DataFrame = None) -> pd.DataFrame:
         """
         Display info about the dataframe
 
@@ -60,7 +60,7 @@ class View(Copy):
         except Exception as e:
             self.err(e, self.one, "Can not display dataframe")
 
-    def tail(self, rows: int=5):
+    def tail(self, rows: int = 5):
         """
         Returns the main dataframe's tail
 

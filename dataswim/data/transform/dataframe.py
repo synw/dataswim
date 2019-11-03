@@ -1,8 +1,8 @@
 import pandas as pd
-from ..copy import Copy
+from ...base import DsBase
 
 
-class Dataframe(Copy):
+class Dataframe(DsBase):
     """
     Class to transform the dataframe
     """
@@ -41,7 +41,7 @@ class Dataframe(Copy):
             df = pd.DataFrame()
             for dsx in dss:
                 df = pd.concat([df, dsx.df], **kwargs)
-            return self.new_(df=df, quiet=True)
+            return self._duplicate_(df=df, quiet=True)
         except Exception as e:
             self.err(e, "Can not concatenate data")
 
@@ -66,7 +66,7 @@ class Dataframe(Copy):
         except Exception as e:
             self.err(e, "Can not split dataframe")
 
-    def merge(self, df: pd.DataFrame, on: str, how: str="outer", **kwargs):
+    def merge(self, df: pd.DataFrame, on: str, how: str = "outer", **kwargs):
         """
         Set the main dataframe from the current dataframe and the passed
         dataframe

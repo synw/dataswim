@@ -1,9 +1,7 @@
-
-from ...errors import Error
-from ...messages import Message
+from ...base import DsBase
 
 
-class Columns(Error, Message):
+class Columns(DsBase):
     """
     Class to transform the dataframe's columns
     """
@@ -127,7 +125,7 @@ class Columns(Error, Message):
         try:
             self.df[dest_col] = self.df[[origin_col]]
         except Exception as e:
-            self.err(e, self.copy_col, "Can not copy column")
+            self.err(e, self.copycol, "Can not copy column")
 
     def indexcol(self, col: str):
         """
