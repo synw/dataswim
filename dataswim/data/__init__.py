@@ -10,10 +10,11 @@ from .export import Export
 from .search import Search
 from .stats import Stats
 from .text import Text
+from ..base import DsBase
 
 
 class Df(Select, View, Transform, Clean, Count,
-         Export, Search, Stats, Text):
+         Export, Search, Stats, Text, DsBase):
     """
     Class for manipulating dataframes
     """
