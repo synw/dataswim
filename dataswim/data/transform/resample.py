@@ -1,10 +1,13 @@
-class Resample():
+from ...base import DsBase
+
+
+class Resample(DsBase):
     """
     A class to resample timeseries
     """
 
-    def rsum(self, time_period: str, num_col: str="Number",
-             dateindex: str=None):
+    def rsum(self, time_period: str, num_col: str = "Number",
+             dateindex: str = None):
         """
         Resample and add a sum the main dataframe to a time period
 
@@ -27,8 +30,8 @@ class Resample():
         except Exception as e:
             self.err(e, "Can not sum data")
 
-    def rsum_(self, time_period: str, num_col: str="Number",
-              dateindex: str=None):
+    def rsum_(self, time_period: str, num_col: str = "Number",
+              dateindex: str = None):
         """
         Resample and add a sum the main dataframe to a time period
         and returns a new Ds instance
@@ -47,12 +50,12 @@ class Resample():
                                  num_col, dateindex)
             if df is None:
                 self.err("Can not sum data")
-            return self.new_(df, quiet=True)
+            return self._duplicate_(df, quiet=True)
         except Exception as e:
             self.err(e, "Can not sum data")
 
-    def rmean(self, time_period: str, num_col: str="Number",
-              dateindex: str=None):
+    def rmean(self, time_period: str, num_col: str = "Number",
+              dateindex: str = None):
         """
         Resample and add a mean column the main dataframe to a time period
 
@@ -70,8 +73,8 @@ class Resample():
         except Exception as e:
             self.err(e, "Can not sum data")
 
-    def rmean_(self, time_period: str, num_col: str="Number",
-               dateindex: str=None):
+    def rmean_(self, time_period: str, num_col: str = "Number",
+               dateindex: str = None):
         """
         Resample and add a mean column the main dataframe to a time period
         and returns a new Ds instance
@@ -87,12 +90,12 @@ class Resample():
         try:
             df = self._resample_("mean", time_period,
                                  num_col, dateindex)
-            return self.new_(df, quiet=True)
+            return self._duplicate_(df, quiet=True)
         except Exception as e:
             self.err(e, "Can not sum data")
 
     def _resample_(self, method: str, time_period: str, num_col: str,
-                   dateindex: str=None):
+                   dateindex: str = None):
         try:
             ds2 = self._duplicate_()
             if dateindex is not None:
