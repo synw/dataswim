@@ -5,26 +5,14 @@ from .altair import Altair
 from .chartjs import Chartjs
 from .seaborn import Seaborn
 from .colors import Colors
+from ..base import DsBase
+from ..data.transform.dataframe import Dataframe
 
 
-class Plot(Bokeh, Chartjs, Seaborn, Altair, Colors):
+class Plot(Bokeh, Chartjs, Seaborn, Altair, Colors, Dataframe, DsBase):
     """
     Class to handle charts
     """
-
-    def __init__(self, df=None):
-        """
-        Initialize
-        """
-        self.df = df
-        self.x = None
-        self.err = None
-        self.y = None
-        self.chart_obj = None
-        self.chart_opts = dict(width=880)
-        self.chart_style = {}
-        self.label = None
-        self.engine = "bokeh"
 
     def chart(self, x=None, y=None, chart_type=None, opts=None,
               style=None, label=None, options={}, **kwargs):
@@ -264,7 +252,10 @@ class Plot(Bokeh, Chartjs, Seaborn, Altair, Colors):
             style["color"] = colors["point"]
             c2 = self._get_chart("point", style=style, opts=opts,
                                  label=label, options=options)
-            return c * c2
+            if (self.engine == "bokeh"):
+                return c * c2
+            else:
+                return c + c2
         except Exception as e:
             self.err(e, self.line_point_, "Can not draw line_point chart")
 
