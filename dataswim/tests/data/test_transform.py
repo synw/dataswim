@@ -155,7 +155,7 @@ class TestDsDataTransform(BaseDsTest):
         df1 = pd.DataFrame([1, 2])
         df2 = pd.DataFrame([3, 4])
         ds.df = df1
-        ds2 = ds.new_(df2)
+        ds2 = Ds(df2)
         ds.concat(ds, ds2)
         df3 = pd.DataFrame([1, 2, 3, 4])
         self.assertEqual(list(ds.df), list(df3))

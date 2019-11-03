@@ -14,7 +14,7 @@ class TestDsDataInit(BaseDsTest):
         ds.df = self.df
         ds2 = ds.clone_()
         assert_frame_equal(ds2.df, ds.df)
-        ds2 = ds.new_()
+        ds2 = Ds()
         # error clone
         ds.df = None
         ds2 = ds.clone_()
