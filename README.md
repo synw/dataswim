@@ -19,11 +19,13 @@ A simple api to explore, clean, transform and visualize data. This api is:
 Using conda:
 
    ```bash
-   conda install pandas sqlalchemy seaborn
+   conda install pandas sqlalchemy seaborn arrow nltk scikit-learn
    conda install -c ioam holoviews bokeh
    conda install altair --channel conda-forge
    pip install --no-cache-dir dataset
-   pip install pytablewriter goerr gencharts chartjspy
+   pip install pytablewriter goerr gencharts chartjspy stuf \
+      deepdish folium influxdb
+   
    pip install dataswim --no-deps
    ```
 
