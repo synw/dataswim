@@ -57,8 +57,9 @@ class Values(DsBase):
                                                       data=[vals],
                                                       index=[index]))
             else:
-                self.df = self.df.append(pd.DataFrame(columns=self.df.columns,
-                                                      data=[vals]))
+                self.df = self.df.append(pd.DataFrame(data=[vals],
+                                                      columns=self.df.columns,
+                                                      ))
         except Exception as e:
             self.err(e, self.append, "Can not append row")
             return
@@ -90,7 +91,7 @@ class Values(DsBase):
         except Exception as e:
             self.err(e, "Can not reverse the dataframe")
 
-    def apply(self, function: "function", *cols, axis=1, **kwargs):
+    def apply(self, function, *cols, axis=1, **kwargs):
         """
         Apply a function on columns values
 
