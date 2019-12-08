@@ -1,6 +1,4 @@
-from numpy.core.numeric import nan
 from .messages import Message
-from .errors import Error
 from .db import Db
 from .charts import Plot
 from .maps import Map
@@ -35,8 +33,8 @@ class Ds(Db, Df, Plot, Map, Report, DsBase):
         self.autoprint = False
         self.errors_handling = "exceptions"
         self.notebook = False
-        #self.header = self._header
-        #self.footer = self._footer
+        # self.header = self._header
+        # self.footer = self._footer
         self.reports = []
         self.report_engines = []
         self.start_time = None
@@ -45,7 +43,7 @@ class Ds(Db, Df, Plot, Map, Report, DsBase):
         self.report_path = None
         self.static_path = None
         self.quiet = False
-        #self.nan = nan
+        # self.nan = nan
         self.color_index = 0
         self.dsmap = None
         self.altair_encode = {}
