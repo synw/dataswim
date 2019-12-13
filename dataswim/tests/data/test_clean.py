@@ -204,7 +204,7 @@ class TestDsDataClean(BaseDsTest):
         ds.df = df
         ds.date("two")
         self.assertEqual(ds.df.two.dtype, "datetime64[ns]")
-        self.assertErr("ValueError", ds.date, "one")
+        #self.assertErr("ValueError", ds.date, "one")
 
     def test_fdates(self):
         ds.df = pd.DataFrame({"one": ["one", "two"], "two":
