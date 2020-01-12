@@ -48,7 +48,10 @@ class DsBase(Error, Message):
                              "dataframe as argument")
                     return
                 df = self.df.copy()
-            ds2 = copy.deepcopy(self)
+            try:
+                ds2 = copy.deepcopy(self)
+            except:
+                ds2 = copy.copy(self)
             ds2.df = df
             ds2.db = db
             ds2.db = self.db
