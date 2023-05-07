@@ -1,5 +1,7 @@
 # Dataswim
 
+## This repository has moved to [https://github.com/synw/dataspace](https://github.com/synw/dataspace)
+
 [![Build Status](https://travis-ci.org/synw/dataswim.svg?branch=master)](https://travis-ci.org/synw/dataswim) [![Coverage Status](https://coveralls.io/repos/github/synw/dataswim/badge.svg?branch=master)](https://coveralls.io/github/synw/dataswim?branch=master) [![Documentation](docs/img/documentation.svg)](https://dataswim.readthedocs.io/en/latest/index.html)
 
 A simple api to explore, clean, transform and visualize data. This api is:
